@@ -38,14 +38,15 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\..\..\..\Tools\NUnit\nunit.framework.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="nunit.framework, Version=2.6.4.14350, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
-    <Reference Include="Rhino.Mocks">
-      <HintPath>..\..\..\..\..\Libraries\RhinoMocks\Rhino.Mocks.dll</HintPath>
+    <Reference Include="Rhino.Mocks, Version=3.6.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\RhinoMocks.3.6.1\lib\net\Rhino.Mocks.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xaml">
@@ -55,9 +56,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\..\Main\GlobalAssemblyInfo.cs">
-      <Link>GlobalAssemblyInfo.cs</Link>
-    </Compile>
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Designer\EditOperationTests.cs" />
     <Compile Include="Designer\FocusNavigatorTests.cs" />
@@ -90,10 +88,6 @@
     <Compile Include="XamlDom\XamlTypeFinderTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\Main\ICSharpCode.SharpDevelop.Widgets\Project\ICSharpCode.SharpDevelop.Widgets.csproj">
-      <Project>{8035765F-D51F-4A0C-A746-2FD100E19419}</Project>
-      <Name>ICSharpCode.SharpDevelop.Widgets</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\WpfDesign.XamlDom\Project\WpfDesign.XamlDom.csproj">
       <Project>{88DA149F-21B2-48AB-82C4-28FB6BDFD783}</Project>
       <Name>WpfDesign.XamlDom</Name>
@@ -115,5 +109,8 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

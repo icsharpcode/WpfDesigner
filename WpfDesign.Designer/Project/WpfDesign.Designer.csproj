@@ -16,7 +16,8 @@
     <NoWarn>1591</NoWarn>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\..\..\..\Main\ICSharpCode.SharpDevelop.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
     <DelaySign>False</DelaySign>
     <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
     <RunCodeAnalysis>False</RunCodeAnalysis>
@@ -46,6 +47,10 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
+    <Reference Include="DotNetProjects.Wpf.Extended.Toolkit, Version=2.5.5704.26052, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\DotNetProjects.Extended.Wpf.Toolkit.2.5.5704\lib\net40\DotNetProjects.Wpf.Extended.Toolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PresentationCore">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
@@ -78,13 +83,10 @@
       <Private>False</Private>
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="Xceed.Wpf.Toolkit">
-      <HintPath>..\..\..\..\..\Libraries\WPFExtendedToolkit\Xceed.Wpf.Toolkit.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\..\Main\GlobalAssemblyInfo.cs">
-      <Link>Configuration\GlobalAssemblyInfo.cs</Link>
+    <Compile Include="..\..\GlobalAssemblyInfo.cs">
+      <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="ArrangeDirection.cs" />
     <Compile Include="Commands.cs" />
@@ -538,5 +540,10 @@
     <Resource Include="Images\Icons.16x16.RedoIcon.png" />
     <Resource Include="Images\Icons.16x16.UndoIcon.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="..\..\ICSharpCode.SharpDevelop.snk">
+      <Link>ICSharpCode.SharpDevelop.snk</Link>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>

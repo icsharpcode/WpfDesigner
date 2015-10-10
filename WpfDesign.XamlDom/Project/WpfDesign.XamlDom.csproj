@@ -12,7 +12,8 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\..\..\..\Main\ICSharpCode.SharpDevelop.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
     <DelaySign>False</DelaySign>
     <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
     <RunCodeAnalysis>False</RunCodeAnalysis>
@@ -63,7 +64,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\..\Main\GlobalAssemblyInfo.cs">
+    <Compile Include="..\..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AssemblyInfo.cs" />
@@ -95,5 +96,10 @@
     <Compile Include="XamlTypeFinder.cs" />
     <Compile Include="XamlTypeResolverProvider.cs" />
     <Compile Include="XamlXmlWriter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\ICSharpCode.SharpDevelop.snk">
+      <Link>ICSharpCode.SharpDevelop.snk</Link>
+    </None>
   </ItemGroup>
 </Project>

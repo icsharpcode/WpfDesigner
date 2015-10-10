@@ -13,7 +13,8 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <SignAssembly>True</SignAssembly>
-    <AssemblyOriginatorKeyFile>..\..\..\..\..\Main\ICSharpCode.SharpDevelop.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
     <DelaySign>False</DelaySign>
     <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
     <OutputPath>..\..\..\..\..\..\AddIns\DisplayBindings\WpfDesign\</OutputPath>
@@ -64,8 +65,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\..\..\..\Main\GlobalAssemblyInfo.cs">
-      <Link>Configuration\GlobalAssemblyInfo.cs</Link>
+    <Compile Include="..\..\GlobalAssemblyInfo.cs">
+      <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Adorners\AdornerPanel.cs" />
     <Compile Include="Adorners\AdornerPlacement.cs" />
@@ -122,6 +123,8 @@
     <CodeAnalysisDictionary Include="Configuration\CodeAnalysisDictionary.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UIExtensions" />
+    <None Include="..\..\ICSharpCode.SharpDevelop.snk">
+      <Link>ICSharpCode.SharpDevelop.snk</Link>
+    </None>
   </ItemGroup>
 </Project>
