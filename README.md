@@ -20,4 +20,7 @@ For Sample App:
 
  The Librarys are (will be) available as NuGet Package
 
+##Sample App
+![Sample App](/screenshot.png?raw=true "Sample App")
+
 ######Copyright 2015 AlphaSierraPapa for the SharpDevelop team. SharpDevelop is distributed under the MIT license.
