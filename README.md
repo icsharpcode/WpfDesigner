@@ -18,6 +18,6 @@ For Sample App:
 
 ##Download
 
- The Librarys are (will be) aviable as NuGet Package
+ The Librarys are (will be) available as NuGet Package
 
 ######Copyright 2015 AlphaSierraPapa for the SharpDevelop team. SharpDevelop is distributed under the MIT license.
