@@ -64,8 +64,11 @@ namespace ICSharpCode.WpfDesign.Designer.MarkupExtensions
 			IProvideValueTarget service = (IProvideValueTarget)serviceProvider.GetService(typeof(IProvideValueTarget));
 			_targetObject = service.TargetObject as FrameworkElement;
 			_targetProperty = service.TargetProperty as DependencyProperty;
-			
-			_targetObject.DataContextChanged += targetObject_DataContextChanged;
+
+			if (_targetObject != null)
+			{
+				_targetObject.DataContextChanged += targetObject_DataContextChanged;
+			}
 
 			return null;
 		}
