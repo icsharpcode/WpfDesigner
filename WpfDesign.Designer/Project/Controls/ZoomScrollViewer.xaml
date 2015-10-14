@@ -67,13 +67,13 @@
 							<RepeatButton x:Name="uxPlus"
 							              Width="16" Height="16" Padding="0" BorderThickness="0"
 							              Style="{StaticResource ZoomButtonStyle}">
-								<Image Source="Images/ZoomIn.png"
+                                <Image Source="/ICSharpCode.WpfDesign.Designer;component/Images/ZoomIn.png"
 								       Stretch="Uniform"/>
 							</RepeatButton>
 							<RepeatButton x:Name="uxMinus"
 							              Width="16" Height="16" Padding="0" BorderThickness="0"
 							              Style="{StaticResource ZoomButtonStyle}">
-								<Image Source="Images/ZoomOut.png"
+                                <Image Source="/ICSharpCode.WpfDesign.Designer;component/Images/ZoomOut.png"
 								       Stretch="Uniform" />
 							</RepeatButton>
 							<RepeatButton x:Name="uxReset"
