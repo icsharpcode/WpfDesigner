@@ -100,17 +100,31 @@ namespace ICSharpCode.WpfDesign.Designer.ThumbnailView
 		private ZoomControl scrollViewer;
 		private Canvas zoomCanvas;
 		private Thumb zoomThumb;
-
+		
 		public override void OnApplyTemplate()
 		{
 			base.OnApplyTemplate();
 
 			this.zoomThumb = Template.FindName("PART_ZoomThumb", this) as Thumb;
 			this.zoomCanvas = Template.FindName("PART_ZoomCanvas", this) as Canvas;
-
-			this.zoomThumb.DragDelta += this.Thumb_DragDelta;
-
 			
+			this.zoomThumb.DragDelta += this.Thumb_DragDelta;
+			this.zoomCanvas.MouseLeftButtonDown += Canvas_MouseLeftButtonDown;			
+		}
+
+		private void Canvas_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+			var pos = e.GetPosition(zoomCanvas);
+			var cl = Canvas.GetLeft(this.zoomThumb);
+			var ct = Canvas.GetTop(this.zoomThumb);
+
+			double scale, xOffset, yOffset;
+			this.InvalidateScale(out scale, out xOffset, out yOffset);
+			var dl = pos.X - cl - (zoomThumb.Width / 2);
+			var dt = pos.Y - ct - (zoomThumb.Height / 2);
+
+			scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + dl / scale);
+			scrollViewer.ScrollToVerticalOffset(scrollViewer.VerticalOffset + dt / scale);
 		}
 
 		private void Thumb_DragDelta(object sender, DragDeltaEventArgs e)
