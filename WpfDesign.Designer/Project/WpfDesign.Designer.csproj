@@ -336,6 +336,9 @@
     <Resource Include="Images\Tag.png" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Controls\CollapsiblePanel.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\NullableComboBox.xaml" />
     <Page Include="Extensions\DefaultCommandsContextMenu.xaml" />
     <Page Include="Extensions\EditStyleContextMenu.xaml">
