@@ -16,13 +16,10 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System;
-using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using ICSharpCode.WpfDesign.Adorners;
 using ICSharpCode.WpfDesign.Extensions;
-using ICSharpCode.WpfDesign.Designer;
 
 namespace ICSharpCode.WpfDesign.Designer.Extensions
 {

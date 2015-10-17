@@ -17,18 +17,13 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using ICSharpCode.WpfDesign.Adorners;
 using ICSharpCode.WpfDesign.Extensions;
-using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows;
 using System.Windows.Input;
 using ICSharpCode.WpfDesign.Designer.Controls;
-using System.Windows.Media;
 
 namespace ICSharpCode.WpfDesign.Designer.Extensions
 {

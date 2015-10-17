@@ -18,7 +18,6 @@
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Windows.Media;
 using System.Windows.Controls;
 using ICSharpCode.WpfDesign.Extensions;

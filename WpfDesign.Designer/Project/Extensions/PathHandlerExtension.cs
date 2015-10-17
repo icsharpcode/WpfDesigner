@@ -17,7 +17,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Windows.Markup;
 using ICSharpCode.WpfDesign.Extensions;
 using ICSharpCode.WpfDesign.Adorners;
 using ICSharpCode.WpfDesign.Designer.Controls;
@@ -27,7 +26,6 @@ using System.Windows.Shapes;
 using System.Windows;
 using System.Windows.Controls;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using ICSharpCode.WpfDesign.UIExtensions;
 using DragListener = ICSharpCode.WpfDesign.Designer.Controls.DragListener;

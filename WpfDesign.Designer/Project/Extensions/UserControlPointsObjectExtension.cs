@@ -19,11 +19,9 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using ICSharpCode.WpfDesign.Extensions;
 using ICSharpCode.WpfDesign.Adorners;
 using ICSharpCode.WpfDesign.Designer.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Windows.Controls;
 using ICSharpCode.WpfDesign.UIExtensions;

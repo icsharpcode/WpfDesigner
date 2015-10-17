@@ -19,16 +19,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Input;
 using ICSharpCode.WpfDesign.Extensions;
 using System.Windows.Controls;
 using System.Windows;
 using ICSharpCode.WpfDesign.Designer.Controls;
-using System.Diagnostics;
 using ICSharpCode.WpfDesign.XamlDom;
-using System.Windows.Media;
-using System.Windows.Controls.Primitives;
 
 namespace ICSharpCode.WpfDesign.Designer.Extensions
 {

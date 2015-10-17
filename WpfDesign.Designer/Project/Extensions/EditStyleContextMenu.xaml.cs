@@ -18,12 +18,9 @@
 
 using System;
 using System.IO;
-using System.Linq;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Xml;
-using ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor;
 using ICSharpCode.WpfDesign.Designer.Xaml;
 using ICSharpCode.WpfDesign.XamlDom;
 using ICSharpCode.WpfDesign.Designer.themes;
