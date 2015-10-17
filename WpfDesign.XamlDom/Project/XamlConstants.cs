@@ -38,7 +38,13 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		/// Value: "http://schemas.microsoft.com/winfx/2006/xaml"
 		/// </summary>
 		public const string XamlNamespace = "http://schemas.microsoft.com/winfx/2006/xaml";
-		
+
+		/// <summary>
+		/// The namespace used for the 2009 XAML schema.
+		/// Value: "http://schemas.microsoft.com/winfx/2009/xaml"
+		/// </summary>
+		public const string Xaml2009Namespace = "http://schemas.microsoft.com/winfx/2009/xaml";
+
 		/// <summary>
 		/// The namespace used for the WPF schema.
 		/// Value: "http://schemas.microsoft.com/winfx/2006/xaml/presentation"

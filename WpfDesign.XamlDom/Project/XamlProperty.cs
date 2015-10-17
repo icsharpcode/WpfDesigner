@@ -524,7 +524,9 @@ namespace ICSharpCode.WpfDesign.XamlDom
 
 			if (IsAttached)
 			{
-				if (PropertyTargetType == typeof (DesignTimeProperties) || PropertyTargetType == typeof (MarkupCompatibilityProperties))
+				if (PropertyTargetType == typeof(DesignTimeProperties)
+			  	 || PropertyTargetType == typeof(MarkupCompatibilityProperties)
+				 || PropertyTargetType == typeof(XamlNamespaceProperties))
 					name = PropertyName;
 				else
 					name = PropertyTargetType.Name + "." + PropertyName;
