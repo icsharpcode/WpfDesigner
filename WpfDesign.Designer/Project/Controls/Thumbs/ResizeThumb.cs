@@ -29,7 +29,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 	{
 		bool checkWidth, checkHeight;
 
-		internal ResizeThumb(bool checkWidth, bool checkHeight)
+		public ResizeThumb(bool checkWidth, bool checkHeight)
 		{
 			Debug.Assert((checkWidth && checkHeight) == false);
 			this.checkWidth = checkWidth;

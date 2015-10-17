@@ -31,7 +31,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 	/// <summary>
 	/// Gray out everything except a specific area.
 	/// </summary>
-	sealed class GrayOutDesignerExceptActiveArea : FrameworkElement
+	public sealed class GrayOutDesignerExceptActiveArea : FrameworkElement
 	{
 		Geometry designSurfaceRectangle;
 		Geometry activeAreaGeometry;

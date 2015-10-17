@@ -21,7 +21,6 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Threading;
 using System.Windows.Media.Animation;
 using ICSharpCode.WpfDesign.Adorners;
 using ICSharpCode.WpfDesign.Designer.Services;
@@ -29,16 +28,13 @@ using ICSharpCode.WpfDesign.Designer.Services;
 namespace ICSharpCode.WpfDesign.Designer.Controls
 {
 	/// <summary>
-	/// Gray out everything except a specific area.
+	/// A Info text area.
 	/// </summary>
-	sealed class InfoTextEnterArea : FrameworkElement
+	public sealed class InfoTextEnterArea : FrameworkElement
 	{
-		Geometry designSurfaceRectangle;
 		Geometry activeAreaGeometry;
-		Geometry combinedGeometry;
 		AdornerPanel adornerPanel;
 		IDesignPanel designPanel;
-		const double MaxOpacity = 0.3;
 		
 		public InfoTextEnterArea()
 		{
@@ -49,7 +45,6 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			get { return activeAreaGeometry; }
 			set {
 				activeAreaGeometry = value;
-				combinedGeometry = activeAreaGeometry;
 			}
 		}		
 		
@@ -80,8 +75,6 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			OptionService optionService = services.GetService<OptionService>();
 			if (designPanel != null && grayOut == null && optionService != null && optionService.GrayOutDesignSurfaceExceptParentContainerWhenDragging) {
 				grayOut = new InfoTextEnterArea();
-				grayOut.designSurfaceRectangle = new RectangleGeometry(
-					new Rect(0, 0, ((Border)designPanel.Child).Child.RenderSize.Width, ((Border)designPanel.Child).Child.RenderSize.Height));
 				grayOut.designPanel = designPanel;
 				grayOut.adornerPanel = new AdornerPanel();
 				grayOut.adornerPanel.Order = AdornerOrder.Background;
@@ -100,9 +93,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 				designPanel.Adorners.Add(grayOut.adornerPanel);
 			}
 		}
-		
-		static readonly TimeSpan animationTime = new TimeSpan(2000000);
-		
+																		 
 		internal static void Stop(ref InfoTextEnterArea grayOut)
 		{
 			if (grayOut != null) {

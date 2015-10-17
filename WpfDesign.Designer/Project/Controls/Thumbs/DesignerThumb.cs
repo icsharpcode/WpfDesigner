@@ -46,7 +46,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		public static readonly DependencyProperty OperationMenuProperty =
 			DependencyProperty.Register("OperationMenu", typeof(Control[]), typeof(DesignerThumb), new PropertyMetadata(null));
 
-		internal PlacementAlignment Alignment;
+		public PlacementAlignment Alignment;
 		
 		static DesignerThumb()
 		{

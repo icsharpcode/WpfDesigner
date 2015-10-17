@@ -16,11 +16,6 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System;
-using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -29,7 +24,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 	/// <summary>
 	/// Display height of the element.
 	/// </summary>
-	class HeightDisplay : Control
+	public class HeightDisplay : Control
 	{
 		static HeightDisplay()
 		{
@@ -40,7 +35,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 	/// <summary>
 	/// Display width of the element.
 	/// </summary>
-	class WidthDisplay : Control
+	public class WidthDisplay : Control
 	{
 		static WidthDisplay()
 		{
