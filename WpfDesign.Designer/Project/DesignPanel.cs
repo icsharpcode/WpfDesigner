@@ -17,19 +17,13 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
-
 using ICSharpCode.WpfDesign.Adorners;
 using ICSharpCode.WpfDesign.Designer.Controls;
 using ICSharpCode.WpfDesign.UIExtensions;
@@ -158,7 +152,7 @@ namespace ICSharpCode.WpfDesign.Designer
 							if (hitTestType == HitTestType.ElementSelection)
 							{
 								if (Keyboard.IsKeyDown(Key.LeftAlt))
-									if (lastElement != null && lastElement != _context.RootItem.Component &&
+									if (lastElement != null && lastElement != _context.RootItem.View &&
 									    hitTestElements.Contains(lastElement))
 								{
 									var idx = hitTestElements.IndexOf(lastElement) - 1;
