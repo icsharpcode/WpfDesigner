@@ -30,7 +30,13 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	/// </summary>
 	public class LineExtensionBase : SelectionAdornerProvider
 	{
-		
+		/// <summary>
+		/// Used instead of Rect to allow negative values on "Width" and "Height" (here called X and Y).
+		/// </summary>
+		protected class Bounds
+		{
+			public double X, Y, Left, Top;
+		}
 
 		internal AdornerPanel adornerPanel;
 		internal IEnumerable resizeThumbs;

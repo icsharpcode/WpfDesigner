@@ -32,15 +32,6 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	[ExtensionFor(typeof(Line), OverrideExtensions = new Type[] { typeof(ResizeThumbExtension), typeof(SelectedElementRectangleExtension), typeof(CanvasPositionExtension), typeof(QuickOperationMenuExtension), typeof(RotateThumbExtension), typeof(RenderTransformOriginExtension), typeof(InPlaceEditorExtension), typeof(SkewThumbExtension) })]
 	public class LineHandlerExtension : LineExtensionBase
 	{
-		/// <summary>
-		/// Used instead of Rect to allow negative values on "Width" and "Height" (here called X and Y).
-		/// </summary>
-		class Bounds
-		{
-			public double X, Y, Left, Top;
-		}
-		
-		//
 		private double CurrentX2;
 		private double CurrentY2;
 		private double CurrentLeft;
