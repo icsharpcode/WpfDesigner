@@ -26,7 +26,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	/// Display Height/Width on the primary selection
 	/// </summary>
 	[ExtensionFor(typeof(UIElement))]
-	class SizeDisplayExtension : PrimarySelectionAdornerProvider
+	public class SizeDisplayExtension : PrimarySelectionAdornerProvider
 	{
 		HeightDisplay _heightDisplay;
 		WidthDisplay _widthDisplay;

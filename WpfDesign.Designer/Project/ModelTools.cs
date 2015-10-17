@@ -25,8 +25,6 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.Windows.Xps.Serialization;
 using ICSharpCode.WpfDesign.Designer.Xaml;
 
@@ -178,7 +176,7 @@ namespace ICSharpCode.WpfDesign.Designer
 			return s;
 		}
 		
-		internal static double GetWidth(UIElement element)
+		public static double GetWidth(UIElement element)
 		{
 			double v = (double)element.GetValue(FrameworkElement.WidthProperty);
 			if (double.IsNaN(v))
@@ -186,8 +184,8 @@ namespace ICSharpCode.WpfDesign.Designer
 			else
 				return v;
 		}
-		
-		internal static double GetHeight(UIElement element)
+
+		public static double GetHeight(UIElement element)
 		{
 			double v = (double)element.GetValue(FrameworkElement.HeightProperty);
 			if (double.IsNaN(v))

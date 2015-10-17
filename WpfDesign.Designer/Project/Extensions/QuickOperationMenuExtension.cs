@@ -33,7 +33,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	/// </summary>
 	[ExtensionServer(typeof(OnlyOneItemSelectedExtensionServer))]
 	[ExtensionFor(typeof (FrameworkElement))]
-	class QuickOperationMenuExtension : PrimarySelectionAdornerProvider
+	public class QuickOperationMenuExtension : PrimarySelectionAdornerProvider
 	{
 		private QuickOperationMenu _menu;
 		private KeyBinding _keyBinding;

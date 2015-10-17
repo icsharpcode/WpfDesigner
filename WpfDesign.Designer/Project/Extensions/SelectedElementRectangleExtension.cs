@@ -29,7 +29,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	/// Draws a dotted line around selected UIElements.
 	/// </summary>
 	[ExtensionFor(typeof(UIElement))]
-	public sealed class SelectedElementRectangleExtension : SelectionAdornerProvider
+	public class SelectedElementRectangleExtension : SelectionAdornerProvider
 	{
 		/// <summary>
 		/// Creates a new SelectedElementRectangleExtension instance.
