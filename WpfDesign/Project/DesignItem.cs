@@ -52,7 +52,13 @@ namespace ICSharpCode.WpfDesign
 		/// Gets the view used for the component.
 		/// </summary>
 		public abstract UIElement View { get; }
-		
+
+		/// <summary>
+		/// Set the View for a Component
+		/// </summary>
+		/// <param name="newView"></param>
+		public abstract void SetView(UIElement newView);
+		   
 		/// <summary>
 		/// Gets the design context.
 		/// </summary>

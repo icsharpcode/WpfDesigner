@@ -246,8 +246,8 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 					return this.Component as UIElement;
 			}
 		}
-		
-		internal void SetView(UIElement newView)
+
+		public override void SetView(UIElement newView)
 		{
 			_view = newView;
 		}
