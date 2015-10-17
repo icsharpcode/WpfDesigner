@@ -19,10 +19,7 @@
 using System.Linq;
 using System.Windows;
 using System;
-using System.Diagnostics;
 using System.Windows.Input;
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Designer.Controls;
 
 namespace ICSharpCode.WpfDesign.Designer.Services
 {

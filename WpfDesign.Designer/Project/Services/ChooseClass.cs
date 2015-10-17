@@ -20,7 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Data;
-using System.IO;
 using System.Reflection;
 
 namespace ICSharpCode.WpfDesign.Designer.Services
