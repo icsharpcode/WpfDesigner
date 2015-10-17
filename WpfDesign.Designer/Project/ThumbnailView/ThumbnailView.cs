@@ -17,15 +17,10 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Media;
-using System.Diagnostics;
 using ICSharpCode.WpfDesign.Designer.Controls;
 using ICSharpCode.WpfDesign.UIExtensions;
 
@@ -151,38 +146,40 @@ namespace ICSharpCode.WpfDesign.Designer.ThumbnailView
 			if (this.DesignSurface.DesignContext != null && this.DesignSurface.DesignContext.RootItem != null)
 			{
 				var designedElement = this.DesignSurface.DesignContext.RootItem.Component as FrameworkElement;
-				
-				
-				var fac1 = designedElement.ActualWidth / zoomCanvas.ActualWidth;
-				var fac2 = designedElement.ActualHeight / zoomCanvas.ActualHeight;
-				
-				// zoom canvas size
-				double x = this.zoomCanvas.ActualWidth;
-				double y = this.zoomCanvas.ActualHeight;
-				
-				if (fac1 < fac2)
-				{
-					x = designedElement.ActualWidth / fac2;
-					xOffset = (zoomCanvas.ActualWidth - x) / 2;
-					yOffset = 0;
-				}
-				else
-				{
-					y =  designedElement.ActualHeight / fac1;
-					xOffset = 0;
-					yOffset = (zoomCanvas.ActualHeight - y) / 2;
-				}
-				
-				double w = designedElement.ActualWidth;
-				double h = designedElement.ActualHeight;
-				
-				double scaleX = x / w;
-				double scaleY = y / h;
 
-				scale = (scaleX < scaleY) ? scaleX : scaleY;
-				
-				xOffset += (x - scale * w) / 2;
-				yOffset += (y - scale * h) / 2;
+				if (designedElement != null)
+				{
+					var fac1 = designedElement.ActualWidth/zoomCanvas.ActualWidth;
+					var fac2 = designedElement.ActualHeight/zoomCanvas.ActualHeight;
+
+					// zoom canvas size
+					double x = this.zoomCanvas.ActualWidth;
+					double y = this.zoomCanvas.ActualHeight;
+
+					if (fac1 < fac2)
+					{
+						x = designedElement.ActualWidth/fac2;
+						xOffset = (zoomCanvas.ActualWidth - x)/2;
+						yOffset = 0;
+					}
+					else
+					{
+						y = designedElement.ActualHeight/fac1;
+						xOffset = 0;
+						yOffset = (zoomCanvas.ActualHeight - y)/2;
+					}
+
+					double w = designedElement.ActualWidth;
+					double h = designedElement.ActualHeight;
+
+					double scaleX = x/w;
+					double scaleY = y/h;
+
+					scale = (scaleX < scaleY) ? scaleX : scaleY;
+
+					xOffset += (x - scale*w)/2;
+					yOffset += (y - scale*h)/2;
+				}
 			}
 		}
 
