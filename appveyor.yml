@@ -5,7 +5,7 @@ assembly_info:
   assembly_file_version: "{version}"
   assembly_informational_version: "{version}"
 
-configuration: Release
+configuration: Debug
 
 before_build:
   - nuget restore
@@ -39,7 +39,7 @@ artifacts:
     name: ICSharpCode.WpfDesign.XamlDom.pdb
   - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.XamlDom.xml
     name: ICSharpCode.WpfDesign.XamlDom.xml
-  - path: '**\DotNetProjects.*.nupkg'
+  - path: '**\WpfDesigner.*.nupkg'
 
 #uncomment to publish to NuGet
 deploy:
