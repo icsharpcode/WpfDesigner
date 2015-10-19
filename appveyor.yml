@@ -1,0 +1,52 @@
+assembly_info:
+  patch: true
+  file: AssemblyInfo.*
+  assembly_version: "{version}"
+  assembly_file_version: "{version}"
+  assembly_informational_version: "{version}"
+
+configuration: Release
+
+before_build:
+  - nuget restore
+
+build:
+  project: DotNetProjects.Wpf.Extended.Toolkit.sln
+
+after_build:
+  - ps: .\nuget\pack.ps1
+
+test:
+  assemblies:
+    - WpfDesign.Designer\Tests\obj\Debug\ICSharpCode.WpfDesign.Tests.dll
+
+artifacts:
+  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.Designer.dll
+    name: ICSharpCode.WpfDesign.Designer.dll
+  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.Designer.pdb
+    name: ICSharpCode.WpfDesign.Designer.pdb
+  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.Designer.xml
+    name: ICSharpCode.WpfDesign.Designer.xml
+  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.dll
+    name: ICSharpCode.WpfDesign.dll
+  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.pdb
+    name: ICSharpCode.WpfDesign.pdb
+  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.xml
+    name: ICSharpCode.WpfDesign.xml
+  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.XamlDom.dll
+    name: ICSharpCode.WpfDesign.XamlDom.dll
+  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.XamlDom.pdb
+    name: ICSharpCode.WpfDesign.XamlDom.pdb
+  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.XamlDom.xml
+    name: ICSharpCode.WpfDesign.XamlDom.xml
+  - path: '**\DotNetProjects.*.nupkg'
+
+#uncomment to publish to NuGet
+deploy:
+  provider: NuGet
+  api_key:
+    secure: OrhpK2cLXXcoWW+hU6xAv3eeKIbATEFbenteoFsi9EfM1yyDof6ZuNKAsA3Vy6vb
+  artifact: /.*\.nupkg/
+  
+  
+  
