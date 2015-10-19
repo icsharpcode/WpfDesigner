@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>ICSharpCode.WpfDesign.Tests</RootNamespace>
     <AssemblyName>ICSharpCode.WpfDesign.Tests</AssemblyName>
-    <OutputPath>..\..\..\..\..\..\bin\UnitTests\</OutputPath>
+    <OutputPath>..\..\bin\UnitTests\</OutputPath>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
     <NoStdLib>False</NoStdLib>
     <WarningLevel>4</WarningLevel>

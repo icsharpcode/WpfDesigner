@@ -17,26 +17,26 @@ after_build:
   - ps: .\nuget\pack.ps1
 
 test_script:
-  nunit-console WpfDesign.Designer\Tests\obj\Debug\ICSharpCode.WpfDesign.Tests.dll /framework:net-4.5
+  nunit-console bin\UnitTests\ICSharpCode.WpfDesign.Tests.dll /framework:net-4.5
 
 artifacts:
-  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.Designer.dll
+  - path: bin\ICSharpCode.WpfDesign.Designer.dll
     name: ICSharpCode.WpfDesign.Designer.dll
-  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.Designer.pdb
+  - path: bin\ICSharpCode.WpfDesign.Designer.pdb
     name: ICSharpCode.WpfDesign.Designer.pdb
-  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.Designer.xml
+  - path: bin\ICSharpCode.WpfDesign.Designer.xml
     name: ICSharpCode.WpfDesign.Designer.xml
-  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.dll
+  - path: bin\ICSharpCode.WpfDesign.dll
     name: ICSharpCode.WpfDesign.dll
-  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.pdb
+  - path: bin\ICSharpCode.WpfDesign.pdb
     name: ICSharpCode.WpfDesign.pdb
-  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.xml
+  - path: bin\ICSharpCode.WpfDesign.xml
     name: ICSharpCode.WpfDesign.xml
-  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.XamlDom.dll
+  - path: bin\ICSharpCode.WpfDesign.XamlDom.dll
     name: ICSharpCode.WpfDesign.XamlDom.dll
-  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.XamlDom.pdb
+  - path: bin\ICSharpCode.WpfDesign.XamlDom.pdb
     name: ICSharpCode.WpfDesign.XamlDom.pdb
-  - path: XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.XamlDom.xml
+  - path: bin\ICSharpCode.WpfDesign.XamlDom.xml
     name: ICSharpCode.WpfDesign.XamlDom.xml
   - path: '**\WpfDesigner.*.nupkg'
 

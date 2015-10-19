@@ -13,14 +13,14 @@
     <copyright>Copyright 2015</copyright>
   </metadata>
   <files>
-    <file src="..\XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.Designer.dll" target="lib\net40" />
-    <file src="..\XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.Designer.pdb" target="lib\net40" />
-	<file src="..\XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.Designer.xml" target="lib\net40" />
-	<file src="..\XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.dll" target="lib\net40" />
-	<file src="..\XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.pdb" target="lib\net40" />
-	<file src="..\XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.xml" target="lib\net40" />
-	<file src="..\XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.XamlDom.dll" target="lib\net40" />
-	<file src="..\XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.XamlDom.pdb" target="lib\net40" />
-	<file src="..\XamlDesigner\bin\Debug\ICSharpCode.WpfDesign.XamlDom.xml" target="lib\net40" />
+    <file src="..\bin\ICSharpCode.WpfDesign.Designer.dll" target="lib\net40" />
+    <file src="..\bin\ICSharpCode.WpfDesign.Designer.pdb" target="lib\net40" />
+	<file src="..\bin\ICSharpCode.WpfDesign.Designer.xml" target="lib\net40" />
+	<file src="..\bin\ICSharpCode.WpfDesign.dll" target="lib\net40" />
+	<file src="..\bin\ICSharpCode.WpfDesign.pdb" target="lib\net40" />
+	<file src="..\bin\ICSharpCode.WpfDesign.xml" target="lib\net40" />
+	<file src="..\bin\ICSharpCode.WpfDesign.XamlDom.dll" target="lib\net40" />
+	<file src="..\bin\ICSharpCode.WpfDesign.XamlDom.pdb" target="lib\net40" />
+	<file src="..\bin\ICSharpCode.WpfDesign.XamlDom.xml" target="lib\net40" />
   </files>
 </package>
