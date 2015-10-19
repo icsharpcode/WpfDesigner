@@ -11,7 +11,7 @@ before_build:
   - nuget restore
 
 build:
-  project: DotNetProjects.Wpf.Extended.Toolkit.sln
+  project: WpfDesign.sln
 
 after_build:
   - ps: .\nuget\pack.ps1
