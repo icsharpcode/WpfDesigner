@@ -9,7 +9,8 @@ Write-Host "Setting .nuspec version tag to $versionStr"
 
 $content = (Get-Content $root\NuGet\WpfDesigner.nuspec) 
 $content = $content -replace '\$version\$',$versionStr
+$content = $content -replace '\$releasenotes\$',$env:APPVEYOR_REPO_COMMIT_MESSAGE
 
 $content | Out-File $root\nuget\WpfDesigner.compiled.nuspec
 
-& $nuget pack $root\nuget\WpfDesigner.compiled.nuspec
+NuGet pack $root\nuget\WpfDesigner.compiled.nuspec

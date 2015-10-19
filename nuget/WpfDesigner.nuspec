@@ -3,6 +3,7 @@
   <metadata>
     <id>ICSharpCode.WpfDesigner</id>
     <version>$version$</version>
+	<releaseNotes>$releasenotes$</releaseNotes>
     <authors>DotNetProjects</authors>
     <owners>DotNetProjects</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
