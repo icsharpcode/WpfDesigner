@@ -116,7 +116,20 @@
 						<DockPanel.Resources>
 							<DataTemplate DataType="{x:Type PropertyGridBase:Category}">
 								<Expander Header="{Binding Name}" Style="{StaticResource CategoryExpanderStyle}" IsExpanded="{Binding IsExpanded}" Visibility="{Binding IsVisible, Converter={x:Static Converters:CollapsedWhenFalse.Instance}}">
-									<ItemsControl ItemsSource="{Binding Properties}" />
+									<ItemsControl VirtualizingStackPanel.ScrollUnit="Pixel" VirtualizingStackPanel.IsVirtualizing="True" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding Properties}">
+										<ItemsControl.ItemsPanel>
+											<ItemsPanelTemplate>
+												<VirtualizingStackPanel />
+											</ItemsPanelTemplate>
+										</ItemsControl.ItemsPanel>
+										<ItemsControl.Template>
+											<ControlTemplate>
+												<Border BorderThickness="{TemplateBinding Border.BorderThickness}" Padding="{TemplateBinding Control.Padding}" BorderBrush="{TemplateBinding Border.BorderBrush}" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True">
+													<ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+												</Border>
+											</ControlTemplate>
+										</ItemsControl.Template>
+									</ItemsControl>
 								</Expander>
 							</DataTemplate>
 							<DataTemplate DataType="{x:Type PropertyGridBase:PropertyNode}">
@@ -134,9 +147,37 @@
 										</DockPanel>
 									</Border>
 									<StackPanel Visibility="{Binding IsExpanded, Converter={x:Static Converters:CollapsedWhenFalse.Instance}}">
-										<ItemsControl ItemsSource="{Binding Children}" Visibility="{Binding Children.Count, Converter={x:Static Converters:CollapsedWhenZero.Instance}}" />
+										<ItemsControl Background="#F9F9F4"  Visibility="{Binding Children.Count, Converter={x:Static Converters:CollapsedWhenZero.Instance}}" VirtualizingStackPanel.ScrollUnit="Pixel" VirtualizingStackPanel.IsVirtualizing="True" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding Children}">
+											<ItemsControl.ItemsPanel>
+												<ItemsPanelTemplate>
+													<VirtualizingStackPanel />
+												</ItemsPanelTemplate>
+											</ItemsControl.ItemsPanel>
+											<ItemsControl.Template>
+												<ControlTemplate>
+													<Border BorderThickness="{TemplateBinding Border.BorderThickness}" Padding="{TemplateBinding Control.Padding}" BorderBrush="{TemplateBinding Border.BorderBrush}" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True">
+														<ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+													</Border>
+												</ControlTemplate>
+											</ItemsControl.Template>
+										</ItemsControl>
 										<Expander Visibility="{Binding MoreChildren.Count, Converter={x:Static Converters:CollapsedWhenZero.Instance}}" Style="{StaticResource MoreExpanderStyle}">
-											<ItemsControl ItemsSource="{Binding MoreChildren}" Background="#F9F9F4" />
+											<ItemsControl Background="#F9F9F4" VirtualizingStackPanel.ScrollUnit="Pixel" VirtualizingStackPanel.IsVirtualizing="True" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding MoreChildren}">
+												<ItemsControl.ItemsPanel>
+													<ItemsPanelTemplate>
+														<VirtualizingStackPanel />
+													</ItemsPanelTemplate>
+												</ItemsControl.ItemsPanel>
+												<ItemsControl.Template>
+													<ControlTemplate>
+														<Border BorderThickness="{TemplateBinding Border.BorderThickness}" Padding="{TemplateBinding Control.Padding}" BorderBrush="{TemplateBinding Border.BorderBrush}" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True">
+															<ScrollViewer Padding="{TemplateBinding Control.Padding}" Focusable="False">
+																<ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+															</ScrollViewer>
+														</Border>
+													</ControlTemplate>
+												</ItemsControl.Template>
+											</ItemsControl>
 										</Expander>
 									</StackPanel>
 								</StackPanel>
@@ -211,12 +252,44 @@
 							</StackPanel>
 						</Grid>
 						<Grid x:Name="c1" Background="White">
-							<ScrollViewer HorizontalScrollBarVisibility="Disabled" Visibility="{Binding CurrentTab, Converter={x:Static Converters:EnumVisibility.Instance}, ConverterParameter=Properties}">
+							<!--<ScrollViewer HorizontalScrollBarVisibility="Disabled" Visibility="{Binding CurrentTab, Converter={x:Static Converters:EnumVisibility.Instance}, ConverterParameter=Properties}">
 								<ItemsControl ItemsSource="{Binding Categories}" />
-							</ScrollViewer>
-							<ScrollViewer HorizontalScrollBarVisibility="Disabled" Visibility="{Binding CurrentTab, Converter={x:Static Converters:EnumVisibility.Instance}, ConverterParameter=Events}">
+							</ScrollViewer>-->
+							<!--<ScrollViewer HorizontalScrollBarVisibility="Disabled" Visibility="{Binding CurrentTab, Converter={x:Static Converters:EnumVisibility.Instance}, ConverterParameter=Events}">
 								<ItemsControl ItemsSource="{Binding Events}" />
-							</ScrollViewer>
+							</ScrollViewer>-->
+							<ItemsControl VirtualizingStackPanel.ScrollUnit="Pixel" Visibility="{Binding CurrentTab, Converter={x:Static Converters:EnumVisibility.Instance}, ConverterParameter=Properties}" VirtualizingStackPanel.IsVirtualizing="True" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding Categories}">
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<VirtualizingStackPanel />
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+								<ItemsControl.Template>
+									<ControlTemplate>
+										<Border BorderThickness="{TemplateBinding Border.BorderThickness}" Padding="{TemplateBinding Control.Padding}" BorderBrush="{TemplateBinding Border.BorderBrush}" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True">
+											<ScrollViewer Padding="{TemplateBinding Control.Padding}" Focusable="False">
+												<ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+											</ScrollViewer>
+										</Border>
+									</ControlTemplate>
+								</ItemsControl.Template>
+							</ItemsControl>
+							<ItemsControl VirtualizingStackPanel.ScrollUnit="Pixel" Visibility="{Binding CurrentTab, Converter={x:Static Converters:EnumVisibility.Instance}, ConverterParameter=Events}" VirtualizingStackPanel.IsVirtualizing="True" ScrollViewer.CanContentScroll="True" ItemsSource="{Binding Events}">
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<VirtualizingStackPanel />
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+								<ItemsControl.Template>
+									<ControlTemplate>
+										<Border BorderThickness="{TemplateBinding Border.BorderThickness}" Padding="{TemplateBinding Control.Padding}" BorderBrush="{TemplateBinding Border.BorderBrush}" Background="{TemplateBinding Panel.Background}" SnapsToDevicePixels="True">
+											<ScrollViewer Padding="{TemplateBinding Control.Padding}" Focusable="False">
+												<ItemsPresenter SnapsToDevicePixels="{TemplateBinding UIElement.SnapsToDevicePixels}" />
+											</ScrollViewer>
+										</Border>
+									</ControlTemplate>
+								</ItemsControl.Template>
+							</ItemsControl>
 							<Thumb x:Name="PART_Thumb" HorizontalAlignment="Left" Width="4" Margin="-2 0 0 0" Cursor="SizeWE">
 								<Thumb.RenderTransform>
 									<TranslateTransform X="{Binding FirstColumnWidth, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" />

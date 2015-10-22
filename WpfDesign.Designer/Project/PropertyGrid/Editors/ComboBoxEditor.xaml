@@ -8,6 +8,9 @@
 	Background="{x:Null}"
 	Focusable="False"
 	IsNullable="False"
+	VirtualizingStackPanel.ScrollUnit="Pixel" 
+	VirtualizingStackPanel.IsVirtualizing="True" 
+	ScrollViewer.CanContentScroll="True"
 >
 	<local:NullableComboBox.ItemsPanel>
 		<ItemsPanelTemplate>

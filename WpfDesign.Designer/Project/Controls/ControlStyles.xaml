@@ -660,25 +660,24 @@
 						<ScrollViewer x:Name="PART_ContentHost" VerticalAlignment="Center"
 						              Margin="0,0,18,0"
 						              SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
-						<Viewbox Stretch="Uniform" HorizontalAlignment="Right" VerticalAlignment="Stretch" Margin="0,3,3,3">
-							<Button x:Name="TextRemover"
+						<Button x:Name="TextRemover"
 							        Width="14"
 							        Height="14"
-							        HorizontalAlignment="Stretch"
+									Margin="0,0,3,0"
+							        HorizontalAlignment="Right"
 							        VerticalAlignment="Stretch"
 							        IsTabStop="False"
 							        RenderTransformOrigin="0.5,0.5"
 							        Style="{StaticResource ClearButtonStyle}">
-								<Button.RenderTransform>
-									<TransformGroup>
-										<ScaleTransform ScaleX="1" ScaleY="1" />
-										<SkewTransform />
-										<RotateTransform />
-										<TranslateTransform />
-									</TransformGroup>
-								</Button.RenderTransform>
-							</Button>
-						</Viewbox>
+							<Button.RenderTransform>
+								<TransformGroup>
+									<ScaleTransform ScaleX="1" ScaleY="1" />
+									<SkewTransform />
+									<RotateTransform />
+									<TranslateTransform />
+								</TransformGroup>
+							</Button.RenderTransform>
+						</Button>
 					</Grid>
 				</ControlTemplate>
 			</Setter.Value>
