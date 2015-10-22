@@ -78,7 +78,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 
 		private void TextRemoverClick(object sender, RoutedEventArgs e)
 		{
-			this.Text = string.Empty;
+			this.Text = null;
 			this.Focus();
 		}
 

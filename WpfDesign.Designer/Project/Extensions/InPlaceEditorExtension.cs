@@ -24,10 +24,11 @@ using System.Windows.Media;
 using System.Windows.Media.Effects;
 using System.Windows.Input;
 using System.Windows.Controls;
-
+using System.Windows.Data;
 using ICSharpCode.WpfDesign.Adorners;
 using ICSharpCode.WpfDesign.Extensions;
 using ICSharpCode.WpfDesign.Designer.Controls;
+using ICSharpCode.WpfDesign.UIExtensions;
 
 namespace ICSharpCode.WpfDesign.Designer.Extensions
 {
@@ -48,15 +49,15 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		bool isGettingDragged;   // Flag to get/set whether the extended element is dragged.
 		bool isMouseDown;        // Flag to get/set whether left-button is down on the element.
 		int numClicks;           // No of left-button clicks on the element.
-		
+
 		public InPlaceEditorExtension()
 		{
-			adornerPanel=new AdornerPanel();
-			isGettingDragged=false;
-			isMouseDown=Mouse.LeftButton==MouseButtonState.Pressed ? true : false;
-			numClicks=0;
+			adornerPanel = new AdornerPanel();
+			isGettingDragged = false;
+			isMouseDown = Mouse.LeftButton == MouseButtonState.Pressed ? true : false;
+			numClicks = 0;
 		}
-		
+
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
@@ -109,7 +110,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		void PlaceEditor(Visual text,MouseEventArgs e)
 		{
 			textBlock = text as TextBlock;
-			Debug.Assert(textBlock!=null);
+			Debug.Assert(textBlock != null);
 			
 			/* Gets the offset between the top-left corners of the element and the editor*/
 			placement.XOffset = e.GetPosition(element).X - e.GetPosition(textBlock).X -2.8;
@@ -121,14 +122,12 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			editor.SetBinding(textBlock);
 			
 			/* Change data context of the editor to the TextBlock */
-			editor.DataContext=textBlock;
-			
+			editor.DataContext = textBlock;
+
 			/* Set MaxHeight and MaxWidth so that editor doesn't cross the boundaries of the control */
-			var height = ModelTools.GetHeight(element);
-			var width = ModelTools.GetWidth(element);
-			editor.MaxHeight = Math.Max((height - placement.YOffset), 0);
-			editor.MaxWidth = Math.Max((width - placement.XOffset), 0);
-			
+			editor.SetBinding(FrameworkElement.WidthProperty, new Binding("Width"));
+			editor.SetBinding(FrameworkElement.HeightProperty, new Binding("Height"));
+							 
 			/* Hides the TextBlock in control because of some minor offset in placement, overlaping makes text look fuzzy */
 			textBlock.Visibility = Visibility.Hidden; // 
 			AdornerPanel.SetPlacement(editor, placement);
@@ -157,10 +156,10 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		Point Current;
 		Point Start;
 		
-		void MouseDown(object sender,MouseEventArgs e)
+		void MouseDown(object sender, MouseEventArgs e)
 		{
 			result = designPanel.HitTest(e.GetPosition(designPanel), false, true, HitTestType.Default);
-			if(result.ModelHit==ExtendedItem && result.VisualHit is TextBlock) {
+			if (result.ModelHit == ExtendedItem && result.VisualHit is TextBlock) {
 				Start = Mouse.GetPosition(null);
 				Current = Start;
 				isMouseDown = true;
@@ -188,15 +187,15 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			}
 		}
 		
-		void MouseUp(object sender,MouseEventArgs e)
+		void MouseUp(object sender, MouseEventArgs e)
 		{
-			result = designPanel.HitTest(e.GetPosition(designPanel), false, true, HitTestType.Default);
-			if (result.ModelHit == ExtendedItem && result.VisualHit is TextBlock && numClicks>0){
+			result = designPanel.HitTest(e.GetPosition(designPanel), true, true, HitTestType.Default);
+			if ((result.ModelHit == ExtendedItem && result.VisualHit is TextBlock) || (result.VisualHit != null && result.VisualHit.TryFindParent<InPlaceEditor>() == editor) && numClicks > 0) {
 				if (!isGettingDragged) {
-					PlaceEditor(result.VisualHit, e);
+					PlaceEditor(ExtendedItem.View, e);
 					editor.Visibility = Visibility.Visible;
 				}
-			}else{ // Clicked outside the Text - > hide the editor and make the actualt text visible again
+			} else { // Clicked outside the Text - > hide the editor and make the actualt text visible again
 				editor.Visibility = Visibility.Hidden;
 				if (textBlock != null) textBlock.Visibility = Visibility.Visible;
 			}

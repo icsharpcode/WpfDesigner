@@ -53,6 +53,9 @@ namespace ICSharpCode.WpfDesign.Designer
 			//TODO: this is for converters (see PropertyGrid)
 			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 
+			//Propertygrid should show no inherited Datacontext!
+			this.DataContext = null;
+
 			this.AddCommandHandler(ApplicationCommands.Undo, Undo, CanUndo);
 			this.AddCommandHandler(ApplicationCommands.Redo, Redo, CanRedo);
 			this.AddCommandHandler(ApplicationCommands.Copy, Copy, CanCopyOrCut);
