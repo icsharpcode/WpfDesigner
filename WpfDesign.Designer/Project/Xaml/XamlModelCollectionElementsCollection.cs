@@ -19,15 +19,14 @@
 using System;
 using System.Diagnostics;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Windows;
+using ICSharpCode.WpfDesign.Interfaces;
 using ICSharpCode.WpfDesign.XamlDom;
 using ICSharpCode.WpfDesign.Designer.Services;
 using System.Collections.Specialized;
 
 namespace ICSharpCode.WpfDesign.Designer.Xaml
 {
-	sealed class XamlModelCollectionElementsCollection : IList<DesignItem>, INotifyCollectionChanged
+	sealed class XamlModelCollectionElementsCollection : IObservableList<DesignItem>, INotifyCollectionChanged
 	{
 		readonly XamlModelProperty modelProperty;
 		readonly XamlProperty property;

@@ -21,6 +21,7 @@
 
 using System;
 using System.Diagnostics;
+using ICSharpCode.WpfDesign.Interfaces;
 using ICSharpCode.WpfDesign.XamlDom;
 using ICSharpCode.WpfDesign.Designer.Services;
 using System.Windows;
@@ -97,7 +98,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			get { return _property.TypeConverter; }
 		}
 		
-		public override System.Collections.Generic.IList<DesignItem> CollectionElements {
+		public override IObservableList<DesignItem> CollectionElements {
 			get {
 				if (!IsCollection)
 					throw new DesignerException("Cannot access CollectionElements for non-collection properties.");

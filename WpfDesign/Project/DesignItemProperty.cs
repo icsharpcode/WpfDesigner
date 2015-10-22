@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
+using ICSharpCode.WpfDesign.Interfaces;
 
 namespace ICSharpCode.WpfDesign
 {
@@ -73,7 +74,7 @@ namespace ICSharpCode.WpfDesign
 		/// <summary>
 		/// Gets the elements represented by the collection.
 		/// </summary>
-		public abstract IList<DesignItem> CollectionElements { get; }
+		public abstract IObservableList<DesignItem> CollectionElements { get; }
 		
 		/// <summary>
 		/// Gets the value of the property. This property returns null if the value is not set,

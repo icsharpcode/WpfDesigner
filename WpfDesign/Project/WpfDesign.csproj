@@ -17,7 +17,7 @@
     <DelaySign>False</DelaySign>
     <AssemblyOriginatorKeyMode>File</AssemblyOriginatorKeyMode>
     <OutputPath>..\..\bin\</OutputPath>
-	<DocumentationFile>..\..\bin\ICSharpCode.WpfDesign.xml</DocumentationFile>
+    <DocumentationFile>..\..\bin\ICSharpCode.WpfDesign.xml</DocumentationFile>
     <RunCodeAnalysis>False</RunCodeAnalysis>
     <CodeAnalysisRules>-Microsoft.Globalization#CA1303</CodeAnalysisRules>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
@@ -80,6 +80,7 @@
     <Compile Include="Extensions\ExtensionAttribute.cs" />
     <Compile Include="Extensions\ExtensionInterfaces.cs" />
     <Compile Include="HitTestType.cs" />
+    <Compile Include="Interfaces\IObservableList.cs" />
     <Compile Include="Metadata.cs" />
     <Compile Include="PlacementInformation.cs" />
     <Compile Include="PlacementBehavior.cs" />
@@ -126,5 +127,8 @@
     <None Include="..\..\ICSharpCode.SharpDevelop.snk">
       <Link>ICSharpCode.SharpDevelop.snk</Link>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces" />
   </ItemGroup>
 </Project>
