@@ -23,8 +23,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using ICSharpCode.WpfDesign.XamlDom;
+using System.Windows.Media;			   
 using ICSharpCode.WpfDesign.Adorners;
 
 namespace ICSharpCode.WpfDesign.Designer.Controls
@@ -65,7 +64,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			this.grid = (Grid)gridItem.Component;
 			this.adornerPanel = adornerPanel;
 			this.orientation = orientation;
-			this.displayUnitSelector=false;
+			this.displayUnitSelector = false;
 			this.unitSelector = new GridUnitSelector(this);
 			adornerPanel.Children.Add(unitSelector);
 			
@@ -135,7 +134,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 				if (current != null)
 				{
 					DesignItem component = this.gridItem.Services.Component.GetDesignItem(current);
-					rpUnitSelector.XOffset = -(RailSize + RailDistance) * 2.75;
+					rpUnitSelector.XOffset = -(RailSize + RailDistance) * 2.75 - 6;
 					rpUnitSelector.WidthOffset = RailSize + RailDistance;
 					rpUnitSelector.WidthRelativeToContentWidth = 1;
 					rpUnitSelector.HeightOffset = 55;
@@ -159,7 +158,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 				{
 					DesignItem component = this.gridItem.Services.Component.GetDesignItem(current);
 					Debug.Assert(component != null);
-					rpUnitSelector.YOffset = -(RailSize + RailDistance) * 2.20;
+					rpUnitSelector.YOffset = -(RailSize + RailDistance) * 2.20 - 6;
 					rpUnitSelector.HeightOffset = RailSize + RailDistance;
 					rpUnitSelector.HeightRelativeToContentHeight = 1;
 					rpUnitSelector.WidthOffset = 75;
@@ -200,7 +199,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 				if (current != null)
 				{
 					DesignItem component = this.gridItem.Services.Component.GetDesignItem(current);
-					rpUnitSelector.XOffset = -(RailSize + RailDistance) * 2.75;
+					rpUnitSelector.XOffset = -(RailSize + RailDistance) * 2.75 - 6;
 					rpUnitSelector.WidthOffset = RailSize + RailDistance;
 					rpUnitSelector.WidthRelativeToContentWidth = 1;
 					rpUnitSelector.HeightOffset = 55;
@@ -231,7 +230,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 				{
 					DesignItem component = this.gridItem.Services.Component.GetDesignItem(current);
 					Debug.Assert(component != null);
-					rpUnitSelector.YOffset = -(RailSize + RailDistance) * 2.20;
+					rpUnitSelector.YOffset = -(RailSize + RailDistance) * 2.20 - 6;
 					rpUnitSelector.HeightOffset = RailSize + RailDistance;
 					rpUnitSelector.HeightRelativeToContentHeight = 1;
 					rpUnitSelector.WidthOffset = 75;

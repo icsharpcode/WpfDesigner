@@ -17,14 +17,9 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
 using ICSharpCode.WpfDesign.Designer.themes;
 
 namespace ICSharpCode.WpfDesign.Designer.Controls
@@ -32,7 +27,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 	/// <summary>
 	/// Interaction logic for GridUnitSelector.xaml
 	/// </summary>
-	public partial class GridUnitSelector : UserControl
+	public partial class GridUnitSelector
 	{
 		GridRailAdorner rail;
 
