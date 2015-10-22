@@ -77,6 +77,7 @@
     <Compile Include="DrawItemExtension.cs" />
     <Compile Include="DummyValueInsteadOfNullTypeDescriptionProvider.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Extensions\DesignItemInitializer.cs" />
     <Compile Include="Extensions\ExtensionAttribute.cs" />
     <Compile Include="Extensions\ExtensionInterfaces.cs" />
     <Compile Include="HitTestType.cs" />
