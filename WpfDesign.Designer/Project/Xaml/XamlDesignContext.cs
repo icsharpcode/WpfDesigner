@@ -23,11 +23,7 @@ using System.Xml;
 using ICSharpCode.WpfDesign.XamlDom;
 using ICSharpCode.WpfDesign.Designer.OutlineView;
 using ICSharpCode.WpfDesign.Designer.Services;
-using ICSharpCode.WpfDesign.Designer.Extensions;
-using ICSharpCode.WpfDesign.Extensions;
 using ICSharpCode.WpfDesign.PropertyGrid;
-using System.Threading;
-using System.Globalization;
 using ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors;
 
 namespace ICSharpCode.WpfDesign.Designer.Xaml
@@ -71,6 +67,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 				throw new ArgumentNullException("loadSettings");
 			
 			this.Services.AddService(typeof(ISelectionService), new DefaultSelectionService());
+			this.Services.AddService(typeof(IComponentPropertyService), new ComponentPropertyService());		
 			this.Services.AddService(typeof(IToolService), new DefaultToolService(this));
 			this.Services.AddService(typeof(UndoService), new UndoService());
 			this.Services.AddService(typeof(IErrorService), new DefaultErrorService(this));

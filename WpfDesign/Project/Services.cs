@@ -17,6 +17,7 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.ComponentModel;
 using System.Windows.Input;
 using System.Collections.Generic;
 using System.Windows;
@@ -168,6 +169,20 @@ namespace ICSharpCode.WpfDesign
 				throw new ArgumentNullException("model");
 			return model.View;
 		}
+	}
+	#endregion
+	
+	#region IComponentPropertyService
+	/// <summary>
+	/// Used to get properties for a Design Item.
+	/// </summary>
+	public interface IComponentPropertyService
+	{
+		IEnumerable<MemberDescriptor> GetAvailableProperties(DesignItem designItem);
+
+		IEnumerable<MemberDescriptor> GetAvailableEvents(DesignItem designItem);
+
+		IEnumerable<MemberDescriptor> GetCommonAvailableProperties(IEnumerable<DesignItem> designItems);
 	}
 	#endregion
 	

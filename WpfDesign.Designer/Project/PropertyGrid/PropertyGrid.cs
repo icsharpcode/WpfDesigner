@@ -18,20 +18,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
 using System.ComponentModel;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Globalization;
-using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using ICSharpCode.WpfDesign.PropertyGrid;
 using System.Windows.Threading;
-using System.Diagnostics;
-using System.Windows.Media;
-using System.Windows;
 
 namespace ICSharpCode.WpfDesign.Designer.PropertyGrid
 {
@@ -258,18 +248,15 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid
 		List<MemberDescriptor> GetDescriptors()
 		{
 			List<MemberDescriptor> list = new List<MemberDescriptor>();
+			var service = SingleItem.Services.GetService<IComponentPropertyService>();
 
-			if (SelectedItems.Count() == 1) {
-				foreach (MemberDescriptor d in TypeHelper.GetAvailableProperties(SingleItem.Component)) {
-					list.Add(d);
-				}
-				foreach (MemberDescriptor d in TypeHelper.GetAvailableEvents(SingleItem.ComponentType)) {
-					list.Add(d);
-				}
+			if (SelectedItems.Count() == 1)
+			{				
+				list.AddRange(service.GetAvailableProperties(SingleItem));
+				list.AddRange(service.GetAvailableEvents(SingleItem));
+								
 			} else {
-				foreach (MemberDescriptor d in TypeHelper.GetCommonAvailableProperties(SelectedItems.Select(t => t.Component))) {
-					list.Add(d);
-				}
+				list.AddRange(service.GetCommonAvailableProperties(SelectedItems));
 			}
 
 			return list;

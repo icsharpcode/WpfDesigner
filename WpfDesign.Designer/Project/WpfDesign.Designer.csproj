@@ -12,7 +12,7 @@
     <WarningLevel>4</WarningLevel>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <OutputPath>..\..\bin\</OutputPath>
-	<DocumentationFile>..\..\bin\ICSharpCode.WpfDesign.Designer.xml</DocumentationFile>
+    <DocumentationFile>..\..\bin\ICSharpCode.WpfDesign.Designer.xml</DocumentationFile>
     <NoWarn>1591</NoWarn>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <SignAssembly>True</SignAssembly>
@@ -172,6 +172,7 @@
     <Compile Include="PropertyGrid\Editors\TimeSpanEditor.xaml.cs">
       <DependentUpon>TimeSpanEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Services\ComponentPropertyService.cs" />
     <Compile Include="themes\VersionedAssemblyResourceDictionary.cs" />
     <Compile Include="Translations.cs" />
     <Compile Include="Configuration\AssemblyInfo.cs" />
