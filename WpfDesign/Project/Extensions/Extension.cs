@@ -40,7 +40,10 @@ namespace ICSharpCode.WpfDesign.Extensions
 		/// <returns>The object's <see cref="DisabledExtensionsProperty"/> property value.</returns>
 		public static string GetDisabledExtensions(DependencyObject obj)
 		{
-			return (string)obj.GetValue(DisabledExtensionsProperty);
+			if (obj != null) {
+				return (string) obj.GetValue(DisabledExtensionsProperty);
+			}
+			return null;
 		}
 
 		/// <summary>
