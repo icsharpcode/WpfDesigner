@@ -248,7 +248,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid
 		List<MemberDescriptor> GetDescriptors()
 		{
 			List<MemberDescriptor> list = new List<MemberDescriptor>();
-			var service = SingleItem.Services.GetService<IComponentPropertyService>();
+			var service = (SingleItem ?? SelectedItems.First()).Services.GetService<IComponentPropertyService>();
 
 			if (SelectedItems.Count() == 1)
 			{				
