@@ -32,7 +32,7 @@ namespace ICSharpCode.WpfDesign
 	/// enabling Undo/Redo support.
 	/// Warning: Changes directly done to control instances might not be reflected in the model.
 	/// </summary>
-	public abstract class DesignItemProperty
+	public abstract class DesignItemProperty : INotifyPropertyChanged
 	{
 		/// <summary>
 		/// Gets the property name.
@@ -150,6 +150,15 @@ namespace ICSharpCode.WpfDesign
 		}
 
 		/// <summary>
+		/// Gets the View of the Value or the ValueOnInstance 
+		/// (e.g. a Content Property has a DesignItem if it's a Complex Object, if it's only a Text it only has ValueOnInstance)
+		/// </summary>		
+        public object ValueOnInstanceOrView
+        {
+            get { return Value == null ? ValueOnInstance : Value.View; }
+        }
+
+		/// <summary>
 		/// Gets the full name of the dependency property. Returns the normal FullName if the property
 		/// isn't a dependency property.
 		/// </summary>
@@ -161,6 +170,14 @@ namespace ICSharpCode.WpfDesign
 				return FullName;
 			}
 		}
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+
+	    protected virtual void OnPropertyChanged(string propertyName)
+	    {
+	        var handler = PropertyChanged;
+	        if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+	    }
 	}
 	
 	/// <summary>

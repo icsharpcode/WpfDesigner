@@ -50,6 +50,17 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			if (property.IsCollection) {
 				_collectionElements = new XamlModelCollectionElementsCollection(this, property);
 			}
+			
+			ValueChanged += (x, y) =>
+		    {
+		        OnPropertyChanged("Value");
+                OnPropertyChanged("ValueOnInstanceOrView");                
+		    };
+            ValueOnInstanceChanged += (x, y) =>
+            {
+                OnPropertyChanged("ValueOnInstance");
+                OnPropertyChanged("ValueOnInstanceOrView");
+            };
 		}
 		
 		public override bool Equals(object obj)
