@@ -21,7 +21,6 @@ using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Animation;
 using ICSharpCode.WpfDesign.Adorners;
 using ICSharpCode.WpfDesign.Designer.Services;
 
@@ -46,28 +45,15 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			set {
 				activeAreaGeometry = value;
 			}
-		}		
+		}	
 		
-		Rect currentAnimateActiveAreaRectToTarget;
-		
-		internal void AnimateActiveAreaRectTo(Rect newRect)
-		{
-			if (newRect.Equals(currentAnimateActiveAreaRectToTarget))
-				return;
-			activeAreaGeometry.BeginAnimation(
-				RectangleGeometry.RectProperty,
-				new RectAnimation(newRect, new Duration(new TimeSpan(0,0,0,0,100))),
-				HandoffBehavior.SnapshotAndReplace);
-			currentAnimateActiveAreaRectToTarget = newRect;
-		}
-		
-		internal static void Start(ref InfoTextEnterArea grayOut, ServiceContainer services, UIElement activeContainer, string text)
+		public static void Start(ref InfoTextEnterArea grayOut, ServiceContainer services, UIElement activeContainer, string text)
 		{
 			Debug.Assert(activeContainer != null);
 			Start(ref grayOut, services, activeContainer, new Rect(activeContainer.RenderSize), text);
 		}
 		
-		internal static void Start(ref InfoTextEnterArea grayOut, ServiceContainer services, UIElement activeContainer, Rect activeRectInActiveContainer, string text)
+		public static void Start(ref InfoTextEnterArea grayOut, ServiceContainer services, UIElement activeContainer, Rect activeRectInActiveContainer, string text)
 		{
 			Debug.Assert(services != null);
 			Debug.Assert(activeContainer != null);
@@ -94,7 +80,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			}
 		}
 																		 
-		internal static void Stop(ref InfoTextEnterArea grayOut)
+		public static void Stop(ref InfoTextEnterArea grayOut)
 		{
 			if (grayOut != null) {
 				IDesignPanel designPanel = grayOut.designPanel;

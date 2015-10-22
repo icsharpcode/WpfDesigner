@@ -68,7 +68,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		
 		Rect currentAnimateActiveAreaRectToTarget;
 		
-		internal void AnimateActiveAreaRectTo(Rect newRect)
+		public void AnimateActiveAreaRectTo(Rect newRect)
 		{
 			if (newRect.Equals(currentAnimateActiveAreaRectToTarget))
 				return;
@@ -79,13 +79,13 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			currentAnimateActiveAreaRectToTarget = newRect;
 		}
 		
-		internal static void Start(ref GrayOutDesignerExceptActiveArea grayOut, ServiceContainer services, UIElement activeContainer)
+		public static void Start(ref GrayOutDesignerExceptActiveArea grayOut, ServiceContainer services, UIElement activeContainer)
 		{
 			Debug.Assert(activeContainer != null);
 			Start(ref grayOut, services, activeContainer, new Rect(activeContainer.RenderSize));
 		}
 		
-		internal static void Start(ref GrayOutDesignerExceptActiveArea grayOut, ServiceContainer services, UIElement activeContainer, Rect activeRectInActiveContainer)
+		public static void Start(ref GrayOutDesignerExceptActiveArea grayOut, ServiceContainer services, UIElement activeContainer, Rect activeRectInActiveContainer)
 		{
 			Debug.Assert(services != null);
 			Debug.Assert(activeContainer != null);
@@ -114,7 +114,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			                       HandoffBehavior.SnapshotAndReplace);
 		}
 		
-		internal static void Stop(ref GrayOutDesignerExceptActiveArea grayOut)
+		public static void Stop(ref GrayOutDesignerExceptActiveArea grayOut)
 		{
 			if (grayOut != null) {
 				Animate(grayOut.GrayOutBrush, Brush.OpacityProperty, 0);
