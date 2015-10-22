@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows.Markup;
 
@@ -64,11 +65,20 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		
 		public DesignItem GetDesignItem(object component)
 		{
+			return GetDesignItem(component, false);
+		}
+		
+		public DesignItem GetDesignItem(object component, bool findByView)
+		{
 			if (component == null)
 				throw new ArgumentNullException("component");
 			XamlDesignItem site;
 			_sites.TryGetValue(component, out site);
-			return site;
+			
+			if (findByView) {
+				site = site ?? _sites.Values.FirstOrDefault(x => Equals(x.View, component));
+			}
+            return site;
 		}
 
 		public void SetDefaultPropertyValues(DesignItem designItem)

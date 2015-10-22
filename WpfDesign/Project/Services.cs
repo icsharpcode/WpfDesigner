@@ -121,6 +121,14 @@ namespace ICSharpCode.WpfDesign
 		/// </returns>
 		DesignItem GetDesignItem(object component);
 		
+		/// <summary>
+		/// Gets the site of an existing, registered component.
+		/// </summary>
+		/// <returns>
+		/// The site of the component, or null if the component is not registered.
+		/// </returns>
+		DesignItem GetDesignItem(object component, bool findByView);
+		
 		/// <summary>Registers a component for usage in the designer.</summary>
 		DesignItem RegisterComponentForDesigner(object component);
 		
