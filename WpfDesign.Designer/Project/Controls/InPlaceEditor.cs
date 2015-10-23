@@ -16,20 +16,21 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System;				   
-using System.Diagnostics;
+using System;
 using System.Windows;
-using System.Windows.Data;
-using System.Windows.Markup.Primitives;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Input;
+using ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor;
+using Xceed.Wpf.Toolkit;
+using RichTextBox = System.Windows.Controls.RichTextBox;
 
 namespace ICSharpCode.WpfDesign.Designer.Controls
 {
 	/// <summary>
 	/// Supports editing Text in the Designer
 	/// </summary>
-	public class InPlaceEditor : TextBox
+	public class InPlaceEditor : Control
 	{
 		static InPlaceEditor()
 		{
@@ -50,7 +51,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		readonly DesignItem designItem;
 		ChangeGroup changeGroup;
 		TextBlock textBlock;
-		TextBox editor;
+		RichTextBox editor;
 		
 		bool _isChangeGroupOpen;
 		
@@ -61,70 +62,51 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		
 		public InPlaceEditor(DesignItem designItem)
 		{
-			this.designItem=designItem;
+			this.designItem = designItem;					
 		}
-		
+
 		public override void OnApplyTemplate()
 		{
 			base.OnApplyTemplate();
-			editor = new TextBox();
-			editor = Template.FindName("editor", this) as TextBox; // Gets the TextBox-editor from the Template
-			Debug.Assert(editor != null);
+			
+			editor = Template.FindName("editor", this) as RichTextBox; // Gets the TextBox-editor from the Template
+			
 			editor.PreviewKeyDown+= delegate(object sender, KeyEventArgs e) {
 				if (e.Key == Key.Enter && (e.KeyboardDevice.Modifiers & ModifierKeys.Shift) != ModifierKeys.Shift)
 				{
 					e.Handled = true;
 				} };
 			ToolTip = "Edit the Text. Press"+Environment.NewLine+"Enter to make changes."+Environment.NewLine+"Shift+Enter to insert a newline."+Environment.NewLine+"Esc to cancel editing.";
+
+			RichTextBoxFormatBarManager.SetFormatBar(editor, new RichTextBoxFormatBar());
+
+			editor.TextChanged += editor_TextChanged;
+			FormatedTextEditor.SetRichTextBoxTextFromTextBlock(editor, ((TextBlock) designItem.Component));
 		}
-		
-		/// <summary>
-		/// Binds the Text Property of the element extended with <see cref="Bind"/>.
-		/// </summary>
-		/// <param name="textBlock"></param>
-		public void SetBinding(TextBlock textBlock)
+
+		void editor_TextChanged(object sender, TextChangedEventArgs e)
 		{
-			Debug.Assert(textBlock!=null);
-			this.textBlock = textBlock;
-			Binding binding = new Binding("Text");
-			binding.Source = this.textBlock;
-			binding.Mode = BindingMode.TwoWay;
-			SetBinding(BindProperty, binding);
-			property=PropertyUpdated(textBlock);
+			FormatedTextEditor.SetTextBlockTextFromRichTextBlox(this.designItem, editor);
 		}
-		
-		/// <summary>
-		/// Returns the property that is being edited in the element for example editing Window Title returns "Title",
-		/// Button text as "Content".
-		/// </summary>
-		private string PropertyUpdated(TextBlock text)
-		{
-			MarkupObject obj = MarkupWriter.GetMarkupObjectFor(designItem.Component);
-			foreach (MarkupProperty property in obj.Properties) {
-				if (property.DependencyProperty != null && property.StringValue == textBlock.Text)
-					return property.Name;
-			}
-			return null;
-		}
-		
+
 		protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
 		{
 			base.OnGotKeyboardFocus(e);
 			StartEditing();
 		}
-		
-		protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
-		{
-			if (changeGroup != null && _isChangeGroupOpen){
+
+		protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e) {
+			if (changeGroup != null && _isChangeGroupOpen)
+			{
 				changeGroup.Abort();
-				_isChangeGroupOpen=false;
-			}			
+				_isChangeGroupOpen = false;
+			}
 			if (textBlock != null)
 				textBlock.Visibility = Visibility.Visible;
 			Reset();
 			base.OnLostKeyboardFocus(e);
 		}
-		
+
 		/// <summary>
 		/// Change is committed if the user releases the Escape Key.
 		/// </summary>
@@ -149,23 +131,24 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 						if((FontWeight)designItem.Properties[Control.FontWeightProperty].ValueOnInstance!=editor.FontWeight)
 							designItem.Properties[Control.FontWeightProperty].SetValue(editor.FontWeight);
 						
-						if (changeGroup != null && _isChangeGroupOpen){
+						if (changeGroup != null && _isChangeGroupOpen) {
+							FormatedTextEditor.SetTextBlockTextFromRichTextBlox(this.designItem, editor);
 							changeGroup.Commit();
-							_isChangeGroupOpen=false;
+							_isChangeGroupOpen = false;
 						}
 						changeGroup = null;
 						this.Visibility = Visibility.Hidden;
-						textBlock.Visibility = Visibility.Visible;
+						((TextBlock)designItem.Component).Visibility = Visibility.Visible;
 						break;
 					case Key.Escape:
 						AbortEditing();
 						break;
 				}
-			}else if(e.Key == Key.Enter){
-				editor.Text.Insert(editor.CaretIndex, Environment.NewLine);
+			} else if(e.Key == Key.Enter) {
+				editor.Selection.Text += Environment.NewLine;
 			}
 		}
-		
+				
 		private void Reset()
 		{
 			if (textBlock != null) {
@@ -178,29 +161,27 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 				textBlock.FontWeight = (FontWeight) designItem.Properties[Control.FontWeightProperty].ValueOnInstance;
 			}
 		}
-		
-		public void AbortEditing()
-		{
-			if(changeGroup!=null && _isChangeGroupOpen){
+
+		public void AbortEditing() {
+			if (changeGroup != null && _isChangeGroupOpen) {
 				Reset();
 				changeGroup.Abort();
-				_isChangeGroupOpen=false;
-			}			
-			this.Visibility= Visibility.Hidden;
-			if(textBlock!=null)
-				textBlock.Visibility=Visibility.Visible;
+				_isChangeGroupOpen = false;
+			}
+			this.Visibility = Visibility.Hidden;
+			if (textBlock != null)
+				textBlock.Visibility = Visibility.Visible;
 			Reset();
 		}
-		
-		public void StartEditing()
-		{
-			if(changeGroup==null){
+
+		public void StartEditing() {
+			if (changeGroup == null) {
 				changeGroup = designItem.OpenGroup("Change Text");
-				_isChangeGroupOpen=true;
+				_isChangeGroupOpen = true;
 			}
-			this.Visibility=Visibility.Visible;
-			if(textBlock!=null)
-				textBlock.Visibility=Visibility.Hidden;
-		}
+			this.Visibility = Visibility.Visible;
+			if (textBlock != null)
+				textBlock.Visibility = Visibility.Hidden;
+		}		
 	}
 }

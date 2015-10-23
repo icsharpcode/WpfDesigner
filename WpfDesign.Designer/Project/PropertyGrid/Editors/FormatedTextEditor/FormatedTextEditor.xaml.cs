@@ -22,8 +22,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using System.Windows.Media;
-using ICSharpCode.WpfDesign.Designer.Xaml;
 using ICSharpCode.WpfDesign.UIExtensions;
 using ICSharpCode.WpfDesign.Designer.themes;
 
@@ -42,20 +40,26 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor
 
 			this.designItem = designItem;
 
-			IEnumerable<Inline> inlines = null;
-			var tb = ((TextBlock) designItem.Component);
-
-			inlines = tb.Inlines.Select(x => CloneInline(x)).ToList();
-			
-			var paragraph = richTextBox.Document.Blocks.First() as Paragraph;
-			paragraph.Inlines.AddRange(inlines);
-			
-			richTextBox.Document.Blocks.Add(paragraph);
+			var tb = ((TextBlock)designItem.Component);
+			SetRichTextBoxTextFromTextBlock(richTextBox, tb);
 
 			richTextBox.Foreground = tb.Foreground;
-			richTextBox.Background = tb.Background;
+			richTextBox.Background = tb.Background;						
 		}
-		
+
+		public static void SetRichTextBoxTextFromTextBlock(RichTextBox richTextBox, TextBlock textBlock)
+		{
+			IEnumerable<Inline> inlines = null;
+
+
+			inlines = textBlock.Inlines.Select(x => CloneInline(x)).ToList();
+
+			var paragraph = richTextBox.Document.Blocks.First() as Paragraph;
+			paragraph.Inlines.AddRange(inlines);
+
+			richTextBox.Document.Blocks.Add(paragraph);
+		}
+
 		/// <summary>
 		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
 		/// </summary>
@@ -70,7 +74,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor
 			this.InitializeComponent();
 		}
 
-		private void GetDesignItems(TextElementCollection<Block> blocks, List<DesignItem> list)
+		private static void GetDesignItems(DesignItem designItem, TextElementCollection<Block> blocks, List<DesignItem> list)
 		{
 			bool first = true;
 
@@ -86,19 +90,19 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor
 
 					foreach (var inline in ((Paragraph) block).Inlines)
 					{
-						list.Add(InlineToDesignItem(inline));
+						list.Add(InlineToDesignItem(designItem, inline));
 					}
 				}
 				else if (block is Section)
 				{
-					GetDesignItems(((Section)block).Blocks, list);
+					GetDesignItems(designItem, ((Section)block).Blocks, list);
 				}
 
 				first = false;
 			}
 		}
 
-		private Inline CloneInline(Inline inline)
+		private static Inline CloneInline(Inline inline)
 		{
 			Inline retVal = null;
 			if (inline is LineBreak)
@@ -132,7 +136,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor
 			return retVal;
 		}
 
-		private DesignItem InlineToDesignItem(Inline inline)
+		private static DesignItem InlineToDesignItem(DesignItem designItem, Inline inline)
 		{
 			DesignItem d = d = designItem.Services.Component.RegisterComponentForDesigner(CloneInline(inline));
 			if (inline is Run)
@@ -187,25 +191,30 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor
 			return d;
 		}
 
-		private void Ok_Click(object sender, RoutedEventArgs e)
+		public static void SetTextBlockTextFromRichTextBlox(DesignItem designItem, RichTextBox richTextBox)
 		{
-			var changeGroup = designItem.OpenGroup("Formated Text");
-
 			designItem.Properties.GetProperty(TextBlock.TextProperty).Reset();
 
 			var inlinesProperty = designItem.Properties.GetProperty("Inlines");
 			inlinesProperty.CollectionElements.Clear();
 
 			var doc = richTextBox.Document;
-			richTextBox.Document = new FlowDocument();
+			//richTextBox.Document = new FlowDocument();
 
 			var inlines = new List<DesignItem>();
-			GetDesignItems(doc.Blocks, inlines);
-			
+			GetDesignItems(designItem, doc.Blocks, inlines);
+
 			foreach (var inline in inlines)
 			{
 				inlinesProperty.CollectionElements.Add(inline);
 			}
+		}
+
+		private void Ok_Click(object sender, RoutedEventArgs e)
+		{
+			var changeGroup = designItem.OpenGroup("Formated Text");
+
+			SetTextBlockTextFromRichTextBlox(designItem, richTextBox);
 
 			changeGroup.Commit();
 
@@ -232,6 +241,6 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor
 				tdc = null;
 			}
 			range.ApplyPropertyValue(Inline.TextDecorationsProperty, tdc);
-		}
+		}		
 	}
 }

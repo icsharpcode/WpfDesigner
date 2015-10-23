@@ -28,6 +28,7 @@ using System.Windows.Data;
 using ICSharpCode.WpfDesign.Adorners;
 using ICSharpCode.WpfDesign.Extensions;
 using ICSharpCode.WpfDesign.Designer.Controls;
+using ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor;
 using ICSharpCode.WpfDesign.UIExtensions;
 
 namespace ICSharpCode.WpfDesign.Designer.Extensions
@@ -119,14 +120,13 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			placement.XRelativeToContentWidth = 0;
 			placement.YRelativeToAdornerHeight = 0;
 			placement.YRelativeToContentHeight = 0;
-			editor.SetBinding(textBlock);
 			
 			/* Change data context of the editor to the TextBlock */
 			editor.DataContext = textBlock;
 
 			/* Set MaxHeight and MaxWidth so that editor doesn't cross the boundaries of the control */
-			editor.SetBinding(FrameworkElement.WidthProperty, new Binding("Width"));
-			editor.SetBinding(FrameworkElement.HeightProperty, new Binding("Height"));
+			editor.SetBinding(FrameworkElement.WidthProperty, new Binding("ActualWidth"));
+			editor.SetBinding(FrameworkElement.HeightProperty, new Binding("ActualHeight"));
 							 
 			/* Hides the TextBlock in control because of some minor offset in placement, overlaping makes text look fuzzy */
 			textBlock.Visibility = Visibility.Hidden; // 
@@ -190,7 +190,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		void MouseUp(object sender, MouseEventArgs e)
 		{
 			result = designPanel.HitTest(e.GetPosition(designPanel), true, true, HitTestType.Default);
-			if ((result.ModelHit == ExtendedItem && result.VisualHit is TextBlock) || (result.VisualHit != null && result.VisualHit.TryFindParent<InPlaceEditor>() == editor) && numClicks > 0) {
+			if (((result.ModelHit == ExtendedItem && result.VisualHit is TextBlock) || (result.VisualHit != null && result.VisualHit.TryFindParent<InPlaceEditor>() == editor)) && numClicks > 0) {
 				if (!isGettingDragged) {
 					PlaceEditor(ExtendedItem.View, e);
 					editor.Visibility = Visibility.Visible;
