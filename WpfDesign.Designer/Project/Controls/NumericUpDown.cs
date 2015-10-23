@@ -206,7 +206,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		void SetValue(double newValue)
 		{
 			newValue = CoerceValue(newValue);
-			if (Value != newValue) {
+			if (Value != newValue && (double.IsNaN(Value) != double.IsNaN(newValue))) {
 				Value = newValue;
 			}
 		}
