@@ -135,7 +135,7 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		/// <inheritdoc/>
 		public override void WriteString(string text)
 		{
-			xmlWriter.WriteString(text.Replace("&","&amp;").Replace("\"","&quot;"));
+			xmlWriter.WriteString(text.Replace("&", "&amp;").Replace("<", "&lt;").Replace("\"", "&quot;"));
 		}
 
 		/// <inheritdoc/>
