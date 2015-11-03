@@ -9,8 +9,8 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Windows;
 using System.Linq;
 using ICSharpCode.WpfDesign.Designer.Xaml;
 using ICSharpCode.WpfDesign.XamlDom;
@@ -22,10 +22,12 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 	/// </summary>
 	public abstract class OutlineNodeBase : INotifyPropertyChanged, IOutlineNode
 	{
-
 		protected abstract void UpdateChildren();
+		protected abstract void UpdateChildrenCollectionChanged(NotifyCollectionChangedEventArgs e);
 		//Used to check if element can enter other containers
 		protected static PlacementType DummyPlacementType;
+
+		protected bool _collectionWasChanged;
 
 		protected OutlineNodeBase(DesignItem designItem)
 		{
@@ -56,9 +58,20 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			//TODO
 
 			DesignItem.NameChanged += new EventHandler(DesignItem_NameChanged);
-			DesignItem.PropertyChanged += new PropertyChangedEventHandler(DesignItem_PropertyChanged);
-		}
 
+			if (DesignItem.ContentProperty != null && DesignItem.ContentProperty.IsCollection)
+			{
+				DesignItem.ContentProperty.CollectionElements.CollectionChanged += CollectionElements_CollectionChanged;
+				DesignItem.PropertyChanged += new PropertyChangedEventHandler(DesignItem_PropertyChanged);
+			}
+			else
+			{
+				DesignItem.PropertyChanged += new PropertyChangedEventHandler(DesignItem_PropertyChanged);
+
+			}
+
+		}
+		 
 		public DesignItem DesignItem { get; set; }
 
 		public ISelectionService SelectionService
@@ -166,11 +179,20 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 		void DesignItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == DesignItem.ContentPropertyName) {
-				UpdateChildren();
+				if (!_collectionWasChanged)	{
+					UpdateChildren();
+				}
+				_collectionWasChanged = false;
 			}
 		}
 
-		
+		private void CollectionElements_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+		{
+			_collectionWasChanged = true;
+			UpdateChildrenCollectionChanged(e);
+		}
+
+
 
 		public bool CanInsert(IEnumerable<IOutlineNode> nodes, IOutlineNode after, bool copy)
 		{

@@ -17,38 +17,12 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+using System.Collections.Specialized;
 using System.Linq;
-using System.Text;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-
-using ICSharpCode.WpfDesign;
-using ICSharpCode.WpfDesign.Designer;
-using ICSharpCode.WpfDesign.Designer.Xaml;
-using ICSharpCode.WpfDesign.XamlDom;
 
 namespace ICSharpCode.WpfDesign.Designer.OutlineView
-{
-	public interface IOutlineNode
-	{
-		ISelectionService SelectionService { get; }
-		bool IsExpanded { get; set; }
-		DesignItem DesignItem { get; set; }
-		bool IsSelected { get; set; }
-		bool IsDesignTimeVisible { get; set; }
-		bool IsDesignTimeLocked { get; }
-		string Name { get; }
-		bool CanInsert(IEnumerable<IOutlineNode> nodes, IOutlineNode after, bool copy);
-		void Insert(IEnumerable<IOutlineNode> nodes, IOutlineNode after, bool copy);
-		ObservableCollection<IOutlineNode> Children{ get; }
-	}
-	
-
+{ 
 	public class OutlineNode: OutlineNodeBase
 	{
 		//TODO: Reset with DesignContext
@@ -80,10 +54,11 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			IsSelected = DesignItem.Services.Selection.IsComponentSelected(DesignItem);
 		}
 
+
 		protected override void UpdateChildren()
 		{
 			Children.Clear();
-
+			
 			if (DesignItem.ContentPropertyName != null) {
 				var content = DesignItem.ContentProperty;
 				if (content.IsCollection) {
@@ -93,15 +68,34 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 						UpdateChildrenCore(new[] { content.Value });
 					}
 				}
+			}	
+		}
+
+		protected override void UpdateChildrenCollectionChanged(NotifyCollectionChangedEventArgs e)
+		{
+			if (e.Action == NotifyCollectionChangedAction.Remove) {
+				foreach (var oldItem in e.OldItems) {
+					var item = Children.FirstOrDefault(x => x.DesignItem == oldItem);
+					if (item != null) {
+						Children.Remove(item);
+					}
+				}
+			} else if (e.Action == NotifyCollectionChangedAction.Add) {
+				UpdateChildrenCore(e.NewItems.Cast<DesignItem>(), e.NewStartingIndex);				
 			}
 		}
 
-		void UpdateChildrenCore(IEnumerable<DesignItem> items)
+		void UpdateChildrenCore(IEnumerable<DesignItem> items, int index = -1)
 		{
 			foreach (var item in items) {
 				if (ModelTools.CanSelectComponent(item)) {
-					var node = OutlineNode.Create(item);
-					Children.Add(node);
+					if (Children.All(x => x.DesignItem != item)) {
+						var node = OutlineNode.Create(item);
+						if (index>-1)
+							Children.Insert(index++, node);
+						else
+							Children.Add(node);
+					}
 				} else {
 					var content = item.ContentProperty;
 					if (content != null) {
