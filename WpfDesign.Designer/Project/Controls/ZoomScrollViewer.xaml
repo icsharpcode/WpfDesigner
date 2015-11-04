@@ -85,6 +85,16 @@
 									           VerticalAlignment="Center">1</TextBlock>
 								</Border>
 							</RepeatButton>
+							<RepeatButton x:Name="ux100Percent"
+							              Width="16" Height="16" Padding="0" BorderThickness="0"
+							              Style="{StaticResource ZoomButtonStyle}">
+								<Border Background="#5000">
+									<Viewbox Stretch="Uniform"><TextBlock Foreground="White"
+									           HorizontalAlignment="Center"
+									           VerticalAlignment="Center">100%</TextBlock>
+									</Viewbox>
+								</Border>
+							</RepeatButton>
 						</StackPanel>
 					</Border>
 				</ControlTemplate>
