@@ -73,7 +73,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			var contentWidth = ((FrameworkElement) zctl.Content).ActualWidth;
 			var contentHeight = ((FrameworkElement)zctl.Content).ActualHeight;
 			var width = zctl.ActualWidth;
-			var height = zctl.Height;
+			var height = zctl.ActualHeight;
 
 			if (contentWidth > width || contentHeight > height)
 			{
