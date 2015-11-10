@@ -114,17 +114,24 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			foreach (RowDefinition r in grid.RowDefinitions)
 			{
 				offset += r.ActualHeight;
-				horizontalMap.Add(new Snapline() { RequireOverlap = false, Offset = offset - Margin, Start = offset, End = containerRect.Right });
 				horizontalMap.Add(new Snapline() { RequireOverlap = false, Offset = offset, Start = offset, End = containerRect.Right });
-				horizontalMap.Add(new Snapline() { RequireOverlap = false, Offset = offset + Margin, Start = offset, End = containerRect.Right });
+				if (SnaplineMargin > 0)
+				{
+					horizontalMap.Add(new Snapline() { RequireOverlap = false, Offset = offset - SnaplineMargin, Start = offset, End = containerRect.Right });
+					horizontalMap.Add(new Snapline() { RequireOverlap = false, Offset = offset + SnaplineMargin, Start = offset, End = containerRect.Right });
+				}
+
 			}
 			offset = 0;
 			foreach (ColumnDefinition c in grid.ColumnDefinitions)
 			{
 				offset += c.ActualWidth;
-				verticalMap.Add(new Snapline() { RequireOverlap = false, Offset = offset - Margin, Start = containerRect.Top, End = containerRect.Bottom });
 				verticalMap.Add(new Snapline() { RequireOverlap = false, Offset = offset, Start = containerRect.Top, End = containerRect.Bottom });
-				verticalMap.Add(new Snapline() { RequireOverlap = false, Offset = offset + Margin, Start = containerRect.Top, End = containerRect.Bottom });
+				if (SnaplineMargin > 0)
+				{
+					verticalMap.Add(new Snapline() { RequireOverlap = false, Offset = offset - SnaplineMargin, Start = containerRect.Top, End = containerRect.Bottom });					
+					verticalMap.Add(new Snapline() { RequireOverlap = false, Offset = offset + SnaplineMargin, Start = containerRect.Top, End = containerRect.Bottom });
+				}
 			}			
 		}
 		

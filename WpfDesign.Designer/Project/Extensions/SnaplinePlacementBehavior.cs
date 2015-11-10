@@ -51,9 +51,20 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		List<Snapline> verticalMap;
 		double? baseline;
 		
-		public const double Accuracy = 5;
-		public const double Margin = 8;
-		
+		private static double _snaplineMargin = 8;
+		public static double SnaplineMargin
+		{
+			get { return _snaplineMargin; }
+			set { _snaplineMargin = value; }
+		}
+
+		private static double _snaplineAccuracy = 5;
+		public static double SnaplineAccuracy
+		{
+			get { return _snaplineAccuracy; }
+			set { _snaplineAccuracy = value; }
+		}
+
 		public override void BeginPlacement(PlacementOperation operation)
 		{
 			base.BeginPlacement(operation);
@@ -107,7 +118,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			double delta;
 
 			var newPoint = base.PlacePoint(point);
-			if (Snap(horizontalInput, horizontalMap, Accuracy, out drawLines, out delta))
+			if (Snap(horizontalInput, horizontalMap, SnaplineAccuracy, out drawLines, out delta))
 			{
 				foreach (var d in drawLines)
 				{
@@ -119,7 +130,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			else
 				point.Y = newPoint.Y;
 
-			if (Snap(verticalInput, verticalMap, Accuracy, out drawLines, out delta))
+			if (Snap(verticalInput, verticalMap, SnaplineAccuracy, out drawLines, out delta))
 			{
 				foreach (var d in drawLines)
 				{
@@ -182,7 +193,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			List<Snapline> drawLines;
 			double delta;
 
-			if (Snap(horizontalInput, horizontalMap, Accuracy, out drawLines, out delta))
+			if (Snap(horizontalInput, horizontalMap, SnaplineAccuracy, out drawLines, out delta))
 			{
 
 				if (operation.Type == PlacementType.Resize)
@@ -214,7 +225,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				}
 			}
 
-			if (Snap(verticalInput, verticalMap, Accuracy, out drawLines, out delta))
+			if (Snap(verticalInput, verticalMap, SnaplineAccuracy, out drawLines, out delta))
 			{
 
 				if (operation.Type == PlacementType.Resize)
@@ -300,7 +311,10 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			verticalMap = new List<Snapline>();
 			
 			var containerRect = new Rect(0, 0, ModelTools.GetWidth(ExtendedItem.View), ModelTools.GetHeight(ExtendedItem.View));
-			AddLines(containerRect, -Margin, false);
+			if (SnaplineMargin > 0)
+			{
+				AddLines(containerRect, -SnaplineMargin, false);
+			}
 			
 			AddLines(containerRect, 0, false);
 
@@ -316,7 +330,10 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 					var bounds = GetPosition(operation, item);
 					
 					AddLines(bounds, 0, false);
-					AddLines(bounds, Margin, true);
+					if (SnaplineMargin > 0)
+					{
+						AddLines(bounds, SnaplineMargin, true);
+					}
 					AddBaseline(item, bounds, horizontalMap);
 				}
 			}
