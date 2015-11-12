@@ -94,7 +94,17 @@ namespace ICSharpCode.WpfDesign.Extensions
 			}
 			list.Add(entry);
 		}
-		
+
+		public void RemoveExtension(Type extendedItemType, Type extensionType)
+		{
+			List<ExtensionEntry> list;
+			if (!_extensions.TryGetValue(extendedItemType, out list))
+			{
+				list = _extensions[extendedItemType] = new List<ExtensionEntry>();
+			}
+			list.RemoveAll(x => x.ExtensionType == extensionType);
+		}
+
 		List<ExtensionEntry> GetExtensionEntries(Type extendedItemType)
 		{
 			List<ExtensionEntry> result = new List<ExtensionEntry>();
@@ -150,12 +160,12 @@ namespace ICSharpCode.WpfDesign.Extensions
 		{
 			Debug.Assert(server != null);
 			Debug.Assert(item != null);
-			
+
 			foreach (ExtensionEntry entry in GetExtensionEntries(item)) {
 				if (entry.Server == server) {
 					
 					var disabledExtensions = Extension.GetDisabledExtensions(item.View);
-					if (disabledExtensions == null || !disabledExtensions.Split(';').Contains(entry.ExtensionType.Name))
+					if (string.IsNullOrEmpty(disabledExtensions) || !disabledExtensions.Split(';').Contains(entry.ExtensionType.Name))
 						yield return server.CreateExtension(entry.ExtensionType, item);
 				}
 			}
