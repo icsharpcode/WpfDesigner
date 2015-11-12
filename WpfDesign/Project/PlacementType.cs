@@ -42,7 +42,13 @@ namespace ICSharpCode.WpfDesign
 		/// </summary>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
 		public static readonly PlacementType Move = Register("Move");
-		
+
+		/// <summary>
+		/// Placement is done by moving an element for Example via Keyboard!
+		/// </summary>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+		public static readonly PlacementType MoveAndIgnoreOtherContainers = Register("MoveAndIgnoreOtherContainers");
+
 		/// <summary>
 		/// Adding an element to a specified position in the container.
 		/// AddItem is used when dragging a toolbox item to the design surface.

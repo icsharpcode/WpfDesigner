@@ -425,7 +425,7 @@ namespace ICSharpCode.WpfDesign.Designer
 			if (e.Key == Key.Left || e.Key == Key.Right || e.Key == Key.Up || e.Key == Key.Down) {
 				e.Handled = true;
 				
-				PlacementType placementType = Keyboard.IsKeyDown(Key.LeftCtrl) ? PlacementType.Resize : PlacementType.Move;
+				PlacementType placementType = Keyboard.IsKeyDown(Key.LeftCtrl) ? PlacementType.Resize : PlacementType.MoveAndIgnoreOtherContainers;
 				
 				if (placementOp != null && placementOp.Type != placementType) {
 					placementOp.Commit();
@@ -464,7 +464,8 @@ namespace ICSharpCode.WpfDesign.Designer
 				{
 					var bounds = info.OriginalBounds;
 					
-					if (placementType == PlacementType.Move) {
+					if (placementType == PlacementType.Move 
+						|| info.Operation.Type == PlacementType.MoveAndIgnoreOtherContainers) {
 						info.Bounds = new Rect(bounds.Left + dx,
 						                       bounds.Top + dy,
 						                       bounds.Width,

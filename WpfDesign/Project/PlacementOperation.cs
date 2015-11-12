@@ -31,6 +31,13 @@ namespace ICSharpCode.WpfDesign
 	/// </summary>
 	public sealed class PlacementOperation
 	{
+		public class PlacementOperationException : InvalidOperationException
+		{
+			public PlacementOperationException(string message)
+				: base(message)
+			{ }
+		}
+
 		readonly ChangeGroup changeGroup;
 		readonly ReadOnlyCollection<PlacementInformation> placedItems;
 		readonly PlacementType type;
@@ -96,12 +103,12 @@ namespace ICSharpCode.WpfDesign
 			if (newContainer == null)
 				throw new ArgumentNullException("newContainer");
 			if (isAborted || isCommitted)
-				throw new InvalidOperationException("The operation is not running anymore.");
+				throw new PlacementOperationException("The operation is not running anymore.");
 			if (currentContainer == newContainer)
 				return;
 			
 			if (!currentContainerBehavior.CanLeaveContainer(this))
-				throw new NotSupportedException("The items cannot be removed from their parent container.");
+				throw new PlacementOperationException("The items cannot be removed from their parent container.");
 			
 			try {
 				currentContainerBehavior.LeaveContainer(this);
@@ -142,9 +149,9 @@ namespace ICSharpCode.WpfDesign
 		public void DeleteItemsAndCommit()
 		{
 			if (isAborted || isCommitted)
-				throw new InvalidOperationException("The operation is not running anymore.");
+				throw new PlacementOperationException("The operation is not running anymore.");
 			if (!currentContainerBehavior.CanLeaveContainer(this))
-				throw new NotSupportedException("The items cannot be removed from their parent container.");
+				throw new PlacementOperationException("The items cannot be removed from their parent container.");
 			
 			currentContainerBehavior.LeaveContainer(this);
 			Commit();
@@ -175,7 +182,7 @@ namespace ICSharpCode.WpfDesign
 			PlacementOperation op = new PlacementOperation(items, type);
 			try {
 				if (op.currentContainerBehavior == null)
-					throw new InvalidOperationException("Starting the operation is not supported");
+					throw new PlacementOperationException("Starting the operation is not supported");
 				
 				op.currentContainerBehavior.BeginPlacement(op);
 				foreach (PlacementInformation info in op.placedItems) {
@@ -191,17 +198,19 @@ namespace ICSharpCode.WpfDesign
 		}
 		private PlacementOperation(DesignItem[] items, PlacementType type)
 		{
-			PlacementInformation[] information = new PlacementInformation[items.Length];
+			List<DesignItem> moveableItems;
+			this.currentContainerBehavior = GetPlacementBehavior(items, out moveableItems, type);
+
+			PlacementInformation[] information = new PlacementInformation[moveableItems.Count];
 			for (int i = 0; i < information.Length; i++) {
-				information[i] = new PlacementInformation(items[i], this);
+				information[i] = new PlacementInformation(moveableItems[i], this);
 			}
 			this.placedItems = new ReadOnlyCollection<PlacementInformation>(information);
 			this.type = type;
 			
-			this.currentContainer = items[0].Parent;
-			this.currentContainerBehavior = GetPlacementBehavior(items);
+			this.currentContainer = moveableItems[0].Parent;
 			
-			this.changeGroup = items[0].Context.OpenGroup(type.ToString(), items);
+			this.changeGroup = moveableItems[0].Context.OpenGroup(type.ToString(), moveableItems);
 		}
 
 		/// <summary>
@@ -230,24 +239,44 @@ namespace ICSharpCode.WpfDesign
 		/// </summary>
 		public static IPlacementBehavior GetPlacementBehavior(ICollection<DesignItem> items)
 		{
+			List<DesignItem> moveableItems;
+			return GetPlacementBehavior(items, out moveableItems, PlacementType.Move);
+		}
+
+		/// <summary>
+		/// Gets the placement behavior associated with the specified items.
+		/// </summary>
+		public static IPlacementBehavior GetPlacementBehavior(ICollection<DesignItem> items, out List<DesignItem> moveableItems, PlacementType placementType)
+		{
+			moveableItems = new List<DesignItem>();
+
 			if (items == null)
 				throw new ArgumentNullException("items");
 			if (items.Count == 0)
 				return null;
-			DesignItem parent = items.First().Parent;
-			foreach (DesignItem item in items.Skip(1)) {
-				if (item.Parent != parent)
-					return null;
+
+			var first = items.First();
+			DesignItem parent = first.Parent;
+			moveableItems.Add(first);
+			foreach (DesignItem item in items.Skip(1))
+			{
+				if (item.Parent != parent) {
+					if (placementType != PlacementType.MoveAndIgnoreOtherContainers) {
+						return null;
+					}
+				}
+				else
+					moveableItems.Add(item);
 			}
 			if (parent != null)
 				return parent.GetBehavior<IPlacementBehavior>();
 			else if (items.Count == 1)
-				return items.First().GetBehavior<IRootPlacementBehavior>();
+				return first.GetBehavior<IRootPlacementBehavior>();
 			else
 				return null;
 		}
 		#endregion
-		
+
 		#region StartInsertNewComponents
 		/// <summary>
 		/// Try to insert new components into the container.
@@ -313,7 +342,7 @@ namespace ICSharpCode.WpfDesign
 		{
 			if (!isAborted) {
 				if (isCommitted)
-					throw new InvalidOperationException("PlacementOperation is committed.");
+					throw new PlacementOperationException("PlacementOperation is committed.");
 				isAborted = true;
 				currentContainerBehavior.EndPlacement(this);
 				changeGroup.Abort();
@@ -327,7 +356,7 @@ namespace ICSharpCode.WpfDesign
 		public void Commit()
 		{
 			if (isAborted || isCommitted)
-				throw new InvalidOperationException("PlacementOperation is already aborted/committed.");
+				throw new PlacementOperationException("PlacementOperation is already aborted/committed.");
 			isCommitted = true;
 			currentContainerBehavior.EndPlacement(this);
 			changeGroup.Commit();
