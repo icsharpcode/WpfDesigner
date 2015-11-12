@@ -51,7 +51,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		{
 			e.Handled = true;
 			//item.Services.Selection.SetSelectedComponents(new DesignItem [] { item }, SelectionTypes.Auto);
-			new DragMoveMouseGesture(item, false).Start(item.Services.DesignPanel, e);
+			new DragMoveMouseGesture(item, false, true).Start(item.Services.DesignPanel, e);
 		}
 		
 		public override void OnApplyTemplate()
