@@ -177,8 +177,11 @@ namespace ICSharpCode.WpfDesign.XamlDom
 			if (errorSink != null) {
 				var lineInfo = node as IXmlLineInfo;
 				var msg = x.Message;
-				if (x.InnerException != null)
-					msg += " (" + x.InnerException.Message + ")";
+				var inner = x.InnerException;
+				while (inner != null) {
+					msg += Environment.NewLine + "\t(" + inner.Message + ")";
+					inner = inner.InnerException;
+				}				
 				if (lineInfo != null) {
 					errorSink.ReportError(msg, lineInfo.LineNumber, lineInfo.LinePosition);
 				} else {
