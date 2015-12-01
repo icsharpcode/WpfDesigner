@@ -387,6 +387,8 @@ namespace ICSharpCode.WpfDesign.XamlDom
 						if (collectionProperty != null) {
 							collectionProperty.ParserAddCollectionElement(collectionPropertyElement, childValue);
 							CollectionSupport.AddToCollection(collectionType, collectionInstance, childValue);
+						} else if (collectionProperty == null && collectionInstance is ResourceDictionary) {
+							CollectionSupport.AddToCollection(collectionType, collectionInstance, childValue);
 						} else {
 							if (defaultProperty == null)
 								throw new XamlLoadException("This element does not have a default value, cannot assign to it");
