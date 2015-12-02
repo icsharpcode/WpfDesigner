@@ -51,6 +51,8 @@ namespace ICSharpCode.WpfDesign.Designer.MarkupExtensions
 		
 		public UpdateSourceTrigger UpdateSourceTrigger { get; set; }
 
+		public UpdateSourceTrigger? UpdateSourceTriggerMultipleSelected { get; set; }
+
 		public DesignItemBinding(string path)
 		{
 			this._propertyName = path;
@@ -107,6 +109,12 @@ namespace ICSharpCode.WpfDesign.Designer.MarkupExtensions
 				_binding = new Binding(_propertyName);
 				_binding.Source = fe;
 				_binding.UpdateSourceTrigger = UpdateSourceTrigger;
+
+				if (designItem.Services.Selection.SelectedItems.Count > 1 && UpdateSourceTriggerMultipleSelected != null)
+				{
+					_binding.UpdateSourceTrigger = UpdateSourceTriggerMultipleSelected.Value;
+				}
+
 				_binding.Mode = BindingMode.TwoWay;
 				_binding.ConverterParameter = ConverterParameter;
 
