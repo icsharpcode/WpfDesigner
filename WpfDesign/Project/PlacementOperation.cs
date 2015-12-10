@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Windows;
 using System.Windows.Media;
 
@@ -249,16 +250,24 @@ namespace ICSharpCode.WpfDesign
 		public static IPlacementBehavior GetPlacementBehavior(ICollection<DesignItem> items, out List<DesignItem> moveableItems, PlacementType placementType)
 		{
 			moveableItems = new List<DesignItem>();
-
+			
 			if (items == null)
 				throw new ArgumentNullException("items");
 			if (items.Count == 0)
 				return null;
 
-			var first = items.First();
+			var possibleItems = items;
+			if (!items.Any(x => x.Parent == null))
+			{
+				var itemsPartentGroup = items.GroupBy(x => x.Parent);
+				var parents = itemsPartentGroup.Select(x => x.Key).OrderBy(x => x.DepthLevel).First();
+				possibleItems = itemsPartentGroup.Where(x => x.Key.DepthLevel == parents.DepthLevel).SelectMany(x => x).ToList();
+			}
+			
+			var first = possibleItems.First();
 			DesignItem parent = first.Parent;
 			moveableItems.Add(first);
-			foreach (DesignItem item in items.Skip(1))
+			foreach (DesignItem item in possibleItems.Skip(1))
 			{
 				if (item.Parent != parent) {
 					if (placementType != PlacementType.MoveAndIgnoreOtherContainers) {
@@ -270,7 +279,7 @@ namespace ICSharpCode.WpfDesign
 			}
 			if (parent != null)
 				return parent.GetBehavior<IPlacementBehavior>();
-			else if (items.Count == 1)
+			else if (possibleItems.Count == 1)
 				return first.GetBehavior<IRootPlacementBehavior>();
 			else
 				return null;

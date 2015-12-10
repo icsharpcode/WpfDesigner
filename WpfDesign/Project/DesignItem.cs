@@ -328,5 +328,23 @@ namespace ICSharpCode.WpfDesign
 			
 			return retVal;
 		}
+
+		/// <summary>
+		/// Gets the component this DesignSite was created for.
+		/// </summary>
+		public int DepthLevel
+		{
+			get
+			{
+				int j = 0;
+				var x = this.Parent;
+				while (x != null)
+				{
+					j++;
+					x = x.Parent;
+				}
+				return j;
+			}
+		}
 	}
 }
