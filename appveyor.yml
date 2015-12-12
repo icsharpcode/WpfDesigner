@@ -27,6 +27,5 @@
     - cmd: nunit-console bin\UnitTests\ICSharpCode.WpfDesign.Tests.dll /framework:net-4.5
 
   artifacts:
-    artifacts:
-      - path: '**\WpfDesigner.*.nupkg'
-        name: NuGet
+    - path: '**\WpfDesigner.*.nupkg'
+      name: NuGet
