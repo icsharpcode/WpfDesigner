@@ -1,3 +1,11 @@
+  branches:
+    only:
+      - master
+  
+  version: 5.1.{build}
+  
+  os: Visual Studio 2015
+
 assembly_info:
   patch: true
   file: AssemblyInfo.*
@@ -20,32 +28,6 @@ test_script:
   nunit-console bin\UnitTests\ICSharpCode.WpfDesign.Tests.dll /framework:net-4.5
 
 artifacts:
-  - path: bin\ICSharpCode.WpfDesign.Designer.dll
-    name: ICSharpCode.WpfDesign.Designer.dll
-  - path: bin\ICSharpCode.WpfDesign.Designer.pdb
-    name: ICSharpCode.WpfDesign.Designer.pdb
-  - path: bin\ICSharpCode.WpfDesign.Designer.xml
-    name: ICSharpCode.WpfDesign.Designer.xml
-  - path: bin\ICSharpCode.WpfDesign.dll
-    name: ICSharpCode.WpfDesign.dll
-  - path: bin\ICSharpCode.WpfDesign.pdb
-    name: ICSharpCode.WpfDesign.pdb
-  - path: bin\ICSharpCode.WpfDesign.xml
-    name: ICSharpCode.WpfDesign.xml
-  - path: bin\ICSharpCode.WpfDesign.XamlDom.dll
-    name: ICSharpCode.WpfDesign.XamlDom.dll
-  - path: bin\ICSharpCode.WpfDesign.XamlDom.pdb
-    name: ICSharpCode.WpfDesign.XamlDom.pdb
-  - path: bin\ICSharpCode.WpfDesign.XamlDom.xml
-    name: ICSharpCode.WpfDesign.XamlDom.xml
-  - path: '**\WpfDesigner.*.nupkg'
-
-#uncomment to publish to NuGet
-deploy:
-  provider: NuGet
-  api_key:
-    secure: OrhpK2cLXXcoWW+hU6xAv3eeKIbATEFbenteoFsi9EfM1yyDof6ZuNKAsA3Vy6vb
-  artifact: /.*\.nupkg/
-  
-  
-  
+  artifacts:
+    - path: '**\WpfDesigner.*.nupkg'
+      name: NuGet
