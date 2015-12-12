@@ -5,29 +5,28 @@
   version: 5.1.{build}
   
   os: Visual Studio 2015
+  configuration: Debug
+  
+  assembly_info:
+    patch: true
+    file: AssemblyInfo.*
+    assembly_version: '{version}'
+    assembly_file_version: '{version}'
+    assembly_informational_version: '{version}'
+	
+  before_build:
+    - nuget restore
 
-assembly_info:
-  patch: true
-  file: AssemblyInfo.*
-  assembly_version: "{version}"
-  assembly_file_version: "{version}"
-  assembly_informational_version: "{version}"
+  build:
+    project: WpfDesign.sln
 
-configuration: Debug
+  after_build:
+    - ps: .\nuget\pack.ps1
 
-before_build:
-  - nuget restore
+  test_script:
+    - cmd: nunit-console bin\UnitTests\ICSharpCode.WpfDesign.Tests.dll /framework:net-4.5
 
-build:
-  project: WpfDesign.sln
-
-after_build:
-  - ps: .\nuget\pack.ps1
-
-test_script:
-  nunit-console bin\UnitTests\ICSharpCode.WpfDesign.Tests.dll /framework:net-4.5
-
-artifacts:
   artifacts:
-    - path: '**\WpfDesigner.*.nupkg'
-      name: NuGet
+    artifacts:
+      - path: '**\WpfDesigner.*.nupkg'
+        name: NuGet
