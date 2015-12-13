@@ -3,14 +3,25 @@
   <metadata>
     <id>ICSharpCode.WpfDesigner</id>
     <version>$version$</version>
-	<releaseNotes>$releasenotes$</releaseNotes>
-    <authors>DotNetProjects</authors>
-    <owners>DotNetProjects</owners>
+	<title>WPF Designer</title>
+    <authors>IC#Code</authors>
+    <owners>IC#Code</owners>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <projectUrl>https://github.com/icsharpcode/WpfDesigner</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>A Designer Framework for WPF UI's</description>
-    <copyright>Copyright 2015</copyright>
+    <description>A Designer Framework for WPF UIs</description>
+	<summary>WpfDesigner is the graphical WPF UI designer used in SharpDevelop</summary>
+	<releaseNotes>
+		* Remove DLL dependencies to SharpDevelop DLLs. Only dependency left for now is the Extended WPF Toolkit.
+		* Zooming addition, a button to zoom to 100%
+		* Many performance fixes
+		* In-place edit of formatted text
+		* XAML 2009 support
+		* Thumbnail view fixes
+	</releaseNotes>
+    <copyright>Copyright (c) 2015-2016 IC#Code</copyright>
+	<language>en-US</language>
+	<tags>WPF XAML Designer UI Editor SharpDevelop WpfDesigner</tags>
   </metadata>
   <files>
     <file src="..\bin\ICSharpCode.WpfDesign.Designer.dll" target="lib\net40" />
