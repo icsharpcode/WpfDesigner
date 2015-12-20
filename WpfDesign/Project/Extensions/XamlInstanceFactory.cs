@@ -20,44 +20,51 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Xaml;
 using System.Xml;
 
 namespace ICSharpCode.WpfDesign.Extensions
 {
 	/// <summary>
-	/// A special kind of extension that is used to create instances of objects when loading XAML inside
-	/// the designer.
+	/// 
 	/// </summary>
-	/// <remarks>
-	/// CustomInstanceFactory in Cider: http://blogs.msdn.com/jnak/archive/2006/04/10/572241.aspx
-	/// </remarks>
 	[ExtensionServer(typeof(NeverApplyExtensionsExtensionServer))]
-	public class CustomInstanceFactory : Extension
+	public class XamlInstanceFactory : Extension
 	{
 		/// <summary>
 		/// Gets a default instance factory that uses Activator.CreateInstance to create instances.
 		/// </summary>
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
-		public static readonly CustomInstanceFactory DefaultInstanceFactory = new CustomInstanceFactory();
+		public static readonly XamlInstanceFactory DefaultInstanceFactory = new XamlInstanceFactory();
 		
 		/// <summary>
 		/// Creates a new CustomInstanceFactory instance.
 		/// </summary>
-		protected CustomInstanceFactory()
+		protected XamlInstanceFactory()
 		{
 		}
-		
+
 		/// <summary>
-		/// Creates an instance of the specified type, passing the specified arguments to its constructor.
+		/// A Instance Factory that uses XAML to instanciate the Control!
+		/// So you can add the 
 		/// </summary>
 		public virtual object CreateInstance(Type type, params object[] arguments)
 		{
-			var instance = Activator.CreateInstance(type, arguments);
-			var uiElement = instance as UIElement;
-			if (uiElement != null)
-				DesignerProperties.SetIsInDesignMode(uiElement, true);
-			return instance;
+			var txt = @"<ContentControl xmlns=""http://schemas.microsoft.com/winfx/2006/xaml/presentation"">
+<ContentControl.ResourceDictionary>
+<ResourceDictionary>
+<ResourceDictionary.MergedDictionarys>
+</ResourceDictionary.MergedDictionarys>
+</ResourceDictionary>
+</ContentControl.ResourceDictionary>
+<a:{0} xmlns:a=""clr-namespace:{1};assembly={2}"" /></ContentControl>";
+
+			var xaml = string.Format(txt, type.Name, type.Namespace, type.Assembly.GetName().Name);
+			var contentControl = XamlServices.Load(new XamlXmlReader(new StringReader(xaml))) as ContentControl;
+
+			return contentControl.Content;
+
 		}
 	}
 }

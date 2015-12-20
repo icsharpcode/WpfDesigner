@@ -77,9 +77,11 @@
     <Compile Include="DrawItemExtension.cs" />
     <Compile Include="DummyValueInsteadOfNullTypeDescriptionProvider.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Extensions\XamlInstanceFactory.cs" />
     <Compile Include="Extensions\DesignItemInitializer.cs" />
     <Compile Include="Extensions\ExtensionAttribute.cs" />
     <Compile Include="Extensions\ExtensionInterfaces.cs" />
+    <Compile Include="Extensions\NeverApplyExtensionsExtensionServer.cs" />
     <Compile Include="HitTestType.cs" />
     <Compile Include="Interfaces\IObservableList.cs" />
     <Compile Include="Metadata.cs" />
@@ -129,7 +131,5 @@
       <Link>ICSharpCode.SharpDevelop.snk</Link>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
