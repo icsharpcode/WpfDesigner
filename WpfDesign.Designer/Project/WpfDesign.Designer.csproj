@@ -47,11 +47,6 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
   <ItemGroup>
-    <Reference Include="DotNetProjects.Wpf.Extended.Toolkit, Version=2.5.6000.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DotNetProjects.Extended.Wpf.Toolkit.2.5.6000\lib\net40\DotNetProjects.Wpf.Extended.Toolkit.dll</HintPath>
-      <SpecificVersion>False</SpecificVersion>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PresentationCore">
       <Private>False</Private>
       <SpecificVersion>False</SpecificVersion>
@@ -550,6 +545,5 @@
     <None Include="..\..\ICSharpCode.SharpDevelop.snk">
       <Link>ICSharpCode.SharpDevelop.snk</Link>
     </None>
-    <None Include="packages.config" />
   </ItemGroup>
 </Project>

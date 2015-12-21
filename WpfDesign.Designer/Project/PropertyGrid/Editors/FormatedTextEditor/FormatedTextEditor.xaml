@@ -1,4 +1,5 @@
-﻿<UserControl x:Class="ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor.FormatedTextEditor"
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+<!--<UserControl x:Class="ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor.FormatedTextEditor"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -829,4 +830,4 @@
 		<Button Content="Cancel" Margin="0,34,10,0" HorizontalAlignment="Right" Width="90" Height="20" VerticalAlignment="Top" Click="Cancel_Click" />
 	</Grid>
 
-</UserControl>
+</UserControl>-->

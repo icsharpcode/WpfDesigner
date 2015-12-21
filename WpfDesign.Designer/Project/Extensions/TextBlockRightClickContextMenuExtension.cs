@@ -16,36 +16,36 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System.Windows.Controls;
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Extensions;
+//using System.Windows.Controls;
+//using ICSharpCode.WpfDesign.Adorners;
+//using ICSharpCode.WpfDesign.Extensions;
 
-namespace ICSharpCode.WpfDesign.Designer.Extensions
-{
-	[ExtensionServer(typeof (OnlyOneItemSelectedExtensionServer))]
-	[ExtensionFor(typeof (TextBlock))]
-	[Extension(Order = 40)]
-	public class TextBlockRightClickContextMenuExtension : PrimarySelectionAdornerProvider
-	{
-		DesignPanel panel;
-		ContextMenu contextMenu;
+//namespace ICSharpCode.WpfDesign.Designer.Extensions
+//{
+//	[ExtensionServer(typeof (OnlyOneItemSelectedExtensionServer))]
+//	[ExtensionFor(typeof (TextBlock))]
+//	[Extension(Order = 40)]
+//	public class TextBlockRightClickContextMenuExtension : PrimarySelectionAdornerProvider
+//	{
+//		DesignPanel panel;
+//		ContextMenu contextMenu;
 
-		protected override void OnInitialized()
-		{
-			base.OnInitialized();
+//		protected override void OnInitialized()
+//		{
+//			base.OnInitialized();
 
-			contextMenu = new TextBlockRightClickContextMenu(ExtendedItem);
-			panel = ExtendedItem.Context.Services.DesignPanel as DesignPanel;
-			if (panel != null)
-				panel.AddContextMenu(contextMenu);
-		}
+//			contextMenu = new TextBlockRightClickContextMenu(ExtendedItem);
+//			panel = ExtendedItem.Context.Services.DesignPanel as DesignPanel;
+//			if (panel != null)
+//				panel.AddContextMenu(contextMenu);
+//		}
 
-		protected override void OnRemove()
-		{
-			if (panel != null)
-				panel.RemoveContextMenu(contextMenu);
+//		protected override void OnRemove()
+//		{
+//			if (panel != null)
+//				panel.RemoveContextMenu(contextMenu);
 
-			base.OnRemove();
-		}
-	}
-}
+//			base.OnRemove();
+//		}
+//	}
+//}

@@ -16,172 +16,172 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor;
-using Xceed.Wpf.Toolkit;
-using RichTextBox = System.Windows.Controls.RichTextBox;
+//using System;
+//using System.Windows;
+//using System.Windows.Controls;
+//using System.Windows.Documents;
+//using System.Windows.Input;
+//using ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor;
+//using Xceed.Wpf.Toolkit;
+//using RichTextBox = System.Windows.Controls.RichTextBox;
 
-namespace ICSharpCode.WpfDesign.Designer.Controls
-{
-	/// <summary>
-	/// Supports editing Text in the Designer
-	/// </summary>
-	public class InPlaceEditor : Control
-	{
-		static InPlaceEditor()
-		{
-			DefaultStyleKeyProperty.OverrideMetadata(typeof (InPlaceEditor), new FrameworkPropertyMetadata(typeof (InPlaceEditor)));
-		}
+//namespace ICSharpCode.WpfDesign.Designer.Controls
+//{
+//	/// <summary>
+//	/// Supports editing Text in the Designer
+//	/// </summary>
+//	public class InPlaceEditor : Control
+//	{
+//		static InPlaceEditor()
+//		{
+//			DefaultStyleKeyProperty.OverrideMetadata(typeof (InPlaceEditor), new FrameworkPropertyMetadata(typeof (InPlaceEditor)));
+//		}
 		
-		/// <summary>
-		/// This property is binded to the Text Property of the editor.
-		/// </summary>
-		public static readonly DependencyProperty BindProperty =
-			DependencyProperty.Register("Bind", typeof (string), typeof (InPlaceEditor), new FrameworkPropertyMetadata());
+//		/// <summary>
+//		/// This property is binded to the Text Property of the editor.
+//		/// </summary>
+//		public static readonly DependencyProperty BindProperty =
+//			DependencyProperty.Register("Bind", typeof (string), typeof (InPlaceEditor), new FrameworkPropertyMetadata());
 		
-		public string Bind{
-			get { return (string) GetValue(BindProperty); }
-			set { SetValue(BindProperty, value); }
-		}
+//		public string Bind{
+//			get { return (string) GetValue(BindProperty); }
+//			set { SetValue(BindProperty, value); }
+//		}
 		
-		readonly DesignItem designItem;
-		ChangeGroup changeGroup;
-		TextBlock textBlock;
-		RichTextBox editor;
+//		readonly DesignItem designItem;
+//		ChangeGroup changeGroup;
+//		TextBlock textBlock;
+//		RichTextBox editor;
 		
-		bool _isChangeGroupOpen;
+//		bool _isChangeGroupOpen;
 		
-		/// <summary>
-		/// This is the name of the property that is being edited for example Window.Title, Button.Content .
-		/// </summary>
-		string property;
+//		/// <summary>
+//		/// This is the name of the property that is being edited for example Window.Title, Button.Content .
+//		/// </summary>
+//		string property;
 		
-		public InPlaceEditor(DesignItem designItem)
-		{
-			this.designItem = designItem;					
-		}
+//		public InPlaceEditor(DesignItem designItem)
+//		{
+//			this.designItem = designItem;					
+//		}
 
-		public override void OnApplyTemplate()
-		{
-			base.OnApplyTemplate();
+//		public override void OnApplyTemplate()
+//		{
+//			base.OnApplyTemplate();
 			
-			editor = Template.FindName("editor", this) as RichTextBox; // Gets the TextBox-editor from the Template
+//			editor = Template.FindName("editor", this) as RichTextBox; // Gets the TextBox-editor from the Template
 			
-			editor.PreviewKeyDown+= delegate(object sender, KeyEventArgs e) {
-				if (e.Key == Key.Enter && (e.KeyboardDevice.Modifiers & ModifierKeys.Shift) != ModifierKeys.Shift)
-				{
-					e.Handled = true;
-				} };
-			ToolTip = "Edit the Text. Press"+Environment.NewLine+"Enter to make changes."+Environment.NewLine+"Shift+Enter to insert a newline."+Environment.NewLine+"Esc to cancel editing.";
+//			editor.PreviewKeyDown+= delegate(object sender, KeyEventArgs e) {
+//				if (e.Key == Key.Enter && (e.KeyboardDevice.Modifiers & ModifierKeys.Shift) != ModifierKeys.Shift)
+//				{
+//					e.Handled = true;
+//				} };
+//			ToolTip = "Edit the Text. Press"+Environment.NewLine+"Enter to make changes."+Environment.NewLine+"Shift+Enter to insert a newline."+Environment.NewLine+"Esc to cancel editing.";
 
-			RichTextBoxFormatBarManager.SetFormatBar(editor, new RichTextBoxFormatBar());
+//			RichTextBoxFormatBarManager.SetFormatBar(editor, new RichTextBoxFormatBar());
 
-			editor.TextChanged += editor_TextChanged;
-			FormatedTextEditor.SetRichTextBoxTextFromTextBlock(editor, ((TextBlock) designItem.Component));
-		}
+//			editor.TextChanged += editor_TextChanged;
+//			FormatedTextEditor.SetRichTextBoxTextFromTextBlock(editor, ((TextBlock) designItem.Component));
+//		}
 
-		void editor_TextChanged(object sender, TextChangedEventArgs e)
-		{
-			FormatedTextEditor.SetTextBlockTextFromRichTextBlox(this.designItem, editor);
-		}
+//		void editor_TextChanged(object sender, TextChangedEventArgs e)
+//		{
+//			FormatedTextEditor.SetTextBlockTextFromRichTextBlox(this.designItem, editor);
+//		}
 
-		protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
-		{
-			base.OnGotKeyboardFocus(e);
-			StartEditing();
-		}
+//		protected override void OnGotKeyboardFocus(KeyboardFocusChangedEventArgs e)
+//		{
+//			base.OnGotKeyboardFocus(e);
+//			StartEditing();
+//		}
 
-		protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e) {
-			if (changeGroup != null && _isChangeGroupOpen)
-			{
-				changeGroup.Abort();
-				_isChangeGroupOpen = false;
-			}
-			if (textBlock != null)
-				textBlock.Visibility = Visibility.Visible;
-			Reset();
-			base.OnLostKeyboardFocus(e);
-		}
+//		protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e) {
+//			if (changeGroup != null && _isChangeGroupOpen)
+//			{
+//				changeGroup.Abort();
+//				_isChangeGroupOpen = false;
+//			}
+//			if (textBlock != null)
+//				textBlock.Visibility = Visibility.Visible;
+//			Reset();
+//			base.OnLostKeyboardFocus(e);
+//		}
 
-		/// <summary>
-		/// Change is committed if the user releases the Escape Key.
-		/// </summary>
-		/// <param name="e"></param>
-		protected override void OnKeyUp(KeyEventArgs e)
-		{
-			base.OnKeyUp(e);
-			if(e.KeyboardDevice.Modifiers != ModifierKeys.Shift) {
-				switch(e.Key) {						
-					case Key.Enter:
-						// Commit the changes to DOM.
-						if(property!=null)
-							designItem.Properties[property].SetValue(Bind);
-						if(designItem.Properties[Control.FontFamilyProperty].ValueOnInstance!=editor.FontFamily)
-							designItem.Properties[Control.FontFamilyProperty].SetValue(editor.FontFamily);
-						if((double)designItem.Properties[Control.FontSizeProperty].ValueOnInstance!=editor.FontSize)
-							designItem.Properties[Control.FontSizeProperty].SetValue(editor.FontSize);
-						if((FontStretch)designItem.Properties[Control.FontStretchProperty].ValueOnInstance!=editor.FontStretch)
-							designItem.Properties[Control.FontStretchProperty].SetValue(editor.FontStretch);
-						if((FontStyle)designItem.Properties[Control.FontStyleProperty].ValueOnInstance!=editor.FontStyle)
-							designItem.Properties[Control.FontStyleProperty].SetValue(editor.FontStyle);
-						if((FontWeight)designItem.Properties[Control.FontWeightProperty].ValueOnInstance!=editor.FontWeight)
-							designItem.Properties[Control.FontWeightProperty].SetValue(editor.FontWeight);
+//		/// <summary>
+//		/// Change is committed if the user releases the Escape Key.
+//		/// </summary>
+//		/// <param name="e"></param>
+//		protected override void OnKeyUp(KeyEventArgs e)
+//		{
+//			base.OnKeyUp(e);
+//			if(e.KeyboardDevice.Modifiers != ModifierKeys.Shift) {
+//				switch(e.Key) {						
+//					case Key.Enter:
+//						// Commit the changes to DOM.
+//						if(property!=null)
+//							designItem.Properties[property].SetValue(Bind);
+//						if(designItem.Properties[Control.FontFamilyProperty].ValueOnInstance!=editor.FontFamily)
+//							designItem.Properties[Control.FontFamilyProperty].SetValue(editor.FontFamily);
+//						if((double)designItem.Properties[Control.FontSizeProperty].ValueOnInstance!=editor.FontSize)
+//							designItem.Properties[Control.FontSizeProperty].SetValue(editor.FontSize);
+//						if((FontStretch)designItem.Properties[Control.FontStretchProperty].ValueOnInstance!=editor.FontStretch)
+//							designItem.Properties[Control.FontStretchProperty].SetValue(editor.FontStretch);
+//						if((FontStyle)designItem.Properties[Control.FontStyleProperty].ValueOnInstance!=editor.FontStyle)
+//							designItem.Properties[Control.FontStyleProperty].SetValue(editor.FontStyle);
+//						if((FontWeight)designItem.Properties[Control.FontWeightProperty].ValueOnInstance!=editor.FontWeight)
+//							designItem.Properties[Control.FontWeightProperty].SetValue(editor.FontWeight);
 						
-						if (changeGroup != null && _isChangeGroupOpen) {
-							FormatedTextEditor.SetTextBlockTextFromRichTextBlox(this.designItem, editor);
-							changeGroup.Commit();
-							_isChangeGroupOpen = false;
-						}
-						changeGroup = null;
-						this.Visibility = Visibility.Hidden;
-						((TextBlock)designItem.Component).Visibility = Visibility.Visible;
-						break;
-					case Key.Escape:
-						AbortEditing();
-						break;
-				}
-			} else if(e.Key == Key.Enter) {
-				editor.Selection.Text += Environment.NewLine;
-			}
-		}
+//						if (changeGroup != null && _isChangeGroupOpen) {
+//							FormatedTextEditor.SetTextBlockTextFromRichTextBlox(this.designItem, editor);
+//							changeGroup.Commit();
+//							_isChangeGroupOpen = false;
+//						}
+//						changeGroup = null;
+//						this.Visibility = Visibility.Hidden;
+//						((TextBlock)designItem.Component).Visibility = Visibility.Visible;
+//						break;
+//					case Key.Escape:
+//						AbortEditing();
+//						break;
+//				}
+//			} else if(e.Key == Key.Enter) {
+//				editor.Selection.Text += Environment.NewLine;
+//			}
+//		}
 				
-		private void Reset()
-		{
-			if (textBlock != null) {
-				if (property != null)
-					textBlock.Text = (string) designItem.Properties[property].ValueOnInstance;
-				textBlock.FontFamily = (System.Windows.Media.FontFamily)designItem.Properties[Control.FontFamilyProperty].ValueOnInstance;
-				textBlock.FontSize = (double) designItem.Properties[Control.FontSizeProperty].ValueOnInstance;
-				textBlock.FontStretch = (FontStretch) designItem.Properties[Control.FontStretchProperty].ValueOnInstance;
-				textBlock.FontStretch = (FontStretch) designItem.Properties[Control.FontStretchProperty].ValueOnInstance;
-				textBlock.FontWeight = (FontWeight) designItem.Properties[Control.FontWeightProperty].ValueOnInstance;
-			}
-		}
+//		private void Reset()
+//		{
+//			if (textBlock != null) {
+//				if (property != null)
+//					textBlock.Text = (string) designItem.Properties[property].ValueOnInstance;
+//				textBlock.FontFamily = (System.Windows.Media.FontFamily)designItem.Properties[Control.FontFamilyProperty].ValueOnInstance;
+//				textBlock.FontSize = (double) designItem.Properties[Control.FontSizeProperty].ValueOnInstance;
+//				textBlock.FontStretch = (FontStretch) designItem.Properties[Control.FontStretchProperty].ValueOnInstance;
+//				textBlock.FontStretch = (FontStretch) designItem.Properties[Control.FontStretchProperty].ValueOnInstance;
+//				textBlock.FontWeight = (FontWeight) designItem.Properties[Control.FontWeightProperty].ValueOnInstance;
+//			}
+//		}
 
-		public void AbortEditing() {
-			if (changeGroup != null && _isChangeGroupOpen) {
-				Reset();
-				changeGroup.Abort();
-				_isChangeGroupOpen = false;
-			}
-			this.Visibility = Visibility.Hidden;
-			if (textBlock != null)
-				textBlock.Visibility = Visibility.Visible;
-			Reset();
-		}
+//		public void AbortEditing() {
+//			if (changeGroup != null && _isChangeGroupOpen) {
+//				Reset();
+//				changeGroup.Abort();
+//				_isChangeGroupOpen = false;
+//			}
+//			this.Visibility = Visibility.Hidden;
+//			if (textBlock != null)
+//				textBlock.Visibility = Visibility.Visible;
+//			Reset();
+//		}
 
-		public void StartEditing() {
-			if (changeGroup == null) {
-				changeGroup = designItem.OpenGroup("Change Text");
-				_isChangeGroupOpen = true;
-			}
-			this.Visibility = Visibility.Visible;
-			if (textBlock != null)
-				textBlock.Visibility = Visibility.Hidden;
-		}		
-	}
-}
+//		public void StartEditing() {
+//			if (changeGroup == null) {
+//				changeGroup = designItem.OpenGroup("Change Text");
+//				_isChangeGroupOpen = true;
+//			}
+//			this.Visibility = Visibility.Visible;
+//			if (textBlock != null)
+//				textBlock.Visibility = Visibility.Hidden;
+//		}		
+//	}
+//}

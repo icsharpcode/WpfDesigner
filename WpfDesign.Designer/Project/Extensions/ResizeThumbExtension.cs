@@ -119,11 +119,11 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		void drag_Started(DragListener drag)
 		{
 			/* Abort editing Text if it was editing, because it interferes with the undo stack. */
-			foreach(var extension in this.ExtendedItem.Extensions){
-				if(extension is InPlaceEditorExtension){
-					((InPlaceEditorExtension)extension).AbortEdit();
-				}
-			}
+			//foreach(var extension in this.ExtendedItem.Extensions){
+			//	if(extension is InPlaceEditorExtension){
+			//		((InPlaceEditorExtension)extension).AbortEdit();
+			//	}
+			//}
 			
 			drag.Transform = this.ExtendedItem.GetCompleteAppliedTransformationToView();
 			
