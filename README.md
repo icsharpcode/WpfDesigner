@@ -10,7 +10,6 @@ The WPF Designer from SharpDevelop
  - [.NET 4.5](http://www.microsoft.com/en-au/download/details.aspx?id=30653)
 
 ##Libraries and Integrated tools:
-* [DotNetProjects Wpf Extended Toolkit] (https://github.com/dotnetprojects/WpfExtendedToolkit)
 
 For Sample App:
 * [Avalon Dock](http://avalondock.codeplex.com/)
