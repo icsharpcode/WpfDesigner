@@ -1,0 +1,60 @@
+﻿<Window x:Class="SimpleSample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleSample"
+        xmlns:sd="http://sharpdevelop.net"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+	<Window.Resources>
+		<ResourceDictionary>
+			<x:Array x:Key="toolBoxItems" Type="local:ToolBoxItem">
+				<local:ToolBoxItem Type="{x:Type Button}" />
+				<local:ToolBoxItem Type="{x:Type TextBlock}" />
+				<local:ToolBoxItem Type="{x:Type TextBox}" />
+				<local:ToolBoxItem Type="{x:Type Grid}" />
+				<local:ToolBoxItem Type="{x:Type Canvas}" />
+				<local:ToolBoxItem Type="{x:Type ComboBox}" />
+				<local:ToolBoxItem Type="{x:Type ListBox}" />
+				<local:ToolBoxItem Type="{x:Type Path}" />
+				<local:ToolBoxItem Type="{x:Type Line}" />
+				<local:ToolBoxItem Type="{x:Type Rectangle}" />
+				<local:ToolBoxItem Type="{x:Type Border}" />
+				<local:ToolBoxItem Type="{x:Type CheckBox}" />
+			</x:Array>
+		</ResourceDictionary>
+	</Window.Resources>
+	<Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="100"/>
+			<ColumnDefinition Width="*"/>
+			<ColumnDefinition Width="250"/>
+		</Grid.ColumnDefinitions>
+		<ListBox x:Name="lstControls" ScrollViewer.CanContentScroll="False"
+                 Margin="0,0,0,0"
+                 ItemsSource="{Binding Source={StaticResource toolBoxItems}}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Left" Width="100" SelectionChanged="lstControls_SelectionChanged"
+            >
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+						<Viewbox Height="20" Width="90"
+                                 HorizontalAlignment="Stretch"
+                                 VerticalAlignment="Bottom"
+                                 DockPanel.Dock="Bottom">
+							<TextBlock HorizontalAlignment="Center"
+                                       VerticalAlignment="Bottom"
+                                       Text="{Binding Name}"
+                                       TextAlignment="Center" />
+						</Viewbox>
+					
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+		<sd:DesignSurface Grid.Column="1" x:Name="designSurface" Margin="0,0,6,0"/>
+		<GridSplitter Grid.Column="1" Width="6"></GridSplitter>
+		<sd:PropertyGridView Grid.Column="2"
+			SelectedItems="{Binding DesignContext.Services.Selection.SelectedItems, ElementName=designSurface}"/>
+
+	</Grid>
+</Window>
