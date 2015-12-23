@@ -45,7 +45,7 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		}
 
 		/// <summary>
-		/// Class-Name
+		/// Class-Name Property
 		/// </summary>
 		public static readonly DependencyProperty ClassProperty =
 			DependencyProperty.RegisterAttached("Class", typeof(string), typeof(XamlNamespaceProperties));
@@ -55,16 +55,25 @@ namespace ICSharpCode.WpfDesign.XamlDom
 
 		#region ClassModifier
 
+		/// <summary>
+		/// Getter for the <see cref="ClassModifierProperty"/>
+		/// </summary>
 		public static string GetClassModifier(DependencyObject obj)
 		{
 			return (string)obj.GetValue(ClassModifierProperty);
 		}
 
+		/// <summary>
+		/// Setter for the <see cref="ClassModifierProperty"/>
+		/// </summary>
 		public static void SetClassModifier(DependencyObject obj, string value)
 		{
 			obj.SetValue(ClassModifierProperty, value);
 		}
 
+		/// <summary>
+		/// Class Modifier Property
+		/// </summary>
 		public static readonly DependencyProperty ClassModifierProperty =
 			DependencyProperty.RegisterAttached("ClassModifier", typeof(string), typeof(XamlNamespaceProperties));
 
@@ -72,16 +81,25 @@ namespace ICSharpCode.WpfDesign.XamlDom
 
 		#region TypeArguments
 
+		/// <summary>
+		/// Getter for the <see cref="TypeArgumentsProperty"/>
+		/// </summary>
 		public static string GetTypeArguments(DependencyObject obj)
 		{
 			return (string)obj.GetValue(TypeArgumentsProperty);
 		}
 
+		/// <summary>
+		/// Getter for the <see cref="TypeArgumentsProperty"/>
+		/// </summary>
 		public static void SetTypeArguments(DependencyObject obj, string value)
 		{
 			obj.SetValue(TypeArgumentsProperty, value);
 		}
 
+		/// <summary>
+		/// Type Arguments Property
+		/// </summary>
 		public static readonly DependencyProperty TypeArgumentsProperty =
 			DependencyProperty.RegisterAttached("TypeArguments", typeof(string), typeof(XamlNamespaceProperties));
 

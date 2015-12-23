@@ -46,6 +46,9 @@ namespace ICSharpCode.WpfDesign
 		IPlacementBehavior currentContainerBehavior;
 		bool isAborted, isCommitted;
 		
+		/// <summary>
+		/// Offset for inserted Components
+		/// </summary>
 		public const double PasteOffset = 10;
 		
 		#region Properties
