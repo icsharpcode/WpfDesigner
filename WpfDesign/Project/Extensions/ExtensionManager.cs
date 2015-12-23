@@ -95,6 +95,11 @@ namespace ICSharpCode.WpfDesign.Extensions
 			list.Add(entry);
 		}
 
+		/// <summary>
+		/// Remove a Extension form a Type, so it is not used!
+		/// </summary>
+		/// <param name="extendedItemType"></param>
+		/// <param name="extensionType"></param>
 		public void RemoveExtension(Type extendedItemType, Type extensionType)
 		{
 			List<ExtensionEntry> list;

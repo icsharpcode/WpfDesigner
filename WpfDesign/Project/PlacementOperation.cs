@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Windows;
 using System.Windows.Media;
 
@@ -32,8 +31,15 @@ namespace ICSharpCode.WpfDesign
 	/// </summary>
 	public sealed class PlacementOperation
 	{
+		/// <summary>
+		/// A exception wich can Happen during Placement
+		/// </summary>
 		public class PlacementOperationException : InvalidOperationException
 		{
+			/// <summary>
+			/// Constructor for Placement Exception
+			/// </summary>
+			/// <param name="message"></param>
 			public PlacementOperationException(string message)
 				: base(message)
 			{ }

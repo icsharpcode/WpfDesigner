@@ -22,7 +22,11 @@ using System.Collections.Specialized;
 
 namespace ICSharpCode.WpfDesign.Interfaces
 {
-    public interface IObservableList<T> : IList<T>, INotifyCollectionChanged
+	/// <summary>
+	/// A IList wich implements INotifyCollectionChanged
+	/// </summary>
+	/// <typeparam name="T"></typeparam>
+	public interface IObservableList<T> : IList<T>, INotifyCollectionChanged
     {
     }
 }

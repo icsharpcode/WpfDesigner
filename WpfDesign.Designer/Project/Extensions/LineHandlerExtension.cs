@@ -26,10 +26,12 @@ using System.Windows.Controls;
 using ICSharpCode.WpfDesign.UIExtensions;
 namespace ICSharpCode.WpfDesign.Designer.Extensions
 {
-	/// <summary>
-	/// Description of LineHandlerExtension.
-	/// </summary>
+#pragma warning disable CS3016 // Arrays as attribute arguments is not CLS-compliant
+							  /// <summary>
+							  /// Description of LineHandlerExtension.
+							  /// </summary>
 	[ExtensionFor(typeof(Line), OverrideExtensions = new Type[] { typeof(ResizeThumbExtension), typeof(SelectedElementRectangleExtension), typeof(CanvasPositionExtension), typeof(QuickOperationMenuExtension), typeof(RotateThumbExtension), typeof(RenderTransformOriginExtension), typeof(SkewThumbExtension) })]
+#pragma warning restore CS3016 // Arrays as attribute arguments is not CLS-compliant
 	public class LineHandlerExtension : LineExtensionBase
 	{
 		private double CurrentX2;

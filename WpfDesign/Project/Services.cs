@@ -178,10 +178,25 @@ namespace ICSharpCode.WpfDesign
 	/// </summary>
 	public interface IComponentPropertyService
 	{
+		/// <summary>
+		/// Get all Properties for a DesignItem
+		/// </summary>
+		/// <param name="designItem"></param>
+		/// <returns></returns>
 		IEnumerable<MemberDescriptor> GetAvailableProperties(DesignItem designItem);
 
+		/// <summary>
+		/// Get all possible Events for a DesignItem
+		/// </summary>
+		/// <param name="designItem"></param>
+		/// <returns></returns>
 		IEnumerable<MemberDescriptor> GetAvailableEvents(DesignItem designItem);
 
+		/// <summary>
+		/// Get all Properties for multiple Design Items 
+		/// </summary>
+		/// <param name="designItems"></param>
+		/// <returns></returns>
 		IEnumerable<MemberDescriptor> GetCommonAvailableProperties(IEnumerable<DesignItem> designItems);
 	}
 	#endregion

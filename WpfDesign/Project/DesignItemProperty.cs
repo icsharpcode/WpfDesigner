@@ -170,9 +170,16 @@ namespace ICSharpCode.WpfDesign
 				return FullName;
 			}
 		}
-		
+
+		/// <summary>
+		/// It's raised when a property value changes.
+		/// </summary>
 		public event PropertyChangedEventHandler PropertyChanged;
 
+		/// <summary>
+		/// Raises the Property changed Event for the speciefied Property
+		/// </summary>
+		/// <param name="propertyName"></param>
 	    protected virtual void OnPropertyChanged(string propertyName)
 	    {
 	        var handler = PropertyChanged;
