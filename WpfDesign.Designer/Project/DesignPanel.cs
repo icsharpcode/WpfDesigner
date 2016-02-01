@@ -36,9 +36,10 @@ namespace ICSharpCode.WpfDesign.Designer
 	{
 		#region Hit Testing
 		
-		private List<DependencyObject> hitTestElements = new List<DependencyObject>();
-		private DependencyObject lastElement;
-		
+		private List<DesignItem> hitTestElements = new List<DesignItem>();
+		private List<DesignItem> skippedHitTestElements = new List<DesignItem>();
+
+
 		/// <summary>
 		/// this element is always hit (unless HitTestVisible is set to false)
 		/// </summary>
@@ -57,11 +58,17 @@ namespace ICSharpCode.WpfDesign.Designer
 		
 		void RunHitTest(Visual reference, Point point, HitTestFilterCallback filterCallback, HitTestResultCallback resultCallback)
 		{
+			if (!Keyboard.IsKeyDown(Key.LeftAlt))
+			{
+				hitTestElements.Clear();
+				skippedHitTestElements.Clear();
+			}
+
 			VisualTreeHelper.HitTest(reference, filterCallback, resultCallback,
 			                         new PointHitTestParameters(point));
 		}
-		
-		HitTestFilterBehavior FilterHitTestInvisibleElements(DependencyObject potentialHitTestTarget)
+
+		HitTestFilterBehavior FilterHitTestInvisibleElements(DependencyObject potentialHitTestTarget, HitTestType hitTestType)
 		{
 			UIElement element = potentialHitTestTarget as UIElement;
 			
@@ -71,13 +78,38 @@ namespace ICSharpCode.WpfDesign.Designer
 				}
 				
 				var designItem = Context.Services.Component.GetDesignItem(element) as XamlDesignItem;
-				
+
+				if (hitTestType == HitTestType.ElementSelection)
+				{
+					if (Keyboard.IsKeyDown(Key.LeftAlt))
+					{
+						if (designItem != null)
+						{
+							if (skippedHitTestElements.LastOrDefault() == designItem ||
+							    (hitTestElements.Contains(designItem) && !skippedHitTestElements.Contains(designItem)))
+							{
+								skippedHitTestElements.Remove(designItem);
+								return HitTestFilterBehavior.ContinueSkipSelfAndChildren;
+							}
+						}
+					}
+				}
+				else
+				{
+					hitTestElements.Clear();
+					skippedHitTestElements.Clear();
+				}
+
 				if (designItem != null && designItem.IsDesignTimeLocked) {
 					return HitTestFilterBehavior.ContinueSkipSelfAndChildren;
 				}
+
+				if (designItem != null && !hitTestElements.Contains(designItem))
+				{
+					hitTestElements.Add(designItem);
+					skippedHitTestElements.Add(designItem);
+				}
 			}
-			
-			hitTestElements.Add(element);
 			
 			return HitTestFilterBehavior.Continue;
 		}
@@ -87,8 +119,6 @@ namespace ICSharpCode.WpfDesign.Designer
 		/// </summary>
 		public DesignPanelHitTestResult HitTest(Point mousePosition, bool testAdorners, bool testDesignSurface, HitTestType hitTestType)
 		{
-			hitTestElements.Clear();
-			
 			DesignPanelHitTestResult result = DesignPanelHitTestResult.NoHit;
 			HitTest(mousePosition, testAdorners, testDesignSurface,
 			        delegate(DesignPanelHitTestResult r) {
@@ -112,9 +142,8 @@ namespace ICSharpCode.WpfDesign.Designer
 
 			bool continueHitTest = true;
 
-			HitTestFilterCallback filterBehavior = CustomHitTestFilterBehavior ?? FilterHitTestInvisibleElements;
+			HitTestFilterCallback filterBehavior = CustomHitTestFilterBehavior ?? (x => FilterHitTestInvisibleElements(x, hitTestType));
 			CustomHitTestFilterBehavior = null;
-			hitTestElements.Clear();
 
 			if (testAdorners) {
 
@@ -149,18 +178,6 @@ namespace ICSharpCode.WpfDesign.Designer
 							ViewService viewService = _context.Services.View;
 							DependencyObject obj = result.VisualHit;
 							
-							if (hitTestType == HitTestType.ElementSelection)
-							{
-								if (Keyboard.IsKeyDown(Key.LeftAlt))
-									if (lastElement != null && lastElement != _context.RootItem.View &&
-									    hitTestElements.Contains(lastElement))
-								{
-									var idx = hitTestElements.IndexOf(lastElement) - 1;
-									if (idx >= 0)
-										obj = hitTestElements[idx];
-								}
-							}
-							
 							while (obj != null) {
 								if ((customResult.ModelHit = viewService.GetModel(obj)) != null)
 									break;
@@ -168,11 +185,6 @@ namespace ICSharpCode.WpfDesign.Designer
 							}
 							if (customResult.ModelHit == null) {
 								customResult.ModelHit = _context.RootItem;
-							}
-							
-							if (hitTestType == HitTestType.ElementSelection)
-							{
-								lastElement = obj;
 							}
 							
 							
