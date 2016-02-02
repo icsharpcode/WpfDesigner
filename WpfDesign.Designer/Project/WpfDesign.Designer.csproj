@@ -84,6 +84,7 @@
     <Compile Include="..\..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="StretchDirection.cs" />
     <Compile Include="ArrangeDirection.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Controls\Picker.cs" />

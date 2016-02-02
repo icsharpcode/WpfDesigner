@@ -432,6 +432,46 @@ namespace ICSharpCode.WpfDesign.Designer
 			changeGroup.Commit();
 		}
 
+		public static void StretchItems(IEnumerable<DesignItem> items, StretchDirection stretchDirection)
+		{
+			var collection = items;
+
+			var container = collection.First().Parent;
+
+			if (collection.Any(x => x.Parent != container))
+				return;
+
+			var placement = container.Extensions.OfType<IPlacementBehavior>().FirstOrDefault();
+			if (placement == null)
+				return;
+
+			var changeGroup = container.OpenGroup("StretchItems");
+
+			var w = GetWidth(collection.First().View);
+			var h = GetHeight(collection.First().View);
+
+			foreach (var item in collection.Skip(1))
+			{
+				switch (stretchDirection)
+				{
+					case StretchDirection.Width:
+						{
+							if (!double.IsNaN(w))
+								item.Properties.GetProperty(FrameworkElement.WidthProperty).SetValue(w);
+						}
+						break;
+					case StretchDirection.Height:
+						{
+							if (!double.IsNaN(h))
+								item.Properties.GetProperty(FrameworkElement.HeightProperty).SetValue(h);
+						}
+						break;
+				}
+			}
+
+			changeGroup.Commit();
+		}
+
 		public static void ArrangeItems(IEnumerable<DesignItem> items, ArrangeDirection arrangeDirection)
 		{
 			var collection = items;
@@ -449,8 +489,6 @@ namespace ICSharpCode.WpfDesign.Designer
 
 			var operation = PlacementOperation.Start(items.ToList(), PlacementType.Move);
 			
-			//var changeGroup = container.OpenGroup("Arrange Elements");
-
 			List<ItemPos> itemList = new List<ItemPos>();
 			foreach (var item in collection)
 			{

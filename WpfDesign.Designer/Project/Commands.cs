@@ -33,8 +33,10 @@ namespace ICSharpCode.WpfDesign.Designer
         public static ICommand AlignRightCommand = new RoutedCommand();
         public static ICommand RotateLeftCommand = new RoutedCommand();
         public static ICommand RotateRightCommand = new RoutedCommand();
-        
-        static Commands()
+		public static ICommand StretchToSameWidthCommand = new RoutedCommand();
+		public static ICommand StretchToSameHeightCommand = new RoutedCommand();
+
+		static Commands()
         {
         }
 	}

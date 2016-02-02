@@ -73,7 +73,10 @@ namespace ICSharpCode.WpfDesign.Designer
 			
 			this.AddCommandHandler(Commands.RotateLeftCommand, () => ModelTools.ApplyTransform(this.DesignContext.Services.Selection.PrimarySelection, new RotateTransform(-90)), () => this.DesignContext.Services.Selection.PrimarySelection != null);
 			this.AddCommandHandler(Commands.RotateRightCommand, () => ModelTools.ApplyTransform(this.DesignContext.Services.Selection.PrimarySelection, new RotateTransform(90)), () => this.DesignContext.Services.Selection.PrimarySelection != null);
-						
+
+			this.AddCommandHandler(Commands.StretchToSameWidthCommand, () => ModelTools.StretchItems(this.DesignContext.Services.Selection.SelectedItems, StretchDirection.Width), () => this.DesignContext.Services.Selection.SelectedItems.Count() > 1);
+			this.AddCommandHandler(Commands.StretchToSameHeightCommand, () => ModelTools.StretchItems(this.DesignContext.Services.Selection.SelectedItems, StretchDirection.Height), () => this.DesignContext.Services.Selection.SelectedItems.Count() > 1);
+
 			_sceneContainer = new Border() { AllowDrop = false, UseLayoutRounding = true };
 			_sceneContainer.SetValue(TextOptions.TextFormattingModeProperty, TextFormattingMode.Ideal);
 
