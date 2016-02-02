@@ -286,7 +286,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 					yield return designItem;
 					if (designItem.ContentProperty.Value != null) {
 						yield return designItem.ContentProperty.Value;
-						designItem = ExtendedItem; //set designitem back to current control after yield
+						designItem = designItem.ContentProperty.Value;
 					}
 				}
 			}
@@ -323,12 +323,12 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			if (!CanPlace(operation.PlacedItems.Select(x => x.Item), operation.Type, PlacementAlignment.Center))
 				return;
 
-			foreach (var item in AllDesignItems() /* ExtendedItem.ContentProperty.CollectionElements */
+			foreach (var item in AllDesignItems()
 			         .Except(operation.PlacedItems.Select(f => f.Item))
 			         .Where(x=> x.View != null && !GetDisableSnaplines(x.View))) {
 				if (item != null) {
-					var bounds = GetPosition(operation, item);
-					
+					var bounds = GetPositionRelativeToContainer(operation, item);
+
 					AddLines(bounds, 0, false);
 					if (SnaplineMargin > 0)
 					{
@@ -338,7 +338,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				}
 			}
 		}
-		
+
 		protected virtual void AddContainerSnaplines(Rect containerRect, List<SnaplinePlacementBehavior.Snapline> horizontalMap, List<SnaplinePlacementBehavior.Snapline> verticalMap)
 		{	
 		}
