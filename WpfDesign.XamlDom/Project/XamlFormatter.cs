@@ -2,9 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using System.Xml.Linq;
 
-namespace ICSharpCode.XamlDesigner
+namespace ICSharpCode.WpfDesign.XamlDom
 {
 	public static class XamlFormatter
 	{
@@ -15,16 +16,26 @@ namespace ICSharpCode.XamlDesigner
 		static StringBuilder sb;
 		static int currentColumn;
 		static int nextColumn;
+		static int lineNumber;
 
 		public static string Format(string xaml)
 		{
+			Dictionary<XamlElementLineInfo, XamlElementLineInfo> dict;
+			return Format(xaml, out dict);
+		}
+
+		public static string Format(string xaml, out Dictionary<XamlElementLineInfo, XamlElementLineInfo> mappingOldNewLineInfo)
+		{
 			sb = new StringBuilder();
+			lineNumber = 1;
+			mappingOldNewLineInfo = new Dictionary<XamlElementLineInfo, XamlElementLineInfo>();
+
 			currentColumn = 0;
 			nextColumn = 0;			
 
 			try {
-				var doc = XDocument.Parse(xaml);
-				WalkContainer(doc);
+				var doc = XDocument.Parse(xaml, LoadOptions.SetLineInfo);
+				WalkContainer(doc, mappingOldNewLineInfo);
 				return sb.ToString();
 			}
 			catch {
@@ -32,11 +43,11 @@ namespace ICSharpCode.XamlDesigner
 			}
 		}
 
-		static void WalkContainer(XContainer node)
+		static void WalkContainer(XContainer node, Dictionary<XamlElementLineInfo, XamlElementLineInfo> mappingOldNewLineInfo)
 		{
 			foreach (var c in node.Nodes()) {
 				if (c is XElement)  {
-					WalkElement(c as XElement);
+					WalkElement(c as XElement, mappingOldNewLineInfo);
 				} else {
 					NewLine();
 					Append(c.ToString().Trim());
@@ -44,11 +55,17 @@ namespace ICSharpCode.XamlDesigner
 			}
 		}
 
-		static void WalkElement(XElement e)
+		static void WalkElement(XElement e, Dictionary<XamlElementLineInfo, XamlElementLineInfo> mappingOldNewLineInfo)
 		{
+			var info = (IXmlLineInfo)e;
+			var newLineInfo = new XamlElementLineInfo(lineNumber, currentColumn);
+			mappingOldNewLineInfo.Add(new XamlElementLineInfo(info.LineNumber, info.LinePosition), newLineInfo);
+			
+			Console.WriteLine(info.LinePosition);
 			NewLine();
 			string prefix1 = e.GetPrefixOfNamespace(e.Name.Namespace);
 			string name1 = prefix1 == null ? e.Name.LocalName : prefix1 + ":" + e.Name.LocalName;
+			newLineInfo.Position = sb.Length;
 			Append("<" + name1);
 
 			List<AttributeString> list = new List<AttributeString>();
@@ -86,7 +103,7 @@ namespace ICSharpCode.XamlDesigner
 				Append(">");
 				nextColumn += Indenation;
 
-				WalkContainer(e);
+				WalkContainer(e, mappingOldNewLineInfo);
 
 				nextColumn -= Indenation;
 				NewLine();
@@ -95,11 +112,15 @@ namespace ICSharpCode.XamlDesigner
 			else {
 				Append(" />");
 			}
+
+			newLineInfo.Length = sb.Length - newLineInfo.Position;
 		}
 
 		static void NewLine()
 		{
-			if (sb.Length > 0) {
+			if (sb.Length > 0)
+			{
+				lineNumber++;
 				sb.AppendLine();			
 				sb.Append(new string(' ', nextColumn));
 				currentColumn = nextColumn;

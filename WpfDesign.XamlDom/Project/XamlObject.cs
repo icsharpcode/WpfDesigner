@@ -117,9 +117,14 @@ namespace ICSharpCode.WpfDesign.XamlDom
 			parentObject = (ParentProperty != null) ? ParentProperty.ParentObject : null;
 			base.OnParentPropertyChanged();
 		}
-		
-		internal XmlElement XmlElement {
+
+		public XmlElement XmlElement {
 			get { return element; }
+		}
+
+		public PositionXmlElement PositionXmlElement
+		{
+			get { return element as PositionXmlElement; }
 		}
 
 		XmlAttribute xmlAttribute;

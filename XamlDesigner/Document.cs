@@ -61,6 +61,13 @@ namespace ICSharpCode.XamlDesigner
 				}
 				else {
 					UpdateXaml();
+
+					if (this.DesignContext.Services.Selection.PrimarySelection != null)
+					{
+						var sel = this.DesignContext.Services.Selection.PrimarySelection;
+						var ln = ((PositionXmlElement) ((XamlDesignItem) sel).XamlObject.XmlElement).LineNumber;
+						Console.WriteLine(ln);
+					}
 				}
 				RaisePropertyChanged("Mode");
 				RaisePropertyChanged("InXamlMode");
@@ -102,6 +109,20 @@ namespace ICSharpCode.XamlDesigner
 				RaisePropertyChanged("IsDirty");
 				RaisePropertyChanged("Name");
 				RaisePropertyChanged("Title");
+			}
+		}
+
+		public XamlElementLineInfo xamlElementLineInfo;
+		public XamlElementLineInfo XamlElementLineInfo
+		{
+			get
+			{
+				return xamlElementLineInfo;
+			}
+			private set
+			{
+				xamlElementLineInfo = value;
+				RaisePropertyChanged("XamlElementLineInfo");
 			}
 		}
 
@@ -199,7 +220,17 @@ namespace ICSharpCode.XamlDesigner
 			var sb = new StringBuilder();
 			using (var xmlWriter = new XamlXmlWriter(sb)) {
 				DesignSurface.SaveDesigner(xmlWriter);
-				Text = XamlFormatter.Format(sb.ToString());
+				Dictionary<XamlElementLineInfo, XamlElementLineInfo> d;
+				Text = XamlFormatter.Format(sb.ToString(), out d);
+
+				if (DesignSurface.DesignContext.Services.Selection.PrimarySelection != null)
+				{
+					var item = DesignSurface.DesignContext.Services.Selection.PrimarySelection;
+					var line = ((PositionXmlElement) ((XamlDesignItem) item).XamlObject.XmlElement).LineNumber;
+					var pos = (((XamlDesignItem)item).XamlObject.PositionXmlElement).LinePosition;
+					var newP = d.FirstOrDefault(x => x.Key.LineNumber == line && x.Key.LinePosition == pos);
+					XamlElementLineInfo = newP.Value;
+				}
 			}
 		}
 

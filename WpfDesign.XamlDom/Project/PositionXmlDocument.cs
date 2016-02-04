@@ -16,6 +16,10 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
+using System;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Windows.Controls;
 using System.Xml;
 
 namespace ICSharpCode.WpfDesign.XamlDom
@@ -62,6 +66,14 @@ namespace ICSharpCode.WpfDesign.XamlDom
 				lineInfo = null;
 			}
 		}
+
+		internal XmlWriter oldWriter;
+		internal Func<char[]> bufGetter;
+		internal Func<int> contentPosFieldGetter;
+		internal Func<int> buffPosGetter;
+		internal int lastCharacterPos = 0;
+		internal int linePositionPrevious = 0;
+		internal int lineCnt = 0;
 	}
 	
 	/// <summary>
@@ -71,40 +83,113 @@ namespace ICSharpCode.WpfDesign.XamlDom
 	[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Naming", "CA1710:IdentifiersShouldHaveCorrectSuffix")]
 	public class PositionXmlElement : XmlElement, IXmlLineInfo
 	{
-		internal PositionXmlElement (string prefix, string localName, string namespaceURI, XmlDocument doc, IXmlLineInfo lineInfo)
+		internal PositionXmlElement (string prefix, string localName, string namespaceURI, PositionXmlDocument doc, IXmlLineInfo lineInfo)
 			: base(prefix, localName, namespaceURI, doc)
 		{
-			if (lineInfo != null) {
-				this.lineNumber = lineInfo.LineNumber;
-				this.linePosition = lineInfo.LinePosition;
-				this.hasLineInfo = true;
+			if (lineInfo != null)
+			{
+				xamlElementLineInfo = new XamlElementLineInfo(lineInfo.LineNumber, lineInfo.LinePosition);
 			}
+
+			this.positionXmlDocument = doc;
 		}
-		
-		int lineNumber;
-		int linePosition;
-		bool hasLineInfo;
-		
+
+		PositionXmlDocument positionXmlDocument;
+
+		XamlElementLineInfo xamlElementLineInfo;
+
 		/// <summary>
 		/// Gets whether the element has line information.
 		/// </summary>
 		public bool HasLineInfo()
 		{
-			return hasLineInfo;
+			return xamlElementLineInfo != null;
 		}
-		
+
 		/// <summary>
 		/// Gets the line number.
 		/// </summary>
-		public int LineNumber {
-			get { return lineNumber; }
+		public int LineNumber
+		{
+			get { return xamlElementLineInfo.LineNumber; }
 		}
-		
+
 		/// <summary>
 		/// Gets the line position (column).
 		/// </summary>
-		public int LinePosition {
-			get { return linePosition; }
+		public int LinePosition
+		{
+			get { return xamlElementLineInfo.LinePosition; }
+		}
+
+		/// <summary>
+		/// Get the XamlElementLineInfo
+		/// </summary>
+		public XamlElementLineInfo XamlElementLineInfo
+		{
+			get { return xamlElementLineInfo; }
+		}
+
+		public override void WriteTo(XmlWriter w)
+		{
+			if (positionXmlDocument.oldWriter != w)
+			{
+				try
+				{
+					positionXmlDocument.oldWriter = w;
+					positionXmlDocument.lineCnt = 0;
+					positionXmlDocument.linePositionPrevious = 0;
+
+					var xmlWriterField = w.GetType()
+						.GetField("xmlWriter", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+					var xmlwriter = xmlWriterField.GetValue(w);
+					var rawTextWPrp = xmlwriter.GetType()
+						.GetProperty("InnerWriter", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+					var rawTextW = rawTextWPrp.GetValue(xmlwriter, null);
+					var bufCharsField = rawTextW.GetType()
+						.GetField("bufChars", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+					var contentPosField = rawTextW.GetType()
+						.GetField("contentPos", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+					var buffPosField = rawTextW.GetType()
+						.GetField("bufPos", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+					positionXmlDocument.bufGetter =
+						Expression.Lambda<Func<char[]>>(Expression.Field(Expression.Constant(rawTextW), bufCharsField)).Compile();
+					positionXmlDocument.contentPosFieldGetter =
+						Expression.Lambda<Func<int>>(Expression.Field(Expression.Constant(rawTextW), contentPosField)).Compile();
+					positionXmlDocument.buffPosGetter  =
+						Expression.Lambda<Func<int>>(Expression.Field(Expression.Constant(rawTextW), buffPosField)).Compile();
+				}
+				catch(Exception)
+				{ }
+			}
+
+			if (positionXmlDocument.bufGetter != null && positionXmlDocument.buffPosGetter != null)
+			{
+				var buff = positionXmlDocument.bufGetter();
+				var pos = positionXmlDocument.buffPosGetter();
+				for (int n = pos; n >= positionXmlDocument.lastCharacterPos; n--)
+				{
+					if (buff[n] == '\n')
+					{
+						positionXmlDocument.lineCnt++;
+					}
+				}
+
+				this.xamlElementLineInfo = new XamlElementLineInfo(positionXmlDocument.lineCnt + 1, pos + 1);
+				
+				if (buff[pos-1] != '>')
+					this.xamlElementLineInfo.LinePosition++;
+
+				this.xamlElementLineInfo.Position = pos;
+			}
+
+			base.WriteTo(w);
+
+			if (positionXmlDocument.bufGetter != null && positionXmlDocument.buffPosGetter != null)
+			{
+				var pos = positionXmlDocument.buffPosGetter();
+				this.xamlElementLineInfo.Length = pos - this.xamlElementLineInfo.Position;
+			}
 		}
 	}
 	

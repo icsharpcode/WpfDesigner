@@ -32,7 +32,7 @@ using System.Windows.Markup;
 namespace ICSharpCode.WpfDesign.Designer.Xaml
 {
 	[DebuggerDisplay("XamlDesignItem: {ComponentType.Name}")]
-	sealed class XamlDesignItem : DesignItem
+	public sealed class XamlDesignItem : DesignItem
 	{
 		readonly XamlObject _xamlObject;
 		readonly XamlDesignContext _designContext;
@@ -51,8 +51,8 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 				return _designContext._componentService;
 			}
 		}
-		
-		internal XamlObject XamlObject {
+
+		public XamlObject XamlObject {
 			get { return _xamlObject; }
 		}
 		

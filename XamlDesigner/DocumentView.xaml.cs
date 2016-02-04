@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -38,10 +39,30 @@ namespace ICSharpCode.XamlDesigner
 			Document.Text = uxTextEditor.Text;
 		}
 
-		void Document_PropertyChanged(object sender, PropertyChangedEventArgs e)
+		async void Document_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == "Text" && Document.Text != uxTextEditor.Text)
 				uxTextEditor.Text = Document.Text;
+			if (e.PropertyName == "XamlElementLineInfo")
+			{
+				try
+				{
+					await Task.Delay(30);
+					if (Document.XamlElementLineInfo != null)
+					{
+						uxTextEditor.SelectionStart = Document.XamlElementLineInfo.Position;
+						uxTextEditor.SelectionLength = Document.XamlElementLineInfo.Length;
+					}
+					else
+					{
+						uxTextEditor.SelectionStart = 0;
+						uxTextEditor.SelectionLength = 0;
+					}
+				}
+				catch(Exception)
+				{ }
+			}
+				
 		}
 
 		public Document Document { get; private set; }

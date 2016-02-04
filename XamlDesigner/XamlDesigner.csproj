@@ -140,7 +140,6 @@
     <Compile Include="ToolboxView.xaml.cs">
       <DependentUpon>ToolboxView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="XamlFormatter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
