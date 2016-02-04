@@ -19,6 +19,7 @@
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 using System.Windows.Controls;
 using System.Xml;
 
@@ -68,6 +69,7 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		}
 
 		internal XmlWriter oldWriter;
+		internal StringBuilder writerSb;
 		internal Func<char[]> bufGetter;
 		internal Func<int> contentPosFieldGetter;
 		internal Func<int> buffPosGetter;
@@ -152,6 +154,13 @@ namespace ICSharpCode.WpfDesign.XamlDom
 						.GetField("contentPos", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
 					var buffPosField = rawTextW.GetType()
 						.GetField("bufPos", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+					var ioTextWriterField = rawTextW.GetType()
+						.GetField("writer", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+					var ioTextWriter = ioTextWriterField.GetValue(rawTextW);
+					var sbField = ioTextWriter.GetType()
+						.GetField("_sb", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+					positionXmlDocument.writerSb = sbField.GetValue(ioTextWriter) as StringBuilder;
+
 					positionXmlDocument.bufGetter =
 						Expression.Lambda<Func<char[]>>(Expression.Field(Expression.Constant(rawTextW), bufCharsField)).Compile();
 					positionXmlDocument.contentPosFieldGetter =
@@ -163,32 +172,47 @@ namespace ICSharpCode.WpfDesign.XamlDom
 				{ }
 			}
 
-			if (positionXmlDocument.bufGetter != null && positionXmlDocument.buffPosGetter != null)
+			if (positionXmlDocument.bufGetter != null && positionXmlDocument.buffPosGetter != null &&
+			    positionXmlDocument.writerSb != null)
 			{
-				var buff = positionXmlDocument.bufGetter();
-				var pos = positionXmlDocument.buffPosGetter();
-				for (int n = pos; n >= positionXmlDocument.lastCharacterPos; n--)
+				try
 				{
-					if (buff[n] == '\n')
+					var buff = positionXmlDocument.bufGetter();
+					var pos = positionXmlDocument.buffPosGetter();
+					for (int n = pos; n >= positionXmlDocument.lastCharacterPos; n--)
 					{
-						positionXmlDocument.lineCnt++;
+						if (buff[n] == '\n')
+						{
+							positionXmlDocument.lineCnt++;
+						}
 					}
+
+					this.xamlElementLineInfo = new XamlElementLineInfo(positionXmlDocument.lineCnt + 1,
+						pos + 1 + positionXmlDocument.writerSb.Length);
+
+					if (buff[pos - 1] != '>')
+						this.xamlElementLineInfo.LinePosition++;
+
+					this.xamlElementLineInfo.Position = pos + positionXmlDocument.writerSb.Length;
 				}
-
-				this.xamlElementLineInfo = new XamlElementLineInfo(positionXmlDocument.lineCnt + 1, pos + 1);
-				
-				if (buff[pos-1] != '>')
-					this.xamlElementLineInfo.LinePosition++;
-
-				this.xamlElementLineInfo.Position = pos;
+				catch (Exception)
+				{
+				}
 			}
 
 			base.WriteTo(w);
 
-			if (positionXmlDocument.bufGetter != null && positionXmlDocument.buffPosGetter != null)
+			if (positionXmlDocument.bufGetter != null && positionXmlDocument.buffPosGetter != null &&
+			    positionXmlDocument.writerSb != null)
 			{
-				var pos = positionXmlDocument.buffPosGetter();
-				this.xamlElementLineInfo.Length = pos - this.xamlElementLineInfo.Position;
+				try
+				{
+					var pos = positionXmlDocument.buffPosGetter();
+					this.xamlElementLineInfo.Length = pos + positionXmlDocument.writerSb.Length - this.xamlElementLineInfo.Position;
+				}
+				catch (Exception)
+				{
+				}
 			}
 		}
 	}
