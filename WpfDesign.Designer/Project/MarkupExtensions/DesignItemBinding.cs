@@ -36,6 +36,7 @@ namespace ICSharpCode.WpfDesign.Designer.MarkupExtensions
 	public class DesignItemBinding : MarkupExtension
 	{
 		private string _propertyName;
+		private DependencyProperty _property;
 		private Binding _binding;
 		private DesignItemSetConverter _converter;
 		private DependencyProperty _targetProperty;
@@ -57,6 +58,14 @@ namespace ICSharpCode.WpfDesign.Designer.MarkupExtensions
 		{
 			this._propertyName = path;
 			
+			UpdateSourceTrigger = UpdateSourceTrigger.Default;
+			AskWhenMultipleItemsSelected = true;
+		}
+
+		public DesignItemBinding(DependencyProperty property)
+		{
+			this._property = property;
+
 			UpdateSourceTrigger = UpdateSourceTrigger.Default;
 			AskWhenMultipleItemsSelected = true;
 		}
@@ -106,22 +115,47 @@ namespace ICSharpCode.WpfDesign.Designer.MarkupExtensions
 
 			if (context != null)
 			{
-				_binding = new Binding(_propertyName);
-				_binding.Source = fe;
-				_binding.UpdateSourceTrigger = UpdateSourceTrigger;
-
-				if (designItem.Services.Selection.SelectedItems.Count > 1 && UpdateSourceTriggerMultipleSelected != null)
+				if (_property != null)
 				{
-					_binding.UpdateSourceTrigger = UpdateSourceTriggerMultipleSelected.Value;
+					_binding = new Binding();
+					_binding.Path = new PropertyPath(_property);
+					_binding.Source = fe;
+					_binding.UpdateSourceTrigger = UpdateSourceTrigger;
+
+					if (designItem.Services.Selection.SelectedItems.Count > 1 && UpdateSourceTriggerMultipleSelected != null)
+					{
+						_binding.UpdateSourceTrigger = UpdateSourceTriggerMultipleSelected.Value;
+					}
+
+					_binding.Mode = BindingMode.TwoWay;
+					_binding.ConverterParameter = ConverterParameter;
+
+					_converter = new DesignItemSetConverter(designItem, _property, SingleItemProperty, AskWhenMultipleItemsSelected,
+						Converter);
+					_binding.Converter = _converter;
+
+					_targetObject.SetBinding(_targetProperty, _binding);
 				}
+				else
+				{
+					_binding = new Binding(_propertyName);
+					_binding.Source = fe;
+					_binding.UpdateSourceTrigger = UpdateSourceTrigger;
 
-				_binding.Mode = BindingMode.TwoWay;
-				_binding.ConverterParameter = ConverterParameter;
+					if (designItem.Services.Selection.SelectedItems.Count > 1 && UpdateSourceTriggerMultipleSelected != null)
+					{
+						_binding.UpdateSourceTrigger = UpdateSourceTriggerMultipleSelected.Value;
+					}
 
-				_converter = new DesignItemSetConverter(designItem, _propertyName, SingleItemProperty, AskWhenMultipleItemsSelected, Converter);
-				_binding.Converter = _converter;
+					_binding.Mode = BindingMode.TwoWay;
+					_binding.ConverterParameter = ConverterParameter;
 
-				_targetObject.SetBinding(_targetProperty, _binding);
+					_converter = new DesignItemSetConverter(designItem, _propertyName, SingleItemProperty, AskWhenMultipleItemsSelected,
+						Converter);
+					_binding.Converter = _converter;
+
+					_targetObject.SetBinding(_targetProperty, _binding);
+				}
 			}
 			else
 			{
@@ -132,15 +166,26 @@ namespace ICSharpCode.WpfDesign.Designer.MarkupExtensions
 		private class DesignItemSetConverter : IValueConverter
 		{
 			private DesignItem _designItem;
-			private string _property;
+			private string _propertyName;
+			private DependencyProperty _property;
 			private bool _singleItemProperty;
 			private bool _askWhenMultipleItemsSelected;
 			private IValueConverter _converter;
 
-			public DesignItemSetConverter(DesignItem desigItem, string property, bool singleItemProperty, bool askWhenMultipleItemsSelected, IValueConverter converter)
+			public DesignItemSetConverter(DesignItem desigItem, string propertyName, bool singleItemProperty, bool askWhenMultipleItemsSelected, IValueConverter converter)
+			{
+				this._designItem = desigItem;
+				this._propertyName = propertyName;
+				this._singleItemProperty = singleItemProperty;
+				this._converter = converter;
+				this._askWhenMultipleItemsSelected = askWhenMultipleItemsSelected;
+			}
+
+			public DesignItemSetConverter(DesignItem desigItem, DependencyProperty property, bool singleItemProperty, bool askWhenMultipleItemsSelected, IValueConverter converter)
 			{
 				this._designItem = desigItem;
 				this._property = property;
+				this._propertyName = property.Name;
 				this._singleItemProperty = singleItemProperty;
 				this._converter = converter;
 				this._askWhenMultipleItemsSelected = askWhenMultipleItemsSelected;
@@ -160,11 +205,11 @@ namespace ICSharpCode.WpfDesign.Designer.MarkupExtensions
 				if (_converter != null)
 					val = _converter.ConvertBack(value, targetType, parameter, culture);
 				
-				var changeGroup = _designItem.OpenGroup("Property: " + _property);
+				var changeGroup = _designItem.OpenGroup("Property: " + _propertyName);
 
 				try
 				{
-					var property = _designItem.Properties.GetProperty(_property);
+					var property = _designItem.Properties.GetProperty(_propertyName);
 
 					property.SetValue(val);
 
@@ -181,7 +226,10 @@ namespace ICSharpCode.WpfDesign.Designer.MarkupExtensions
 							{
 								try
 								{
-									property = item.Properties.GetProperty(_property);
+									if (_property != null)
+										property = item.Properties.GetProperty(_property);
+									else
+										property = item.Properties.GetProperty(_propertyName);
 								}
 								catch(Exception)
 								{ }
