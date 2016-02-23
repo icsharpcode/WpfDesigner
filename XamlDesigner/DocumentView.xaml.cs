@@ -47,7 +47,7 @@ namespace ICSharpCode.XamlDesigner
 			{
 				try
 				{
-					await Task.Delay(30);
+					await Task.Delay(70);
 					if (Document.XamlElementLineInfo != null)
 					{
 						uxTextEditor.SelectionStart = Document.XamlElementLineInfo.Position;
@@ -58,6 +58,8 @@ namespace ICSharpCode.XamlDesigner
 						uxTextEditor.SelectionStart = 0;
 						uxTextEditor.SelectionLength = 0;
 					}
+
+					uxTextEditor.Focus();
 				}
 				catch(Exception)
 				{ }

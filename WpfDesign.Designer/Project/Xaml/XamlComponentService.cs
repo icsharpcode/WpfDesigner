@@ -53,7 +53,9 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		{
 			this._context = context;
 		}
-		
+
+		public event EventHandler<DesignItemEventArgs> ComponentRegisteredAndAddedToContainer;
+
 		public event EventHandler<DesignItemEventArgs> ComponentRegistered;
 		
 		public event EventHandler<DesignItemEventArgs> ComponentRemoved;
@@ -109,7 +111,18 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			}
 			return item;
 		}
-		
+
+		/// <summary>
+		/// registers components from an existing XAML tree
+		/// </summary>
+		internal void RaiseComponentRegisteredAndAddedToContainer(DesignItem obj)
+		{
+			if (ComponentRegisteredAndAddedToContainer != null) {
+				ComponentRegisteredAndAddedToContainer(this, new DesignItemEventArgs(obj));
+			}
+		}
+
+
 		/// <summary>
 		/// registers components from an existing XAML tree
 		/// </summary>

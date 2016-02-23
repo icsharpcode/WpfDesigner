@@ -132,7 +132,10 @@ namespace ICSharpCode.WpfDesign
 		
 		/// <summary>Registers a component for usage in the designer.</summary>
 		DesignItem RegisterComponentForDesigner(object component);
-		
+
+		/// <summary>Called when a component is registered and added to a container.</summary>
+		event EventHandler<DesignItemEventArgs> ComponentRegisteredAndAddedToContainer;
+
 		/// <summary>Event raised whenever a component is registered</summary>
 		event EventHandler<DesignItemEventArgs> ComponentRegistered;
 		

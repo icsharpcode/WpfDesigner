@@ -164,6 +164,12 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 					} else
 						break;
 				}
+
+				foreach (var pastedItem in pastedItems) {
+					_context._componentService.RaiseComponentRegisteredAndAddedToContainer(pastedItem);
+				}
+
+
 				changeGroup.Commit();
 			}
 		}

@@ -33,7 +33,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		/// <summary>
 		/// Checks if <paramref name="button"/> is the only button that is currently pressed.
 		/// </summary>
-		internal static bool IsOnlyButtonPressed(MouseEventArgs e, MouseButton button)
+		public static bool IsOnlyButtonPressed(MouseEventArgs e, MouseButton button)
 		{
 			return e.LeftButton == (button == MouseButton.Left ? MouseButtonState.Pressed : MouseButtonState.Released)
 				&& e.MiddleButton == (button == MouseButton.Middle ? MouseButtonState.Pressed : MouseButtonState.Released)

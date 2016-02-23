@@ -17,6 +17,10 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Documents;
+using System.Xml;
 
 namespace ICSharpCode.WpfDesign.XamlDom
 {
@@ -24,16 +28,41 @@ namespace ICSharpCode.WpfDesign.XamlDom
 	/// Static methods to help with designer operations which require access to internal Xaml elements.
 	/// </summary>
 	public static class XamlStaticTools
-    {
-        /// <summary>
-        /// Gets the Xaml string of the <paramref name="xamlObject"/>
-        /// </summary>
-        /// <param name="xamlObject">The object whose Xaml is requested.</param>
-        public static string GetXaml(XamlObject xamlObject)
-        {
-            if (xamlObject != null)
-                return xamlObject.XmlElement.OuterXml;
-            return null;
-        }
-    }
+	{
+		/// <summary>
+		/// Gets the Xaml string of the <paramref name="xamlObject"/>
+		/// </summary>
+		/// <param name="xamlObject">The object whose Xaml is requested.</param>
+		public static string GetXaml(XamlObject xamlObject)
+		{
+			if (xamlObject != null)
+			{
+				var nd = xamlObject.XmlElement.CloneNode(true);
+				var attLst = nd.Attributes.Cast<XmlAttribute>().ToDictionary(x => x.Name);
+
+				var ns = new List<XmlAttribute>();
+
+				var parentObject = xamlObject.ParentObject;
+				while (parentObject != null)
+				{
+					foreach (XmlAttribute attribute in parentObject.XmlElement.Attributes)
+					{
+						if (attribute.Name.StartsWith("xmlns:"))
+						{
+							if (!attLst.ContainsKey(attribute.Name))
+							{
+								nd.Attributes.Append((XmlAttribute)attribute.CloneNode(false));
+								attLst.Add(attribute.Name, attribute);
+							}
+						}
+					}
+					parentObject = parentObject.ParentObject;
+				}
+
+
+				return nd.OuterXml;
+			}
+			return null;
+		}
+	}
 }

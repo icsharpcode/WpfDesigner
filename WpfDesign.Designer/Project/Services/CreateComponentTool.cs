@@ -20,6 +20,7 @@ using System.Linq;
 using System.Windows;
 using System;
 using System.Windows.Input;
+using ICSharpCode.WpfDesign.Designer.Xaml;
 
 namespace ICSharpCode.WpfDesign.Designer.Services
 {
@@ -91,6 +92,11 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 						DesignItem createdItem = CreateItem(designPanel.Context);
 						if (AddItemWithDefaultSize(result.ModelHit, createdItem, e.GetPosition(result.ModelHit.View))) {
 							moveLogic = new MoveLogic(createdItem);
+
+							if (designPanel.Context.Services.Component is XamlComponentService) {
+								((XamlComponentService) designPanel.Context.Services.Component).RaiseComponentRegisteredAndAddedToContainer(createdItem);
+							}
+							
 							createPoint = p;
 							// We'll keep the ChangeGroup open as long as the moveLogic is active.
 						} else {
