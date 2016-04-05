@@ -12,12 +12,12 @@
     <description>A Designer Framework for WPF UIs</description>
 	<summary>WpfDesigner is the graphical WPF UI designer used in SharpDevelop</summary>
 	<releaseNotes>
-		* Remove DLL dependencies to SharpDevelop DLLs. Only dependency left for now is the Extended WPF Toolkit.
-		* Zooming addition, a button to zoom to 100%
-		* Many performance fixes
-		* In-place edit of formatted text
-		* XAML 2009 support
-		* Thumbnail view fixes
+		* ALt+CLick to select below elements should work correctly
+		* Snapline Placement along Elemnts in other Containers
+		* Implement commands for Stretching Items
+		* Make it Possible that a writen DesignItem knows it's possition in the XAML Code, so that it can be selected after XAML is created
+		* Fix Position not correct for big Xaml Files
+		* Update Design Item Binding to support DepPropertys
 	</releaseNotes>
     <copyright>Copyright (c) 2015-2016 IC#Code</copyright>
 	<language>en-US</language>
