@@ -22,6 +22,7 @@
 				<local:ToolBoxItem Type="{x:Type Rectangle}" />
 				<local:ToolBoxItem Type="{x:Type Border}" />
 				<local:ToolBoxItem Type="{x:Type CheckBox}" />
+				<local:ToolBoxItem Type="{x:Type local:TestControl}" />
 			</x:Array>
 		</ResourceDictionary>
 	</Window.Resources>
