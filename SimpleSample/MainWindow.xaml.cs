@@ -42,6 +42,16 @@ x:Name=""rootElement"" Background=""White""></Grid>";
 			}
 		}
 
+		private void lstControls_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+		{
+			var item = lstControls.SelectedItem as ToolBoxItem;
+			if (item != null)
+			{
+				var tool = new CreateComponentTool(item.Type);
+				designSurface.DesignPanel.Context.Services.Tool.CurrentTool = tool;
+			}
+		}
+
 		private void Export()
 		{
 			var sb = new StringBuilder();

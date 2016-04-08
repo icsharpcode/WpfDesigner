@@ -34,7 +34,7 @@
 		<ListBox x:Name="lstControls" ScrollViewer.CanContentScroll="False"
                  Margin="0,0,0,0"
                  ItemsSource="{Binding Source={StaticResource toolBoxItems}}"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Left" Width="100" SelectionChanged="lstControls_SelectionChanged"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" HorizontalAlignment="Left" Width="100" SelectionChanged="lstControls_SelectionChanged" PreviewMouseLeftButtonDown="lstControls_MouseDown"
             >
 			<ListBox.ItemTemplate>
 				<DataTemplate>

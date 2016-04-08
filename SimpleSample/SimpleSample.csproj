@@ -34,16 +34,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.WpfDesign, Version=5.1.18.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ICSharpCode.WpfDesigner.5.1.18\lib\net40\ICSharpCode.WpfDesign.dll</HintPath>
+    <Reference Include="ICSharpCode.WpfDesign, Version=5.1.19.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICSharpCode.WpfDesigner.5.1.19\lib\net40\ICSharpCode.WpfDesign.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ICSharpCode.WpfDesign.Designer, Version=5.1.18.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ICSharpCode.WpfDesigner.5.1.18\lib\net40\ICSharpCode.WpfDesign.Designer.dll</HintPath>
+    <Reference Include="ICSharpCode.WpfDesign.Designer, Version=5.1.19.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICSharpCode.WpfDesigner.5.1.19\lib\net40\ICSharpCode.WpfDesign.Designer.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ICSharpCode.WpfDesign.XamlDom, Version=5.1.18.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ICSharpCode.WpfDesigner.5.1.18\lib\net40\ICSharpCode.WpfDesign.XamlDom.dll</HintPath>
+    <Reference Include="ICSharpCode.WpfDesign.XamlDom, Version=5.1.19.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ICSharpCode.WpfDesigner.5.1.19\lib\net40\ICSharpCode.WpfDesign.XamlDom.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
