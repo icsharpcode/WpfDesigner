@@ -26,6 +26,16 @@ namespace SimpleSample
 		public static readonly DependencyProperty TestTimeSpanProperty =
 			DependencyProperty.Register("TestTimeSpan", typeof(TimeSpan), typeof(TestControl), new PropertyMetadata(new TimeSpan(4, 3, 55, 34, 345)));
 
+		public TimeSpan TestTimeSpan2
+		{
+			get { return (TimeSpan)GetValue(TestTimeSpan2Property); }
+			set { SetValue(TestTimeSpan2Property, value); }
+		}
+
+		// Using a DependencyProperty as the backing store for TestTimeSpan2.  This enables animation, styling, binding, etc...
+		public static readonly DependencyProperty TestTimeSpan2Property =
+			DependencyProperty.Register("TestTimeSpan2", typeof(TimeSpan), typeof(TestControl), new PropertyMetadata(TimeSpan.FromMinutes(-55)));
+
 
 	}
 }
