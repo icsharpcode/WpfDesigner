@@ -41,9 +41,9 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(WindowClone), new FrameworkPropertyMetadata(typeof(WindowClone)));
 			
 			Control.IsTabStopProperty.OverrideMetadata(typeof(WindowClone), new FrameworkPropertyMetadata(SharedInstances.BoxedFalse));
-			KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(WindowClone), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
-			KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(WindowClone), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
-			KeyboardNavigation.ControlTabNavigationProperty.OverrideMetadata(typeof(WindowClone), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
+			KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(WindowClone), new FrameworkPropertyMetadata(SharedInstances<KeyboardNavigationMode>.Box(KeyboardNavigationMode.Cycle)));
+			KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(WindowClone), new FrameworkPropertyMetadata(SharedInstances<KeyboardNavigationMode>.Box(KeyboardNavigationMode.Cycle)));
+			KeyboardNavigation.ControlTabNavigationProperty.OverrideMetadata(typeof(WindowClone), new FrameworkPropertyMetadata(SharedInstances<KeyboardNavigationMode>.Box(KeyboardNavigationMode.Cycle)));
 			FocusManager.IsFocusScopeProperty.OverrideMetadata(typeof(WindowClone), new FrameworkPropertyMetadata(SharedInstances.BoxedTrue));
 		}
 		

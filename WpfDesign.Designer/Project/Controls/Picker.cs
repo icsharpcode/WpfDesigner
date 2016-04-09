@@ -42,7 +42,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 
 		public static readonly DependencyProperty ValueProperty =
 			DependencyProperty.Register("Value", typeof(double), typeof(Picker),
-			                            new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+			                            new FrameworkPropertyMetadata(SharedInstances.BoxedDouble0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
 		public double Value {
 			get { return (double)GetValue(ValueProperty); }

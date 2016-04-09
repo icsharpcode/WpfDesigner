@@ -38,7 +38,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		/// Dependency property for <see cref="IsPrimarySelection"/>.
 		/// </summary>
 		public static readonly DependencyProperty ThumbVisibleProperty
-			= DependencyProperty.Register("ThumbVisible", typeof(bool), typeof(DesignerThumb), new FrameworkPropertyMetadata(true));
+			= DependencyProperty.Register("ThumbVisible", typeof(bool), typeof(DesignerThumb), new FrameworkPropertyMetadata(SharedInstances.BoxedTrue));
 
 		/// <summary>
 		/// Dependency property for <see cref="OperationMenu"/>.

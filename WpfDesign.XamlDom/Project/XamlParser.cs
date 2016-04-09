@@ -25,7 +25,6 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Interop;
 using System.Windows.Markup;
 using System.Xml;
 using System.Windows.Media;

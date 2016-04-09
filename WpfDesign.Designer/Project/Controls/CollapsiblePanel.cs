@@ -35,7 +35,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(CollapsiblePanel),
 			                                         new FrameworkPropertyMetadata(typeof(CollapsiblePanel)));
 			FocusableProperty.OverrideMetadata(typeof(CollapsiblePanel),
-			                                   new FrameworkPropertyMetadata(false));
+			                                   new FrameworkPropertyMetadata(SharedInstances.BoxedFalse));
 		}
 		
 		public static readonly DependencyProperty IsCollapsedProperty = DependencyProperty.Register(
@@ -70,7 +70,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		
 		protected internal static readonly DependencyProperty AnimationProgressProperty = DependencyProperty.Register(
 			"AnimationProgress", typeof(double), typeof(CollapsiblePanel),
-			new FrameworkPropertyMetadata(1.0));
+			new FrameworkPropertyMetadata(SharedInstances.BoxedDouble1));
 		
 		/// <summary>
 		/// Value between 0 and 1 specifying how far the animation currently is.
@@ -82,7 +82,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		
 		protected internal static readonly DependencyProperty AnimationProgressXProperty = DependencyProperty.Register(
 			"AnimationProgressX", typeof(double), typeof(CollapsiblePanel),
-			new FrameworkPropertyMetadata(1.0));
+			new FrameworkPropertyMetadata(SharedInstances.BoxedDouble1));
 		
 		/// <summary>
 		/// Value between 0 and 1 specifying how far the animation currently is.
@@ -94,7 +94,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		
 		protected internal static readonly DependencyProperty AnimationProgressYProperty = DependencyProperty.Register(
 			"AnimationProgressY", typeof(double), typeof(CollapsiblePanel),
-			new FrameworkPropertyMetadata(1.0));
+			new FrameworkPropertyMetadata(SharedInstances.BoxedDouble1));
 		
 		/// <summary>
 		/// Value between 0 and 1 specifying how far the animation currently is.
@@ -159,7 +159,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 	{
 		public static readonly DependencyProperty CanCollapseProperty =
 			DependencyProperty.Register("CanCollapse", typeof(bool), typeof(SelfCollapsingPanel),
-			                            new FrameworkPropertyMetadata(false, new PropertyChangedCallback(OnCanCollapseChanged)));
+			                            new FrameworkPropertyMetadata(SharedInstances.BoxedFalse, new PropertyChangedCallback(OnCanCollapseChanged)));
 		
 		public bool CanCollapse {
 			get { return (bool)GetValue(CanCollapseProperty); }

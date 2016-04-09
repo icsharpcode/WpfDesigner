@@ -70,7 +70,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 			if (xamlContext != null) {
 				xamlContext.XamlEditAction.Cut(grid.ContentProperty.CollectionElements);
 				var cutXaml = Clipboard.GetText(TextDataFormat.Xaml);
-				Assert.AreEqual("<Buttonxmlns=\"" + XamlConstants.PresentationNamespace + "\"/>" + xamlContext.XamlEditAction.Delimeter + "<Buttonxmlns=\"" + XamlConstants.PresentationNamespace + "\"/>" + xamlContext.XamlEditAction.Delimeter, cutXaml.Replace(" ", ""));
+				Assert.AreEqual("<Buttonxmlns:x=\"" + XamlConstants.XamlNamespace + "\"xmlns=\"" + XamlConstants.PresentationNamespace + "\"/>" + xamlContext.XamlEditAction.Delimeter + "<Buttonxmlns:x=\"" + XamlConstants.XamlNamespace + "\"xmlns=\"" + XamlConstants.PresentationNamespace + "\"/>" + xamlContext.XamlEditAction.Delimeter, cutXaml.Replace(" ", ""));
 				Assert.AreEqual(0, grid.ContentProperty.CollectionElements.Count);
 			} else {
 				Assert.Fail();
@@ -85,7 +85,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 			if (xamlContext != null) {
 				xamlContext.XamlEditAction.Copy(grid.ContentProperty.CollectionElements);
 				var cutXaml = Clipboard.GetText(TextDataFormat.Xaml);
-				Assert.AreEqual("<Buttonxmlns=\"" + XamlConstants.PresentationNamespace + "\"/>" + xamlContext.XamlEditAction.Delimeter + "<Buttonxmlns=\"" + XamlConstants.PresentationNamespace + "\"/>" + xamlContext.XamlEditAction.Delimeter, cutXaml.Replace(" ", ""));
+				Assert.AreEqual("<Buttonxmlns:x=\"" + XamlConstants.XamlNamespace + "\"xmlns=\"" + XamlConstants.PresentationNamespace + "\"/>" + xamlContext.XamlEditAction.Delimeter + "<Buttonxmlns:x=\"" + XamlConstants.XamlNamespace + "\"xmlns=\"" + XamlConstants.PresentationNamespace + "\"/>" + xamlContext.XamlEditAction.Delimeter, cutXaml.Replace(" ", ""));
 				Assert.AreEqual(2, grid.ContentProperty.CollectionElements.Count);
 			} else {
 				Assert.Fail();
@@ -265,8 +265,8 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 								  "</sdtcontrols:CustomButton>\n";
 			
 			AssertGridDesignerOutput(expectedXaml, grid.Context,
-			                         "xmlns:Controls0=\"clr-namespace:ICSharpCode.WpfDesign.Tests.Designer;assembly=ICSharpCode.WpfDesign.Tests\"",
-			                         "xmlns:sdtcontrols=\"http://sharpdevelop.net/WpfDesign/Tests/Controls\"");
+									"xmlns:sdtcontrols=\"http://sharpdevelop.net/WpfDesign/Tests/Controls\"",
+									"xmlns:Controls0=\"clr-namespace:ICSharpCode.WpfDesign.Tests.Designer;assembly=ICSharpCode.WpfDesign.Tests\"");
 		}
 		
 		[Test]

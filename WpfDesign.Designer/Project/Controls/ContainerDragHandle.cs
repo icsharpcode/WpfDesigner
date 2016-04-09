@@ -16,16 +16,10 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System;
 using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Media;
-using System.Windows.Shapes;
-using System.Windows.Controls.Primitives;
-using ICSharpCode.WpfDesign.Adorners;
-using ICSharpCode.WpfDesign.Extensions;
 using ICSharpCode.WpfDesign.Designer.Converters;
-using System.Globalization;
 using System.Windows.Data;
 using ICSharpCode.WpfDesign.UIExtensions;
 

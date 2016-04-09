@@ -63,7 +63,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 
 		public static readonly DependencyProperty ValueProperty =
 			DependencyProperty.Register("Value", typeof(double), typeof(NumericUpDown),
-			new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
+			new FrameworkPropertyMetadata(SharedInstances.BoxedDouble0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
 		public double Value {
 			get { return (double)GetValue(ValueProperty); }
@@ -72,7 +72,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 
 		public static readonly DependencyProperty SmallChangeProperty =
 			DependencyProperty.Register("SmallChange", typeof(double), typeof(NumericUpDown),
-			new FrameworkPropertyMetadata(1.0));
+			new FrameworkPropertyMetadata(SharedInstances.BoxedDouble1));
 
 		public double SmallChange {
 			get { return (double)GetValue(SmallChangeProperty); }

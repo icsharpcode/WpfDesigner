@@ -38,11 +38,10 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 	{
 		static PageClone()
 		{
-
 			Control.IsTabStopProperty.OverrideMetadata(typeof(PageClone), new FrameworkPropertyMetadata(SharedInstances.BoxedFalse));
-			KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(PageClone), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
-			KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(PageClone), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
-			KeyboardNavigation.ControlTabNavigationProperty.OverrideMetadata(typeof(PageClone), new FrameworkPropertyMetadata(KeyboardNavigationMode.Cycle));
+			KeyboardNavigation.DirectionalNavigationProperty.OverrideMetadata(typeof(PageClone), new FrameworkPropertyMetadata(SharedInstances<KeyboardNavigationMode>.Box(KeyboardNavigationMode.Cycle)));
+			KeyboardNavigation.TabNavigationProperty.OverrideMetadata(typeof(PageClone), new FrameworkPropertyMetadata(SharedInstances<KeyboardNavigationMode>.Box(KeyboardNavigationMode.Cycle)));
+			KeyboardNavigation.ControlTabNavigationProperty.OverrideMetadata(typeof(PageClone), new FrameworkPropertyMetadata(SharedInstances<KeyboardNavigationMode>.Box(KeyboardNavigationMode.Cycle)));
 			FocusManager.IsFocusScopeProperty.OverrideMetadata(typeof(PageClone), new FrameworkPropertyMetadata(SharedInstances.BoxedTrue));
 		}
 		

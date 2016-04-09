@@ -1,5 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
-<!--<ContextMenu x:Class="ICSharpCode.WpfDesign.Designer.Extensions.TextBlockRightClickContextMenu"
+﻿<ContextMenu x:Class="ICSharpCode.WpfDesign.Designer.Extensions.TextBlockRightClickContextMenu"
              xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Translation="clr-namespace:ICSharpCode.WpfDesign.Designer"
@@ -9,4 +8,4 @@
 			<Image Source="/ICSharpCode.WpfDesign.Designer;component/Images/edit.png" />
 		</MenuItem.Icon>
 	</MenuItem>
-</ContextMenu>-->
+</ContextMenu>

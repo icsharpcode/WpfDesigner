@@ -17,18 +17,10 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Windows.Input;
-using System.Globalization;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Media;
-using System.Windows.Media.Media3D;
 using System.Windows.Shapes;
 using ICSharpCode.WpfDesign.Adorners;
 

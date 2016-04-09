@@ -21,14 +21,9 @@ using System.Windows.Input;
 using System.Globalization;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Media;
-
 using ICSharpCode.WpfDesign.Adorners;
 
 namespace ICSharpCode.WpfDesign.Designer.Controls

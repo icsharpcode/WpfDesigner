@@ -22,9 +22,9 @@ using System.Windows.Markup;
 using System.Xml;
 using System.IO;
 using System.Linq;
-using System.Windows.Documents;
 using System.Windows.Media;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace ICSharpCode.WpfDesign.XamlDom
 {
@@ -33,6 +33,20 @@ namespace ICSharpCode.WpfDesign.XamlDom
 	/// </summary>
 	public sealed class XamlDocument
 	{
+		static XamlDocument()
+		{
+			_colorBrushDictionary = new Dictionary<Color, string>();
+			foreach (var brushProp in typeof(Brushes).GetProperties(BindingFlags.Static|BindingFlags.Public))
+			{
+				var brush = brushProp.GetValue(null, null) as SolidColorBrush;
+				if (!_colorBrushDictionary.ContainsKey(brush.Color)) {
+					_colorBrushDictionary.Add(brush.Color, brushProp.Name);
+				}
+			}
+		}
+
+		private static Dictionary<Color, string> _colorBrushDictionary;
+
 		XmlDocument _xmlDoc;
 		XamlObject _rootElement;
 		IServiceProvider _serviceProvider;
@@ -185,6 +199,12 @@ namespace ICSharpCode.WpfDesign.XamlDom
 			ctx.Instance = instance;
 			bool hasStringConverter = c.CanConvertTo(ctx, typeof(string)) && c.CanConvertFrom(typeof(string));
 			if (forProperty != null && hasStringConverter) {
+
+				if (instance is SolidColorBrush && _colorBrushDictionary.ContainsKey(((SolidColorBrush)instance).Color)) {
+					var name = _colorBrushDictionary[((SolidColorBrush)instance).Color];
+					return new XamlTextValue(this, name);
+				}
+
 				return new XamlTextValue(this, c.ConvertToInvariantString(ctx, instance));
 			}
 
@@ -196,20 +216,23 @@ namespace ICSharpCode.WpfDesign.XamlDom
 			if (hasStringConverter && (XamlObject.GetContentPropertyName(elementType) != null || IsNativeType(instance))) {
 				xml.InnerText = c.ConvertToInvariantString(instance);
 			} else if (instance is Brush && forProperty != null) {  // TODO: this is a hacky fix, because Brush Editor doesn't
-										     // edit Design Items and so we have no XML, only the Brush 
-										     // object and we need to parse the Brush to XAML!
+																	// edit Design Items and so we have no XML, only the Brush 
+																	// object and we need to parse the Brush to XAML!
 				var s = new MemoryStream();
 				XamlWriter.Save(instance, s);
 				s.Seek(0, SeekOrigin.Begin);
 				XmlDocument doc = new XmlDocument();
 				doc.Load(s);
-				xml = (XmlElement)_xmlDoc.ImportNode(doc.DocumentElement, true);
+				xml = (XmlElement) _xmlDoc.ImportNode(doc.DocumentElement, true);
 
 				var attLst = xml.Attributes.Cast<XmlAttribute>().ToList();
-				foreach (XmlAttribute att in attLst) {
-					if (att.Name.StartsWith(XamlConstants.Xmlns)) {
+				foreach (XmlAttribute att in attLst)
+				{
+					if (att.Name.StartsWith(XamlConstants.Xmlns))
+					{
 						var rootAtt = doc.DocumentElement.GetAttributeNode(att.Name);
-						if (rootAtt != null && rootAtt.Value == att.Value) {
+						if (rootAtt != null && rootAtt.Value == att.Value)
+						{
 							xml.Attributes.Remove(att);
 						}
 					}

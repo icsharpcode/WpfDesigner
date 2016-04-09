@@ -16,18 +16,42 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
+using System;
+using System.Collections.Generic;
+
 namespace ICSharpCode.WpfDesign.Designer
 {
 	static class SharedInstances
 	{
 		internal static readonly object BoxedTrue = true;
 		internal static readonly object BoxedFalse = false;
+		internal static readonly object BoxedDouble1 = 1.0;
+		internal static readonly object BoxedDouble0 = 0.0;
 		internal static readonly object[] EmptyObjectArray = new object[0];
 		internal static readonly DesignItem[] EmptyDesignItemArray = new DesignItem[0];
 		
 		internal static object Box(bool value)
 		{
 			return value ? BoxedTrue : BoxedFalse;
+		}
+	}
+
+	static class SharedInstances<T> where T: struct, IConvertible
+	{
+		private static Dictionary<T, object> _boxedEnumValues;
+
+		static SharedInstances()
+		{
+			_boxedEnumValues = new Dictionary<T, object>();
+			foreach (var value in Enum.GetValues(typeof(T)))
+			{
+				_boxedEnumValues.Add((T)value, value);
+			}
+		}
+
+		internal static object Box(T value)
+		{
+			return _boxedEnumValues[value];
 		}
 	}
 }

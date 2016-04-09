@@ -68,7 +68,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		
 		public static readonly DependencyProperty MouseWheelZoomProperty =
 			DependencyProperty.Register("MouseWheelZoom", typeof(bool), typeof(ZoomScrollViewer),
-			                            new FrameworkPropertyMetadata(true));
+			                            new FrameworkPropertyMetadata(SharedInstances.BoxedTrue));
 		
 		public bool MouseWheelZoom {
 			get { return (bool)GetValue(MouseWheelZoomProperty); }
@@ -77,7 +77,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		
 		public static readonly DependencyProperty AlwaysShowZoomButtonsProperty =
 			DependencyProperty.Register("AlwaysShowZoomButtons", typeof(bool), typeof(ZoomScrollViewer),
-			                            new FrameworkPropertyMetadata(false, CalculateZoomButtonCollapsed));
+			                            new FrameworkPropertyMetadata(SharedInstances.BoxedFalse, CalculateZoomButtonCollapsed));
 		
 		public bool AlwaysShowZoomButtons {
 			get { return (bool)GetValue(AlwaysShowZoomButtonsProperty); }
@@ -86,7 +86,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		
 		static readonly DependencyPropertyKey ComputedZoomButtonCollapsedPropertyKey =
 			DependencyProperty.RegisterReadOnly("ComputedZoomButtonCollapsed", typeof(bool), typeof(ZoomScrollViewer),
-			                                    new FrameworkPropertyMetadata(true));
+			                                    new FrameworkPropertyMetadata(SharedInstances.BoxedTrue));
 		
 		public static readonly DependencyProperty ComputedZoomButtonCollapsedProperty = ComputedZoomButtonCollapsedPropertyKey.DependencyProperty;
 		
