@@ -8,13 +8,23 @@
              xmlns:componentModel="clr-namespace:System.ComponentModel;assembly=WindowsBase"
              mc:Ignorable="d" d:DesignWidth="410" d:DesignHeight="259" >
 	<UserControl.Resources>
-		
+
 		<CollectionViewSource x:Key="Fonts" Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}">
 			<CollectionViewSource.SortDescriptions>
 				<componentModel:SortDescription PropertyName="Source" />
 			</CollectionViewSource.SortDescriptions>
 		</CollectionViewSource>
+		<Style x:Key="FocusVisual">
+			<Setter Property="Control.Template">
+				<Setter.Value>
+					<ControlTemplate>
+						<Rectangle Margin="2" SnapsToDevicePixels="true" Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" StrokeThickness="1" StrokeDashArray="1 2"/>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
 		
+
 		<!--<Style x:Key="RichTextBoxFormatBarStyle" TargetType="{x:Type xctk:RichTextBoxFormatBar}">
 			<Setter Property="Template">
 				<Setter.Value>
@@ -818,13 +828,57 @@
 			<Setter Property="IsTabStop" Value="False"/>
 		</Style>-->
 	</UserControl.Resources>
-	
+
 	<Grid>
 		<RichTextBox Margin="10,74,10,10" x:Name="richTextBox">
 		</RichTextBox>
-		
+
 		<!--<xctk:RichTextBoxFormatBar x:Name="formatBar"  Target="{Binding ElementName=richTextBox}" Margin="10,10,0,0" Style="{DynamicResource RichTextBoxFormatBarStyle}" HorizontalAlignment="Left" Width="295" Height="59" VerticalAlignment="Top" />-->
-		
+
+		<StackPanel Orientation="Vertical" Margin="10,10,0,0"  HorizontalAlignment="Left" VerticalAlignment="Top" >
+			<StackPanel Orientation="Horizontal">
+				<ComboBox x:Name="cmbFontFamily" Width="160" ItemsSource="{Binding Source={x:Static Member=Fonts.SystemFontFamilies}}">
+					<ComboBox.ItemTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding}" FontFamily="{Binding}"/>
+						</DataTemplate>
+					</ComboBox.ItemTemplate>
+					<ComboBox.ItemsPanel>
+						<ItemsPanelTemplate>
+							<VirtualizingStackPanel />
+						</ItemsPanelTemplate>
+					</ComboBox.ItemsPanel>
+				</ComboBox>
+				<ComboBox x:Name="cmbFontSize" IsEditable="True" ToolTip="Font Size" Margin="5,0,0,0" Width="50">
+					<ComboBoxItem Content="6"/>
+					<ComboBoxItem Content="8"/>
+					<ComboBoxItem Content="10"/>
+					<ComboBoxItem Content="11"/>
+					<ComboBoxItem Content="12"/>
+					<ComboBoxItem Content="14"/>
+					<ComboBoxItem Content="16"/>
+					<ComboBoxItem Content="18"/>
+					<ComboBoxItem Content="20"/>
+					<ComboBoxItem Content="22"/>
+					<ComboBoxItem Content="24"/>
+					<ComboBoxItem Content="26"/>
+					<ComboBoxItem Content="28"/>
+					<ComboBoxItem Content="56"/>
+				</ComboBox>
+			</StackPanel>
+			<StackPanel Orientation="Horizontal" Margin="0,3,0,0">
+				<ToggleButton Command="EditingCommands.ToggleBold" CommandTarget="{Binding ElementName=richTextBox}">
+					<Image Source="/ICSharpCode.WpfDesign.Designer;component/Images/edit-bold.png"></Image>
+				</ToggleButton>
+				<ToggleButton Command="EditingCommands.ToggleItalic" CommandTarget="{Binding ElementName=richTextBox}" Margin="3,0,0,0">
+					<Image Source="/ICSharpCode.WpfDesign.Designer;component/Images/edit-italic.png"></Image>
+				</ToggleButton>
+				<ToggleButton Command="EditingCommands.ToggleUnderline" CommandTarget="{Binding ElementName=richTextBox}" Margin="3,0,0,0">
+					<Image Source="/ICSharpCode.WpfDesign.Designer;component/Images/edit-underline.png"></Image>
+				</ToggleButton>
+			</StackPanel>
+		</StackPanel>
+
 		<Button Content="Ok" Margin="0,10,10,0" HorizontalAlignment="Right" Width="90" Height="20" VerticalAlignment="Top" Click="Ok_Click" />
 		<Button Content="Cancel" Margin="0,34,10,0" HorizontalAlignment="Right" Width="90" Height="20" VerticalAlignment="Top" Click="Cancel_Click" />
 	</Grid>

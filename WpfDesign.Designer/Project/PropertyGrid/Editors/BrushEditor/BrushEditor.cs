@@ -85,15 +85,24 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor
 			}
 		}
 
+		private Brush _brushValue = null;
 		public Brush Brush {
 			get {
 				if (property != null) {
-					return property.Value as Brush;
+					_brushValue = property.Value as Brush;
+					if (_brushValue.IsFrozen)
+					{
+						_brushValue = _brushValue.Clone();
+						property.Value = _brushValue;
+					}
+					return _brushValue as Brush;
 				}
 				return null;
 			}
 			set {
-				if (property != null && property.Value != value) {
+				if (property != null && _brushValue != value)
+				{
+					_brushValue = value;
 					property.Value = value;
 					DetermineCurrentKind();
 					RaisePropertyChanged("Brush");

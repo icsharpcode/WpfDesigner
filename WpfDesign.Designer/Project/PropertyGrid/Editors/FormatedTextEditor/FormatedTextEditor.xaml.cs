@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using ICSharpCode.WpfDesign.UIExtensions;
 using ICSharpCode.WpfDesign.Designer.themes;
@@ -43,8 +44,40 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor
 			var tb = ((TextBlock)designItem.Component);
 			SetRichTextBoxTextFromTextBlock(richTextBox, tb);
 
+			cmbFontFamily.Text = tb.FontFamily.ToString();
+			cmbFontFamily.SelectionChanged += (s, e) =>
+			{
+				if (cmbFontFamily.SelectedValue != null)
+				{
+					TextRange tr = new TextRange(richTextBox.Selection.Start, richTextBox.Selection.End);
+					var value = cmbFontFamily.SelectedValue;
+					tr.ApplyPropertyValue(TextElement.FontFamilyProperty, value);
+				}
+			};
+
+			cmbFontSize.Text = tb.FontSize.ToString();
+			cmbFontSize.SelectionChanged += (s, e) =>
+			{
+				if (cmbFontSize.SelectedValue != null)
+				{
+					TextRange tr = new TextRange(richTextBox.Selection.Start, richTextBox.Selection.End);
+					var value = ((ComboBoxItem) cmbFontSize.SelectedValue).Content.ToString();
+					tr.ApplyPropertyValue(TextElement.FontSizeProperty, double.Parse(value));
+				}
+			};
+			cmbFontSize.AddHandler(TextBoxBase.TextChangedEvent, new TextChangedEventHandler((s, e) =>
+			{
+				if (!string.IsNullOrEmpty(cmbFontSize.Text))
+				{
+					TextRange tr = new TextRange(richTextBox.Selection.Start, richTextBox.Selection.End);
+					tr.ApplyPropertyValue(TextElement.FontSizeProperty, double.Parse(cmbFontSize.Text));
+				}
+			}));
+
+
 			richTextBox.Foreground = tb.Foreground;
 			richTextBox.Background = tb.Background;
+
 		}
 
 		public static void SetRichTextBoxTextFromTextBlock(RichTextBox richTextBox, TextBlock textBlock)

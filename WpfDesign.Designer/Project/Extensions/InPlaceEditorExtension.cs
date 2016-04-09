@@ -35,7 +35,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	/// <summary>
 	/// Extends In-Place editor to edit any text in the designer which is wrapped in the Visual tree under TexBlock
 	/// </summary>
-	[ExtensionFor(typeof(TextBlock))]
+	//[ExtensionFor(typeof(TextBlock))]
 	public class InPlaceEditorExtension : PrimarySelectionAdornerProvider
 	{
 		AdornerPanel adornerPanel;
