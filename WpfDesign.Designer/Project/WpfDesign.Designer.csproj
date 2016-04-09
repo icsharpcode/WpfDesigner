@@ -84,6 +84,9 @@
     <Compile Include="..\..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="PropertyGrid\Editors\ColorEditor\ColorEditorPopup.xaml.cs">
+      <DependentUpon>ColorEditorPopup.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StretchDirection.cs" />
     <Compile Include="ArrangeDirection.cs" />
     <Compile Include="Commands.cs" />
@@ -147,8 +150,8 @@
     </Compile>
     <Compile Include="Extensions\SkewThumbExtension.cs" />
     <Compile Include="Extensions\TopLeftContainerDragHandleMultipleItems.cs" />
-    <Compile Include="PropertyGrid\Editors\ColorEditor.xaml.cs">
-      <DependentUpon>ColorEditor.xaml</DependentUpon>
+    <Compile Include="PropertyGrid\Editors\ColorEditor\ColorTypeEditor.xaml.cs">
+      <DependentUpon>ColorTypeEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="PropertyGrid\Editors\ComboBoxEditor.xaml.cs">
       <DependentUpon>ComboBoxEditor.xaml</DependentUpon>
@@ -356,7 +359,13 @@
     <Page Include="Extensions\WrapItemsContextMenu.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="PropertyGrid\Editors\ColorEditor.xaml" />
+    <Page Include="PropertyGrid\Editors\ColorEditor\ColorEditorPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PropertyGrid\Editors\ColorEditor\ColorTypeEditor.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PropertyGrid\Editors\ComboBoxEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -547,4 +556,5 @@
       <Link>ICSharpCode.SharpDevelop.snk</Link>
     </None>
   </ItemGroup>
+  <ItemGroup />
 </Project>

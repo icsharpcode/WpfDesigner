@@ -2,19 +2,38 @@
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:widgets="clr-namespace:ICSharpCode.WpfDesign.Designer.Controls"
+	xmlns:local="clr-namespace:ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor"
 	x:Name="this"
 	Height="320">
+
+	<UserControl.Resources>
+
+		<DataTemplate DataType="{x:Type local:BrushItem}">
+			<StackPanel Orientation="Horizontal">
+				<Border Background="{Binding Brush}"
+					        Width="30"
+					        Height="15"
+					        Margin="2"
+					        BorderThickness="1"
+					        BorderBrush="Black" />
+				<TextBlock Text="{Binding Name}"
+					           VerticalAlignment="Center" />
+			</StackPanel>
+		</DataTemplate>
+
+	</UserControl.Resources>
+	
 	<TabControl>
 		<TabItem Header="Color Picker">
 			<widgets:ColorPicker Color="{Binding Color, ElementName=this}" />
 		</TabItem>
 		<TabItem Header="System colors">
-			<ListBox ItemsSource="{Binding AvailableColors}"
+			<ListBox ItemsSource="{x:Static local:BrushEditor.SystemColors}"
 			         SelectedValue="{Binding Color, ElementName=this}"
 			         SelectedValuePath="Brush.Color" />
 		</TabItem>
 		<TabItem Header="Colors">
-			<ListBox ItemsSource="{Binding AvailableWpfBrushes}"
+			<ListBox ItemsSource="{x:Static local:BrushEditor.SystemBrushes}"
 			         SelectedValue="{Binding Color, ElementName=this}"
 			         SelectedValuePath="Brush.Color" />
 		</TabItem>

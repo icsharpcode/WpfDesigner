@@ -174,14 +174,6 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor
 				RaisePropertyChanged("GradientAngle");
 			}
 		}
-
-		public IEnumerable<BrushItem> AvailableColors {
-			get { return SystemColors; }
-		}
-
-		public IEnumerable<BrushItem> AvailableBrushes {
-			get { return SystemBrushes; }
-		}
 		
 		public IEnumerable<BrushItem> AvailableWpfBrushes {
 				get { return WpfBrushes; }

@@ -21,11 +21,11 @@ using System.Windows;
 using System.Windows.Input;
 using ICSharpCode.WpfDesign.Designer.themes;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor
+namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.ColorEditor
 {
-	public partial class BrushEditorPopup
+	public partial class ColorEditorPopup
 	{
-		public BrushEditorPopup()
+		public ColorEditorPopup()
 		{
 			SpecialInitializeComponent();
 		}
@@ -47,7 +47,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor
 		protected override void OnClosed(EventArgs e)
 		{
 			base.OnClosed(e);
-			BrushEditorView.BrushEditor.Commit();
+			//solidBrushEditor
 		}
 
 		protected override void OnKeyDown(KeyEventArgs e)
