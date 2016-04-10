@@ -29,4 +29,8 @@ For Sample App:
 ##Sample App
 ![Sample App](/screenshot.png?raw=true "Sample App")
 
+##Infos for Pull Requests:
+
+Please be aware, that we will not accept Pull Requests wich introduce new Dependecys (to UI DLLs) to the WPF Designer, because with them is not possible to Edit XAML Screens wich use these DLLs, when they for Example have different Versions!
+
 ######Copyright 2015 AlphaSierraPapa for the SharpDevelop team. SharpDevelop is distributed under the MIT license.
