@@ -64,21 +64,9 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		{
 			this.designItem = designItem;
 
-			this.AddCommandHandler(EditingCommands.ToggleBold, Bold, CanBold);
-			this.AddCommandHandler(EditingCommands.ToggleItalic, Bold, CanBold);
-			this.AddCommandHandler(EditingCommands.ToggleUnderline, Bold, CanBold);
-			this.AddCommandHandler(EditingCommands.IncreaseFontSize, Bold, CanBold);
-			this.AddCommandHandler(EditingCommands.DecreaseFontSize, Bold, CanBold);
+			this.InputBindings.Add(new KeyBinding(EditingCommands.ToggleBold, Key.B, ModifierKeys.Control));
 		}
-
-		public bool CanBold()
-		{
-			return true;
-		}
-
-		public void Bold()
-		{
-		}
+		
 		public override void OnApplyTemplate()
 		{
 			base.OnApplyTemplate();

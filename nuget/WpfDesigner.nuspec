@@ -12,12 +12,8 @@
     <description>A Designer Framework for WPF UIs</description>
 	<summary>WpfDesigner is the graphical WPF UI designer used in SharpDevelop</summary>
 	<releaseNotes>
-		* ALt+CLick to select below elements should work correctly
-		* Snapline Placement along Elemnts in other Containers
-		* Implement commands for Stretching Items
-		* Make it Possible that a writen DesignItem knows it's possition in the XAML Code, so that it can be selected after XAML is created
-		* Fix Position not correct for big Xaml Files
-		* Update Design Item Binding to support DepPropertys
+		* Reimplement FormaedTextEditor, TimeSpanEditor, ColorSelector
+		* Named Brushes like Red, Green, ... are now written to XAML as Name
 	</releaseNotes>
     <copyright>Copyright (c) 2015-2016 IC#Code</copyright>
 	<language>en-US</language>

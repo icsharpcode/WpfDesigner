@@ -87,6 +87,9 @@
     <Compile Include="PropertyGrid\Editors\ColorEditor\ColorEditorPopup.xaml.cs">
       <DependentUpon>ColorEditorPopup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PropertyGrid\Editors\FormatedTextEditor\RichTextBoxToolbar.xaml.cs">
+      <DependentUpon>RichTextBoxToolbar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StretchDirection.cs" />
     <Compile Include="ArrangeDirection.cs" />
     <Compile Include="Commands.cs" />
@@ -372,6 +375,10 @@
     </Page>
     <Page Include="PropertyGrid\Editors\FlatCollectionEditor.xaml" />
     <Page Include="PropertyGrid\Editors\FormatedTextEditor\FormatedTextEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PropertyGrid\Editors\FormatedTextEditor\RichTextBoxToolbar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
