@@ -19,16 +19,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Controls.Primitives;
 using System.ComponentModel;
 using ICSharpCode.WpfDesign.Designer.themes;
@@ -46,8 +41,8 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor
 			                             	Mode = BindingMode.TwoWay
 			                             });
 
-			strip.DragStarted += new DragStartedEventHandler(strip_DragStarted);
-			strip.DragDelta += new DragDeltaEventHandler(strip_DragDelta);
+			strip.DragStarted += strip_DragStarted;
+			strip.DragDelta += strip_DragDelta;
 		}
 
 		/// <summary>

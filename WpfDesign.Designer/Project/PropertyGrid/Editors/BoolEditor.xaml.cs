@@ -17,7 +17,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Linq;
 using System.Windows;
 using ICSharpCode.WpfDesign.PropertyGrid;
 using ICSharpCode.WpfDesign.Designer.themes;

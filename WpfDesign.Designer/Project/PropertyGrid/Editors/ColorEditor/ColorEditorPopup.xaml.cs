@@ -43,13 +43,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.ColorEditor
 			
 			this.InitializeComponent();
 		}
-
-		protected override void OnClosed(EventArgs e)
-		{
-			base.OnClosed(e);
-			//solidBrushEditor
-		}
-
+		
 		protected override void OnKeyDown(KeyEventArgs e)
 		{
 			if (e.Key == Key.Escape) IsOpen = false;
