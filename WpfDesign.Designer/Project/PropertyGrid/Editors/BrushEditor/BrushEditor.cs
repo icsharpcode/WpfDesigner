@@ -63,6 +63,12 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor
 			.Select(p => new BrushItem() { Name = p.Name, Brush = (Brush)p.GetValue(null, null) })
 			.ToArray();
 
+		public static BrushItem[] WpfColors = typeof(Colors)
+			.GetProperties(BindingFlags.Static | BindingFlags.Public)
+			.Where(p => p.PropertyType == typeof(Color))
+			.Select(p => new BrushItem() { Name = p.Name, Brush = new SolidColorBrush((Color)p.GetValue(null, null)) })
+			.ToArray();
+
 		SolidColorBrush solidColorBrush = new SolidColorBrush(Colors.White);
 		LinearGradientBrush linearGradientBrush;
 		RadialGradientBrush radialGradientBrush;
@@ -85,27 +91,40 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor
 			}
 		}
 
-		private Brush _brushValue = null;
-		public Brush Brush {
-			get {
-				if (property != null) {
-					_brushValue = property.Value as Brush;
-					if (_brushValue.IsFrozen)
-					{
-						_brushValue = _brushValue.Clone();
-						property.Value = _brushValue;
-					}
-					return _brushValue as Brush;
+		public Brush Brush
+		{
+			get
+			{
+				if (property != null)
+				{
+					return property.Value as Brush;
 				}
 				return null;
 			}
-			set {
-				if (property != null && _brushValue != value)
+			set
+			{
+				if (property != null && property.Value != value)
 				{
-					_brushValue = value;
 					property.Value = value;
 					DetermineCurrentKind();
 					RaisePropertyChanged("Brush");
+				}
+			}
+		}
+
+		public Color Color
+		{
+			get { return Brush is SolidColorBrush ? ((SolidColorBrush) Brush).Color : Colors.Black; }
+
+			set
+			{
+				if (Brush is SolidColorBrush && !Brush.IsFrozen)
+				{
+					((SolidColorBrush) Brush).Color = value;
+				}
+				else
+				{
+					Brush = new SolidColorBrush(value);
 				}
 			}
 		}

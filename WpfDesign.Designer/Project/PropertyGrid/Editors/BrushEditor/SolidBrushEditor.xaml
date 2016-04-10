@@ -27,13 +27,18 @@
 		<TabItem Header="Color Picker">
 			<widgets:ColorPicker Color="{Binding Color, ElementName=this}" />
 		</TabItem>
-		<TabItem Header="System colors">
+		<TabItem Header="System Colors">
 			<ListBox ItemsSource="{x:Static local:BrushEditor.SystemColors}"
 			         SelectedValue="{Binding Color, ElementName=this}"
 			         SelectedValuePath="Brush.Color" />
 		</TabItem>
-		<TabItem Header="Colors">
+		<TabItem Header="System Brushes">
 			<ListBox ItemsSource="{x:Static local:BrushEditor.SystemBrushes}"
+			         SelectedValue="{Binding Color, ElementName=this}"
+			         SelectedValuePath="Brush.Color" />
+		</TabItem>
+		<TabItem Header="WPF Colors">
+			<ListBox ItemsSource="{x:Static local:BrushEditor.WpfColors}"
 			         SelectedValue="{Binding Color, ElementName=this}"
 			         SelectedValuePath="Brush.Color" />
 		</TabItem>

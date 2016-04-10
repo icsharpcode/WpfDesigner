@@ -36,7 +36,7 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		static XamlDocument()
 		{
 			_colorBrushDictionary = new Dictionary<Color, string>();
-			foreach (var brushProp in typeof(Brushes).GetProperties(BindingFlags.Static|BindingFlags.Public))
+			foreach (var brushProp in typeof(Brushes).GetProperties(BindingFlags.Static|BindingFlags.Public).Where(p => p.PropertyType == typeof(SolidColorBrush)))
 			{
 				var brush = brushProp.GetValue(null, null) as SolidColorBrush;
 				if (!_colorBrushDictionary.ContainsKey(brush.Color)) {

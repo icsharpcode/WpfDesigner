@@ -41,7 +41,7 @@
 			</Border>
 		</TabItem>
 		<TabItem Header="Solid">
-			<BrushEditor:SolidBrushEditor Color="{Binding Brush.Color}" />
+			<BrushEditor:SolidBrushEditor Color="{Binding Color}" />
 		</TabItem>
 		<TabItem Header="Linear">
 			<DockPanel>
@@ -70,14 +70,14 @@
 		<TabItem Header="Radial">
 			<BrushEditor:GradientBrushEditor />
 		</TabItem>
-		<TabItem Header="System brushes">
-			<ListBox MaxHeight="320" ItemsSource="{Binding AvailableBrushes}"
-			         SelectedValue="{Binding Brush.Color}"
+		<TabItem Header="System Brushes">
+			<ListBox MaxHeight="320" ItemsSource="{Binding SystemBrushes}"
+			         SelectedValue="{Binding Color}"
 			         SelectedValuePath="Brush.Color" />
 		</TabItem>
 		<TabItem Header="Brushes">
 			<ListBox MaxHeight="320" ItemsSource="{Binding AvailableWpfBrushes}"
-			         SelectedValue="{Binding Brush.Color}"
+			         SelectedValue="{Binding Color}"
 			         SelectedValuePath="Brush.Color" />
 		</TabItem>
 	</TabControl>
