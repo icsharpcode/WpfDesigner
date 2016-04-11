@@ -26,6 +26,7 @@ using System.Windows.Media;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using System.Windows.Input;
+using ICSharpCode.WpfDesign.Designer.Services;
 
 namespace ICSharpCode.WpfDesign.Designer.Extensions
 {
@@ -202,10 +203,18 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 					{
 						bounds.Y += delta;
 						bounds.Height = Math.Max(0, bounds.Height - delta);
+						if (operation.CurrentContainer.Services.GetService<OptionService>().SnaplinePlacementRoundValues) {
+							bounds.Y = Math.Round(bounds.Y);
+							bounds.Height = Math.Round(bounds.Height);
+						}
 					}
 					else
 					{
 						bounds.Height = Math.Max(0, bounds.Height + delta);
+
+						if (operation.CurrentContainer.Services.GetService<OptionService>().SnaplinePlacementRoundValues) {
+							bounds.Height = Math.Round(bounds.Height);
+						}
 					}
 					info.Bounds = bounds;
 				}
@@ -215,6 +224,9 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 					{
 						var r = item.Bounds;
 						r.Y += delta;
+						if (operation.CurrentContainer.Services.GetService<OptionService>().SnaplinePlacementRoundValues) {
+							r.Y = Math.Round(r.Y);
+						}
 						item.Bounds = r;
 					}
 				}
@@ -234,10 +246,17 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 					{
 						bounds.X += delta;
 						bounds.Width = Math.Max(0, bounds.Width - delta);
+						if (operation.CurrentContainer.Services.GetService<OptionService>().SnaplinePlacementRoundValues) {
+							bounds.X = Math.Round(bounds.X);
+							bounds.Width = Math.Round(bounds.Width);
+						}
 					}
 					else
 					{
 						bounds.Width = Math.Max(0, bounds.Width + delta);
+						if (operation.CurrentContainer.Services.GetService<OptionService>().SnaplinePlacementRoundValues) {
+							bounds.Width = Math.Round(bounds.Width);
+						}
 					}
 					info.Bounds = bounds;
 				}
@@ -247,6 +266,9 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 					{
 						var r = item.Bounds;
 						r.X += delta;
+						if (operation.CurrentContainer.Services.GetService<OptionService>().SnaplinePlacementRoundValues) {
+							r.X = Math.Round(r.X);
+						}
 						item.Bounds = r;
 					}
 				}

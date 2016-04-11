@@ -29,5 +29,10 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		/// Gets/Sets whether the design surface should be grayed out while dragging/selection.
 		/// </summary>
 		public bool GrayOutDesignSurfaceExceptParentContainerWhenDragging = true;
+
+		/// <summary>
+		/// Gets/Sets if the Values should be rounded when using Snapline Placement.
+		/// </summary>
+		public bool SnaplinePlacementRoundValues = false;
 	}
 }
