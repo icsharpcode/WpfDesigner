@@ -21,8 +21,6 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows;
-
-using System.Windows.Controls;
 using System.Windows.Media;
 using ICSharpCode.WpfDesign.UIExtensions;
 using ICSharpCode.WpfDesign.Extensions;
@@ -207,6 +205,20 @@ namespace ICSharpCode.WpfDesign
 							return false;
 						}
 					});
+			}
+		}
+
+		/// <summary>
+		/// Removes one specific Extension
+		/// </summary>
+		public void RemoveExtension(Extension extension)
+		{
+			var hasExtension = this._extensions.Any(x => x.Extension.GetType() == extension.GetType());
+
+			if (hasExtension) {
+				var extensionEntry = this._extensions.FirstOrDefault(x => x.Extension.GetType() == extension.GetType());
+				//_extensions.Remove(extensionEntry);
+				extensionEntry.Server.RemoveExtension(extensionEntry.Extension);
 			}
 		}
 

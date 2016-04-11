@@ -19,12 +19,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Reflection;
 using System.Collections;
 using System.Windows;
-using System.ComponentModel;
-using System.Diagnostics;
 
 namespace ICSharpCode.WpfDesign
 {

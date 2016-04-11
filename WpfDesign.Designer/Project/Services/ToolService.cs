@@ -17,7 +17,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Windows.Input;
 using System.Windows.Media;
 namespace ICSharpCode.WpfDesign.Designer.Services
 {
@@ -30,7 +29,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		public DefaultToolService(DesignContext context)
 		{
 			_currentTool = this.PointerTool;
-			context.Services.RunWhenAvailable<IDesignPanel>(
+			context.Services.RunWhenAvailable(
 				delegate(IDesignPanel designPanel) {
 					_designPanel = designPanel;
 					_currentTool.Activate(designPanel);

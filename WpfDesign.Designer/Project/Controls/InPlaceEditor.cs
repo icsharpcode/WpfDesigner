@@ -50,15 +50,9 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 
 		readonly DesignItem designItem;
 		ChangeGroup changeGroup;
-		TextBlock textBlock;
 		RichTextBox editor;
 
 		bool _isChangeGroupOpen;
-
-		/// <summary>
-		/// This is the name of the property that is being edited for example Window.Title, Button.Content .
-		/// </summary>
-		string property;
 
 		public InPlaceEditor(DesignItem designItem)
 		{
@@ -82,8 +76,6 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			};
 			ToolTip = "Edit the Text. Press" + Environment.NewLine + "Enter to make changes." + Environment.NewLine + "Shift+Enter to insert a newline." + Environment.NewLine + "Esc to cancel editing.";
 
-			//RichTextBoxFormatBarManager.SetFormatBar(editor, new RichTextBoxFormatBar());
-
 			editor.TextChanged += editor_TextChanged;
 			FormatedTextEditor.SetRichTextBoxTextFromTextBlock(editor, ((TextBlock)designItem.Component));
 		}
@@ -106,9 +98,6 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 				changeGroup.Abort();
 				_isChangeGroupOpen = false;
 			}
-			if (textBlock != null)
-				textBlock.Visibility = Visibility.Visible;
-			Reset();
 			base.OnLostKeyboardFocus(e);
 		}
 
@@ -125,8 +114,6 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 				{
 					case Key.Enter:
 						// Commit the changes to DOM.
-						if (property != null)
-							designItem.Properties[property].SetValue(Bind);
 						if (designItem.Properties[Control.FontFamilyProperty].ValueOnInstance != editor.FontFamily)
 							designItem.Properties[Control.FontFamilyProperty].SetValue(editor.FontFamily);
 						if ((double)designItem.Properties[Control.FontSizeProperty].ValueOnInstance != editor.FontSize)
@@ -146,6 +133,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 						}
 						changeGroup = null;
 						this.Visibility = Visibility.Hidden;
+						this.designItem.ReapplyAllExtensions();
 						((TextBlock)designItem.Component).Visibility = Visibility.Visible;
 						break;
 					case Key.Escape:
@@ -159,32 +147,14 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			}
 		}
 
-		private void Reset()
-		{
-			if (textBlock != null)
-			{
-				if (property != null)
-					textBlock.Text = (string)designItem.Properties[property].ValueOnInstance;
-				textBlock.FontFamily = (System.Windows.Media.FontFamily)designItem.Properties[Control.FontFamilyProperty].ValueOnInstance;
-				textBlock.FontSize = (double)designItem.Properties[Control.FontSizeProperty].ValueOnInstance;
-				textBlock.FontStretch = (FontStretch)designItem.Properties[Control.FontStretchProperty].ValueOnInstance;
-				textBlock.FontStretch = (FontStretch)designItem.Properties[Control.FontStretchProperty].ValueOnInstance;
-				textBlock.FontWeight = (FontWeight)designItem.Properties[Control.FontWeightProperty].ValueOnInstance;
-			}
-		}
-
 		public void AbortEditing()
 		{
 			if (changeGroup != null && _isChangeGroupOpen)
 			{
-				Reset();
 				changeGroup.Abort();
 				_isChangeGroupOpen = false;
 			}
 			this.Visibility = Visibility.Hidden;
-			if (textBlock != null)
-				textBlock.Visibility = Visibility.Visible;
-			Reset();
 		}
 
 		public void StartEditing()
@@ -195,8 +165,6 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 				_isChangeGroupOpen = true;
 			}
 			this.Visibility = Visibility.Visible;
-			if (textBlock != null)
-				textBlock.Visibility = Visibility.Hidden;
 		}
 	}
 }

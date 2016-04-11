@@ -28,7 +28,6 @@ using System.Windows.Data;
 using ICSharpCode.WpfDesign.Adorners;
 using ICSharpCode.WpfDesign.Extensions;
 using ICSharpCode.WpfDesign.Designer.Controls;
-using ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor;
 using ICSharpCode.WpfDesign.UIExtensions;
 
 namespace ICSharpCode.WpfDesign.Designer.Extensions
@@ -200,15 +199,23 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			result = designPanel.HitTest(e.GetPosition(designPanel), true, true, HitTestType.Default);
 			if (((result.ModelHit == ExtendedItem && result.VisualHit is TextBlock) || (result.VisualHit != null && result.VisualHit.TryFindParent<InPlaceEditor>() == editor)) && numClicks > 0)
 			{
-				if (!isGettingDragged)
-				{
+				if (!isGettingDragged) {
 					PlaceEditor(ExtendedItem.View, e);
+					foreach (var extension in ExtendedItem.Extensions)
+					{
+						if (!(extension is InPlaceEditorExtension) && !(extension is SelectedElementRectangleExtension)) {
+							ExtendedItem.RemoveExtension(extension);
+						}
+					}
 					editor.Visibility = Visibility.Visible;
 				}
 			}
 			else { // Clicked outside the Text - > hide the editor and make the actualt text visible again
 				editor.Visibility = Visibility.Hidden;
-				if (textBlock != null) textBlock.Visibility = Visibility.Visible;
+				if (textBlock != null) {
+					textBlock.Visibility = Visibility.Visible;
+				}
+				this.ExtendedItem.ReapplyAllExtensions();
 			}
 
 			isMouseDown = false;
@@ -261,8 +268,9 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 
 		protected override void OnRemove()
 		{
-			if (textBlock != null)
+			if (textBlock != null) {
 				textBlock.Visibility = Visibility.Visible;
+			}
 			ExtendedItem.PropertyChanged -= PropertyChanged;
 			designPanel.PreviewMouseLeftButtonDown -= MouseDown;
 			designPanel.PreviewMouseMove -= MouseMove;
