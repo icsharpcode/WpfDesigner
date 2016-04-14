@@ -97,30 +97,43 @@ namespace ICSharpCode.WpfDesign.Designer
 		/// Deletes the specified components from their parent containers.
 		/// If the deleted components are currently selected, they are deselected before they are deleted.
 		/// </summary>
-		public static void DeleteComponents(ICollection<DesignItem> items)
+		public static void DeleteComponents(ICollection<DesignItem> deleteItems)
 		{
-			DesignItem parent = items.First().Parent;
-			PlacementOperation operation = PlacementOperation.Start(items, PlacementType.Delete);
-			try {
-				ISelectionService selectionService = items.First().Services.Selection;
-				selectionService.SetSelectedComponents(items, SelectionTypes.Remove);
-				// if the selection is empty after deleting some components, select the parent of the deleted component
-				if (selectionService.SelectionCount == 0 && !items.Contains(parent)) {
-					selectionService.SetSelectedComponents(new DesignItem[] { parent });
+			if (deleteItems.Count > 0) {
+				var changeGroup = deleteItems.First().OpenGroup("Delete Items");
+				try {
+					var itemsGrpParent = deleteItems.GroupBy(x => x.Parent);
+					foreach (var itemsList in itemsGrpParent) {
+						var items = itemsList.ToList();
+						DesignItem parent = items.First().Parent;
+						PlacementOperation operation = PlacementOperation.Start(items, PlacementType.Delete);
+						try {
+							ISelectionService selectionService = items.First().Services.Selection;
+							selectionService.SetSelectedComponents(items, SelectionTypes.Remove);
+							// if the selection is empty after deleting some components, select the parent of the deleted component
+							if (selectionService.SelectionCount == 0 && !items.Contains(parent)) {
+								selectionService.SetSelectedComponents(new[] {parent});
+							}
+							foreach (var designItem in items) {
+								designItem.Name = null;
+							}
+
+							var service = parent.Services.Component as XamlComponentService;
+							foreach (var item in items) {
+								service.RaiseComponentRemoved(item);
+							}
+
+							operation.DeleteItemsAndCommit();
+						} catch {
+							operation.Abort();
+							throw;
+						}
+					}
+					changeGroup.Commit();
+				} catch {
+					changeGroup.Abort();
+					throw;
 				}
-				foreach (var designItem in items) {
-					designItem.Name = null;
-				}
-								
-				var service = parent.Services.Component as XamlComponentService;
-				foreach (var item in items) {
-					service.RaiseComponentRemoved(item);
-				}
-				
-				operation.DeleteItemsAndCommit();
-			} catch {
-				operation.Abort();
-				throw;
 			}
 		}
 		
