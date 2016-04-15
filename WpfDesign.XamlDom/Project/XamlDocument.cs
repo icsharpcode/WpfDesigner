@@ -50,7 +50,8 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		XmlDocument _xmlDoc;
 		XamlObject _rootElement;
 		IServiceProvider _serviceProvider;
-		
+		private string _currentProjectAssemblyName; 
+
 		XamlTypeFinder _typeFinder;
 
 		int namespacePrefixCounter;
@@ -72,7 +73,15 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		public IServiceProvider ServiceProvider {
 			get { return _serviceProvider; }
 		}
-		
+
+		/// <summary>
+		/// Gets the Current Projects Assembly Name (if it has any).
+		/// </summary>
+		public string CurrentProjectAssemblyName
+		{
+			get { return _currentProjectAssemblyName; }
+		}
+
 		/// <summary>
 		/// Gets the type descriptor context used for type conversions.
 		/// </summary>
@@ -159,6 +168,7 @@ namespace ICSharpCode.WpfDesign.XamlDom
 			this._xmlDoc = xmlDoc;
 			this._typeFinder = settings.TypeFinder;
 			this._serviceProvider = settings.ServiceProvider;
+			this._currentProjectAssemblyName = settings.CurrentProjectAssemblyName;
 		}
 		
 		/// <summary>

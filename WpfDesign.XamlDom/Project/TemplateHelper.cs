@@ -61,10 +61,16 @@ namespace ICSharpCode.WpfDesign.XamlDom
 			}
 			
 			xmlElement = (XmlElement)xmlElement.CloneNode(true);
-
+				
 			foreach (var dictentry in ns.ToList())
 			{
-				xmlElement.SetAttribute("xmlns:" + dictentry.Key, dictentry.Value);
+				var value = dictentry.Value;
+				if (value.StartsWith("clr-namespace") && !value.Contains(";assembly=")) {
+					if (!string.IsNullOrEmpty(parentObject.OwnerDocument.CurrentProjectAssemblyName)) {
+						value += ";assembly=" + parentObject.OwnerDocument.CurrentProjectAssemblyName;
+					}
+				}
+				xmlElement.SetAttribute("xmlns:" + dictentry.Key, value);
 			}
 
 			var keyAttrib = xmlElement.GetAttribute("Key", XamlConstants.XamlNamespace);

@@ -33,7 +33,8 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		CreateInstanceCallback _createInstanceCallback = Activator.CreateInstance;
 		XamlTypeFinder _typeFinder = XamlTypeFinder.CreateWpfTypeFinder();
 		IServiceProvider _serviceProvider = DummyServiceProvider.Instance;
-		
+		string _currentProjectAssemblyName;
+
 		/// <summary>
 		/// Gets/Sets the method used to create object instances.
 		/// </summary>
@@ -69,7 +70,17 @@ namespace ICSharpCode.WpfDesign.XamlDom
 				_serviceProvider = value;
 			}
 		}
-		
+
+		/// <summary>
+		/// Gets/Sets the Current Projects Assembly Name.
+		/// </summary>
+		public string CurrentProjectAssemblyName {
+			get { return _currentProjectAssemblyName; }
+			set {
+				_currentProjectAssemblyName = value;
+			}
+		}
+
 		sealed class DummyServiceProvider : IServiceProvider
 		{
 			public static readonly DummyServiceProvider Instance = new DummyServiceProvider();

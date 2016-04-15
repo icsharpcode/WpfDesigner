@@ -42,7 +42,9 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 				typeFinder = value;
 			}
 		}
-		
+
+		public string CurrentProjectAssemblyName { get; set; }
+
 		public XamlLoadSettings()
 		{
 			DesignerAssemblies.Add(typeof(XamlDesignContext).Assembly);

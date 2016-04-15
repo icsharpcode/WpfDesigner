@@ -102,6 +102,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			
 			_parserSettings = new XamlParserSettings();
 			_parserSettings.TypeFinder = loadSettings.TypeFinder;
+			_parserSettings.CurrentProjectAssemblyName = loadSettings.CurrentProjectAssemblyName;
 			_parserSettings.CreateInstanceCallback = this.Services.ExtensionManager.CreateInstanceWithCustomInstanceFactory;
 			_parserSettings.ServiceProvider = this.Services;
 			_doc = XamlParser.Parse(xamlReader, _parserSettings);
