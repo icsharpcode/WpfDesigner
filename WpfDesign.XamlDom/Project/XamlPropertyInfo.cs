@@ -156,7 +156,11 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		
 		public override void ResetValue(object instance)
 		{
-			_propertyDescriptor.ResetValue(instance);
+			try {
+				_propertyDescriptor.ResetValue(instance);
+			} catch (Exception) {
+				//For Example "UndoRedoSimpleBinding" will raise a exception here => look if it has Side Effects if we generally catch here?
+			}
 		}
 		
 		public override Type ReturnType {
