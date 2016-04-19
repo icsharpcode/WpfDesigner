@@ -497,6 +497,34 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 		}
 		
 		[Test]
+		public void UndoRedoSimpleBinding()
+		{
+			DesignItem textBox = CreateCanvasContext("<TextBox />");
+			UndoService s = textBox.Context.Services.GetService<UndoService>();
+			IComponentService component = textBox.Context.Services.Component;
+			
+			var bindingItem = component.RegisterComponentForDesigner(new Binding());
+			bindingItem.Properties["ElementName"].SetValue("SomeElement");
+			
+		//	textBox.Properties[TextBox.TextProperty].SetValue(bindingItem);
+			
+//			textBox.Properties[TextBox.TextProperty].SetValue(new Binding());
+//			textBox.Properties[TextBox.TextProperty].Value.Properties["ElementName"].SetValue("SomeElement");
+			
+	//		string expectedXaml = "<TextBox Text=\"{Binding ElementName=SomeElement}\" />\n";
+			
+	//		AssertCanvasDesignerOutput(expectedXaml, textBox.Context);
+			AssertLog("");
+			
+			Assert.IsTrue(s.CanUndo);
+			Assert.IsFalse(s.CanRedo);
+			
+			s.Undo();
+			
+			s.Redo();
+		}
+		
+		[Test]
 		public void AddTextBoxToCanvas()
 		{
 			DesignItem button = CreateCanvasContext("<Button/>");
