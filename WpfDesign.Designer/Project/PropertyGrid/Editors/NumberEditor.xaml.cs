@@ -38,6 +38,17 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 	[TypeEditor(typeof(ulong))]
 	[TypeEditor(typeof(short))]
 	[TypeEditor(typeof(ushort))]
+	[TypeEditor(typeof(byte?))]
+	[TypeEditor(typeof(sbyte?))]
+	[TypeEditor(typeof(decimal?))]
+	[TypeEditor(typeof(double?))]
+	[TypeEditor(typeof(float?))]
+	[TypeEditor(typeof(int?))]
+	[TypeEditor(typeof(uint?))]
+	[TypeEditor(typeof(long?))]
+	[TypeEditor(typeof(ulong?))]
+	[TypeEditor(typeof(short?))]
+	[TypeEditor(typeof(ushort?))]
 	public partial class NumberEditor
 	{
 		static NumberEditor()
@@ -103,15 +114,20 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 				range = new NumberRange() { Min = double.MinValue, Max = double.MaxValue };
 			}
 
+			var nType = type;
+			if (Nullable.GetUnderlyingType(type) != null) {
+				nType = Nullable.GetUnderlyingType(type);
+			}
+
 			if (range.Min == double.MinValue) {
-				Minimum = minimums[type];
+				Minimum = minimums[nType];
 			}
 			else {
 				Minimum = range.Min;
 			}
 
 			if (range.Max == double.MaxValue) {
-				Maximum = maximums[type];
+				Maximum = maximums[nType];
 			}
 			else {
 				Maximum = range.Max;
