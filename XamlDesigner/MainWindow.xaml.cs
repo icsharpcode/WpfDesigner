@@ -151,10 +151,20 @@ namespace ICSharpCode.XamlDesigner
 			uxDockingManager.Loaded += delegate {
 				if (Settings.Default.AvalonDockLayout != null) {
 					uxDockingManager.RestoreLayout(Settings.Default.AvalonDockLayout.ToStream());
+					RestoreDocumentPaneBinding();
 				}
 			};
 		}
-
+		
+		private void RestoreDocumentPaneBinding()
+        	{
+            		uxDocumentPane = uxDockingManager.MainDocumentPane;
+            		uxDocumentPane.SetBinding(DocumentPane.SelectedValueProperty, "CurrentDocument");
+            		uxDocumentPane.SelectedValuePath = "DataContext";
+            		AvalonDockWorkaround();
+         
+        	}
+		
 		void SaveSettings()
 		{
 			Settings.Default.MainWindowState = WindowState;
