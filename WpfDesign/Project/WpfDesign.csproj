@@ -121,6 +121,8 @@
     <Compile Include="ServiceRequiredException.cs" />
     <Compile Include="Services.cs" />
     <Compile Include="Tools.cs" />
+    <Compile Include="UIExtensions\MouseHorizontalWheelEnabler.cs" />
+    <Compile Include="UIExtensions\MouseHorizontalWheelEventArgs.cs" />
     <Compile Include="UIExtensions\UIHelpers.cs" />
   </ItemGroup>
   <ItemGroup>

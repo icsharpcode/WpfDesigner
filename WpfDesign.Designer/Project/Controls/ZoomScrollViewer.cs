@@ -21,6 +21,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
+using ICSharpCode.WpfDesign.UIExtensions;
 
 namespace ICSharpCode.WpfDesign.Designer.Controls
 {
@@ -31,7 +32,31 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			DefaultStyleKeyProperty.OverrideMetadata(typeof(ZoomScrollViewer),
 			                                         new FrameworkPropertyMetadata(typeof(ZoomScrollViewer)));
 		}
-		
+
+		public bool EnableHorizontalWheelSupport
+		{
+			get { return (bool)GetValue(EnableHorizontalWheelSupportProperty); }
+			set { SetValue(EnableHorizontalWheelSupportProperty, value); }
+		}
+
+		public static readonly DependencyProperty EnableHorizontalWheelSupportProperty =
+			DependencyProperty.Register("EnableHorizontalWheelSupport", typeof(bool), typeof(ZoomScrollViewer), new PropertyMetadata(false, EnableHorizontalWheelSupportChanged));
+
+
+		private static void EnableHorizontalWheelSupportChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+		{
+			var ctl = d as ZoomScrollViewer;
+			if ((bool)e.NewValue == false) {
+				{
+					MouseHorizontalWheelEnabler.RemoveMouseHorizontalWheelHandler(ctl, ctl.OnMouseHorizontalWheel);
+				}
+			} else {
+				{
+					MouseHorizontalWheelEnabler.AddMouseHorizontalWheelHandler(ctl, ctl.OnMouseHorizontalWheel);
+				}
+			}
+		}
+
 		public static readonly DependencyProperty CurrentZoomProperty =
 			DependencyProperty.Register("CurrentZoom", typeof(double), typeof(ZoomScrollViewer),
 			                            new FrameworkPropertyMetadata(1.0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, CalculateZoomButtonCollapsed, CoerceZoom));
@@ -155,7 +180,16 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			}
 			base.OnMouseWheel(e);
 		}
-		
+
+		private void OnMouseHorizontalWheel(object d, RoutedEventArgs e)
+		{
+			if (Keyboard.Modifiers != ModifierKeys.Control) {
+				var ea = e as MouseHorizontalWheelEventArgs;
+
+				this.ScrollToHorizontalOffset(this.HorizontalOffset + ea.HorizontalDelta);
+			}
+		}
+
 		internal static double RoundToOneIfClose(double val)
 		{
 			if (Math.Abs(val - 1.0) < 0.001)
