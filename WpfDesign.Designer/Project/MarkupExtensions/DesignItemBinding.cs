@@ -207,12 +207,22 @@ namespace ICSharpCode.WpfDesign.Designer.MarkupExtensions
 				
 				var changeGroup = _designItem.OpenGroup("Property: " + _propertyName);
 
-				try
-				{
-					var property = _designItem.Properties.GetProperty(_propertyName);
+				try {
+					DesignItemProperty property = null;
 
+					if (_property != null) {
+						try {
+							property = _designItem.Properties.GetProperty(_property);
+						}
+						catch (Exception) {
+							property = _designItem.Properties.GetAttachedProperty(_property);
+						}
+					}
+					else {
+						property = _designItem.Properties.GetProperty(_propertyName);
+					}
+					
 					property.SetValue(val);
-
 
 					if (!_singleItemProperty && _designItem.Services.Selection.SelectedItems.Count > 1)
 					{
