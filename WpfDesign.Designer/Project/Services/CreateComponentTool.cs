@@ -292,6 +292,12 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 				changeGroup.Commit();
 				changeGroup = null;
 			}
+			
+			if (designPanel.Context.Services.Component is XamlComponentService)
+			{
+				((XamlComponentService)designPanel.Context.Services.Component).RaiseComponentRegisteredAndAddedToContainer(createdItem);
+			}
+
 			base.OnMouseUp(sender, e);
 		}
 		
