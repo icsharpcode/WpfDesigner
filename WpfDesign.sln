@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfDesign.XamlDom", "WpfDesign.XamlDom\Project\WpfDesign.XamlDom.csproj", "{88DA149F-21B2-48AB-82C4-28FB6BDFD783}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyTestAssembly", "MyTestAssembly\MyTestAssembly.csproj", "{DC6BD4A4-BF01-4A4B-BEF6-9B17D6AB2E06}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDesigner", "MyDesigner\MyDesigner.csproj", "{E65E2846-F038-4F38-A958-8F5DE7DFFBCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfDesign.Designer.ExpressionBlendInteractionAddon", "WpfDesign.Design.ExpressionBlendInteractionAddon\WpfDesign.Designer.ExpressionBlendInteractionAddon.csproj", "{01F281CF-7616-40E3-ABE7-AAC008698719}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{E65E2846-F038-4F38-A958-8F5DE7DFFBCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E65E2846-F038-4F38-A958-8F5DE7DFFBCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E65E2846-F038-4F38-A958-8F5DE7DFFBCD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01F281CF-7616-40E3-ABE7-AAC008698719}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01F281CF-7616-40E3-ABE7-AAC008698719}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01F281CF-7616-40E3-ABE7-AAC008698719}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01F281CF-7616-40E3-ABE7-AAC008698719}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

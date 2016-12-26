@@ -6,6 +6,8 @@
         xmlns:AvalonDock="clr-namespace:AvalonDock;assembly=AvalonDock"
         xmlns:Outline="clr-namespace:ICSharpCode.WpfDesign.Designer.OutlineView;assembly=ICSharpCode.WpfDesign.Designer"
         xmlns:Default="clr-namespace:ICSharpCode.XamlDesigner"
+        xmlns:behaviorsEditor="clr-namespace:ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.BehaviorsEditor;assembly=ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon"
+        xmlns:triggersEditor="clr-namespace:ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.TriggersEditor;assembly=ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon"
         SnapsToDevicePixels="True"
         AllowDrop="True"
         Title="{Binding Title}">
@@ -127,6 +129,18 @@
 						<sd:ThumbnailView x:Name="uxThumbnailView" DesignSurface="{Binding DataContext.CurrentDocument.DesignSurface, ElementName=root, FallbackValue={x:Null}}" />
 					</AvalonDock:DockableContent>
 				</AvalonDock:DockablePane>
+
+				<AvalonDock:DockablePane>
+					<AvalonDock:DockableContent x:Name="content6" Title="Behaviors">
+						<behaviorsEditor:BehaviorsEditor x:Name="uxBehaviorsView"
+										 SelectedItems="{Binding DataContext.CurrentDocument.SelectionService.SelectedItems, ElementName=root, FallbackValue={x:Null}}"/>
+					</AvalonDock:DockableContent>
+					<AvalonDock:DockableContent x:Name="content7" Title="Triggers">
+						<triggersEditor:TriggersEditor x:Name="uxTriggersView"
+										 SelectedItems="{Binding DataContext.CurrentDocument.SelectionService.SelectedItems, ElementName=root, FallbackValue={x:Null}}"/>
+					</AvalonDock:DockableContent>
+				</AvalonDock:DockablePane>
+				
 			</AvalonDock:ResizingPanel>
 		</AvalonDock:DockingManager>
 	</DockPanel>

@@ -266,6 +266,7 @@ namespace ICSharpCode.WpfDesign.Extensions
 				throw new ArgumentNullException("instanceType");
 			if (arguments == null)
 				arguments = emptyObjectArray;
+
 			foreach (Type extensionType in GetExtensionTypes(instanceType)) {
 				if (typeof(CustomInstanceFactory).IsAssignableFrom(extensionType)) {
 					CustomInstanceFactory factory = (CustomInstanceFactory)Activator.CreateInstance(extensionType);

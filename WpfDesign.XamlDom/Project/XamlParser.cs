@@ -233,7 +233,10 @@ namespace ICSharpCode.WpfDesign.XamlDom
 						onlyTextNodes = false;
 					}
 				}
-				if (onlyTextNodes && numberOfTextNodes == 1) {
+
+				if (elementType == typeof(string) && numberOfTextNodes == 0) {
+					initializeFromTextValueInsteadOfConstructor = new XamlTextValue(document, string.Empty);
+				} else if (onlyTextNodes && numberOfTextNodes == 1) {
 					foreach (XmlNode childNode in element.ChildNodes) {
 						if (childNode.NodeType == XmlNodeType.Text) {
 							currentParsedNode = childNode;

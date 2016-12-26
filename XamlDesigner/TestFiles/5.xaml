@@ -1,0 +1,72 @@
+<Window xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        Name="root"
+        Title="Hydralisk">
+	<Window.Resources>
+		<System:String x:Key="NotEmptyString">AAA</System:String>
+		<System:String x:Key="EmptyString"></System:String>
+	</Window.Resources>
+
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*"/>
+		</Grid.RowDefinitions>
+		<TextBox x:Name="textBox1">
+			<i:Interaction.Triggers>
+				<i:EventTrigger EventName="TextChanged">
+					<i:Interaction.Behaviors>
+						<ei:ConditionBehavior>
+							<ei:ConditionalExpression>
+								<ei:ComparisonCondition LeftOperand="{Binding Text, ElementName=textBox1}" RightOperand="{StaticResource EmptyString}"/>
+							</ei:ConditionalExpression>
+						</ei:ConditionBehavior>
+					</i:Interaction.Behaviors>
+					<ei:ChangePropertyAction TargetObject="{Binding ElementName=button}" PropertyName="IsEnabled"/>
+				</i:EventTrigger>
+				<i:EventTrigger EventName="TextChanged">
+					<i:Interaction.Behaviors>
+						<ei:ConditionBehavior>
+							<ei:ConditionalExpression>
+								<ei:ComparisonCondition LeftOperand="{Binding Text, ElementName=textBox1}" Operator="NotEqual" RightOperand="{StaticResource EmptyString}"/>
+								<ei:ComparisonCondition LeftOperand="{Binding Text, ElementName=textBox2}" Operator="NotEqual" RightOperand="{StaticResource EmptyString}"/>
+							</ei:ConditionalExpression>
+						</ei:ConditionBehavior>
+					</i:Interaction.Behaviors>
+					<ei:ChangePropertyAction TargetObject="{Binding ElementName=button}" PropertyName="IsEnabled" Value="True"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+		</TextBox>
+		<TextBox x:Name="textBox2" Grid.Row="1">
+			<i:Interaction.Triggers>
+				<i:EventTrigger EventName="TextChanged">
+					<i:Interaction.Behaviors>
+						<ei:ConditionBehavior>
+							<ei:ConditionalExpression>
+								<ei:ComparisonCondition LeftOperand="{Binding Text, ElementName=textBox2}" RightOperand="{StaticResource EmptyString}"/>
+							</ei:ConditionalExpression>
+						</ei:ConditionBehavior>
+					</i:Interaction.Behaviors>
+					<ei:ChangePropertyAction TargetObject="{Binding ElementName=button}" PropertyName="IsEnabled"/>
+				</i:EventTrigger>
+				<i:EventTrigger EventName="TextChanged">
+					<i:Interaction.Behaviors>
+						<ei:ConditionBehavior>
+							<ei:ConditionalExpression>
+								<ei:ComparisonCondition LeftOperand="{Binding Text, ElementName=textBox1}" Operator="NotEqual" RightOperand="{StaticResource EmptyString}"/>
+								<ei:ComparisonCondition LeftOperand="{Binding Text, ElementName=textBox2}" Operator="NotEqual" RightOperand="{StaticResource EmptyString}"/>
+							</ei:ConditionalExpression>
+						</ei:ConditionBehavior>
+					</i:Interaction.Behaviors>
+					<ei:ChangePropertyAction TargetObject="{Binding ElementName=button}" PropertyName="IsEnabled" Value="True"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
+		</TextBox>
+		<Button x:Name="button" Grid.Row="2" Content="Go" IsEnabled="False"/>
+	</Grid>
+</Window>

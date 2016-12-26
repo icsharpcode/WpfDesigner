@@ -22,6 +22,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel;
+using System.Reflection;
+using System.Windows;
 
 namespace ICSharpCode.WpfDesign.PropertyGrid
 {
@@ -83,7 +85,6 @@ namespace ICSharpCode.WpfDesign.PropertyGrid
 		}
 		
 		private static string[] hiddenPropertiesOnWindow = new[] {"ClipToBounds"};
-		
 		/// <summary>
 		/// Gets available properties for an object, includes attached properties also.
 		/// </summary>

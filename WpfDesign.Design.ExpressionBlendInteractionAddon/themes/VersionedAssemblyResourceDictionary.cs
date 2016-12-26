@@ -20,7 +20,7 @@ using System;
 using System.ComponentModel;
 using System.Windows;
 
-namespace ICSharpCode.WpfDesign.Designer.themes
+namespace ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.themes
 {
 	internal class VersionedAssemblyResourceDictionary : ResourceDictionary, ISupportInitialize
 	{
@@ -33,7 +33,7 @@ namespace ICSharpCode.WpfDesign.Designer.themes
 			var nm = typeof(VersionedAssemblyResourceDictionary).Assembly.GetName();
 			_uriStart = string.Format( @"/{0};v{1};component/", nm.Name, nm.Version);
 			
-			_subLength = "ICSharpCode.WpfDesign.Designer.".Length;
+			_subLength = "ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.".Length;
 		}
 
 		public string RelativePath {get;set;}

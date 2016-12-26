@@ -1,0 +1,22 @@
+﻿<ResourceDictionary 
+	xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:Control="clr-namespace:ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.TriggersEditor">
+
+	<Style TargetType="{x:Type Control:TriggersEditor}">
+		<Setter Property="Background" Value="{x:Static SystemColors.ControlLightBrush}" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Control:TriggersEditor}">
+					<ListBox x:Name="PART_ListBox">
+						<ListBox.ItemTemplate>
+							<DataTemplate>
+								<TextBlock Text="{Binding Component, Mode=OneWay}"></TextBlock>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+</ResourceDictionary>
