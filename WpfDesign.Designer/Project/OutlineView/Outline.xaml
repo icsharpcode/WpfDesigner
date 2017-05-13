@@ -66,7 +66,7 @@
 		<HierarchicalDataTemplate DataType="{x:Type Default:PropertyOutlineNode}"
 			ItemsSource="{Binding Children}">
 			<DockPanel>
-				<Default:IconItem Icon="../Images/Tag.png" Text="{Binding Name}" />
+				<TextBlock Margin="5,0,0,0" FontStyle="Italic" Text="{Binding Name}" />
 			</DockPanel>
 		</HierarchicalDataTemplate>
 
