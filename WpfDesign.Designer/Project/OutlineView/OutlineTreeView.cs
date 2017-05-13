@@ -59,10 +59,12 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			base.SelectOnly(item);
 			
 			var node = item.DataContext as IOutlineNode;
-			
-			var surface = node.DesignItem.View.TryFindParent<DesignSurface>();
-			if (surface != null)
-				surface.ScrollIntoView(node.DesignItem);
+
+			if (node.DesignItem != null) {
+				var surface = node.DesignItem.View.TryFindParent<DesignSurface>();
+				if (surface != null)
+					surface.ScrollIntoView(node.DesignItem);
+			}
 		}
 	}
 }

@@ -63,15 +63,22 @@
 			</Setter>
 		</Style>
 		
-		<HierarchicalDataTemplate DataType="{x:Type Default:OutlineNode}"
+		<HierarchicalDataTemplate DataType="{x:Type Default:PropertyOutlineNode}"
 			ItemsSource="{Binding Children}">
+			<DockPanel>
+				<Default:IconItem Icon="../Images/Tag.png" Text="{Binding Name}" />
+			</DockPanel>
+		</HierarchicalDataTemplate>
+
+		<HierarchicalDataTemplate DataType="{x:Type Default:OutlineNode}"
+		                          ItemsSource="{Binding Children}">
 			<DockPanel>
 				<ToggleButton Style="{StaticResource lockedStyle}" DockPanel.Dock="Right" Width="20" Margin="0,0,5,0" IsChecked="{Binding IsDesignTimeLocked}" />
 				<ToggleButton Style="{StaticResource eyeStyle}" DockPanel.Dock="Right" Width="20" Margin="0,0,5,0" IsChecked="{Binding IsDesignTimeVisible}" />
 				<Default:IconItem Icon="../Images/Tag.png" Text="{Binding Name}" />
 			</DockPanel>
 		</HierarchicalDataTemplate>
-	
+
 	</UserControl.Resources>
 	
 	

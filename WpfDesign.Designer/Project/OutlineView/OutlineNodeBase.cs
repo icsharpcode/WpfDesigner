@@ -39,6 +39,8 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 
 		private bool _collectionWasChanged;
 
+		private string _name;
+
 		protected OutlineNodeBase(DesignItem designItem)
 		{
 			DesignItem = designItem;
@@ -81,12 +83,17 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			}
 
 		}
-		 
+
+		protected OutlineNodeBase(string name)
+		{
+			_name = name;
+		}
+
 		public DesignItem DesignItem { get; set; }
 
 		public ISelectionService SelectionService
 		{
-			get { return DesignItem.Services.Selection; }
+			get { return DesignItem != null ? DesignItem.Services.Selection : null; }
 		}
 
 		bool isExpanded = true;
@@ -114,7 +121,7 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			}
 			set
 			{
-				if (isSelected != value) {
+				if (isSelected != value && SelectionService != null) {
 					isSelected = value;
 					SelectionService.SetSelectedComponents(new[] { DesignItem },
 					                                       value ? SelectionTypes.Add : SelectionTypes.Remove);
@@ -177,6 +184,8 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 		{
 			get
 			{
+				if (!string.IsNullOrEmpty(_name))
+					return _name;
 				return DesignItem.Services.GetService<IOutlineNodeNameService>().GetOutlineNodeName(DesignItem);
 			}
 		}

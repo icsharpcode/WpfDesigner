@@ -34,6 +34,10 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			SelectionService.SelectionChanged += new EventHandler<DesignItemCollectionEventArgs>(Selection_SelectionChanged);
 		}
 
+		protected OutlineNode(string name) : base(name)
+		{
+		}
+
 		static OutlineNode()
 		{
 			DummyPlacementType = PlacementType.Register("DummyPlacement");
@@ -58,7 +62,17 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 		protected override void UpdateChildren()
 		{
 			Children.Clear();
-			
+
+			foreach (var prp in DesignItem.AllSetProperties) {
+				if (prp.Name != DesignItem.ContentPropertyName) {
+					if (prp.Value != null) {
+						var propertyNode = PropertyOutlineNode.Create(prp.Name);
+						var node = OutlineNode.Create(prp.Value);
+						propertyNode.Children.Add(node);
+						Children.Add(propertyNode);
+					}
+				}
+			}
 			if (DesignItem.ContentPropertyName != null) {
 				var content = DesignItem.ContentProperty;
 				if (content.IsCollection) {
@@ -68,7 +82,7 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 						UpdateChildrenCore(new[] { content.Value });
 					}
 				}
-			}	
+			}
 		}
 
 		protected override void UpdateChildrenCollectionChanged(NotifyCollectionChangedEventArgs e)
