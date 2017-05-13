@@ -28,7 +28,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	/// <summary>
 	/// base class for the Line, Polyline and Polygon extension classes
 	/// </summary>
-	public class LineExtensionBase : SelectionAdornerProvider
+	public class ArrowLineExtensionBase : SelectionAdornerProvider
 	{
 		/// <summary>
 		/// Used instead of Rect to allow negative values on "Width" and "Height" (here called X and Y).
@@ -63,7 +63,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		/// <summary>
 		/// on creation add adornerlayer
 		/// </summary>
-		public LineExtensionBase()
+		public ArrowLineExtensionBase()
 		{
 			_surface = new Canvas();
 			adornerPanel = new AdornerPanel(){ MinWidth = 10, MinHeight = 10 };
@@ -108,9 +108,9 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		/// <param name="alignment"></param>
 		/// <param name="index">if using a polygon or multipoint adorner this is the index of the point in the Points array</param>
 		/// <returns></returns>
-		protected PointTrackerPlacementSupport Place(DesignerThumb designerThumb, PlacementAlignment alignment, int index = -1)
+		protected ArrowLinePointTrackerPlacementSupport Place(DesignerThumb designerThumb, PlacementAlignment alignment, int index = -1)
 		{
-			PointTrackerPlacementSupport placement = new PointTrackerPlacementSupport(ExtendedItem.View as Shape, alignment, index);
+			ArrowLinePointTrackerPlacementSupport placement = new ArrowLinePointTrackerPlacementSupport(ExtendedItem.View as Shape, alignment, index);
 			return placement;
 		}
 

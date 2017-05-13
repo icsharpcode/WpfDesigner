@@ -26,9 +26,12 @@ x:Name=""rootElement"" Background=""White""></Grid>";
 		{
 			InitializeComponent();
 
+			var loadSettings = new XamlLoadSettings();
+			loadSettings.DesignerAssemblies.Add(this.GetType().Assembly);
+
 			using (var xmlReader = XmlReader.Create(new StringReader(xaml)))
 			{
-				designSurface.LoadDesigner(xmlReader, new XamlLoadSettings());
+				designSurface.LoadDesigner(xmlReader, loadSettings);
 			}
 		}
 		

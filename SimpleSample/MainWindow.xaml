@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleSample"
         xmlns:sd="http://sharpdevelop.net"
+        xmlns:media2D="clr-namespace:Petzold.Media2D"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
 	<Window.Resources>
@@ -23,6 +24,8 @@
 				<local:ToolBoxItem Type="{x:Type Border}" />
 				<local:ToolBoxItem Type="{x:Type CheckBox}" />
 				<local:ToolBoxItem Type="{x:Type local:TestControl}" />
+				<local:ToolBoxItem Type="{x:Type media2D:ArrowLine}" />
+				<local:ToolBoxItem Type="{x:Type media2D:ArrowPolyline}" />
 			</x:Array>
 		</ResourceDictionary>
 	</Window.Resources>

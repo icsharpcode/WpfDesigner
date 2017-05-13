@@ -34,18 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.WpfDesign, Version=5.1.19.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ICSharpCode.WpfDesigner.5.1.19\lib\net40\ICSharpCode.WpfDesign.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ICSharpCode.WpfDesign.Designer, Version=5.1.19.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ICSharpCode.WpfDesigner.5.1.19\lib\net40\ICSharpCode.WpfDesign.Designer.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="ICSharpCode.WpfDesign.XamlDom, Version=5.1.19.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ICSharpCode.WpfDesigner.5.1.19\lib\net40\ICSharpCode.WpfDesign.XamlDom.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -66,6 +54,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Arrow\ArrowEnds.cs" />
+    <Compile Include="Arrow\ArrowheadsDemo.cs" />
+    <Compile Include="Arrow\ArrowLine.cs" />
+    <Compile Include="Arrow\ArrowLineBase.cs" />
+    <Compile Include="Arrow\ArrowPolyline.cs" />
+    <Compile Include="Arrow\Extensions\ArrowLineExtension.cs" />
+    <Compile Include="Arrow\Extensions\DrawArrowLineExtension.cs" />
+    <Compile Include="Arrow\Extensions\ArrowLineExtensionBase.cs" />
+    <Compile Include="Arrow\Extensions\ArrowLinePointTrackerPlacementSupport.cs" />
     <Compile Include="TestControl.cs" />
     <Compile Include="ToolboxItem.cs" />
     <Page Include="MainWindow.xaml">
@@ -108,6 +105,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WpfDesign.Designer\Project\WpfDesign.Designer.csproj">
+      <Project>{78cc29ac-cc79-4355-b1f2-97936df198ac}</Project>
+      <Name>WpfDesign.Designer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfDesign.XamlDom\Project\WpfDesign.XamlDom.csproj">
+      <Project>{88da149f-21b2-48ab-82c4-28fb6bdfd783}</Project>
+      <Name>WpfDesign.XamlDom</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WpfDesign\Project\WpfDesign.csproj">
+      <Project>{66a378a1-e9f4-4ad5-8946-d0ec06c2902f}</Project>
+      <Name>WpfDesign</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
