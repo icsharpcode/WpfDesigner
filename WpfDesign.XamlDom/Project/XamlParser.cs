@@ -799,16 +799,31 @@ namespace ICSharpCode.WpfDesign.XamlDom
 			if (node.Attributes != null) {
 				List<XmlAttribute> removeAttributes = new List<XmlAttribute>();
 				foreach (XmlAttribute attrib in node.Attributes) {
-					if (attrib.Name.StartsWith("xmlns:")) {
+					if (attrib.Name.StartsWith("xmlns:"))
+					{
+						var prefixName = attrib.Name.Substring("xmlns:".Length);
 						var rootPrefix = root.OwnerDocument.GetPrefixForNamespace(attrib.Value);
 						if (rootPrefix == null) {
-							//todo: check if we can add to root, (maybe same ns exists)
-							root.OwnerDocument.XmlDocument.Attributes.Append((XmlAttribute)attrib.CloneNode(true));
+							var ns = root.OwnerDocument.GetNamespaceForPrefix(prefixName);
+							if (string.IsNullOrEmpty(ns)) {
+								root.OwnerDocument.XmlDocument.DocumentElement.Attributes.Append((XmlAttribute) attrib.CloneNode(true));
+								removeAttributes.Add(attrib);
+							}
+						}
+						else if (rootPrefix == prefixName) {
 							removeAttributes.Add(attrib);
 						}
-						else if (rootPrefix == attrib.Name.Substring("xmlns:".Length)) {
-							removeAttributes.Add(attrib);
+						else
+						{
+							var ns = root.OwnerDocument.GetNamespaceForPrefix(prefixName);
+							if (string.IsNullOrEmpty(ns)) {
+								root.OwnerDocument.XmlDocument.DocumentElement.Attributes.Append((XmlAttribute)attrib.CloneNode(true));
+								removeAttributes.Add(attrib);
+							} else if (ns == attrib.Value) {
+								removeAttributes.Add(attrib);
+							}
 						}
+
 					}
 					else if (attrib.Name == "xmlns" && attrib.Value == XamlConstants.PresentationNamespace) {
 						removeAttributes.Add(attrib);

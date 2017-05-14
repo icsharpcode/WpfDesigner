@@ -324,7 +324,12 @@ namespace ICSharpCode.WpfDesign.XamlDom
 
 			return prefix;
 		}
-		
+
+		internal string GetNamespaceForPrefix(string prefix)
+		{
+			return _xmlDoc.DocumentElement.GetNamespaceOfPrefix(prefix);
+		}
+
 		bool IsNativeType(object instance)
 		{
 			return instance.GetType().Assembly == typeof(String).Assembly || instance.GetType().IsEnum;
