@@ -302,27 +302,33 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		private IEnumerable<DesignItem> AllDesignItems(DesignItem designItem = null)
 		{
 			if (designItem == null && this.ExtendedItem.Services.DesignPanel is DesignPanel)
-			{
 				designItem = this.ExtendedItem.Services.DesignPanel.Context.RootItem;
-				if (designItem != null) {
-					yield return designItem;
-					if (designItem.ContentProperty.Value != null) {
-						yield return designItem.ContentProperty.Value;
-						designItem = designItem.ContentProperty.Value;
+
+			if (designItem?.ContentProperty != null)
+			{
+				if (designItem.ContentProperty.IsCollection)
+				{
+					foreach (var collectionElement in designItem.ContentProperty.CollectionElements)
+					{
+						if (collectionElement != null)
+							yield return collectionElement;
+
+						foreach (var el in AllDesignItems(collectionElement))
+						{
+							if (el != null)
+								yield return el;
+						}
 					}
 				}
-			}
-			
-			if (designItem != null && designItem.ContentProperty != null && designItem.ContentProperty.IsCollection)
-				foreach (var collectionElement in designItem.ContentProperty.CollectionElements)
-			{
-				if (collectionElement != null)
-					yield return collectionElement;
-				
-				foreach (var el in AllDesignItems(collectionElement))
+				else if (designItem.ContentProperty.Value != null)
 				{
-					if (el != null)
-						yield return el;
+					yield return designItem.ContentProperty.Value;
+
+					foreach (var el in AllDesignItems(designItem.ContentProperty.Value))
+					{
+						if (el != null)
+							yield return el;
+					}
 				}
 			}
 		}
