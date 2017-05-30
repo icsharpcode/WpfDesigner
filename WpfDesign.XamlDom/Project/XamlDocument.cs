@@ -285,7 +285,7 @@ namespace ICSharpCode.WpfDesign.XamlDom
 
 			string prefix = _xmlDoc.DocumentElement.GetPrefixOfNamespace(@namespace);
 
-			if (_xmlDoc.DocumentElement.NamespaceURI == @namespace && _xmlDoc.Prefix == String.Empty)
+			if (_xmlDoc.DocumentElement.NamespaceURI == @namespace && _xmlDoc.DocumentElement.Prefix == String.Empty)
 			{
 				return string.Empty;
 			}
