@@ -62,11 +62,11 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		}
 
 		public static readonly DependencyProperty ValueProperty =
-			DependencyProperty.Register("Value", typeof(double), typeof(NumericUpDown),
+			DependencyProperty.Register("Value", typeof(double?), typeof(NumericUpDown),
 			new FrameworkPropertyMetadata(SharedInstances.BoxedDouble0, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault));
 
-		public double Value {
-			get { return (double)GetValue(ValueProperty); }
+		public double? Value {
+			get { return (double?)GetValue(ValueProperty); }
 			set { SetValue(ValueProperty, value); }
 		}
 
@@ -181,39 +181,45 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 
 		void MoveValue(double delta)
 		{
+			if (!Value.HasValue)
+				return;
+
 			double result;
-			if (double.IsNaN(Value) || double.IsInfinity(Value)) {
+			if (double.IsNaN((double)Value) || double.IsInfinity((double)Value)) {
 				SetValue(delta);
 			}
 			else if (double.TryParse(textBox.Text, out result)) {
 				SetValue(result + delta);
 			}
 			else {
-				SetValue(Value + delta);
+				SetValue((double)Value + delta);
 			}
 		}
 
 		void Print()
 		{
-			if (textBox != null) {
-				textBox.Text = Value.ToString("F" + DecimalPlaces);
+			if (textBox != null)
+			{
+				textBox.Text = Value?.ToString("F" + DecimalPlaces);
 				textBox.CaretIndex = int.MaxValue;
 			}
 		}
 
 		//wpf bug?: Value = -1 updates bindings without coercing, workaround
 		//update: not derived from RangeBase - no problem
-		void SetValue(double newValue)
+		void SetValue(double? newValue)
 		{
 			newValue = CoerceValue(newValue);
-			if (Value != newValue && !(double.IsNaN(Value) && double.IsNaN(newValue))) {
+			if (Value != newValue && !(Value.HasValue && double.IsNaN(Value.Value) && newValue.HasValue && double.IsNaN(newValue.Value)))
 				Value = newValue;
-			}
 		}
 
-		double CoerceValue(double newValue)
+		double? CoerceValue(double? newValue)
 		{
-			return Math.Max(Minimum, Math.Min(newValue, Maximum));
+			if (!newValue.HasValue)
+				return null;
+
+			return Math.Max(Minimum, Math.Min((double) newValue, Maximum));
 		}
 
 		protected override void OnPreviewKeyDown(KeyEventArgs e)
@@ -300,7 +306,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			base.OnPropertyChanged(e);
 
 			if (e.Property == ValueProperty) {
-				Value = CoerceValue((double)e.NewValue);
+				Value = CoerceValue((double?)e.NewValue);
 				Print();
 			}
 			else if (e.Property == SmallChangeProperty &&
