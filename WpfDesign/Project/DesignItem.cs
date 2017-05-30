@@ -228,10 +228,11 @@ namespace ICSharpCode.WpfDesign
 		public void ReapplyAllExtensions()
 		{
 			var manager = this.Services.GetService<Extensions.ExtensionManager>();
+		    List<ExtensionServer> servers =_extensions.GroupBy(entry => entry.Server).Select(grp => grp.First().Server).ToList();
 
-			foreach (var e in this._extensions.ToList()) {
-				ApplyUnapplyExtensionServer(manager, false, e.Server);
-				ApplyUnapplyExtensionServer(manager, true, e.Server);
+			foreach (var server in servers) {
+				ApplyUnapplyExtensionServer(manager, false, server);
+				ApplyUnapplyExtensionServer(manager, true, server);
 			}
 		}
 
