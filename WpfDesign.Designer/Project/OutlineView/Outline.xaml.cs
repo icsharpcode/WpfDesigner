@@ -18,6 +18,7 @@
 
 using System;
 using System.Windows;
+using System.Windows.Input;
 using ICSharpCode.WpfDesign.Designer.themes;
 
 namespace ICSharpCode.WpfDesign.Designer.OutlineView
@@ -27,8 +28,30 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 		public Outline()
 		{
 			SpecialInitializeComponent();
+
+			this.AddCommandHandler(ApplicationCommands.Undo,
+				() => ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.Undo(),
+				() => Root == null ? false : ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.CanUndo());
+			this.AddCommandHandler(ApplicationCommands.Redo,
+				() => ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.Redo(),
+				() => Root == null ? false : ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.CanRedo());
+			this.AddCommandHandler(ApplicationCommands.Copy,
+				() => ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.Copy(),
+				() => Root == null ? false : ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.CanCopyOrCut());
+			this.AddCommandHandler(ApplicationCommands.Cut,
+				() => ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.Cut(),
+				() => Root == null ? false : ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.CanCopyOrCut());
+			this.AddCommandHandler(ApplicationCommands.Delete,
+				() => ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.Delete(),
+				() => Root == null ? false : ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.CanDelete());
+			this.AddCommandHandler(ApplicationCommands.Paste,
+				() => ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.Paste(),
+				() => Root == null ? false : ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.CanPaste());
+			this.AddCommandHandler(ApplicationCommands.SelectAll,
+				() => ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.SelectAll(),
+				() => Root == null ? false : ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.CanSelectAll());
 		}
-		
+
 		/// <summary>
 		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
 		/// </summary>

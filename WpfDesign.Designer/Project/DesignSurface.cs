@@ -122,7 +122,7 @@ namespace ICSharpCode.WpfDesign.Designer
 			{
 				UnselectAll();
 			}
-			Keyboard.Focus(this);
+			Keyboard.Focus(this.DesignPanel);
 		}
 
 		public ZoomControl ZoomControl { get; private set; }
@@ -167,9 +167,9 @@ namespace ICSharpCode.WpfDesign.Designer
 		{
 			_designContext = context;
 			_designPanel.Context = context;
-		    _designPanel.ClearContextMenu();
+			_designPanel.ClearContextMenu();
 
-            if (context.RootItem != null) {
+			if (context.RootItem != null) {
 				_sceneContainer.Child = context.RootItem.View;
 			}
 			
