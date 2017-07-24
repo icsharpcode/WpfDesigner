@@ -61,11 +61,16 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor
 		static GradientSlider()
 		{
 			EventManager.RegisterClassHandler(typeof(GradientSlider),
-			                                  Thumb.DragDeltaEvent, new DragDeltaEventHandler(ClassDragDelta));
-		}
+			                                  Thumb.DragDeltaEvent, new DragDeltaEventHandler(ThumbDragDelta));
+            EventManager.RegisterClassHandler(typeof(GradientSlider),
+                                              Thumb.DragStartedEvent, new DragStartedEventHandler(ThumbDragStarted));
+            EventManager.RegisterClassHandler(typeof(GradientSlider),
+                                              Thumb.DragCompletedEvent, new DragCompletedEventHandler(ThumbDragCompleted));
+        }
 
 		GradientStop newStop;
 		double startOffset;
+        static bool isThumbDragInProgress = false;
 
 		public static readonly DependencyProperty BrushProperty =
 			DependencyProperty.Register("Brush", typeof(GradientBrush), typeof(GradientSlider));
@@ -106,16 +111,26 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.BrushEditor
 			);
 		}
 
-		static void ClassDragDelta(object sender, DragDeltaEventArgs e)
+		static void ThumbDragDelta(object sender, DragDeltaEventArgs e)
 		{
 			(sender as GradientSlider).thumb_DragDelta(sender, e);
 		}
+
+        static void ThumbDragStarted(object sender, DragStartedEventArgs e) 
+        {
+            isThumbDragInProgress = true;
+        }
+
+        static void ThumbDragCompleted(object sender, DragCompletedEventArgs e) 
+        {
+            isThumbDragInProgress = false;
+        }
 
 		protected override void OnPropertyChanged(DependencyPropertyChangedEventArgs e)
 		{
 			base.OnPropertyChanged(e);
 			
-			if (e.Property == BrushProperty) {
+			if (e.Property == BrushProperty && !isThumbDragInProgress ) {
 				if (Brush != null) {
 					GradientStops = new BindingList<GradientStop>(Brush.GradientStops);
 					if (SelectedStop == null)
