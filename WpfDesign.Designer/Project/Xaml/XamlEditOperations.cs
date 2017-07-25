@@ -57,9 +57,12 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		public void Cut(ICollection<DesignItem> designItems)
 		{
 			Clipboard.Clear();
+
+			var cutList = RemoveChildItemsWhenContainerIsInList(designItems);
+
 			string cutXaml = "";
-			var changeGroup = _context.OpenGroup("Cut " + designItems.Count + " elements", designItems);
-			foreach (var item in designItems)
+			var changeGroup = _context.OpenGroup("Cut " + cutList.Count + "/" + designItems.Count + " elements", cutList);
+			foreach (var item in cutList)
 			{
 				if (item != null && item != _context.RootItem)
 				{
@@ -70,7 +73,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 					}
 				}
 			}
-			ModelTools.DeleteComponents(designItems);
+			ModelTools.DeleteComponents(cutList);
 			Clipboard.SetText(cutXaml, TextDataFormat.Xaml);
 			changeGroup.Commit();
 		}
@@ -81,9 +84,12 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		public void Copy(ICollection<DesignItem> designItems)
 		{
 			Clipboard.Clear();
+
+			var copyList = RemoveChildItemsWhenContainerIsInList(designItems);
+
 			string copiedXaml = "";
-			var changeGroup = _context.OpenGroup("Copy " + designItems.Count + " elements", designItems);
-			foreach (var item in designItems)
+			var changeGroup = _context.OpenGroup("Copy " + copyList.Count + "/" + designItems.Count + " elements", copyList);
+			foreach (var item in copyList)
 			{
 				if (item != null)
 				{
@@ -187,6 +193,25 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			selection.SetSelectedComponents(pastedItems);
 			if(operation != null)
 				operation.Commit();
+		}
+
+		List<DesignItem> RemoveChildItemsWhenContainerIsInList(ICollection<DesignItem> designItems)
+		{
+			var copyList = designItems.ToList();
+			foreach (var designItem in designItems)
+			{
+				var parent = designItem.Parent;
+				while (parent != null)
+				{
+					if (copyList.Contains(parent))
+					{
+						copyList.Remove(designItem);
+					}
+					parent = parent.Parent;
+				}
+			}
+
+			return copyList;
 		}
 	}
 }
