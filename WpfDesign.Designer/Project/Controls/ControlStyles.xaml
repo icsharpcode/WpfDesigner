@@ -345,7 +345,7 @@
 						<Grid Height="10" Grid.Column="1" Name="lineArrow">
 							<Grid.ColumnDefinitions>
 								<ColumnDefinition Width="*" />
-								<ColumnDefinition MaxWidth="20" MinWidth="10" />
+								<ColumnDefinition Width="10" MaxWidth="20" MinWidth="10" />
 								<ColumnDefinition Width="*" />
 								<ColumnDefinition Width="8" />
 								<ColumnDefinition Width="1.5"/>
