@@ -82,7 +82,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 				Point p = e.GetPosition(designPanel);
 
 				if (moveLogic == null) {
-					if (e.Data.GetData(typeof(CreateComponentTool)) != this) return;
+					if (e.Data.GetData(this.GetType()) != this) return;
 					// TODO: dropLayer in designPanel
 					designPanel.IsAdornerLayerHitTestVisible = false;
 					DesignPanelHitTestResult result = designPanel.HitTest(p, false, true, HitTestType.Default);
