@@ -115,7 +115,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			if (!Keyboard.IsKeyDown(Key.LeftCtrl))
 				destAngle = ((int)destAngle / 15) * 15;
 
-			ModelTools.ApplyTransform(this.ExtendedItem, new RotateTransform() { Angle = destAngle });
+			ModelTools.ApplyTransform(this.ExtendedItem, new RotateTransform() { Angle = destAngle }, false);
 		}
 
 		void drag_Rotate_Completed(ICSharpCode.WpfDesign.Designer.Controls.DragListener drag)
