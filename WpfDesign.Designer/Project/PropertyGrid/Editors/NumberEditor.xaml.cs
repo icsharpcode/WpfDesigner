@@ -19,6 +19,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -167,7 +168,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 				return;
 			double val;
 
-			if(double.TryParse(textBox.Text, out val))
+			if(double.TryParse(textBox.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out val))
 			{
 				if (IsValidTypeConverter(PropertyNode.FirstProperty.TypeConverter, textBox.Text))
 				{
@@ -205,7 +206,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 			{
 				if (value == null || typeConverter.CanConvertFrom(value.GetType()))
 				{
-					typeConverter.ConvertFrom(value);
+					typeConverter.ConvertFrom(null, CultureInfo.InvariantCulture, value);
 				}
 				else
 				{

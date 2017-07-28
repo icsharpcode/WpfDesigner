@@ -3,7 +3,8 @@
                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                         xmlns:widgets="clr-namespace:ICSharpCode.WpfDesign.Designer.Controls"
                         xmlns:Converters="clr-namespace:ICSharpCode.WpfDesign.Designer.Converters"
+                        xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
                         BorderThickness="0"
                         Background="{x:Null}"
-                        Value="{Binding Value, Converter={x:Static Converters:DummyConverter.Instance}}">
+                        Value="{Binding Value, Converter={x:Static Converters:DummyConverter.Instance}, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}">
 </widgets:NumericUpDown>

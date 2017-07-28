@@ -17,6 +17,7 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -188,7 +189,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			if (double.IsNaN((double)Value) || double.IsInfinity((double)Value)) {
 				SetValue(delta);
 			}
-			else if (double.TryParse(textBox.Text, out result)) {
+			else if (double.TryParse(textBox.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out result)) {
 				SetValue(result + delta);
 			}
 			else {
@@ -200,7 +201,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		{
 			if (textBox != null)
 			{
-				textBox.Text = Value?.ToString("F" + DecimalPlaces);
+				textBox.Text = Value?.ToString("F" + DecimalPlaces, CultureInfo.InvariantCulture);
 				textBox.CaretIndex = int.MaxValue;
 			}
 		}
@@ -261,7 +262,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		void SetInputValue()
 		{
 			double result;
-			if (double.TryParse(textBox.Text, out result)) {
+			if (double.TryParse(textBox.Text, NumberStyles.Any, CultureInfo.InvariantCulture, out result)) {
 				SetValue(result);
 			} else {
 				Print();
