@@ -29,8 +29,6 @@ using ICSharpCode.WpfDesign.Designer.Xaml;
 using ICSharpCode.WpfDesign.Designer.Services;
 using ICSharpCode.WpfDesign.Designer.Controls;
 using System.Diagnostics;
-using System.Threading;
-using System.Globalization;
 
 namespace ICSharpCode.WpfDesign.Designer
 {
@@ -50,9 +48,6 @@ namespace ICSharpCode.WpfDesign.Designer
 		
 		public DesignSurface()
 		{
-			//TODO: this is for converters (see PropertyGrid)
-			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-
 			//Propertygrid should show no inherited Datacontext!
 			this.DataContext = null;
 

@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -165,24 +166,57 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 			if(textBox==null)
 				return;
 			double val;
-			if(double.TryParse(textBox.Text, out val)){
-				if(PropertyNode.FirstProperty.TypeConverter.IsValid(textBox.Text)){
-					if(val >= Minimum && val <= Maximum || double.IsNaN(val)){
-						textBox.Foreground=Brushes.Black;
-						textBox.ToolTip=textBox.Text;
-					}else{
-						textBox.Foreground = Brushes.DarkBlue;
-						textBox.ToolTip = "Value should be in between "+Minimum+" and "+Maximum;
+
+			if(double.TryParse(textBox.Text, out val))
+			{
+				if (IsValidTypeConverter(PropertyNode.FirstProperty.TypeConverter, textBox.Text))
+				{
+					if (val >= Minimum && val <= Maximum || double.IsNaN(val))
+					{
+						textBox.Foreground = Brushes.Black;
+						textBox.ToolTip = textBox.Text;
 					}
-				}else{
+					else
+					{
+						textBox.Foreground = Brushes.DarkBlue;
+						textBox.ToolTip = "Value should be in between " + Minimum + " and " + Maximum;
+					}
+				}
+				else
+				{
 					textBox.Foreground = Brushes.DarkRed;
 					textBox.ToolTip = "Cannot convert to Type : " + PropertyNode.FirstProperty.ReturnType.Name;
 				}
-			}else{
-				textBox.Foreground = Brushes.DarkRed;
-				textBox.ToolTip = string.IsNullOrWhiteSpace(textBox.Text)? null:"Value does not belong to any numeric type";
 			}
-			
+			else
+			{
+				textBox.Foreground = Brushes.DarkRed;
+				textBox.ToolTip = string.IsNullOrWhiteSpace(textBox.Text) ? null : "Value does not belong to any numeric type";
+			}
+		}
+
+		// Method used instead of System.ComponentModel.TypeConverter.IsValid()
+		// This ensures that TypeConverter is validated based on the current culture
+		// See: https://stackoverflow.com/questions/16837774/typeconverter-isvalid-uses-current-thread-culture-but-typeconverter-convertfro
+		private static bool IsValidTypeConverter(TypeConverter typeConverter, object value)
+		{
+			bool isValid = true;
+			try
+			{
+				if (value == null || typeConverter.CanConvertFrom(value.GetType()))
+				{
+					typeConverter.ConvertFrom(value);
+				}
+				else
+				{
+					isValid = false;
+				}
+			}
+			catch
+			{
+				isValid = false;
+			}
+			return isValid;
 		}
 
 		ChangeGroup group;
