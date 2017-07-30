@@ -16,6 +16,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
+using System.Windows;
 using System.Windows.Controls;
 using ICSharpCode.WpfDesign.Extensions;
 
@@ -24,7 +25,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	/// <summary>
 	/// Makes TabItems clickable.
 	/// </summary>
-	[ExtensionFor(typeof(TabItem))]
+	[ExtensionFor(typeof(FrameworkElement))]
 	[ExtensionServer(typeof(PrimarySelectionExtensionServer))]
 	public sealed class TabItemClickableExtension : DefaultExtension
 	{
@@ -32,10 +33,16 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		protected override void OnInitialized()
 		{
 			// When tab item becomes primary selection, make it the active tab page in its parent tab control.
-			TabItem tabItem = (TabItem)this.ExtendedItem.Component;
-			TabControl tabControl = tabItem.Parent as TabControl;
-			if (tabControl != null) {
-				tabControl.SelectedItem = tabItem;
+			var t = this.ExtendedItem;
+			while (t != null) {
+				if (t.Component is TabItem) {
+					var tabItem = (TabItem) t.Component;
+					var tabControl = tabItem.Parent as TabControl;
+					if (tabControl != null) {
+						tabControl.SelectedItem = tabItem;
+					}
+				}
+				t = t.Parent;
 			}
 		}
 	}
