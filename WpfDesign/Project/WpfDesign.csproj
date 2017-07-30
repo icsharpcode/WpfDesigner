@@ -73,6 +73,7 @@
     <Compile Include="Adorners\AdornerPlacementSpace.cs" />
     <Compile Include="Adorners\AdornerProvider.cs" />
     <Compile Include="Adorners\AdornerProviderClasses.cs" />
+    <Compile Include="Adorners\IAdornerLayer.cs" />
     <Compile Include="Adorners\RelativePlacement.cs" />
     <Compile Include="DrawItemExtension.cs" />
     <Compile Include="DummyValueInsteadOfNullTypeDescriptionProvider.cs" />

@@ -84,6 +84,7 @@
     <Compile Include="..\..\GlobalAssemblyInfo.cs">
       <Link>GlobalAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="Extensions\BorderForMouseOver.cs" />
     <Compile Include="OutlineView\PropertyOutlineNode.cs" />
     <Compile Include="PropertyGrid\Editors\ColorEditor\ColorEditorPopup.xaml.cs">
       <DependentUpon>ColorEditorPopup.xaml</DependentUpon>

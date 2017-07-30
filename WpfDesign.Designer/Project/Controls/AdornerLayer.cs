@@ -31,7 +31,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 	/// <summary>
 	/// A control that displays adorner panels.
 	/// </summary>
-	public sealed class AdornerLayer : Panel
+	public sealed class AdornerLayer : Panel, IAdornerLayer
 	{
 		#region AdornerPanelCollection
 		internal sealed class AdornerPanelCollection : ICollection<AdornerPanel>, IReadOnlyCollection<AdornerPanel>
