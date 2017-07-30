@@ -78,6 +78,7 @@
     <Compile Include="DrawItemExtension.cs" />
     <Compile Include="DummyValueInsteadOfNullTypeDescriptionProvider.cs" />
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Extensions\MouseOverExtensionServer.cs" />
     <Compile Include="Extensions\XamlInstanceFactory.cs" />
     <Compile Include="Extensions\DesignItemInitializer.cs" />
     <Compile Include="Extensions\ExtensionAttribute.cs" />
@@ -106,7 +107,7 @@
     <Compile Include="Extensions\ExtensionServer.cs" />
     <Compile Include="Extensions\ExtensionServerAttribute.cs" />
     <Compile Include="Extensions\LogicalExtensionServers.cs" />
-    <Compile Include="Extensions\SelectionExtensionServer.cs" />
+    <Compile Include="Extensions\SelectionExtensionServers.cs" />
     <Compile Include="PlacementOperation.cs" />
     <Compile Include="PlacementType.cs" />
     <Compile Include="PlacementAlignment.cs" />

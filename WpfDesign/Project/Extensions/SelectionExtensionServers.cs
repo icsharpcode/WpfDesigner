@@ -17,10 +17,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Windows;
-using System.Windows.Input;
-using System.Windows.Media;
-using ICSharpCode.WpfDesign.Adorners;
 
 namespace ICSharpCode.WpfDesign.Extensions
 {
@@ -49,83 +45,6 @@ namespace ICSharpCode.WpfDesign.Extensions
 		public override bool ShouldApplyExtensions(DesignItem extendedItem)
 		{
 			return Services.Selection.IsComponentSelected(extendedItem);
-		}
-	}
-
-	/// <summary>
-	/// Applies an extension to the hovered components.
-	/// </summary>
-	public class MouseOverExtensionServer : DefaultExtensionServer
-	{
-		private DesignItem _lastItem = null;
-
-		/// <summary>
-		/// Is called after the extension server is initialized and the Context property has been set.
-		/// </summary>
-		protected override void OnInitialized()
-		{
-			base.OnInitialized();
-			
-			((FrameworkElement)this.Services.DesignPanel).PreviewMouseMove += MouseOverExtensionServer_PreviewMouseMove;
-			((FrameworkElement)this.Services.DesignPanel).MouseLeave += MouseOverExtensionServer_MouseLeave;
-			Services.Selection.SelectionChanged += OnSelectionChanged;
-		}
-
-		void OnSelectionChanged(object sender, DesignItemCollectionEventArgs e)
-		{
-			ReapplyExtensions(e.Items);
-		}
-
-		private void MouseOverExtensionServer_MouseLeave(object sender, MouseEventArgs e)
-		{
-			if (_lastItem != null) {
-				var oldLastItem = _lastItem;
-				_lastItem = null;
-				ReapplyExtensions(new[] { oldLastItem });
-			}
-		}
-
-		private void MouseOverExtensionServer_PreviewMouseMove(object sender, MouseEventArgs e)
-		{
-			DesignItem element = null;
-			VisualTreeHelper.HitTest(((FrameworkElement)this.Services.DesignPanel),
-				potentialHitTestTarget =>
-				{
-					if (potentialHitTestTarget is IAdornerLayer)
-						return HitTestFilterBehavior.ContinueSkipSelfAndChildren;
-
-					var item = this.Services.Component.GetDesignItem(potentialHitTestTarget);
-					if (item == null)
-						return HitTestFilterBehavior.ContinueSkipSelf;
-
-					if (element == null || item.Parent == element) {
-						element = item;
-						return HitTestFilterBehavior.Continue;
-					}
-
-					return HitTestFilterBehavior.Stop;
-				},
-				result =>
-				{
-					return HitTestResultBehavior.Stop;
-				},
-				new PointHitTestParameters(e.GetPosition(((FrameworkElement)this.Services.DesignPanel))));
-
-			var oldLastItem = _lastItem;
-			_lastItem = element;
-			if (oldLastItem != null && oldLastItem != element)
-				ReapplyExtensions(new[] { oldLastItem, element});
-			else {
-				ReapplyExtensions(new[] { element });
-			}
-		}
-
-		/// <summary>
-		/// Gets if the item is selected.
-		/// </summary>
-		public override bool ShouldApplyExtensions(DesignItem extendedItem)
-		{
-			return extendedItem == _lastItem && !Services.Selection.IsComponentSelected(extendedItem);
 		}
 	}
 
