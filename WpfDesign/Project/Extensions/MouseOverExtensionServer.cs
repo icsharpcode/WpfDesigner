@@ -36,7 +36,7 @@ namespace ICSharpCode.WpfDesign.Extensions
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
-			var panel = this.Services.DesignPanel as FrameworkElement;
+			var panel = this.Services.GetService<IDesignPanel>() as FrameworkElement;
 			if (panel != null) {
 				((FrameworkElement) this.Services.DesignPanel).PreviewMouseMove += MouseOverExtensionServer_PreviewMouseMove;
 				((FrameworkElement) this.Services.DesignPanel).MouseLeave += MouseOverExtensionServer_MouseLeave;
