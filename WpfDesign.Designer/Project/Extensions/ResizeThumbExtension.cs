@@ -55,7 +55,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			adornerPanel.Order = AdornerOrder.Foreground;
 			this.Adorners.Add(adornerPanel);
 			
-			_designerThumbs = new DesignerThumb[] {
+			_designerThumbs = new[] {
 				CreateThumb(PlacementAlignment.TopLeft, Cursors.SizeNWSE),
 				CreateThumb(PlacementAlignment.Top, Cursors.SizeNS),
 				CreateThumb(PlacementAlignment.TopRight, Cursors.SizeNESW),
@@ -76,9 +76,9 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			adornerPanel.Children.Add(designerThumb);
 			
 			DragListener drag = new DragListener(designerThumb);
-			drag.Started += new DragHandler(drag_Started);
-			drag.Changed += new DragHandler(drag_Changed);
-			drag.Completed += new DragHandler(drag_Completed);
+			drag.Started += drag_Started;
+			drag.Changed += drag_Changed;
+			drag.Completed += drag_Completed;
 			return designerThumb;
 		}
 		
@@ -144,16 +144,14 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			var alignment = (drag.Target as DesignerThumb).Alignment;
 			
 			var delta = drag.Delta;
-			
+
 			if (alignment.Horizontal == HorizontalAlignment.Left) dx = -delta.X;
 			if (alignment.Horizontal == HorizontalAlignment.Right) dx = delta.X;
 			if (alignment.Vertical == VerticalAlignment.Top) dy = -delta.Y;
 			if (alignment.Vertical == VerticalAlignment.Bottom) dy = delta.Y;
-			
-			var designPanel = ExtendedItem.Services.DesignPanel as DesignPanel;
-			
-			if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) && alignment.Horizontal != HorizontalAlignment.Center && alignment.Vertical != VerticalAlignment.Center)
-			{
+
+			if ((Keyboard.IsKeyDown(Key.LeftCtrl) || Keyboard.IsKeyDown(Key.RightCtrl)) &&
+				alignment.Horizontal != HorizontalAlignment.Center && alignment.Vertical != VerticalAlignment.Center) {
 				if (dx > dy)
 					dx = dy;
 				else
@@ -163,10 +161,9 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			var newWidth = Math.Max(0, oldSize.Width + dx);
 			var newHeight = Math.Max(0, oldSize.Height + dy);
 
-			if (operation.CurrentContainerBehavior is GridPlacementSupport)
-			{
-				var hor = (HorizontalAlignment)this.ExtendedItem.Properties[FrameworkElement.HorizontalAlignmentProperty].ValueOnInstance;
-				var ver = (VerticalAlignment)this.ExtendedItem.Properties[FrameworkElement.VerticalAlignmentProperty].ValueOnInstance;
+			if (operation.CurrentContainerBehavior is GridPlacementSupport) {
+				var hor = (HorizontalAlignment) this.ExtendedItem.Properties[FrameworkElement.HorizontalAlignmentProperty].ValueOnInstance;
+				var ver = (VerticalAlignment) this.ExtendedItem.Properties[FrameworkElement.VerticalAlignmentProperty].ValueOnInstance;
 				if (hor == HorizontalAlignment.Stretch)
 					this.ExtendedItem.Properties[FrameworkElement.WidthProperty].Reset();
 				else
@@ -176,13 +173,11 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 					this.ExtendedItem.Properties[FrameworkElement.HeightProperty].Reset();
 				else
 					this.ExtendedItem.Properties.GetProperty(FrameworkElement.HeightProperty).SetValue(newHeight);
-
 			}
-			else
-			{
+			else {
 				ModelTools.Resize(ExtendedItem, newWidth, newHeight);
 			}
-			
+
 			if (operation != null) {
 				var info = operation.PlacedItems[0];
 				var result = info.OriginalBounds;
@@ -291,7 +286,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				sizeDisplay.HeightDisplay.Visibility = Visibility.Hidden;
 				sizeDisplay.WidthDisplay.Visibility = Visibility.Hidden;
 			}
-			if (marginDisplay !=null ) {
+			if (marginDisplay != null) {
 				marginDisplay.ShowHandles();
 			}
 		}
