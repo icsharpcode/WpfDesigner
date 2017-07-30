@@ -76,6 +76,15 @@ namespace ICSharpCode.WpfDesign.Extensions
 						return HitTestFilterBehavior.Continue;
 					}
 
+					var par = item.Parent;
+					while (par != null) {
+						if (par.Parent == element) {
+							element = item;
+							return HitTestFilterBehavior.Continue;
+						}
+						par = par.Parent;
+					}
+
 					return HitTestFilterBehavior.Stop;
 				},
 				result =>
