@@ -67,6 +67,9 @@ namespace ICSharpCode.WpfDesign.Extensions
 					if (potentialHitTestTarget is IAdornerLayer)
 						return HitTestFilterBehavior.ContinueSkipSelfAndChildren;
 
+					if (Extension.GetDisableMouseOverExtensions(potentialHitTestTarget))
+						return HitTestFilterBehavior.ContinueSkipSelfAndChildren;
+
 					var item = this.Services.Component.GetDesignItem(potentialHitTestTarget);
 					if (item == null)
 						return HitTestFilterBehavior.ContinueSkipSelf;

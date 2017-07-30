@@ -62,6 +62,34 @@ namespace ICSharpCode.WpfDesign.Extensions
 		public static readonly DependencyProperty DisabledExtensionsProperty =
 			DependencyProperty.RegisterAttached("DisabledExtensions", typeof(string), typeof(Extension), new PropertyMetadata(null));
 
-		
+
+
+		/// <summary>
+		/// Gets the value of the <see cref="DisableMouseOverExtensionsProperty"/> attached property for an object.
+		/// </summary>
+		/// <param name="obj">The object from which the property value is read.</param>
+		/// <returns>The object's <see cref="DisableMouseOverExtensionsProperty"/> property value.</returns>
+		public static bool GetDisableMouseOverExtensions(DependencyObject obj)
+		{
+			return (bool)obj.GetValue(DisableMouseOverExtensionsProperty);
+		}
+
+		/// <summary>
+		/// Sets the value of the <see cref="DisableMouseOverExtensionsProperty"/> attached property for an object. 
+		/// </summary>
+		/// <param name="obj">The object to which the attached property is written.</param>
+		/// <param name="value">The value to set.</param>
+		public static void SetDisableMouseOverExtensions(DependencyObject obj, bool value)
+		{
+			obj.SetValue(DisableMouseOverExtensionsProperty, value);
+		}
+
+		/// <summary>
+		/// Disables the mouse over Extension for this Element
+		/// </summary>
+		public static readonly DependencyProperty DisableMouseOverExtensionsProperty =
+			DependencyProperty.RegisterAttached("DisableMouseOverExtensions", typeof(bool), typeof(Extension), new PropertyMetadata(false));
+
+
 	}
 }
