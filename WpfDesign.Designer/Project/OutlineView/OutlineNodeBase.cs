@@ -22,6 +22,8 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
+using System.Windows.Media;
 using ICSharpCode.WpfDesign.Designer.Xaml;
 using ICSharpCode.WpfDesign.XamlDom;
 
@@ -40,6 +42,11 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 		private bool _collectionWasChanged;
 
 		private string _name;
+
+		public Visibility IsVisualNode
+		{
+			get { return this.DesignItem.Component is Visual ? Visibility.Visible : Visibility.Collapsed; }
+		}
 
 		protected OutlineNodeBase(DesignItem designItem)
 		{
@@ -197,12 +204,12 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 
 		void DesignItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			if (e.PropertyName == DesignItem.ContentPropertyName) {
+			//if (e.PropertyName == DesignItem.ContentPropertyName) {
 				if (!_collectionWasChanged)	{
 					UpdateChildren();
 				}
 				_collectionWasChanged = false;
-			}
+			//}
 		}
 
 		private void CollectionElements_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -210,8 +217,6 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			_collectionWasChanged = true;
 			UpdateChildrenCollectionChanged(e);
 		}
-
-
 
 		public bool CanInsert(IEnumerable<IOutlineNode> nodes, IOutlineNode after, bool copy)
 		{

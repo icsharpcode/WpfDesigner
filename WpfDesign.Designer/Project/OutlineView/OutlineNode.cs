@@ -20,6 +20,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Windows;
+using System.Windows.Media;
 
 namespace ICSharpCode.WpfDesign.Designer.OutlineView
 { 
@@ -64,7 +67,8 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			Children.Clear();
 
 			foreach (var prp in DesignItem.AllSetProperties) {
-				if (prp.Name != DesignItem.ContentPropertyName) {
+				if (prp.Name != DesignItem.ContentPropertyName) 
+				{
 					if (prp.Value != null) {
 						var propertyNode = PropertyOutlineNode.Create(prp.Name);
 						var node = OutlineNode.Create(prp.Value);
@@ -79,7 +83,12 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 					UpdateChildrenCore(content.CollectionElements);
 				} else {
 					if (content.Value != null) {
-						UpdateChildrenCore(new[] { content.Value });
+						if (!UpdateChildrenCore(new[] {content.Value})) {
+							var propertyNode = PropertyOutlineNode.Create(content.Name);
+							var node = OutlineNode.Create(content.Value);
+							propertyNode.Children.Add(node);
+							Children.Add(propertyNode);
+						}
 					}
 				}
 			}
@@ -99,30 +108,39 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			}
 		}
 
-		void UpdateChildrenCore(IEnumerable<DesignItem> items, int index = -1)
+		bool UpdateChildrenCore(IEnumerable<DesignItem> items, int index = -1)
 		{
+			var retVal = false;
 			foreach (var item in items) {
 				if (ModelTools.CanSelectComponent(item)) {
 					if (Children.All(x => x.DesignItem != item)) {
 						var node = OutlineNode.Create(item);
-						if (index>-1)
+						if (index > -1) {
 							Children.Insert(index++, node);
-						else
+							retVal = true;
+						}
+						else {
 							Children.Add(node);
+							retVal = true;
+						}
 					}
 				} else {
 					var content = item.ContentProperty;
 					if (content != null) {
 						if (content.IsCollection) {
 							UpdateChildrenCore(content.CollectionElements);
+							retVal = true;
 						} else {
 							if (content.Value != null) {
 								UpdateChildrenCore(new[] { content.Value });
+								retVal = true;
 							}
 						}
 					}
 				}
 			}
+
+			return retVal;
 		}
 	}
 }

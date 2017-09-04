@@ -41,7 +41,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		{
 			base.OnInitialized();
 			if (ExtendedItem.ContentProperty == null ||
-			    Metadata.IsPlacementDisabled(ExtendedItem.ComponentType))
+				Metadata.IsPlacementDisabled(ExtendedItem.ComponentType))
 				return;
 			ExtendedItem.AddBehavior(typeof(IPlacementBehavior), this);
 		}
@@ -85,7 +85,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 
 		public virtual void SetPosition(PlacementInformation info)
 		{
-			if (info.Operation.Type != PlacementType.Move 
+			if (info.Operation.Type != PlacementType.Move
 				&& info.Operation.Type != PlacementType.MovePoint
 				&& info.Operation.Type != PlacementType.MoveAndIgnoreOtherContainers)
 				ModelTools.Resize(info.Item, info.Bounds.Width, info.Bounds.Height);
@@ -101,60 +101,64 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 
 		public virtual void LeaveContainer(PlacementOperation operation)
 		{
-			if (ExtendedItem.ContentProperty.IsCollection) {
-				foreach (var info in operation.PlacedItems) {
+			if (ExtendedItem.ContentProperty.IsCollection)
+			{
+				foreach (var info in operation.PlacedItems)
+				{
 					ExtendedItem.ContentProperty.CollectionElements.Remove(info.Item);
 				}
-			} else {
+			}
+			else
+			{
 				ExtendedItem.ContentProperty.Reset();
 			}
 		}
 
 		private static InfoTextEnterArea infoTextEnterArea;
-		
+
 		public virtual bool CanEnterContainer(PlacementOperation operation, bool shouldAlwaysEnter)
 		{
 			var canEnter = internalCanEnterContainer(operation);
-			
+
 			if (canEnter && !shouldAlwaysEnter && !Keyboard.IsKeyDown(Key.LeftAlt) && !Keyboard.IsKeyDown(Key.RightAlt))
 			{
 				var b = new Rect(0, 0, ((FrameworkElement)this.ExtendedItem.View).ActualWidth, ((FrameworkElement)this.ExtendedItem.View).ActualHeight);
 				InfoTextEnterArea.Start(ref infoTextEnterArea, this.Services, this.ExtendedItem.View, b, Translations.Instance.PressAltText);
-				
+
 				return false;
 			}
-			
+
 			return canEnter;
 		}
-		
+
 		private bool internalCanEnterContainer(PlacementOperation operation)
 		{
 			InfoTextEnterArea.Stop(ref infoTextEnterArea);
-			
+
 			if (ExtendedItem.Component is Expander)
 			{
-				if (!((Expander) ExtendedItem.Component).IsExpanded)
+				if (!((Expander)ExtendedItem.Component).IsExpanded)
 				{
-					((Expander) ExtendedItem.Component).IsExpanded = true;
+					((Expander)ExtendedItem.Component).IsExpanded = true;
 				}
 			}
 
 			if (ExtendedItem.Component is UserControl && ExtendedItem.ComponentType != typeof(UserControl))
 				return false;
-			
+
 			if (ExtendedItem.Component is Decorator)
 				return ((Decorator)ExtendedItem.Component).Child == null;
-			
+
 			if (ExtendedItem.ContentProperty.IsCollection)
 				return CollectionSupport.CanCollectionAdd(ExtendedItem.ContentProperty.ReturnType,
-				                                          operation.PlacedItems.Select(p => p.Item.Component));
-			
+														  operation.PlacedItems.Select(p => p.Item.Component));
+
 			if (ExtendedItem.ContentProperty.ReturnType == typeof(string))
 				return false;
 
 			if (!ExtendedItem.ContentProperty.IsSet)
 				return true;
-			
+
 			object value = ExtendedItem.ContentProperty.ValueOnInstance;
 			// don't overwrite non-primitive values like bindings
 			return ExtendedItem.ContentProperty.Value == null && (value is string && string.IsNullOrEmpty(value as string));
@@ -162,15 +166,21 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 
 		public virtual void EnterContainer(PlacementOperation operation)
 		{
-			if (ExtendedItem.ContentProperty.IsCollection) {
-				foreach (var info in operation.PlacedItems) {
+			if (ExtendedItem.ContentProperty.IsCollection)
+			{
+				foreach (var info in operation.PlacedItems)
+				{
 					ExtendedItem.ContentProperty.CollectionElements.Add(info.Item);
 				}
-			} else {
+			}
+			else
+			{
 				ExtendedItem.ContentProperty.SetValue(operation.PlacedItems[0].Item);
 			}
-			if (operation.Type == PlacementType.AddItem) {
-				foreach (var info in operation.PlacedItems) {
+			if (operation.Type == PlacementType.AddItem)
+			{
+				foreach (var info in operation.PlacedItems)
+				{
 					SetPosition(info);
 				}
 			}

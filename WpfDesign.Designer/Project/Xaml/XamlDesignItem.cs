@@ -125,7 +125,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		/// <param name="item"></param>
 		/// <param name="onlyFromSameNamescope"></param>
 		/// <returns></returns>
-		private XamlObject GetRootXamlObject(XamlObject item, bool onlyFromSameNamescope = false)
+		internal static XamlObject GetRootXamlObject(XamlObject item, bool onlyFromSameNamescope = false)
 		{
 			var root = item;
 			while (root.ParentObject != null)
@@ -144,7 +144,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		/// <param name="item"></param>
 		/// <param name="onlyFromSameNamescope"></param>
 		/// <returns></returns>
-		private IEnumerable<XamlObject> GetAllChildXamlObjects(XamlObject item, bool onlyFromSameNamescope = false)
+		internal static IEnumerable<XamlObject> GetAllChildXamlObjects(XamlObject item, bool onlyFromSameNamescope = false)
 		{
 			foreach (var prop in item.Properties)
 			{

@@ -4,7 +4,7 @@
 	xmlns:Converters="clr-namespace:ICSharpCode.WpfDesign.Designer.Converters"
 >
 	<Converters:LevelConverter x:Key="LevelConverter" />
-	
+
 	<Style TargetType="{x:Type Default:IconItem}">
 		<Setter Property="Template">
 			<Setter.Value>
@@ -20,7 +20,7 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	
+
 	<Style x:Key="ExpandButtonStyle"
 	       TargetType="ToggleButton">
 		<Setter Property="Focusable"
@@ -64,9 +64,9 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	
+
 	<Brush x:Key="InsertBrush">#FFC73C</Brush>
-	
+
 	<Style TargetType="{x:Type Default:DragTreeView}">
 		<Setter Property="Template">
 			<Setter.Value>
@@ -89,14 +89,14 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	
+
 	<Style TargetType="{x:Type Default:DragTreeViewItem}">
 		<Setter Property="Foreground"
 		        Value="{x:Static SystemColors.ControlTextBrush}" />
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Default:DragTreeViewItem}">
-					
+
 					<DockPanel Background="White" ContextMenu="{Binding DesignItem.Services.DesignPanel.ContextMenu}">
 						<Grid x:Name="bg"
 						           Margin="{TemplateBinding Level, Converter={StaticResource LevelConverter}}"
@@ -112,16 +112,7 @@
 									ContentSource="Header" />
 							</Border>
 						</Grid>
-						<ItemsPresenter x:Name="itemsHost" />						
-					<!-- <DockPanel.ContextMenu>
-					<ContextMenu>
-						<MenuItem Command="ApplicationCommands.Cut" />
-						<MenuItem Command="ApplicationCommands.Copy" />
-						<MenuItem Command="ApplicationCommands.Paste" />
-						<Separator />
-						<MenuItem Command="ApplicationCommands.Delete" />
-					</ContextMenu>
-					</DockPanel.ContextMenu>-->
+						<ItemsPresenter x:Name="itemsHost" />
 						<DockPanel.ToolTip>
 							<ToolTip Background="White">
 								<Rectangle Width="50" Height="50">
@@ -132,7 +123,7 @@
 							</ToolTip>
 						</DockPanel.ToolTip>
 					</DockPanel>
-					
+
 					<ControlTemplate.Triggers>
 						<Trigger Property="IsExpanded"
 						         Value="False">

@@ -24,7 +24,7 @@ using ICSharpCode.WpfDesign.Extensions;
 namespace ICSharpCode.WpfDesign.Designer.Extensions
 {
 	[ExtensionServer(typeof(PrimarySelectionExtensionServer))]
-	[ExtensionFor(typeof (UIElement))]
+	[ExtensionFor(typeof(object))]
 	[Extension(Order = 10)]
 	public class DefaultCommandsContextMenuExtension : SelectionAdornerProvider
 	{
