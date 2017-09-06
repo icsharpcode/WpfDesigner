@@ -112,6 +112,13 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			return item;
 		}
 
+		public DesignItem RegisterComponentForDesignerRecursiveUsingXaml(object component)
+		{
+			string componentXaml = XamlWriter.Save(component);
+			var xamlObject = XamlParser.ParseSnippet(((XamlDesignItem)_context.RootItem).XamlObject, componentXaml, ((XamlDesignContext)_context.RootItem.Context).ParserSettings);
+			return RegisterXamlComponentRecursive(xamlObject);
+		}
+
 		/// <summary>
 		/// registers components from an existing XAML tree
 		/// </summary>
