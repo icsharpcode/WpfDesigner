@@ -117,7 +117,13 @@ namespace ICSharpCode.WpfDesign.XamlDom
 			} catch (Exception) {
 				
 			}
-			return ((DependencyObject)instance).GetValue(property);
+
+			var dependencyObject = instance as DependencyObject;
+			if (dependencyObject != null) {
+				return dependencyObject.GetValue(property);
+			}
+
+			return null;
 		}
 		
 		public override void SetValue(object instance, object value)
