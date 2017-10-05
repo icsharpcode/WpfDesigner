@@ -614,12 +614,12 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		/// <summary>
 		/// Gets the value of the text property on the instance without updating the XAML document.
 		/// </summary>
-		public object TextValueOnInstance
+		public string TextValueOnInstance
 		{
 			get
 			{
 				if (propertyValue is XamlTextValue)
-					return propertyValue.GetValueFor(null);
+					return propertyValue.GetValueFor(null) as string;
 				return null;
 			}
 		}
