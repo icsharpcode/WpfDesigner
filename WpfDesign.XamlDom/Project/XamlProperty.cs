@@ -594,9 +594,10 @@ namespace ICSharpCode.WpfDesign.XamlDom
 					else
 						return null;
 				} else {
-					if (propertyValue != null)
-						return propertyValue.GetValueFor(null);
-					return propertyInfo.GetValue(parentObject.Instance);
+					var value =  propertyInfo.GetValue(parentObject.Instance);
+					if (value == null && propertyValue is XamlTextValue)
+						value = propertyValue.GetValueFor(null);
+					return value;
 				}
 			}
 			set {
