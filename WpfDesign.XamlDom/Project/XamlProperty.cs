@@ -595,8 +595,6 @@ namespace ICSharpCode.WpfDesign.XamlDom
 						return null;
 				} else {
 					var value =  propertyInfo.GetValue(parentObject.Instance);
-					//if (value == null && propertyValue is XamlTextValue)
-					//	value = propertyValue.GetValueFor(null);
 					return value;
 				}
 			}
@@ -610,6 +608,19 @@ namespace ICSharpCode.WpfDesign.XamlDom
 				propertyInfo.SetValue(parentObject.Instance, setValue);
 				if (ValueOnInstanceChanged != null)
 					ValueOnInstanceChanged(this, EventArgs.Empty);
+			}
+		}
+
+		/// <summary>
+		/// Gets the value of the text property on the instance without updating the XAML document.
+		/// </summary>
+		public object TextValueOnInstance
+		{
+			get
+			{
+				if (propertyValue is XamlTextValue)
+					return propertyValue.GetValueFor(null);
+				return null;
 			}
 		}
 
