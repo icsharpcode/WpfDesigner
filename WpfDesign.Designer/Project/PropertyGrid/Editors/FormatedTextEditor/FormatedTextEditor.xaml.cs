@@ -21,7 +21,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
 using ICSharpCode.WpfDesign.UIExtensions;
 using ICSharpCode.WpfDesign.Designer.themes;
@@ -160,28 +159,33 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor
 				return null;
 			}
 
-			if (inline.ReadLocalValue(TextElement.BackgroundProperty) != DependencyProperty.UnsetValue)
-				d.Properties.GetProperty(TextElement.BackgroundProperty).SetValue(inline.Background);
-			if (inline.ReadLocalValue(TextElement.ForegroundProperty) != DependencyProperty.UnsetValue)
-				d.Properties.GetProperty(TextElement.ForegroundProperty).SetValue(inline.Foreground);
-			if (inline.ReadLocalValue(TextElement.FontFamilyProperty) != DependencyProperty.UnsetValue)
-				d.Properties.GetProperty(TextElement.FontFamilyProperty).SetValue(inline.FontFamily);
-			if (inline.ReadLocalValue(TextElement.FontSizeProperty) != DependencyProperty.UnsetValue)
-				d.Properties.GetProperty(TextElement.FontSizeProperty).SetValue(inline.FontSize);
-			if (inline.ReadLocalValue(TextElement.FontStretchProperty) != DependencyProperty.UnsetValue)
-				d.Properties.GetProperty(TextElement.FontStretchProperty).SetValue(inline.FontStretch);
-			if (inline.ReadLocalValue(TextElement.FontStyleProperty) != DependencyProperty.UnsetValue)
-				d.Properties.GetProperty(TextElement.FontStyleProperty).SetValue(inline.FontStyle);
-			if (inline.ReadLocalValue(TextElement.FontWeightProperty) != DependencyProperty.UnsetValue)
-				d.Properties.GetProperty(TextElement.FontWeightProperty).SetValue(inline.FontWeight);
-			if (inline.TextDecorations.Count > 0)
-			{
-				d.Properties.GetProperty("TextDecorations").SetValue(new TextDecorationCollection());
-				var tdColl = d.Properties.GetProperty("TextDecorations");
+			SetDesignItemTextpropertiesFromInline(d, inline);
 
-				foreach (var td in inline.TextDecorations)
-				{
-					var newTd = designItem.Services.Component.RegisterComponentForDesigner(new TextDecoration());
+			return d;
+		}
+
+		private static void SetDesignItemTextpropertiesFromInline(DesignItem targetDesignItem, Inline inline)
+		{
+			if (inline.ReadLocalValue(TextElement.BackgroundProperty) != DependencyProperty.UnsetValue)
+				targetDesignItem.Properties.GetProperty(TextElement.BackgroundProperty).SetValue(inline.Background);
+			if (inline.ReadLocalValue(TextElement.ForegroundProperty) != DependencyProperty.UnsetValue)
+				targetDesignItem.Properties.GetProperty(TextElement.ForegroundProperty).SetValue(inline.Foreground);
+			if (inline.ReadLocalValue(TextElement.FontFamilyProperty) != DependencyProperty.UnsetValue)
+				targetDesignItem.Properties.GetProperty(TextElement.FontFamilyProperty).SetValue(inline.FontFamily);
+			if (inline.ReadLocalValue(TextElement.FontSizeProperty) != DependencyProperty.UnsetValue)
+				targetDesignItem.Properties.GetProperty(TextElement.FontSizeProperty).SetValue(inline.FontSize);
+			if (inline.ReadLocalValue(TextElement.FontStretchProperty) != DependencyProperty.UnsetValue)
+				targetDesignItem.Properties.GetProperty(TextElement.FontStretchProperty).SetValue(inline.FontStretch);
+			if (inline.ReadLocalValue(TextElement.FontStyleProperty) != DependencyProperty.UnsetValue)
+				targetDesignItem.Properties.GetProperty(TextElement.FontStyleProperty).SetValue(inline.FontStyle);
+			if (inline.ReadLocalValue(TextElement.FontWeightProperty) != DependencyProperty.UnsetValue)
+				targetDesignItem.Properties.GetProperty(TextElement.FontWeightProperty).SetValue(inline.FontWeight);
+			if (inline.TextDecorations.Count > 0) {
+				targetDesignItem.Properties.GetProperty("TextDecorations").SetValue(new TextDecorationCollection());
+				var tdColl = targetDesignItem.Properties.GetProperty("TextDecorations");
+
+				foreach (var td in inline.TextDecorations) {
+					var newTd = targetDesignItem.Services.Component.RegisterComponentForDesigner(new TextDecoration());
 					if (inline.ReadLocalValue(TextDecoration.LocationProperty) != DependencyProperty.UnsetValue)
 						newTd.Properties.GetProperty(TextDecoration.LocationProperty).SetValue(td.Location);
 					if (inline.ReadLocalValue(TextDecoration.PenProperty) != DependencyProperty.UnsetValue)
@@ -190,13 +194,20 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor
 					tdColl.CollectionElements.Add(newTd);
 				}
 			}
-
-			return d;
 		}
 
 		public static void SetTextBlockTextFromRichTextBlox(DesignItem designItem, RichTextBox richTextBox)
 		{
 			designItem.Properties.GetProperty(TextBlock.TextProperty).Reset();
+			designItem.Properties.GetProperty(TextBlock.FontSizeProperty).Reset();
+			designItem.Properties.GetProperty(TextBlock.FontFamilyProperty).Reset();
+			designItem.Properties.GetProperty(TextBlock.FontStretchProperty).Reset();
+			designItem.Properties.GetProperty(TextBlock.FontWeightProperty).Reset();
+			designItem.Properties.GetProperty(TextBlock.BackgroundProperty).Reset();
+			designItem.Properties.GetProperty(TextBlock.ForegroundProperty).Reset();
+			designItem.Properties.GetProperty(TextBlock.FontStyleProperty).Reset();
+			designItem.Properties.GetProperty(TextBlock.TextEffectsProperty).Reset();
+			designItem.Properties.GetProperty(TextBlock.TextDecorationsProperty).Reset();
 
 			var inlinesProperty = designItem.Properties.GetProperty("Inlines");
 			inlinesProperty.CollectionElements.Clear();
@@ -207,9 +218,15 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor
 			var inlines = new List<DesignItem>();
 			GetDesignItems(designItem, doc.Blocks, inlines);
 
-			foreach (var inline in inlines)
-			{
-				inlinesProperty.CollectionElements.Add(inline);
+			if (inlines.Count == 1 && inlines.First().Component is Run) {
+				var run = inlines.First().Component as Run;
+				SetDesignItemTextpropertiesFromInline(designItem, run);
+				designItem.Properties.GetProperty(TextBlock.TextProperty).SetValue(run.Text);
+			}
+			else {
+				foreach (var inline in inlines) {
+					inlinesProperty.CollectionElements.Add(inline);
+				}
 			}
 		}
 

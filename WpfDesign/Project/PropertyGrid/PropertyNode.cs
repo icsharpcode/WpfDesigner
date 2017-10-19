@@ -21,6 +21,7 @@ using System.Linq;
 using System.ComponentModel;
 using System.Windows;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Markup;
@@ -304,6 +305,9 @@ namespace ICSharpCode.WpfDesign.PropertyGrid
 				}
 			} else {
 				foreach (var p in Properties) {
+					if (p.DesignItem.Component is TextBlock && p.DependencyProperty == TextBlock.TextProperty) {
+						p.DesignItem.ContentProperty.CollectionElements.Clear();
+					}
 					p.SetValue(value);
 				}
 			}

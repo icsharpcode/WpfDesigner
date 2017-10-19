@@ -76,8 +76,8 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			};
 			ToolTip = "Edit the Text. Press" + Environment.NewLine + "Enter to make changes." + Environment.NewLine + "Shift+Enter to insert a newline." + Environment.NewLine + "Esc to cancel editing.";
 
-			editor.TextChanged += editor_TextChanged;
 			FormatedTextEditor.SetRichTextBoxTextFromTextBlock(editor, ((TextBlock)designItem.Component));
+			editor.TextChanged += editor_TextChanged;
 		}
 
 		void editor_TextChanged(object sender, TextChangedEventArgs e)
