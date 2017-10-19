@@ -33,7 +33,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
-			if (ExtendedItem.Component is Panel || ExtendedItem.Component is Control || ExtendedItem.Component is Border || ExtendedItem.Component is Viewbox)
+			if (ExtendedItem.Component is Panel || ExtendedItem.Component is Control || ExtendedItem.Component is Border || ExtendedItem.Component is Viewbox || ExtendedItem.Component is TextBlock)
 				return;
 
 			ExtendedItem.AddBehavior(typeof(IPlacementBehavior), this);
