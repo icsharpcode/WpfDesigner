@@ -101,16 +101,16 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 
 		public virtual void LeaveContainer(PlacementOperation operation)
 		{
-			if (ExtendedItem.ContentProperty.IsCollection)
-			{
-				foreach (var info in operation.PlacedItems)
+			foreach (var info in operation.PlacedItems) {
+				var parentProperty = info.Item.ParentProperty;
+				if (parentProperty.IsCollection)
 				{
-					ExtendedItem.ContentProperty.CollectionElements.Remove(info.Item);
+					parentProperty.CollectionElements.Remove(info.Item);
 				}
-			}
-			else
-			{
-				ExtendedItem.ContentProperty.Reset();
+				else
+				{
+					parentProperty.Reset();
+				}
 			}
 		}
 
