@@ -276,7 +276,9 @@ namespace ICSharpCode.WpfDesign.Designer
 			DesignItem newPanel = _context.Services.Component.RegisterComponentForDesigner(newInstance);
 			
 			List<ItemPos> itemList = new List<ItemPos>();
-			
+
+			int? firstIndex = null;
+
 			foreach (var item in collection) {
 				itemList.Add(GetItemPos(operation, item));
 				//var pos = placement.GetPosition(null, item);
@@ -290,9 +292,16 @@ namespace ICSharpCode.WpfDesign.Designer
 					item.Properties.GetProperty(FrameworkElement.VerticalAlignmentProperty).Reset();
 					item.Properties.GetProperty(FrameworkElement.MarginProperty).Reset();
 				}
-				
-				var parCol = item.ParentProperty.CollectionElements;
-				parCol.Remove(item);
+
+				if (item.ParentProperty.IsCollection) {
+					var parCol = item.ParentProperty.CollectionElements;
+					if (!firstIndex.HasValue)
+						firstIndex = parCol.IndexOf(item);
+					parCol.Remove(item);
+				}
+				else {
+					item.ParentProperty.Reset();
+				}
 			}
 			
 			var xmin = itemList.Min(x => x.Xmin);
@@ -354,6 +363,11 @@ namespace ICSharpCode.WpfDesign.Designer
 					new[] {new Rect(xmin, ymin, xmax - xmin, ymax - ymin).Round()},
 					PlacementType.AddItem
 				);
+
+				if (items.Count() == 1 && container.ContentProperty != null && container.ContentProperty.IsCollection) {
+					container.ContentProperty.CollectionElements.Remove(newPanel);
+					container.ContentProperty.CollectionElements.Insert(firstIndex.Value, newPanel);
+				}
 
 				operation2.Commit();
 
