@@ -341,6 +341,9 @@ namespace ICSharpCode.WpfDesign.Designer
 				} else if (newPanel.Component is Viewbox) {
 					newPanel.ContentProperty.SetValue(item.DesignItem);
 				}
+				else if (newPanel.Component is ContentControl) {
+					newPanel.ContentProperty.SetValue(item.DesignItem);
+				}
 			}
 
 			if (doInsert)
