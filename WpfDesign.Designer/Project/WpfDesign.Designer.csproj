@@ -179,7 +179,7 @@
       <DependentUpon>TimeSpanEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\ComponentPropertyService.cs" />
-    <Compile Include="themes\VersionedAssemblyResourceDictionary.cs" />
+    <Compile Include="Themes\VersionedAssemblyResourceDictionary.cs" />
     <Compile Include="Translations.cs" />
     <Compile Include="Configuration\AssemblyInfo.cs" />
     <Compile Include="Controls\AdornerLayer.cs" />
