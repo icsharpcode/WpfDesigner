@@ -87,6 +87,10 @@
     <Compile Include="Extensions\BorderForMouseOver.cs" />
     <Compile Include="Extensions\OnlyDeletePlacementBehavior.cs" />
     <Compile Include="OutlineView\PropertyOutlineNode.cs" />
+    <Page Include="PropertyGrid\Editors\CollectionTemplateDictionary.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="PropertyGrid\Editors\CollectionTemplateSelector.cs" />
     <Compile Include="PropertyGrid\Editors\ColorEditor\ColorEditorPopup.xaml.cs">
       <DependentUpon>ColorEditorPopup.xaml</DependentUpon>
     </Compile>

@@ -1,0 +1,20 @@
+﻿<ResourceDictionary 
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:wpfDesign="clr-namespace:ICSharpCode.WpfDesign;assembly=ICSharpCode.WpfDesign">
+	<DataTemplate x:Key="PointTemplate" DataType="wpfDesign:DesignItem">
+		<StackPanel Orientation="Horizontal">
+			<TextBlock Text="Point (" />
+			<TextBlock Text="{Binding Component.X}" />
+			<TextBlock Text=" / " />
+			<TextBlock Text="{Binding Component.Y}" />
+			<TextBlock Text=")" />
+		</StackPanel>
+	</DataTemplate>
+	<DataTemplate x:Key="StringTemplate" DataType="wpfDesign:DesignItem">
+		<TextBlock Text="{Binding Component}" />
+	</DataTemplate>
+	<DataTemplate x:Key="DefaultTemplate" DataType="wpfDesign:DesignItem">
+		<TextBlock Text="{Binding ComponentType.Name}" />
+	</DataTemplate>
+</ResourceDictionary>
