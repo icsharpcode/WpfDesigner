@@ -17,10 +17,6 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Text;
 using System.Xml;
 
 namespace ICSharpCode.WpfDesign.XamlDom

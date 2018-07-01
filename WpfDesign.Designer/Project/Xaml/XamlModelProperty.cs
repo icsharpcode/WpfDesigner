@@ -25,7 +25,6 @@ using ICSharpCode.WpfDesign.Interfaces;
 using ICSharpCode.WpfDesign.XamlDom;
 using ICSharpCode.WpfDesign.Designer.Services;
 using System.Windows;
-using System.Windows.Markup;
 
 namespace ICSharpCode.WpfDesign.Designer.Xaml
 {
@@ -52,15 +51,15 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			}
 			
 			ValueChanged += (x, y) =>
-		    {
-		        OnPropertyChanged("Value");
-                OnPropertyChanged("ValueOnInstanceOrView");                
-		    };
-            ValueOnInstanceChanged += (x, y) =>
-            {
-                OnPropertyChanged("ValueOnInstance");
-                OnPropertyChanged("ValueOnInstanceOrView");
-            };
+			{
+				OnPropertyChanged("Value");
+				OnPropertyChanged("ValueOnInstanceOrView");
+			};
+			ValueOnInstanceChanged += (x, y) =>
+			{
+				OnPropertyChanged("ValueOnInstance");
+				OnPropertyChanged("ValueOnInstanceOrView");
+			};
 		}
 		
 		public override bool Equals(object obj)
