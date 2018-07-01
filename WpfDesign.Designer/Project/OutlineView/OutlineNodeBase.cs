@@ -55,7 +55,7 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			bool hidden = false;
 			try
 			{
-				hidden = (bool)designItem.Properties.GetAttachedProperty(DesignTimeProperties.IsHiddenProperty).ValueOnInstance;
+				hidden = object.Equals(designItem.Properties.GetAttachedProperty(DesignTimeProperties.IsHiddenProperty).ValueOnInstance, true);
 			}
 			catch (Exception)
 			{ }
@@ -66,7 +66,7 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			bool locked = false;
 			try
 			{
-				locked = (bool)designItem.Properties.GetAttachedProperty(DesignTimeProperties.IsLockedProperty).ValueOnInstance;
+				locked = object.Equals(designItem.Properties.GetAttachedProperty(DesignTimeProperties.IsLockedProperty).ValueOnInstance, true);
 			}
 			catch (Exception)
 			{ }
