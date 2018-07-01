@@ -322,21 +322,6 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid
 		}
 
 		#endregion
-
-		//class CategoryNameComparer : IComparer<string>
-		//{
-		//    public static CategoryNameComparer Instance = new CategoryNameComparer();
-
-		//    public int Compare(string x, string y)
-		//    {
-		//        int i1 = Array.IndexOf(Metadata.CategoryOrder, x);
-		//        if (i1 == -1) i1 = int.MaxValue;
-		//        int i2 = Array.IndexOf(Metadata.CategoryOrder, y);
-		//        if (i2 == -1) i2 = int.MaxValue;
-		//        if (i1 == i2) return x.CompareTo(y);
-		//        return i1.CompareTo(i2);
-		//    }
-		//}
 	}
 	
 	public class CategoriesCollection : SortedObservableCollection<Category, string>
