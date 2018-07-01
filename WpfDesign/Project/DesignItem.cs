@@ -120,8 +120,10 @@ namespace ICSharpCode.WpfDesign
 		{
 			return this.Context.OpenGroup(changeGroupTitle, new DesignItem[] { this });
 		}
-		
+
 		#region Extensions support
+
+		[DebuggerDisplay("ExtensionEntry - {Extension} / {Server}")]
 		private struct ExtensionEntry
 		{
 			internal readonly Extension Extension;
@@ -197,13 +199,14 @@ namespace ICSharpCode.WpfDesign
 			} else {
 				// remove extensions
 				_extensions.RemoveAll(
-					delegate (ExtensionEntry entry) {
+					entry =>
+					{
 						if (entry.Server == server) {
 							server.RemoveExtension(entry.Extension);
 							return true;
-						} else {
-							return false;
 						}
+
+						return false;
 					});
 			}
 		}
@@ -253,7 +256,7 @@ namespace ICSharpCode.WpfDesign
 			if (!behaviorInterface.IsInstanceOfType(behaviorImplementation))
 				throw new ArgumentException("behaviorImplementation must implement bevahiorInterface", "behaviorImplementation");
 			
-			_behaviorObjects.Add(behaviorInterface, behaviorImplementation);
+			_behaviorObjects[behaviorInterface] = behaviorImplementation;
 		}
 		
 		/// <summary>
