@@ -549,7 +549,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				if (d != null)
 					saveDesignItem = () =>
 				{
-					d.ParentProperty.SetValue(Geometry.Parse(pg.ToString()));
+					d.ParentProperty.SetValue(Geometry.Parse(new GeometryConverter().ConvertToInvariantString(pg)));
 				};
 				
 				if (d != null) {
@@ -580,7 +580,6 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 							saveDesignItem = () =>
 						{
 							dd.Properties["StartPoint"].SetValue(((PathFigure)dd.Component).StartPoint);
-							//dd.Properties["Segments"].SetValue(((PathFigure)dd.Component).Segments);
 						};
 						list.Add(new PathPoint(figure.StartPoint, figure, null, (p) => figure.StartPoint = p, saveDesignItem, shape));
 						foreach (var s in figure.Segments) {
@@ -672,9 +671,8 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 								for (int n = 0; n < poly.Points.Count; n+=2)
 								{
 									var closure_n = n;
-									var previous = list.Last();
 									var pathp = new PathPoint(poly.Points[closure_n+1], s, figure, (p) => poly.Points[closure_n+1] = p, saveDesignItem, shape) { PolyLineIndex = closure_n+1, ParentPathPoint = parentp };
-									list.Add(new PathPoint(poly.Points[closure_n], s, figure, (p) => poly.Points[closure_n] = p, saveDesignItem, shape) { PolyLineIndex = closure_n, TargetPathPoint = pathp  });									
+									list.Add(new PathPoint(poly.Points[closure_n], s, figure, (p) => poly.Points[closure_n] = p, saveDesignItem, shape) { PolyLineIndex = closure_n, TargetPathPoint = pathp  });
 									list.Add(pathp);
 									parentp = pathp;
 								}

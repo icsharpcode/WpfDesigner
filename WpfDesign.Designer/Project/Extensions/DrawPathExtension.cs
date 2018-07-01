@@ -125,8 +125,8 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				}
 					
 				segment.Point = point;
-				
-				geometry.Properties[PathGeometry.FiguresProperty].SetValue(figure.ToString());
+				var prop = geometry.Properties[PathGeometry.FiguresProperty];
+				prop.SetValue(prop.TypeConverter.ConvertToInvariantString(figure));
 			}
 			
 			protected override void OnMouseUp(object sender, MouseButtonEventArgs e)
@@ -135,7 +135,8 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				var point = new Point(Math.Round(delta.X, 0), Math.Round(delta.Y,0));
 				
 				figure.Segments.Add(new LineSegment(point, false));
-				geometry.Properties[PathGeometry.FiguresProperty].SetValue(figure.ToString());
+				var prop = geometry.Properties[PathGeometry.FiguresProperty];
+				prop.SetValue(prop.TypeConverter.ConvertToInvariantString(figure));
 			}
 			
 			protected override void OnMouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -143,7 +144,8 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				base.OnMouseDoubleClick(sender, e);
 				
 				figure.Segments.RemoveAt(figure.Segments.Count - 1);
-				geometry.Properties[PathGeometry.FiguresProperty].SetValue(figure.ToString());
+				var prop = geometry.Properties[PathGeometry.FiguresProperty];
+				prop.SetValue(prop.TypeConverter.ConvertToInvariantString(figure));
 				
 				if (changeGroup != null) {
 					changeGroup.Commit();
