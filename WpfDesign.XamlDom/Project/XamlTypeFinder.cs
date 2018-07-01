@@ -18,9 +18,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
 using System.Windows.Markup;
 using System.Xaml;
 using XamlReader = System.Windows.Markup.XamlReader;
@@ -32,6 +34,11 @@ namespace ICSharpCode.WpfDesign.XamlDom
 	/// </summary>
 	public class XamlTypeFinder : ICloneable
 	{
+		public XamlTypeFinder()
+		{
+			_registeredAssemblies = new List<Assembly>();
+		}
+
 		sealed class AssemblyNamespaceMapping : IEquatable<AssemblyNamespaceMapping>
 		{
 			internal readonly Assembly Assembly;
@@ -210,7 +217,17 @@ namespace ICSharpCode.WpfDesign.XamlDom
 			}
 			reverseDict[mapping] = ns.XmlNamespace;
 		}
-		
+
+		private List<Assembly> _registeredAssemblies;
+
+		public ReadOnlyCollection<Assembly> RegisteredAssemblies
+		{
+			get
+			{
+				return new ReadOnlyCollection<Assembly>(_registeredAssemblies);
+			}
+		}
+
 		/// <summary>
 		/// Registers XAML namespaces defined in the <paramref name="assembly"/> for lookup.
 		/// </summary>
@@ -218,6 +235,8 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		{
 			if (assembly == null)
 				throw new ArgumentNullException("assembly");
+
+			_registeredAssemblies.Add(assembly);
 
 			Dictionary<string, string> namespacePrefixes = new Dictionary<string, string>();
 			foreach (XmlnsPrefixAttribute xmlnsPrefix in assembly.GetCustomAttributes(typeof(XmlnsPrefixAttribute), true)) {
@@ -280,6 +299,9 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		{
 			if (source == null)
 				throw new ArgumentNullException("source");
+
+			_registeredAssemblies.AddRange(source.RegisteredAssemblies);
+
 			foreach (KeyValuePair<string, XamlNamespace> pair in source.namespaces) {
 				this.namespaces.Add(pair.Key, pair.Value.Clone());
 			}
@@ -322,7 +344,7 @@ namespace ICSharpCode.WpfDesign.XamlDom
 			{
 				Instance = new XamlTypeFinder();
 				Instance.RegisterDesignerNamespaces();
-				Instance.RegisterAssembly(typeof(MarkupExtension).Assembly); // WindowsBase
+				Instance.RegisterAssembly(typeof(Point).Assembly); // WindowsBase
 				Instance.RegisterAssembly(typeof(IAddChild).Assembly); // PresentationCore
 				Instance.RegisterAssembly(typeof(XamlReader).Assembly); // PresentationFramework
 				Instance.RegisterAssembly(typeof(XamlType).Assembly); // System.Xaml

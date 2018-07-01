@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
+﻿using System.Reflection;
 using ICSharpCode.WpfDesign.XamlDom;
 
 namespace ICSharpCode.XamlDesigner
@@ -12,6 +7,11 @@ namespace ICSharpCode.XamlDesigner
 	{
 		public override Assembly LoadAssembly(string name)
 		{
+			foreach (var registeredAssembly in RegisteredAssemblies) {
+				if (registeredAssembly.GetName().Name == name)
+					return registeredAssembly;
+			}
+
 			foreach (var assemblyNode in Toolbox.Instance.AssemblyNodes)
 			{
 				if (assemblyNode.Name == name)
