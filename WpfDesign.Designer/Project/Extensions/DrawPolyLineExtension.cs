@@ -138,10 +138,10 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				
 				if (newLine.View is Polyline) {
 					((Polyline)newLine.View).Points.RemoveAt(((Polyline)newLine.View).Points.Count - 1);
-					newLine.Properties[Polyline.PointsProperty].SetValue(string.Join(",", ((Polyline)newLine.View).Points));
+					newLine.Properties[Polyline.PointsProperty].SetValue(new PointCollectionConverter().ConvertToInvariantString(((Polyline)newLine.View).Points));
 				} else {
 					((Polygon)newLine.View).Points.RemoveAt(((Polygon)newLine.View).Points.Count - 1);
-					newLine.Properties[Polygon.PointsProperty].SetValue(string.Join(",", ((Polygon)newLine.View).Points));
+					newLine.Properties[Polygon.PointsProperty].SetValue(new PointCollectionConverter().ConvertToInvariantString(((Polygon)newLine.View).Points));
 				}
 				
 				if (changeGroup != null)
