@@ -86,9 +86,7 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			else
 			{
 				DesignItem.PropertyChanged += new PropertyChangedEventHandler(DesignItem_PropertyChanged);
-
 			}
-
 		}
 
 		protected OutlineNodeBase(string name)
@@ -172,11 +170,6 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 				((XamlDesignItem)DesignItem).IsDesignTimeLocked = _isDesignTimeLocked;
 
 				RaisePropertyChanged("IsDesignTimeLocked");
-
-				//				if (value)
-				//					DesignItem.Properties.GetAttachedProperty(DesignTimeProperties.IsLockedProperty).SetValue(true);
-				//				else
-				//					DesignItem.Properties.GetAttachedProperty(DesignTimeProperties.IsLockedProperty).Reset();
 			}
 		}
 
@@ -204,12 +197,10 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 
 		void DesignItem_PropertyChanged(object sender, PropertyChangedEventArgs e)
 		{
-			//if (e.PropertyName == DesignItem.ContentPropertyName) {
-				if (!_collectionWasChanged)	{
-					UpdateChildren();
-				}
-				_collectionWasChanged = false;
-			//}
+			if (!_collectionWasChanged)	{
+				UpdateChildren();
+			}
+			_collectionWasChanged = false;
 		}
 
 		private void CollectionElements_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
