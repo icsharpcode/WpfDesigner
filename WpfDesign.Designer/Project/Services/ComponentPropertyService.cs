@@ -44,6 +44,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 			typeof(TextSearch).Name,
 			typeof(ToolTipService).Name,
 			typeof(Validation).Name,
+			typeof(Stylus).Name
 		});
 
 		public virtual IEnumerable<MemberDescriptor> GetAvailableProperties(DesignItem designItem)
