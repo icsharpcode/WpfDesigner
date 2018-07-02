@@ -19,15 +19,37 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Markup;
+using System.Windows.Media;
 using ICSharpCode.WpfDesign.PropertyGrid;
 
 namespace ICSharpCode.WpfDesign.Designer.Services
 {
 	public class ComponentPropertyService : IComponentPropertyService
 	{
+		protected HashSet<string> IgnoreTypes = new HashSet<string>(new[]
+		{
+			typeof(XmlAttributeProperties).Name,
+			typeof(Typography).Name,
+			typeof(ContextMenuService).Name,
+			typeof(DesignerProperties).Name,
+			typeof(InputLanguageManager).Name,
+			typeof(InputMethod).Name,
+			typeof(KeyboardNavigation).Name,
+			typeof(NumberSubstitution).Name,
+			typeof(RenderOptions).Name,
+			typeof(TextSearch).Name,
+			typeof(ToolTipService).Name,
+			typeof(Validation).Name,
+		});
+
 		public virtual IEnumerable<MemberDescriptor> GetAvailableProperties(DesignItem designItem)
 		{
-			return TypeHelper.GetAvailableProperties(designItem.Component);
+			return TypeHelper.GetAvailableProperties(designItem.Component)
+				.Where(x => !x.Name.Contains(".") || !IgnoreTypes.Contains(x.Name.Split('.')[0]));
 		}
 
 		public virtual IEnumerable<MemberDescriptor> GetAvailableEvents(DesignItem designItem)
@@ -37,7 +59,8 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 
 		public virtual IEnumerable<MemberDescriptor> GetCommonAvailableProperties(IEnumerable<DesignItem> designItems)
 		{
-			return TypeHelper.GetCommonAvailableProperties(designItems.Select(t => t.Component));
+			return TypeHelper.GetCommonAvailableProperties(designItems.Select(t => t.Component))
+				.Where(x => !x.Name.Contains(".") || !IgnoreTypes.Contains(x.Name.Split('.')[0]));
 		}
 	}
 }
