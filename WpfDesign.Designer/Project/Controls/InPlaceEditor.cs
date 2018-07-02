@@ -48,9 +48,9 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			set { SetValue(BindProperty, value); }
 		}
 
-		readonly DesignItem designItem;
-		ChangeGroup changeGroup;
-		RichTextBox editor;
+		private readonly DesignItem designItem;
+		private ChangeGroup changeGroup;
+		private RichTextBox editor;
 
 		bool _isChangeGroupOpen;
 
@@ -65,8 +65,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		{
 			base.OnApplyTemplate();
 
-			editor = Template.FindName("editor", this) as RichTextBox; // Gets the TextBox-editor from the Template
-
+			editor = Template.FindName("PART_Editor", this) as RichTextBox; // Gets the TextBox-editor from the Template
 			editor.PreviewKeyDown += delegate (object sender, KeyEventArgs e)
 			{
 				if (e.Key == Key.Enter && (e.KeyboardDevice.Modifiers & ModifierKeys.Shift) != ModifierKeys.Shift)
@@ -89,16 +88,6 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		{
 			base.OnGotKeyboardFocus(e);
 			StartEditing();
-		}
-
-		protected override void OnLostKeyboardFocus(KeyboardFocusChangedEventArgs e)
-		{
-			if (changeGroup != null && _isChangeGroupOpen)
-			{
-				changeGroup.Abort();
-				_isChangeGroupOpen = false;
-			}
-			base.OnLostKeyboardFocus(e);
 		}
 
 		/// <summary>

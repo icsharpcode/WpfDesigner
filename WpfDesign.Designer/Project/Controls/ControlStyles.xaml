@@ -448,8 +448,8 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Controls:InPlaceEditor}">
 					<Grid Margin="-2,1,-10,0">
-						<RichTextBox BorderThickness="0" Name="editor" SnapsToDevicePixels="True" Padding="{Binding Path=Padding}" FontSize="{Binding Path=FontSize}" FontFamily="{Binding Path=FontFamily}" FontStyle="{Binding Path=FontStyle}" FontStretch="{Binding Path=FontStretch}" FontWeight="{Binding Path=FontWeight}" AcceptsReturn="True" />
-						<formatedTextEditor:RichTextBoxToolbar Margin="0,-50,-160,0" RichTextBox="{Binding ElementName=editor}"/>
+						<RichTextBox BorderThickness="0" Name="PART_Editor" SnapsToDevicePixels="True" Padding="{Binding Path=Padding}" FontSize="{Binding Path=FontSize}" FontFamily="{Binding Path=FontFamily}" FontStyle="{Binding Path=FontStyle}" FontStretch="{Binding Path=FontStretch}" FontWeight="{Binding Path=FontWeight}" AcceptsReturn="True" />
+						<formatedTextEditor:RichTextBoxToolbar x:Name="PART_Toolbar" Margin="0,-50,-160,0" RichTextBox="{Binding ElementName=PART_Editor}"/>
 					</Grid>
 				</ControlTemplate>
 			</Setter.Value>

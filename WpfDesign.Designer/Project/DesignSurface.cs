@@ -117,6 +117,10 @@ namespace ICSharpCode.WpfDesign.Designer
 			{
 				UnselectAll();
 			}
+		}
+
+		protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
+		{
 			Keyboard.Focus(this.DesignPanel);
 		}
 

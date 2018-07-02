@@ -54,7 +54,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		{
 			adornerPanel = new AdornerPanel();
 			isGettingDragged = false;
-			isMouseDown = Mouse.LeftButton == MouseButtonState.Pressed ? true : false;
+			isMouseDown = Mouse.LeftButton == MouseButtonState.Pressed;
 			numClicks = 0;
 		}
 
@@ -75,11 +75,13 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 
 			/* Add mouse event handlers */
 			designPanel.PreviewMouseLeftButtonDown += MouseDown;
-			designPanel.PreviewMouseLeftButtonUp += MouseUp;
+			designPanel.MouseLeftButtonUp += MouseUp;
 			designPanel.PreviewMouseMove += MouseMove;
 
 			/* To update the position of Editor in case of resize operation */
 			ExtendedItem.PropertyChanged += PropertyChanged;
+
+			eventsAdded = true;
 		}
 
 		/// <summary>
@@ -210,11 +212,8 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 					editor.Visibility = Visibility.Visible;
 				}
 			}
-			else { // Clicked outside the Text - > hide the editor and make the actualt text visible again
-				editor.Visibility = Visibility.Hidden;
-				if (textBlock != null) {
-					textBlock.Visibility = Visibility.Visible;
-				}
+			else { // Clicked outside the Text - > hide the editor and make the actual text visible again
+				RemoveEventsAndShowControl();
 				this.ExtendedItem.ReapplyAllExtensions();
 			}
 
@@ -268,14 +267,28 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 
 		protected override void OnRemove()
 		{
-			if (textBlock != null) {
+			RemoveEventsAndShowControl();
+			base.OnRemove();
+		}
+
+		private bool eventsAdded;
+
+		private void RemoveEventsAndShowControl()
+		{
+			editor.Visibility = Visibility.Hidden;
+
+			if (textBlock != null)
+			{
 				textBlock.Visibility = Visibility.Visible;
 			}
-			ExtendedItem.PropertyChanged -= PropertyChanged;
-			designPanel.PreviewMouseLeftButtonDown -= MouseDown;
-			designPanel.PreviewMouseMove -= MouseMove;
-			designPanel.PreviewMouseLeftButtonUp -= MouseUp;
-			base.OnRemove();
+
+			if (eventsAdded) {
+				eventsAdded = false;
+				ExtendedItem.PropertyChanged -= PropertyChanged;
+				designPanel.PreviewMouseLeftButtonDown -= MouseDown;
+				designPanel.PreviewMouseMove -= MouseMove;
+				designPanel.MouseLeftButtonUp -= MouseUp;
+			}
 		}
 	}
 }

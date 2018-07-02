@@ -53,6 +53,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor
 					tr.ApplyPropertyValue(TextElement.FontSizeProperty, double.Parse(value));
 				}
 			};
+
 			cmbFontSize.AddHandler(TextBoxBase.TextChangedEvent, new TextChangedEventHandler((s, e) =>
 			{
 				if (!string.IsNullOrEmpty(cmbFontSize.Text) && RichTextBox != null)
@@ -93,8 +94,5 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor
 		public static readonly DependencyProperty RichTextBoxProperty =
 			DependencyProperty.Register("RichTextBox", typeof (RichTextBox), typeof (RichTextBoxToolbar),
 				new PropertyMetadata(null));
-
-		
-
 	}
 }
