@@ -231,7 +231,7 @@ namespace ICSharpCode.WpfDesign
 		public void ReapplyAllExtensions()
 		{
 			var manager = this.Services.GetService<Extensions.ExtensionManager>();
-		    List<ExtensionServer> servers =_extensions.GroupBy(entry => entry.Server).Select(grp => grp.First().Server).ToList();
+			List<ExtensionServer> servers =_extensions.GroupBy(entry => entry.Server).Select(grp => grp.First().Server).ToList();
 
 			foreach (var server in servers) {
 				ApplyUnapplyExtensionServer(manager, false, server);
@@ -239,8 +239,35 @@ namespace ICSharpCode.WpfDesign
 			}
 		}
 
+		/// <summary>
+		/// Reapplies a specific extension.
+		/// </summary>
+		public void ReapplyExtension(Type extensionType)
+		{
+			var manager = this.Services.GetService<Extensions.ExtensionManager>();
+			List<ExtensionServer> servers =
+				_extensions.GroupBy(entry => entry.Server).Select(grp => grp.First().Server).ToList();
+
+			foreach (var server in servers) {
+				_extensions.RemoveAll(
+					entry =>
+					{
+						if (entry.Server == server && entry.Extension.GetType() == extensionType) {
+							server.RemoveExtension(entry.Extension);
+							return true;
+						}
+
+						return false;
+					});
+
+				foreach (Extension ext in manager.CreateExtensions(server, this, extensionType)) {
+					_extensions.Add(new ExtensionEntry(ext, server));
+				}
+			}
+		}
+
 		#endregion
-		
+
 		#region Manage behavior
 		readonly Dictionary<Type, object> _behaviorObjects = new Dictionary<Type, object>();
 		
