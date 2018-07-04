@@ -85,9 +85,8 @@ namespace ICSharpCode.WpfDesign.Designer.ThumbnailView
 
 				this.zoomThumb.Width = scrollViewer.ViewportWidth * scale;
 				this.zoomThumb.Height = scrollViewer.ViewportHeight * scale;
-				
-				Canvas.SetLeft(this.zoomThumb, xOffset + this.ScrollViewer.HorizontalOffset*scale);
-				Canvas.SetTop(this.zoomThumb, yOffset + this.ScrollViewer.VerticalOffset*scale);
+				Canvas.SetLeft(this.zoomThumb, xOffset + this.ScrollViewer.HorizontalOffset * scale);
+				Canvas.SetTop(this.zoomThumb, yOffset + this.ScrollViewer.VerticalOffset * scale);
 			}
 		}
 
@@ -176,6 +175,13 @@ namespace ICSharpCode.WpfDesign.Designer.ThumbnailView
 					double scaleY = y/h;
 
 					scale = (scaleX < scaleY) ? scaleX : scaleY;
+
+					if (scrollViewer.ViewportHeight > h) {
+						yOffset -= ((scrollViewer.ViewportHeight - h) / 2) * scale;
+					}
+					if (scrollViewer.ViewportWidth > w) {
+						xOffset -= ((scrollViewer.ViewportWidth - w) / 2) * scale;
+					}
 
 					xOffset += (x - scale*w)/2;
 					yOffset += (y - scale*h)/2;
