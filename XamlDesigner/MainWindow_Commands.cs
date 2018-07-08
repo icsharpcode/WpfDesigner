@@ -39,7 +39,7 @@ namespace ICSharpCode.XamlDesigner
 		void OpenCommand_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			Shell.Instance.Open();
-			AvalonDockWorkaround();
+			//AvalonDockWorkaround();
 		}
 
 		void CloseCommand_Executed(object sender, ExecutedRoutedEventArgs e)

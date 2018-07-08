@@ -3,14 +3,18 @@
         xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:sd="http://sharpdevelop.net"
-        xmlns:AvalonDock="clr-namespace:AvalonDock;assembly=AvalonDock"
+        xmlns:avalondock="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:Outline="clr-namespace:ICSharpCode.WpfDesign.Designer.OutlineView;assembly=ICSharpCode.WpfDesign.Designer"
         xmlns:Default="clr-namespace:ICSharpCode.XamlDesigner"
         xmlns:behaviorsEditor="clr-namespace:ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.BehaviorsEditor;assembly=ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon"
         xmlns:triggersEditor="clr-namespace:ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.TriggersEditor;assembly=ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon"
+        xmlns:avalonDock="clr-namespace:ICSharpCode.XamlDesigner.AvalonDock"
         SnapsToDevicePixels="True"
         AllowDrop="True"
         Title="{Binding Title}">
+	<Window.Resources>
+		<avalonDock:ActiveDocumentConverter x:Key="ActiveDocumentConverter" />
+	</Window.Resources>
 	
 	<Window.CommandBindings>
 		
@@ -91,57 +95,123 @@
 				<MenuItem Command="Default:MainWindow.RenderToBitmapCommand" />
 			</MenuItem>
 		</Menu>
-				
-		<AvalonDock:DockingManager x:Name="uxDockingManager">
-			<AvalonDock:ResizingPanel>
-				
-				<AvalonDock:DocumentPane x:Name="uxDocumentPane"
-					SelectedValue="{Binding CurrentDocument}"
-					SelectedValuePath="DataContext"/>
-				
-				<AvalonDock:DockablePane>
-					<AvalonDock:DockableContent x:Name="content1" Title="Toolbox">
-						<Default:ToolboxView />
-					</AvalonDock:DockableContent>
-				</AvalonDock:DockablePane>
-				
-				<AvalonDock:DockablePane>
-					<AvalonDock:DockableContent x:Name="content2" Title="Outline">
-						<Outline:Outline Root="{Binding CurrentDocument.OutlineRoot}"/>
-					</AvalonDock:DockableContent>
-				</AvalonDock:DockablePane>
-				
-				<AvalonDock:DockablePane>
-					<AvalonDock:DockableContent x:Name="content3" Title="Errors">
-						<Default:ErrorListView ItemsSource="{Binding CurrentDocument.XamlErrorService.Errors}"/>
-					</AvalonDock:DockableContent>
-				</AvalonDock:DockablePane>
-				
-				<AvalonDock:DockablePane>
-					<AvalonDock:DockableContent x:Name="content4" Title="Properties">
-						<sd:PropertyGridView x:Name="uxPropertyGridView"
-							SelectedItems="{Binding DataContext.CurrentDocument.SelectionService.SelectedItems, ElementName=root, FallbackValue={x:Null}}"/>
-					</AvalonDock:DockableContent>
-				</AvalonDock:DockablePane>
-			
-				<AvalonDock:DockablePane>
-					<AvalonDock:DockableContent x:Name="content5" Title="Thumbnail">
-						<sd:ThumbnailView x:Name="uxThumbnailView" DesignSurface="{Binding DataContext.CurrentDocument.DesignSurface, ElementName=root, FallbackValue={x:Null}}" />
-					</AvalonDock:DockableContent>
-				</AvalonDock:DockablePane>
 
-				<AvalonDock:DockablePane>
-					<AvalonDock:DockableContent x:Name="content6" Title="Behaviors">
-						<behaviorsEditor:BehaviorsEditor x:Name="uxBehaviorsView"
-										 SelectedItems="{Binding DataContext.CurrentDocument.SelectionService.SelectedItems, ElementName=root, FallbackValue={x:Null}}"/>
-					</AvalonDock:DockableContent>
-					<AvalonDock:DockableContent x:Name="content7" Title="Triggers">
-						<triggersEditor:TriggersEditor x:Name="uxTriggersView"
-										 SelectedItems="{Binding DataContext.CurrentDocument.SelectionService.SelectedItems, ElementName=root, FallbackValue={x:Null}}"/>
-					</AvalonDock:DockableContent>
-				</AvalonDock:DockablePane>
-				
-			</AvalonDock:ResizingPanel>
-		</AvalonDock:DockingManager>
+		<avalondock:DockingManager x:Name="uxDockingManager"
+                    AllowMixedOrientation="True" 
+                   DocumentsSource="{Binding Documents}"
+                   ActiveContent="{Binding CurrentDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}">
+
+			<avalondock:DockingManager.LayoutItemTemplateSelector>
+				<avalonDock:PanesTemplateSelector>
+					<avalonDock:PanesTemplateSelector.DocumentTemplate>
+						<DataTemplate>
+							<Default:DocumentView />
+						</DataTemplate>
+					</avalonDock:PanesTemplateSelector.DocumentTemplate>
+				</avalonDock:PanesTemplateSelector>
+			</avalondock:DockingManager.LayoutItemTemplateSelector>
+
+			<avalondock:DockingManager.LayoutItemContainerStyleSelector>
+				<avalonDock:PanesStyleSelector>
+					<avalonDock:PanesStyleSelector.DocumentStyle>
+						<Style TargetType="{x:Type avalondock:LayoutItem}">
+							<Setter Property="Title" Value="{Binding Model.Name}" />
+						</Style>
+					</avalonDock:PanesStyleSelector.DocumentStyle>
+				</avalonDock:PanesStyleSelector>
+			</avalondock:DockingManager.LayoutItemContainerStyleSelector>
+
+			<avalondock:LayoutRoot>
+				<avalondock:LayoutPanel Orientation="Horizontal">
+
+					<avalondock:LayoutAnchorablePaneGroup DockWidth="280" Orientation="Vertical">
+						<avalondock:LayoutAnchorablePane DockHeight="6*">
+							<avalondock:LayoutAnchorable Title="Toolbox" ContentId="Toolbox">
+								<Default:ToolboxView />
+							</avalondock:LayoutAnchorable>
+						</avalondock:LayoutAnchorablePane>
+
+						<avalondock:LayoutAnchorablePane DockHeight="3*">
+							<avalondock:LayoutAnchorable Title="Outline" ContentId="Outline">
+								<Outline:Outline Root="{Binding CurrentDocument.OutlineRoot}"/>
+							</avalondock:LayoutAnchorable>
+						</avalondock:LayoutAnchorablePane>
+
+					</avalondock:LayoutAnchorablePaneGroup>
+
+					<avalondock:LayoutDocumentPaneGroup>
+						<avalondock:LayoutDocumentPane x:Name="uxDocumentPane" />
+					</avalondock:LayoutDocumentPaneGroup>
+
+					<avalondock:LayoutAnchorablePaneGroup DockWidth="280" Orientation="Vertical">
+						<avalondock:LayoutAnchorablePane>
+							<avalondock:LayoutAnchorable Title="Errors" ContentId="Errors">
+								<Default:ErrorListView ItemsSource="{Binding CurrentDocument.XamlErrorService.Errors}"/>
+							</avalondock:LayoutAnchorable>
+						</avalondock:LayoutAnchorablePane>
+
+						<avalondock:LayoutAnchorablePane>
+							<avalondock:LayoutAnchorable Title="Properties" ContentId="Properties">
+								<sd:PropertyGridView x:Name="uxPropertyGridView"
+								                     SelectedItems="{Binding DataContext.CurrentDocument.SelectionService.SelectedItems, ElementName=root, FallbackValue={x:Null}}"/>
+							</avalondock:LayoutAnchorable>
+						</avalondock:LayoutAnchorablePane>
+
+						<avalondock:LayoutAnchorablePane>
+							<avalondock:LayoutAnchorable Title="Thumbnail" ContentId="Thumbnail">
+								<sd:ThumbnailView x:Name="uxThumbnailView" DesignSurface="{Binding DataContext.CurrentDocument.DesignSurface, ElementName=root, FallbackValue={x:Null}}" />
+							</avalondock:LayoutAnchorable>
+						</avalondock:LayoutAnchorablePane>
+
+						<avalondock:LayoutAnchorablePane>
+							<avalondock:LayoutAnchorable Title="Behaviors" ContentId="Behaviors">
+								<behaviorsEditor:BehaviorsEditor x:Name="uxBehaviorsView"
+								                                 SelectedItems="{Binding DataContext.CurrentDocument.SelectionService.SelectedItems, ElementName=root, FallbackValue={x:Null}}"/>
+							</avalondock:LayoutAnchorable>
+						</avalondock:LayoutAnchorablePane>
+
+						<avalondock:LayoutAnchorablePane>
+							<avalondock:LayoutAnchorable Title="Triggers" ContentId="Triggers">
+								<triggersEditor:TriggersEditor x:Name="uxTriggersView"
+								                               SelectedItems="{Binding DataContext.CurrentDocument.SelectionService.SelectedItems, ElementName=root, FallbackValue={x:Null}}"/>
+							</avalondock:LayoutAnchorable>
+						</avalondock:LayoutAnchorablePane>
+
+					</avalondock:LayoutAnchorablePaneGroup>
+
+				</avalondock:LayoutPanel>
+			</avalondock:LayoutRoot>
+		</avalondock:DockingManager>
 	</DockPanel>
 </Window>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

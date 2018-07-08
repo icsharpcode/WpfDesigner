@@ -1,37 +1,28 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
-
 using ICSharpCode.WpfDesign.Designer.Services;
 
 namespace ICSharpCode.XamlDesigner
 {
 	public partial class DocumentView
 	{
-		public DocumentView(Document doc)
+		public DocumentView()
 		{
 			InitializeComponent();
+			this.Loaded += DocumentView_Loaded;
+		}
 
-			Document = doc;
-			Shell.Instance.Views[doc] = this;
+		private void DocumentView_Loaded(object sender, System.Windows.RoutedEventArgs e)
+		{
+			this.Loaded -= DocumentView_Loaded;
 
-			//uxTextEditor.DataBindings.Add("Text", doc, "Text", true, System.Windows.Forms.DataSourceUpdateMode.OnPropertyChanged);
+			Document = (Document) this.DataContext;
+			Shell.Instance.Views[Document] = this;
+
 			Document.Mode = DocumentMode.Design;
-			Document.PropertyChanged += new PropertyChangedEventHandler(Document_PropertyChanged);
-			uxTextEditor.TextChanged += new EventHandler(uxTextEditor_TextChanged);
+			Document.PropertyChanged += Document_PropertyChanged;
+			uxTextEditor.TextChanged += uxTextEditor_TextChanged;
 		}
 
 		void uxTextEditor_TextChanged(object sender, EventArgs e)
