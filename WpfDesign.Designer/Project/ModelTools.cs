@@ -378,7 +378,129 @@ namespace ICSharpCode.WpfDesign.Designer
 
 			return new Tuple<DesignItem, Rect>(newPanel, new Rect(xmin, ymin, xmax - xmin, ymax - ymin).Round());
 		}
-		
+
+		public static void UnwrapItemsFromContainer(DesignItem container)
+		{
+			var collection = container.ContentProperty.CollectionElements.ToList();
+
+			var newPanel = container.Parent;
+
+			if (collection.Any(x => x.Parent != container))
+				return;
+
+			//Change Code to use the Placment Operation!
+			var placement = container.Extensions.OfType<IPlacementBehavior>().FirstOrDefault();
+			if (placement == null)
+				return;
+
+			var operation = PlacementOperation.Start(collection.ToList(), PlacementType.Move);
+
+			List<ItemPos> itemList = new List<ItemPos>();
+
+			int? firstIndex = null;
+
+			var containerPos = GetItemPos(operation, container);
+
+			foreach (var item in collection)
+			{
+				itemList.Add(GetItemPos(operation, item));
+				if (container.Component is Canvas)
+				{
+					item.Properties.GetAttachedProperty(Canvas.RightProperty).Reset();
+					item.Properties.GetAttachedProperty(Canvas.LeftProperty).Reset();
+					item.Properties.GetAttachedProperty(Canvas.TopProperty).Reset();
+					item.Properties.GetAttachedProperty(Canvas.BottomProperty).Reset();
+				}
+				else if (container.Component is Grid)
+				{
+					item.Properties.GetProperty(FrameworkElement.HorizontalAlignmentProperty).Reset();
+					item.Properties.GetProperty(FrameworkElement.VerticalAlignmentProperty).Reset();
+					item.Properties.GetProperty(FrameworkElement.MarginProperty).Reset();
+				}
+
+				if (item.ParentProperty.IsCollection)
+				{
+					var parCol = item.ParentProperty.CollectionElements;
+					if (!firstIndex.HasValue)
+						firstIndex = parCol.IndexOf(item);
+					parCol.Remove(item);
+				}
+				else
+				{
+					item.ParentProperty.Reset();
+				}
+			}
+
+			newPanel.ContentProperty.CollectionElements.Remove(container);
+
+			foreach (var item in itemList)
+			{
+				if (newPanel.Component is Canvas)
+				{
+					if (item.HorizontalAlignment == HorizontalAlignment.Right)
+					{
+						item.DesignItem.Properties.GetAttachedProperty(Canvas.RightProperty).SetValue(containerPos.Xmax - item.Xmax);
+					}
+					else
+					{
+						item.DesignItem.Properties.GetAttachedProperty(Canvas.LeftProperty).SetValue(item.Xmin + containerPos.Xmin);
+					}
+
+					if (item.VerticalAlignment == VerticalAlignment.Bottom)
+					{
+						item.DesignItem.Properties.GetAttachedProperty(Canvas.BottomProperty).SetValue(containerPos.Ymax - item.Ymax);
+					}
+					else
+					{
+						item.DesignItem.Properties.GetAttachedProperty(Canvas.TopProperty).SetValue(item.Ymin + containerPos.Ymin);
+					}
+
+					newPanel.ContentProperty.CollectionElements.Add(item.DesignItem);
+
+				}
+				else if (newPanel.Component is Grid)
+				{
+					Thickness thickness = new Thickness(0);
+					if (item.HorizontalAlignment == HorizontalAlignment.Right)
+					{
+						item.DesignItem.Properties.GetProperty(FrameworkElement.HorizontalAlignmentProperty).SetValue(HorizontalAlignment.Right);
+						thickness.Right = containerPos.Xmax - item.Xmax;
+					}
+					else
+					{
+						item.DesignItem.Properties.GetProperty(FrameworkElement.HorizontalAlignmentProperty).SetValue(HorizontalAlignment.Left);
+						thickness.Left = item.Xmin;
+					}
+
+					if (item.VerticalAlignment == VerticalAlignment.Bottom)
+					{
+						item.DesignItem.Properties.GetProperty(FrameworkElement.VerticalAlignmentProperty).SetValue(VerticalAlignment.Bottom);
+						thickness.Bottom = containerPos.Ymax - item.Ymax;
+					}
+					else
+					{
+						item.DesignItem.Properties.GetProperty(FrameworkElement.VerticalAlignmentProperty).SetValue(VerticalAlignment.Top);
+						thickness.Top = item.Ymin;
+					}
+
+					item.DesignItem.Properties.GetProperty(FrameworkElement.MarginProperty).SetValue(thickness);
+
+					newPanel.ContentProperty.CollectionElements.Add(item.DesignItem);
+
+				}
+				else if (newPanel.Component is Viewbox)
+				{
+					newPanel.ContentProperty.SetValue(item.DesignItem);
+				}
+				else if (newPanel.Component is ContentControl)
+				{
+					newPanel.ContentProperty.SetValue(item.DesignItem);
+				}
+			}
+
+			operation.Commit();
+		}
+
 		public static void ApplyTransform(DesignItem designItem, Transform transform, bool relative = true)
 		{
 			var changeGroup = designItem.OpenGroup("Apply Transform");

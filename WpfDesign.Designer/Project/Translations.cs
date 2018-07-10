@@ -88,6 +88,13 @@ namespace ICSharpCode.WpfDesign.Designer
 			}
 		}
 
+		public virtual string Unwrap
+		{
+			get {
+				return "Unwrap";
+			}
+		}
+
 		public virtual string FormatedTextEditor
 		{
 			get

@@ -86,7 +86,14 @@
     </Compile>
     <Compile Include="Extensions\BorderForMouseOver.cs" />
     <Compile Include="Extensions\OnlyDeletePlacementBehavior.cs" />
+    <Compile Include="Extensions\UnwrapItemContextMenu.xaml.cs">
+      <DependentUpon>UnwrapItemContextMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\UnwrapItemContextMenuExtension.cs" />
     <Compile Include="OutlineView\PropertyOutlineNode.cs" />
+    <Page Include="Extensions\UnwrapItemContextMenu.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="PropertyGrid\Editors\CollectionTemplateDictionary.xaml">
       <SubType>Designer</SubType>
     </Page>
