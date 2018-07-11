@@ -67,7 +67,8 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			createdItem.Properties[Shape.StrokeProperty].SetValue(Brushes.Black);
 			createdItem.Properties[Shape.StrokeThicknessProperty].SetValue(2d);
 			createdItem.Properties[Shape.StretchProperty].SetValue(Stretch.None);
-			drawItemCallback(createdItem);
+			if (drawItemCallback != null)
+				drawItemCallback(createdItem);
 
 			if (createItemType == typeof(Polyline))
 				createdItem.Properties[Polyline.PointsProperty].CollectionElements.Add(createdItem.Services.Component.RegisterComponentForDesigner(new Point(0,0)));
@@ -103,6 +104,8 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			
 			protected override void OnMouseMove(object sender, MouseEventArgs e)
 			{
+				if (changeGroup == null)
+					return;
 				var delta = e.GetPosition(null) - startPoint;
 				var diff = delta;
 				if (lastAdded.HasValue) {
@@ -131,7 +134,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				if (newLine.View is Polyline) {
 					if (((Polyline)newLine.View).Points.Count <= 1)
 						((Polyline)newLine.View).Points.Add(point);
-					if (Mouse.LeftButton != MouseButtonState.Pressed && ((Polyline)newLine.View).Points.Last() != lastAdded)
+					if (Mouse.LeftButton != MouseButtonState.Pressed)
 						((Polyline)newLine.View).Points.RemoveAt(((Polyline)newLine.View).Points.Count - 1);
 					if (((Polyline)newLine.View).Points.Last() != point)
 						((Polyline)newLine.View).Points.Add(point);
@@ -147,6 +150,9 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			
 			protected override void OnMouseUp(object sender, MouseButtonEventArgs e)
 			{
+				if (changeGroup == null)
+					return;
+
 				var delta = e.GetPosition(null) - startPoint;
 				var diff = delta;
 				if (lastAdded.HasValue) {
@@ -188,6 +194,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				} else {
 					((Polygon)newLine.View).Points.RemoveAt(((Polygon)newLine.View).Points.Count - 1);
 					newLine.Properties[Polygon.PointsProperty].SetValue(new PointCollectionConverter().ConvertToInvariantString(((Polygon)newLine.View).Points));
+					
 				}
 				
 				if (changeGroup != null)
