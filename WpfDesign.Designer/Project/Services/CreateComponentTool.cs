@@ -167,7 +167,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		/// <summary>
 		/// Is called to create the item used by the CreateComponentTool.
 		/// </summary>
-		protected virtual DesignItem CreateItemFroDrawing(DesignContext context)
+		protected virtual DesignItem CreateItemForDrawing(DesignContext context)
 		{
 			object newInstance = context.Services.ExtensionManager.CreateInstanceWithCustomInstanceFactory(componentType, null);
 			DesignItem item = context.Services.Component.RegisterComponentForDesigner(newInstance);
@@ -221,7 +221,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 					var darwItemBehaviors = result.ModelHit.Extensions.OfType<IDrawItemExtension>();
 					var drawItembehavior = darwItemBehaviors.FirstOrDefault(x => x.CanItemBeDrawn(componentType));
 					if (drawItembehavior != null && drawItembehavior.CanItemBeDrawn(componentType)) {
-						drawItembehavior.StartDrawItem(result.ModelHit, componentType, designPanel, e, (context) => CreateItemFroDrawing(context));
+						drawItembehavior.StartDrawItem(result.ModelHit, componentType, designPanel, e, (context) => CreateItemForDrawing(context));
 					}
 					else {
 						var placementBehavior = result.ModelHit.GetBehavior<IPlacementBehavior>();
