@@ -32,6 +32,15 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	[ExtensionFor(typeof(Grid))]
 	public class DrawLineExtension : BehaviorExtension, IDrawItemExtension
 	{
+		DesignItem CreateItem(DesignContext context, Type componentType)
+		{
+			object newInstance = context.Services.ExtensionManager.CreateInstanceWithCustomInstanceFactory(componentType, null);
+			DesignItem item = context.Services.Component.RegisterComponentForDesigner(newInstance);
+			changeGroup = item.OpenGroup("Draw Line");
+			context.Services.ExtensionManager.ApplyDefaultInitializers(item);
+			return item;
+		}
+
 		private ChangeGroup changeGroup;
 
 		#region IDrawItemBehavior implementation
@@ -41,9 +50,9 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			return createItemType == typeof(Line);
 		}
 
-		public void StartDrawItem(DesignItem clickedOn, Type createItemType, IDesignPanel panel, MouseEventArgs e, Func<DesignContext, DesignItem> createItemCallback)
+		public void StartDrawItem(DesignItem clickedOn, Type createItemType, IDesignPanel panel, MouseEventArgs e, Action<DesignItem> drawItemCallback)
 		{
-			var createdItem = createItemCallback(panel.Context);
+			var createdItem = CreateItem(panel.Context, createItemType);
 
 			var startPoint = e.GetPosition(clickedOn.View);
 			var operation = PlacementOperation.TryStartInsertNewComponents(clickedOn,
@@ -58,7 +67,8 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			createdItem.Properties[Shape.StrokeProperty].SetValue(Brushes.Black);
 			createdItem.Properties[Shape.StrokeThicknessProperty].SetValue(2d);
 			createdItem.Properties[Shape.StretchProperty].SetValue(Stretch.None);
-			
+			drawItemCallback(createdItem);
+
 			var lineHandler = createdItem.Extensions.OfType<LineHandlerExtension>().First();
 			lineHandler.DragListener.ExternalStart();
 			

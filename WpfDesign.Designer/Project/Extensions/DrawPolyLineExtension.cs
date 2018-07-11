@@ -32,6 +32,15 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	[ExtensionFor(typeof(Grid))]
 	public class DrawPolyLineExtension : BehaviorExtension, IDrawItemExtension
 	{
+		DesignItem CreateItem(DesignContext context, Type componentType)
+		{
+			object newInstance = context.Services.ExtensionManager.CreateInstanceWithCustomInstanceFactory(componentType, null);
+			DesignItem item = context.Services.Component.RegisterComponentForDesigner(newInstance);
+			changeGroup = item.OpenGroup("Draw Line");
+			context.Services.ExtensionManager.ApplyDefaultInitializers(item);
+			return item;
+		}
+
 		private ChangeGroup changeGroup;
 
 		#region IDrawItemBehavior implementation
@@ -41,9 +50,9 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			return createItemType == typeof(Polyline) || createItemType == typeof(Polygon);
 		}
 
-		public void StartDrawItem(DesignItem clickedOn, Type createItemType, IDesignPanel panel, MouseEventArgs e, Func<DesignContext, DesignItem> createItemCallback)
+		public void StartDrawItem(DesignItem clickedOn, Type createItemType, IDesignPanel panel, MouseEventArgs e, Action<DesignItem> drawItemCallback)
 		{
-			var createdItem = createItemCallback(panel.Context);
+			var createdItem = CreateItem(panel.Context, createItemType);
 
 			var startPoint = e.GetPosition(clickedOn.View);
 			var operation = PlacementOperation.TryStartInsertNewComponents(clickedOn,
@@ -54,11 +63,12 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				createdItem.Services.Selection.SetSelectedComponents(new DesignItem[] { createdItem });
 				operation.Commit();
 			}
-			
+
 			createdItem.Properties[Shape.StrokeProperty].SetValue(Brushes.Black);
 			createdItem.Properties[Shape.StrokeThicknessProperty].SetValue(2d);
 			createdItem.Properties[Shape.StretchProperty].SetValue(Stretch.None);
-			
+			drawItemCallback(createdItem);
+
 			if (createItemType == typeof(Polyline))
 				createdItem.Properties[Polyline.PointsProperty].CollectionElements.Add(createdItem.Services.Component.RegisterComponentForDesigner(new Point(0,0)));
 			else
@@ -74,6 +84,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			private ChangeGroup changeGroup;
 			private DesignItem newLine;
 			private new Point startPoint;
+			private Point? lastAdded;
 
 			public DrawPolylineMouseGesture(DesignItem newLine, IInputElement relativeTo, ChangeGroup changeGroup)
 			{
@@ -93,12 +104,34 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			protected override void OnMouseMove(object sender, MouseEventArgs e)
 			{
 				var delta = e.GetPosition(null) - startPoint;
+				var diff = delta;
+				if (lastAdded.HasValue) {
+					diff = new Vector(lastAdded.Value.X - delta.X, lastAdded.Value.Y - delta.Y);
+				}
+				if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt))
+				{
+					if (Math.Abs(diff.X) > Math.Abs(diff.Y)) {
+						delta.Y = 0;
+						if (newLine.View is Polyline && ((Polyline)newLine.View).Points.Count > 1) {
+							delta.Y = ((Polyline) newLine.View).Points.Reverse().Skip(1).First().Y;
+						} else if (newLine.View is Polygon && ((Polygon)newLine.View).Points.Count > 1) {
+							delta.Y = ((Polygon)newLine.View).Points.Reverse().Skip(1).First().Y;
+						}
+					} else {
+						delta.X = 0;
+						if (newLine.View is Polyline && ((Polyline)newLine.View).Points.Count > 1) {
+							delta.X = ((Polyline)newLine.View).Points.Reverse().Skip(1).First().X;
+						} else if (newLine.View is Polygon && ((Polygon)newLine.View).Points.Count > 1) {
+							delta.X = ((Polygon)newLine.View).Points.Reverse().Skip(1).First().X;
+						}
+					}
+				}
 				var point = new Point(delta.X, delta.Y);
 
 				if (newLine.View is Polyline) {
 					if (((Polyline)newLine.View).Points.Count <= 1)
 						((Polyline)newLine.View).Points.Add(point);
-					if (Mouse.LeftButton != MouseButtonState.Pressed)
+					if (Mouse.LeftButton != MouseButtonState.Pressed && ((Polyline)newLine.View).Points.Last() != lastAdded)
 						((Polyline)newLine.View).Points.RemoveAt(((Polyline)newLine.View).Points.Count - 1);
 					if (((Polyline)newLine.View).Points.Last() != point)
 						((Polyline)newLine.View).Points.Add(point);
@@ -115,8 +148,30 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			protected override void OnMouseUp(object sender, MouseButtonEventArgs e)
 			{
 				var delta = e.GetPosition(null) - startPoint;
+				var diff = delta;
+				if (lastAdded.HasValue) {
+					diff = new Vector(lastAdded.Value.X - delta.X, lastAdded.Value.Y - delta.Y);
+				}
+				if (Keyboard.IsKeyDown(Key.LeftAlt) || Keyboard.IsKeyDown(Key.RightAlt)) {
+					if (Math.Abs(diff.X) > Math.Abs(diff.Y)) {
+						delta.Y = 0;
+						if (newLine.View is Polyline && ((Polyline)newLine.View).Points.Count > 1) {
+							delta.Y = ((Polyline)newLine.View).Points.Reverse().Skip(1).First().Y;
+						} else if (newLine.View is Polygon && ((Polygon)newLine.View).Points.Count > 1) {
+							delta.Y = ((Polygon)newLine.View).Points.Reverse().Skip(1).First().Y;
+						}
+					} else {
+						delta.X = 0;
+						if (newLine.View is Polyline && ((Polyline)newLine.View).Points.Count > 1) {
+							delta.X = ((Polyline)newLine.View).Points.Reverse().Skip(1).First().X;
+						} else if (newLine.View is Polygon && ((Polygon)newLine.View).Points.Count > 1) {
+							delta.X = ((Polygon)newLine.View).Points.Reverse().Skip(1).First().X;
+						}
+					}
+				}
 				var point = new Point(delta.X, delta.Y);
-				
+				lastAdded = point;
+
 				if (newLine.View is Polyline)
 					((Polyline)newLine.View).Points.Add(point);
 				else

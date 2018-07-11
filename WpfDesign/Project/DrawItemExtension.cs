@@ -42,6 +42,6 @@ namespace ICSharpCode.WpfDesign
 		/// <param name="panel">The design panel to draw on.</param>
 		/// <param name="e">The <see cref="MouseEventArgs"/> argument that initiated the draw operation.</param>
 		/// <param name="createItemCallback">Callback used to create the item.</param>
-		void StartDrawItem(DesignItem clickedOn, Type createItemType, IDesignPanel panel, MouseEventArgs e, Func<DesignContext, DesignItem> createItemCallback);
+		void StartDrawItem(DesignItem clickedOn, Type createItemType, IDesignPanel panel, MouseEventArgs e, Action<DesignItem> drawItemCallback);
 	}
 }

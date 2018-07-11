@@ -165,16 +165,10 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		}
 
 		/// <summary>
-		/// Is called to create the item used by the CreateComponentTool.
+		/// Is called to set Properties of the Drawn Item
 		/// </summary>
-		protected virtual DesignItem CreateItemForDrawing(DesignContext context)
-		{
-			object newInstance = context.Services.ExtensionManager.CreateInstanceWithCustomInstanceFactory(componentType, null);
-			DesignItem item = context.Services.Component.RegisterComponentForDesigner(newInstance);
-			changeGroup = item.OpenGroup("Draw Control");
-			context.Services.ExtensionManager.ApplyDefaultInitializers(item);
-			return item;
-		}
+		protected virtual void SetPropertiesForDrawnItem(DesignItem designItem)
+		{ }
 
 		public static bool AddItemWithCustomSizePosition(DesignItem container, Type createdItem, Size size, Point position)
 		{
@@ -221,7 +215,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 					var darwItemBehaviors = result.ModelHit.Extensions.OfType<IDrawItemExtension>();
 					var drawItembehavior = darwItemBehaviors.FirstOrDefault(x => x.CanItemBeDrawn(componentType));
 					if (drawItembehavior != null && drawItembehavior.CanItemBeDrawn(componentType)) {
-						drawItembehavior.StartDrawItem(result.ModelHit, componentType, designPanel, e, (context) => CreateItemForDrawing(context));
+						drawItembehavior.StartDrawItem(result.ModelHit, componentType, designPanel, e, SetPropertiesForDrawnItem);
 					}
 					else {
 						var placementBehavior = result.ModelHit.GetBehavior<IPlacementBehavior>();
