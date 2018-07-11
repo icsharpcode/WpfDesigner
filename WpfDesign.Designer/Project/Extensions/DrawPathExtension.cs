@@ -34,15 +34,6 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	{
 		private ChangeGroup changeGroup;
 
-		DesignItem CreateItem(DesignContext context, Type componentType)
-		{
-			object newInstance = context.Services.ExtensionManager.CreateInstanceWithCustomInstanceFactory(componentType, null);
-			DesignItem item = context.Services.Component.RegisterComponentForDesigner(newInstance);
-			changeGroup = item.OpenGroup("Draw Path");
-			context.Services.ExtensionManager.ApplyDefaultInitializers(item);
-			return item;
-		}
-
 		#region IDrawItemBehavior implementation
 
 		public bool CanItemBeDrawn(Type createItemType)
@@ -50,9 +41,9 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			return createItemType == typeof(Path);
 		}
 
-		public void StartDrawItem(DesignItem clickedOn, Type createItemType, IDesignPanel panel, System.Windows.Input.MouseEventArgs e)
+		public void StartDrawItem(DesignItem clickedOn, Type createItemType, IDesignPanel panel, MouseEventArgs e, Func<DesignContext, DesignItem> createItemCallback)
 		{
-			var createdItem = CreateItem(panel.Context, createItemType);
+			var createdItem = createItemCallback(panel.Context);
 
 			var startPoint = e.GetPosition(clickedOn.View);
 			var operation = PlacementOperation.TryStartInsertNewComponents(clickedOn,

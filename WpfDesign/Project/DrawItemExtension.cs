@@ -33,7 +33,7 @@ namespace ICSharpCode.WpfDesign
 		/// <param name="createItemType">The type to check.</param>
 		/// <returns>True if the specified type can be drawn, otherwise false.</returns>
 		bool CanItemBeDrawn(Type createItemType);
-		
+
 		/// <summary>
 		/// Starts to draw.
 		/// </summary>
@@ -41,6 +41,7 @@ namespace ICSharpCode.WpfDesign
 		/// <param name="createItemType">The item type.</param>
 		/// <param name="panel">The design panel to draw on.</param>
 		/// <param name="e">The <see cref="MouseEventArgs"/> argument that initiated the draw operation.</param>
-		void StartDrawItem(DesignItem clickedOn, Type createItemType, IDesignPanel panel, MouseEventArgs e);
+		/// <param name="createItemCallback">Callback used to create the item.</param>
+		void StartDrawItem(DesignItem clickedOn, Type createItemType, IDesignPanel panel, MouseEventArgs e, Func<DesignContext, DesignItem> createItemCallback);
 	}
 }
