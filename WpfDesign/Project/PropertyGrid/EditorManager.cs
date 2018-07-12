@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 
 namespace ICSharpCode.WpfDesign.PropertyGrid
 {
@@ -69,6 +70,21 @@ namespace ICSharpCode.WpfDesign.PropertyGrid
 						}
 						return itemsControl;
 					}
+
+					var namedStandardValues = Metadata.GetNamedStandardValues(property.ReturnType);
+					if (namedStandardValues != null)
+					{
+						var itemsControl = (ItemsControl)Activator.CreateInstance(defaultComboboxEditor);
+						itemsControl.ItemsSource = namedStandardValues;
+						itemsControl.DisplayMemberPath = "Name";
+						((Selector) itemsControl).SelectedValuePath = "Value";
+						if (Nullable.GetUnderlyingType(property.ReturnType) != null)
+						{
+							itemsControl.GetType().GetProperty("IsNullable").SetValue(itemsControl, true, null); //In this Class we don't know the Nullable Combo Box
+						}
+						return itemsControl;
+					}
+					return (FrameworkElement)Activator.CreateInstance(defaultTextboxEditor);
 					return (FrameworkElement)Activator.CreateInstance(defaultTextboxEditor);
 				}
 			}

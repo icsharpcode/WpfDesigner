@@ -30,6 +30,13 @@ namespace ICSharpCode.WpfDesign
 	/// </summary>
 	public static class Metadata
 	{
+		class NamedValue
+		{
+			public string Name { get; set; }
+
+			public object Value { get; set; }
+		}
+
 		/// <summary>
 		/// Gets the full name of a dependency property (OwnerType.FullName + "." + Name).
 		/// </summary>
@@ -41,7 +48,7 @@ namespace ICSharpCode.WpfDesign
 		// TODO: do we really want to store these values in a static dictionary?
 		// Why not per-design context (as a service?)
 		static Dictionary<Type, List<object>> standardValues = new Dictionary<Type, List<object>>();
-
+		static Dictionary<Type, List<NamedValue>> standardNamedValues = new Dictionary<Type, List<NamedValue>>();
 		static Dictionary<Type, Dictionary<DependencyProperty, object>> standardPropertyValues = new Dictionary<Type, Dictionary<DependencyProperty, object>>();
 
 		/// <summary>
@@ -54,6 +61,32 @@ namespace ICSharpCode.WpfDesign
 			AddStandardValues(type,
 			                  valuesContainer.GetProperties(BindingFlags.Public | BindingFlags.Static)
 			                  .Select(p => p.GetValue(null, null)));
+		}
+
+		/// <summary>
+		/// Registers a set of standard values for a <paramref name="type"/> by using the
+		/// public static properties of the type <paramref name="valuesContainer"/>.
+		/// </summary>
+		/// <example>Metadata.AddDoubleNamedStandardValues(typeof(Brush), typeof(Brushes));</example>
+		public static void AddDoubleNamedStandardValues(Type type, Type valuesContainer)
+		{
+			List<NamedValue> list;
+
+			var pList = valuesContainer.GetProperties(BindingFlags.Public | BindingFlags.Static)
+				.Select(p => new NamedValue {Name = p.Name, Value = p.GetValue(null, null)});
+
+			lock (standardNamedValues)
+			{
+				if (!standardNamedValues.TryGetValue(type, out list))
+				{
+					list = new List<NamedValue>();
+					standardNamedValues[type] = list;
+				}
+				foreach (var v in pList)
+				{
+					list.Add(v);
+				}
+			}
 		}
 
 		/// <summary>
@@ -72,6 +105,22 @@ namespace ICSharpCode.WpfDesign
 					list.Add(v);
 				}
 			}
+		}
+
+		/// <summary>
+		/// Retrieves the standard values for the specified <paramref name="type"/>.
+		/// </summary>
+		public static IEnumerable GetNamedStandardValues(Type type)
+		{
+			List<NamedValue> values;
+			lock (standardNamedValues)
+			{
+				if (standardNamedValues.TryGetValue(type, out values))
+				{
+					return values;
+				}
+			}
+			return null;
 		}
 
 		/// <summary>

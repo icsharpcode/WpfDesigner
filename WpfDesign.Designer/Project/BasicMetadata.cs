@@ -41,8 +41,8 @@ namespace ICSharpCode.WpfDesign.Designer
 
 			Metadata.AddStandardValues(typeof(Brush), typeof(Brushes));
 			Metadata.AddStandardValues(typeof(Color), typeof(Colors));
-			Metadata.AddStandardValues(typeof(FontStretch), typeof(FontStretches));
-			Metadata.AddStandardValues(typeof(FontWeight), typeof(FontWeights));
+			Metadata.AddDoubleNamedStandardValues(typeof(FontStretch), typeof(FontStretches));
+			Metadata.AddDoubleNamedStandardValues(typeof(FontWeight), typeof(FontWeights));
 			Metadata.AddStandardValues(typeof(FontStyle), typeof(FontStyles));
 			Metadata.AddStandardValues(typeof(Cursor), typeof(Cursors));
 			Metadata.AddStandardValues(typeof(PixelFormat), typeof(PixelFormats));
