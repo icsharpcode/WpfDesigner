@@ -16,6 +16,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
+using System.Reflection;
 using System.Windows.Controls;
 using ICSharpCode.WpfDesign.Adorners;
 using ICSharpCode.WpfDesign.Extensions;
@@ -24,7 +25,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 {
 	[ExtensionServer(typeof (OnlyOneItemSelectedExtensionServer))]
 	[ExtensionFor(typeof (Control))]
-	[Extension(Order = 30)]
+	[Extension(Order = 31)]
 	public class EditStyleContextMenuExtension : PrimarySelectionAdornerProvider
 	{
 		DesignPanel panel;
@@ -37,7 +38,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			contextMenu = new EditStyleContextMenu(ExtendedItem);
 			panel = ExtendedItem.Context.Services.DesignPanel as DesignPanel;
 			if (panel != null)
-				panel.AddContextMenu(contextMenu);
+				panel.AddContextMenu(contextMenu, this.GetType().GetCustomAttribute<ExtensionAttribute>().Order);
 		}
 
 		protected override void OnRemove()

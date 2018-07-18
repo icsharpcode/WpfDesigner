@@ -16,9 +16,11 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using ICSharpCode.WpfDesign.Adorners;
+using ICSharpCode.WpfDesign.Designer.Controls;
 using ICSharpCode.WpfDesign.Extensions;
 
 namespace ICSharpCode.WpfDesign.Designer.Extensions
@@ -29,7 +31,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	[ExtensionServer(typeof(OnlyOneItemSelectedExtensionServer))]
 	[ExtensionFor(typeof(UIElement))]
 	[Extension(Order = 50)]
-    public class WrapItemContextMenuExtension : SelectionAdornerProvider
+	public class WrapItemContextMenuExtension : SelectionAdornerProvider
 	{
 		DesignPanel panel;
 		ContextMenu contextMenu;
@@ -38,12 +40,14 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		{
 			base.OnInitialized();
 
-            contextMenu = new WrapItemContextMenu(ExtendedItem);
-			panel = ExtendedItem.Context.Services.DesignPanel as DesignPanel;
-			if (panel != null)
-				panel.AddContextMenu(contextMenu);
+			if (!(ExtendedItem.View is WindowClone)) {
+				contextMenu = new WrapItemContextMenu(ExtendedItem);
+				panel = ExtendedItem.Context.Services.DesignPanel as DesignPanel;
+				if (panel != null)
+					panel.AddContextMenu(contextMenu, this.GetType().GetCustomAttribute<ExtensionAttribute>().Order);
+			}
 		}
-		
+
 		protected override void OnRemove()
 		{
 			if (panel != null)

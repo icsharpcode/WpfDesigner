@@ -16,6 +16,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
+using System.Reflection;
 using System.Windows.Controls;
 using System.Windows.Shapes;
 using ICSharpCode.WpfDesign.Adorners;
@@ -41,7 +42,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			contextMenu = new PathContextMenu(ExtendedItem);
 			panel = ExtendedItem.Context.Services.DesignPanel as DesignPanel;
 			if (panel != null)
-				panel.AddContextMenu(contextMenu);
+				panel.AddContextMenu(contextMenu, this.GetType().GetCustomAttribute<ExtensionAttribute>().Order);
 		}
 		
 		protected override void OnRemove()

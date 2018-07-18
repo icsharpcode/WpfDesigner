@@ -16,6 +16,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using ICSharpCode.WpfDesign.Adorners;
@@ -28,7 +29,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	/// </summary>
 	[ExtensionServer(typeof(PrimarySelectionButOnlyWhenMultipleSelectedExtensionServer))]
 	[ExtensionFor(typeof(UIElement))]
-	[Extension(Order = 50)]
+	[Extension(Order = 52)]
 	public class WrapItemsContextMenuExtension : SelectionAdornerProvider
 	{
 		DesignPanel panel;
@@ -41,7 +42,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			contextMenu = new WrapItemsContextMenu(ExtendedItem);
 			panel = ExtendedItem.Context.Services.DesignPanel as DesignPanel;
 			if (panel != null)
-				panel.AddContextMenu(contextMenu);
+				panel.AddContextMenu(contextMenu, this.GetType().GetCustomAttribute<ExtensionAttribute>().Order);
 		}
 		
 		protected override void OnRemove()

@@ -525,10 +525,15 @@ namespace ICSharpCode.WpfDesign.Designer
 		private Dictionary<ContextMenu, Tuple<int,List<object>>> contextMenusAndEntries = new Dictionary<ContextMenu, Tuple<int,List<object>>>();
 
 		public Action<ContextMenu> ContextMenuHandler { get; set; }
-		
+
 		public void AddContextMenu(ContextMenu contextMenu)
 		{
-			contextMenusAndEntries.Add(contextMenu, new Tuple<int, List<object>>(contextMenusAndEntries.Count, new List<object>(contextMenu.Items.Cast<object>())));
+			AddContextMenu(contextMenu, int.MaxValue);
+		}
+
+		public void AddContextMenu(ContextMenu contextMenu, int orderIndex)
+		{
+			contextMenusAndEntries.Add(contextMenu, new Tuple<int, List<object>>(orderIndex, new List<object>(contextMenu.Items.Cast<object>())));
 			contextMenu.Items.Clear();
 
 			UpdateContextMenu();
