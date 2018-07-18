@@ -31,7 +31,8 @@
 
 		<Grid x:Name="PropertyGridGrid"
 			  Grid.Column="2">
-			<sd:PropertyGridView x:Name="uxPropertyGridView"
+			<Button Height="20" VerticalAlignment="Top" Click="Button_Click">Add Columns to Selected Grid</Button>
+			<sd:PropertyGridView Margin="0,20,0,0" x:Name="uxPropertyGridView"
 							SelectedItems="{Binding DataContext.DesignSurface.DesignContext.Services.Selection.SelectedItems, ElementName=MainGrid, FallbackValue={x:Null}}"/>
 		</Grid>
 	</Grid>

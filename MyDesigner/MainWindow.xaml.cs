@@ -1,22 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Xml;
 using System.IO;
 using MyTestAssembly;
 using ICSharpCode.WpfDesign.Designer.Xaml;
-using ICSharpCode.WpfDesign.Designer.PropertyGrid;
 using ICSharpCode.WpfDesign;
 
 namespace MyDesigner
@@ -33,7 +20,7 @@ xmlns:x=""http://schemas.microsoft.com/winfx/2006/xaml""
 xmlns:d=""http://schemas.microsoft.com/expression/blend/2008""
 xmlns:mc=""http://schemas.openxmlformats.org/markup-compatibility/2006""
 mc:Ignorable=""d""
-x:Name=""rootElement"" Background=""White""></Grid>";
+x:Name=""rootElement"" Background=""White""><Grid  Margin=""100""/></Grid>";
 
 		public MainWindow()
 		{
@@ -56,6 +43,24 @@ x:Name=""rootElement"" Background=""White""></Grid>";
 			//We want to supply our own implementation of IComponentPropertyService so we return just the properties that we want.
 			//This would probably go better in the MyDesignerModel class, but have to wait until after the DesignContext has been created.
 			MyDesignerModel.Instance.DesignSurface.DesignContext.Services.AddOrReplaceService(typeof(IComponentPropertyService), new MyComponentPropertyService());
+		}
+
+		private void Button_Click(object sender, RoutedEventArgs e)
+		{
+			var desItem = MyDesignerModel.Instance.DesignSurface.DesignContext.RootItem;
+			if (desItem.Services.Selection.PrimarySelection != null &&
+				desItem.Services.Selection.PrimarySelection.Component is Grid)
+			{
+				for (int i = 0; i < 5; i++)
+				{
+					desItem.Services.Selection.PrimarySelection.Properties.GetProperty("ColumnDefinitions")
+						.CollectionElements
+						.Add(desItem.Services.Component.RegisterComponentForDesigner(
+							new ColumnDefinition() { Width = new GridLength(200) }));
+				}
+
+				desItem.Services.Selection.PrimarySelection.ReapplyAllExtensions();
+			}
 		}
 	}
 }
