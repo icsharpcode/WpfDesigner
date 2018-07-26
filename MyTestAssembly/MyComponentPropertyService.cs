@@ -22,7 +22,7 @@ namespace MyTestAssembly
 		{
 			IEnumerable<PropertyDescriptor> retVal = TypeHelper.GetAvailableProperties(designItem.Component);
 
-			retVal = retVal.Where(c => c.Name == "Foreground");
+			retVal = retVal.Where(c => c.Name == "Foreground" || c.Name== "MyStringProperty");
 
 			return retVal;
 		}

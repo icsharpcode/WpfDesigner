@@ -48,6 +48,7 @@ namespace ICSharpCode.WpfDesign
 		// TODO: do we really want to store these values in a static dictionary?
 		// Why not per-design context (as a service?)
 		static Dictionary<Type, List<object>> standardValues = new Dictionary<Type, List<object>>();
+		static Dictionary<DependencyProperty, object[]> standardValuesForDependencyPropertys = new Dictionary<DependencyProperty, object[]>();
 		static Dictionary<Type, List<NamedValue>> standardNamedValues = new Dictionary<Type, List<NamedValue>>();
 		static Dictionary<Type, Dictionary<DependencyProperty, object>> standardPropertyValues = new Dictionary<Type, Dictionary<DependencyProperty, object>>();
 
@@ -61,6 +62,18 @@ namespace ICSharpCode.WpfDesign
 			AddStandardValues(type,
 			                  valuesContainer.GetProperties(BindingFlags.Public | BindingFlags.Static)
 			                  .Select(p => p.GetValue(null, null)));
+		}
+
+		/// <summary>
+		/// Registers a set of standard values for a <paramref name="dependencyProperty"/> by using the
+		/// <paramref name="values"/>.
+		/// </summary>
+		/// <example>Metadata.AddStandardValues(typeof(Brush), typeof(Brushes));</example>
+		public static void AddStandardValues(DependencyProperty dependencyProperty, params object[] values)
+		{
+			lock (standardValuesForDependencyPropertys) {
+				standardValuesForDependencyPropertys[dependencyProperty] = values;
+			}
 		}
 
 		/// <summary>
@@ -141,6 +154,22 @@ namespace ICSharpCode.WpfDesign
 			List<object> values;
 			lock (standardValues) {
 				if (standardValues.TryGetValue(type, out values)) {
+					return values;
+				}
+			}
+			return null;
+		}
+
+		/// <summary>
+		/// Retrieves the standard values for the specified <paramref name="dependencyProperty"/>.
+		/// </summary>
+		public static IEnumerable GetStandardValues(DependencyProperty dependencyProperty)
+		{
+			object[] values;
+			lock (standardValuesForDependencyPropertys)
+			{
+				if (standardValuesForDependencyPropertys.TryGetValue(dependencyProperty, out values))
+				{
 					return values;
 				}
 			}

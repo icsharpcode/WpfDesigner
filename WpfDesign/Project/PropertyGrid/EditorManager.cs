@@ -17,6 +17,7 @@
 // DEALINGS IN THE SOFTWARE.
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Windows;
@@ -61,7 +62,15 @@ namespace ICSharpCode.WpfDesign.PropertyGrid
 				}
 				
 				if (editorType == null) {
-					var standardValues = Metadata.GetStandardValues(property.ReturnType);
+					IEnumerable standardValues = null;
+
+					if (property.DependencyProperty != null) {
+						standardValues = Metadata.GetStandardValues(property.DependencyProperty);
+					}
+					if (standardValues == null) {
+						standardValues = Metadata.GetStandardValues(property.ReturnType);
+					}
+
 					if (standardValues != null) {
 						var itemsControl = (ItemsControl)Activator.CreateInstance(defaultComboboxEditor);
 						itemsControl.ItemsSource = standardValues;
