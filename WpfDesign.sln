@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfDesign.XamlDom", "WpfDesign.XamlDom\Project\WpfDesign.XamlDom.csproj", "{88DA149F-21B2-48AB-82C4-28FB6BDFD783}"
 EndProject
@@ -20,6 +20,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyDesigner", "MyDesigner\MyDesigner.csproj", "{E65E2846-F038-4F38-A958-8F5DE7DFFBCD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfDesign.Designer.ExpressionBlendInteractionAddon", "WpfDesign.Design.ExpressionBlendInteractionAddon\WpfDesign.Designer.ExpressionBlendInteractionAddon.csproj", "{01F281CF-7616-40E3-ABE7-AAC008698719}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GUIGenerate", "GUIGenerate", "{C8B5026F-FECD-4E36-82A9-41545C54A277}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuiGenerator", "Generator\GuiGenerator\GuiGenerator.csproj", "{CB923E72-78EB-4F7A-B76E-1D2E87A29D64}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,8 +67,18 @@ Global
 		{01F281CF-7616-40E3-ABE7-AAC008698719}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01F281CF-7616-40E3-ABE7-AAC008698719}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01F281CF-7616-40E3-ABE7-AAC008698719}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB923E72-78EB-4F7A-B76E-1D2E87A29D64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB923E72-78EB-4F7A-B76E-1D2E87A29D64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB923E72-78EB-4F7A-B76E-1D2E87A29D64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB923E72-78EB-4F7A-B76E-1D2E87A29D64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{CB923E72-78EB-4F7A-B76E-1D2E87A29D64} = {C8B5026F-FECD-4E36-82A9-41545C54A277}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {759F03CA-233A-4C19-AAA1-6C91A4CDC753}
 	EndGlobalSection
 EndGlobal

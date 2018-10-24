@@ -53,7 +53,9 @@
 	
 		<CommandBinding Command="Default:MainWindow.RenderToBitmapCommand"
 		                Executed="RenderToBitmapCommand_Executed" />
-	
+
+		<CommandBinding Command="Default:MainWindow.GUIGeneratorCommand"
+		                Executed="GUIGeneratorCommand_Executed" />
 	</Window.CommandBindings>
 	
 	<DockPanel>
@@ -93,6 +95,7 @@
 			<MenuItem Header="Test">
 				<MenuItem Command="Default:MainWindow.RunCommand" />
 				<MenuItem Command="Default:MainWindow.RenderToBitmapCommand" />
+				<MenuItem Command="Default:MainWindow.GUIGeneratorCommand"/>
 			</MenuItem>
 		</Menu>
 

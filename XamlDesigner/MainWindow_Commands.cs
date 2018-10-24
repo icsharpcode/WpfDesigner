@@ -24,6 +24,7 @@ namespace ICSharpCode.XamlDesigner
 		public static SimpleCommand RefreshCommand = new SimpleCommand("Refresh", Key.F5);
 		public static SimpleCommand RunCommand = new SimpleCommand("Run", ModifierKeys.Shift, Key.F5);
 		public static SimpleCommand RenderToBitmapCommand = new SimpleCommand("Render to Bitmap");
+		public static SimpleCommand GUIGeneratorCommand = new SimpleCommand("Generate Screen File");
 
 		static void RenameCommands()
 		{
@@ -66,7 +67,10 @@ namespace ICSharpCode.XamlDesigner
 		{
 			Shell.Instance.SaveCurrentDocumentAs();
 		}
-
+		void GUIGeneratorCommand_Executed(object sender,ExecutedRoutedEventArgs e)
+		{
+			Shell.Instance.Generator();
+		}
 		void SaveAllCommand_Executed(object sender, ExecutedRoutedEventArgs e)
 		{
 			Shell.Instance.SaveAll();

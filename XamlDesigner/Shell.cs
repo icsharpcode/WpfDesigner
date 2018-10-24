@@ -11,6 +11,7 @@ using System.IO;
 using System.Windows;
 using System.Diagnostics;
 using ICSharpCode.WpfDesign.Designer.Services;
+using GuiGenerator;
 
 namespace ICSharpCode.XamlDesigner
 {
@@ -29,30 +30,36 @@ namespace ICSharpCode.XamlDesigner
 		public const string ApplicationTitle = "Xaml Designer";
 
 		//public Toolbox Toolbox { get; set; }
-        //public SceneTree SceneTree { get; set; }
-        public IPropertyGrid PropertyGrid { get; internal set; }
-        //public ErrorList ErrorList { get; set; }
-		
+		//public SceneTree SceneTree { get; set; }
+		public IPropertyGrid PropertyGrid { get; internal set; }
+		//public ErrorList ErrorList { get; set; }
+
 		public ObservableCollection<Document> Documents { get; private set; }
-		public ObservableCollection<string> RecentFiles { get; private set; }		
+		public ObservableCollection<string> RecentFiles { get; private set; }
 		public Dictionary<object, FrameworkElement> Views { get; private set; }
 
 		Document currentDocument;
 
-		public Document CurrentDocument {
-			get {
+		public Document CurrentDocument
+		{
+			get
+			{
 				return currentDocument;
 			}
-			set {
+			set
+			{
 				currentDocument = value;
 				RaisePropertyChanged("CurrentDocument");
 				RaisePropertyChanged("Title");
 			}
 		}
 
-		public string Title {
-			get {
-				if (CurrentDocument != null) {
+		public string Title
+		{
+			get
+			{
+				if (CurrentDocument != null)
+				{
 					return CurrentDocument.Title + " - " + ApplicationTitle;
 				}
 				return ApplicationTitle;
@@ -61,20 +68,24 @@ namespace ICSharpCode.XamlDesigner
 
 		void LoadSettings()
 		{
-			if (Settings.Default.RecentFiles != null) {
+			if (Settings.Default.RecentFiles != null)
+			{
 				RecentFiles.AddRange(Settings.Default.RecentFiles.Cast<string>());
 			}
 		}
 
 		public void SaveSettings()
 		{
-			if (Settings.Default.RecentFiles == null) {
+			if (Settings.Default.RecentFiles == null)
+			{
 				Settings.Default.RecentFiles = new StringCollection();
 			}
-			else {
+			else
+			{
 				Settings.Default.RecentFiles.Clear();
 			}
-			foreach (var f in RecentFiles) {
+			foreach (var f in RecentFiles)
+			{
 				Settings.Default.RecentFiles.Add(f);
 			}
 		}
@@ -86,7 +97,8 @@ namespace ICSharpCode.XamlDesigner
 
 		public void JumpToError(XamlError error)
 		{
-			if (CurrentDocument != null) {
+			if (CurrentDocument != null)
+			{
 				(Views[CurrentDocument] as DocumentView).JumpToError(error);
 			}
 		}
@@ -102,10 +114,13 @@ namespace ICSharpCode.XamlDesigner
 		}
 
 		#region Files
-
-		bool IsSomethingDirty {
-			get {
-				foreach (var doc in Shell.Instance.Documents) {
+		public static XmlDeserialize deserialize;
+		bool IsSomethingDirty
+		{
+			get
+			{
+				foreach (var doc in Shell.Instance.Documents)
+				{
 					if (doc.IsDirty) return true;
 				}
 				return false;
@@ -115,45 +130,51 @@ namespace ICSharpCode.XamlDesigner
 		static int nonameIndex = 1;
 
 		public void New()
-        {
-            Document doc = new Document("New" + nonameIndex++, File.ReadAllText("NewFileTemplate.xaml"));
-            Documents.Add(doc);
-            CurrentDocument = doc;
-        }
+		{
+			Document doc = new Document("New" + nonameIndex++, File.ReadAllText("NewFileTemplate.xaml"));
+			Documents.Add(doc);
+			CurrentDocument = doc;
+		}
 
 		public void Open()
-        {
+		{
 			var path = MainWindow.Instance.AskOpenFileName();
-			if (path != null) {
+			if (path != null)
+			{
 				Open(path);
 			}
 		}
 
-        public void Open(string path)
-        {
+		public void Open(string path)
+		{
 			path = Path.GetFullPath(path);
 
-			if (RecentFiles.Contains(path)) {
+			if (RecentFiles.Contains(path))
+			{
 				RecentFiles.Remove(path);
 			}
 			RecentFiles.Insert(0, path);
 
-			foreach (var doc in Documents) {
-				if (doc.FilePath == path) {
+			foreach (var doc in Documents)
+			{
+				if (doc.FilePath == path)
+				{
 					CurrentDocument = doc;
 					return;
 				}
 			}
 
-            var newDoc = new Document(path);
-            Documents.Add(newDoc);
-            CurrentDocument = newDoc;
-		}		
+			var newDoc = new Document(path);
+			Documents.Add(newDoc);
+			CurrentDocument = newDoc;
+		}
 
 		public bool Save(Document doc)
 		{
-			if (doc.IsDirty) {
-				if (doc.FilePath == null) {
+			if (doc.IsDirty)
+			{
+				if (doc.FilePath == null)
+				{
 					return SaveAs(doc);
 				}
 				doc.Save();
@@ -165,16 +186,70 @@ namespace ICSharpCode.XamlDesigner
 		{
 			var initName = doc.FileName ?? doc.Name + ".xaml";
 			var path = MainWindow.Instance.AskSaveFileName(initName);
-			if (path != null)  {
+			if (path != null)
+			{
 				doc.SaveAs(path);
+				
+				
 				return true;
 			}
 			return false;
 		}
+		public void Generator()
+		{
+			var path = MainWindow.Instance.AskOpenFileName();
+			if (path != null)
+			{
+				Open(path);
+			}
+			var cfgName = CurrentDocument.FileName ?? CurrentDocument.Name;
+			GuiGenerator.Window xmlentity = (GuiGenerator.Window)XmlDeserialize.DeserializeFile<GuiGenerator.Window>(path);
+			Canvas entity = xmlentity.canvas;
+			string settingStr = "";
+			if (entity != null)
+			{
+				#region Icon
+				string iconStr = "";
+				for (int i = 0; i < entity.IconList.Count; i++)
+				{
+					Icon icon = entity.IconList[i];
+					if (!string.IsNullOrEmpty(icon.ImgSrc))
+					{
+						string[] rcvArr = icon.ImgSrc.Split(new string[] { "=" }, StringSplitOptions.None);
+						rcvArr = rcvArr.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+						string str = rcvArr[1];
+						string[] strArr = str.Split(new string[] { "}" }, StringSplitOptions.None);
+						strArr = strArr.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+						icon.ImgSrc = strArr[0];
+					}
+					iconStr += string.Format("GUI_IconInit(&sc_menu_icons[{0}],{1},{2},{3},{4},&{5},NULL);", i, icon.X, icon.Y, icon.Width, icon.Height, icon.ImgSrc);
+				}
+				#endregion
 
+				settingStr = iconStr;
+
+				#region SaveConfig
+				if (!string.IsNullOrEmpty(settingStr))
+				{
+					string filePath = Path.GetDirectoryName(path) + "\\";
+					filePath += Path.GetFileNameWithoutExtension(path) + ".txt";					
+					StringBuilder sb = new StringBuilder();
+					sb.Append(settingStr);
+					FileStream _file = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
+					using (StreamWriter sw = new StreamWriter(_file)) 
+					{
+						sw.Write(sb.ToString());
+						sw.Close();
+						sw.Dispose();
+					}											
+				}
+				#endregion
+			}
+		}
 		public bool SaveAll()
 		{
-			foreach (var doc in Documents) {
+			foreach (var doc in Documents)
+			{
 				if (!Save(doc)) return false;
 			}
 			return true;
@@ -182,14 +257,17 @@ namespace ICSharpCode.XamlDesigner
 
 		public bool Close(Document doc)
 		{
-			if (doc.IsDirty) {
-				var result = MessageBox.Show("Save \"" + doc.Name + "\" ?", Shell.ApplicationTitle, 
+			if (doc.IsDirty)
+			{
+				var result = MessageBox.Show("Save \"" + doc.Name + "\" ?", Shell.ApplicationTitle,
 					MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 
-				if (result == MessageBoxResult.Yes) {
+				if (result == MessageBoxResult.Yes)
+				{
 					if (!Save(doc)) return false;
 				}
-				else if (result == MessageBoxResult.Cancel) {
+				else if (result == MessageBoxResult.Cancel)
+				{
 					return false;
 				}
 			}
@@ -200,7 +278,8 @@ namespace ICSharpCode.XamlDesigner
 
 		public bool CloseAll()
 		{
-			foreach (var doc in Documents.ToArray()) {
+			foreach (var doc in Documents.ToArray())
+			{
 				if (!Close(doc)) return false;
 			}
 			return true;
@@ -208,14 +287,17 @@ namespace ICSharpCode.XamlDesigner
 
 		public bool PrepareExit()
 		{
-			if (IsSomethingDirty) {
+			if (IsSomethingDirty)
+			{
 				var result = MessageBox.Show("Save All?", Shell.ApplicationTitle,
 					MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
-				
-				if (result == MessageBoxResult.Yes) {
+
+				if (result == MessageBoxResult.Yes)
+				{
 					if (!SaveAll()) return false;
 				}
-				else if (result == MessageBoxResult.Cancel) {
+				else if (result == MessageBoxResult.Cancel)
+				{
 					return false;
 				}
 			}
@@ -241,7 +323,7 @@ namespace ICSharpCode.XamlDesigner
 		{
 			Close(CurrentDocument);
 		}
-
+		
 		#endregion
 
 		#region INotifyPropertyChanged Members
@@ -250,7 +332,8 @@ namespace ICSharpCode.XamlDesigner
 
 		void RaisePropertyChanged(string name)
 		{
-			if (PropertyChanged != null) {
+			if (PropertyChanged != null)
+			{
 				PropertyChanged(this, new PropertyChangedEventArgs(name));
 			}
 		}

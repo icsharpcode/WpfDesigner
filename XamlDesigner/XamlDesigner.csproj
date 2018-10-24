@@ -98,6 +98,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <ProjectReference Include="..\Generator\GuiGenerator\GuiGenerator.csproj">
+      <Project>{cb923e72-78eb-4f7a-b76e-1d2e87a29d64}</Project>
+      <Name>GuiGenerator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\WpfDesign.Design.ExpressionBlendInteractionAddon\WpfDesign.Designer.ExpressionBlendInteractionAddon.csproj">
       <Project>{01f281cf-7616-40e3-abe7-aac008698719}</Project>
       <Name>WpfDesign.Designer.ExpressionBlendInteractionAddon</Name>
