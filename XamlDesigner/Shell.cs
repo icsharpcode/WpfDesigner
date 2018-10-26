@@ -204,46 +204,131 @@ namespace ICSharpCode.XamlDesigner
 			}
 			var cfgName = CurrentDocument.FileName ?? CurrentDocument.Name;
 			GuiGenerator.Window xmlentity = (GuiGenerator.Window)XmlDeserialize.DeserializeFile<GuiGenerator.Window>(path);
-			Canvas entity = xmlentity.canvas;
-			string settingStr = "";
-			if (entity != null)
+			if (xmlentity != null)
 			{
-				#region Icon
-				string iconStr = "";
-				for (int i = 0; i < entity.IconList.Count; i++)
+				Canvas entity = xmlentity.canvas;
+				string settingStr = "";
+				if (entity != null)
 				{
-					Icon icon = entity.IconList[i];
-					if (!string.IsNullOrEmpty(icon.ImgSrc))
+					#region Icon
+					string iconStr = "//============Icon============" + Environment.NewLine;
+					if (entity.IconList != null)
 					{
-						string[] rcvArr = icon.ImgSrc.Split(new string[] { "=" }, StringSplitOptions.None);
-						rcvArr = rcvArr.Where(s => !string.IsNullOrEmpty(s)).ToArray();
-						string str = rcvArr[1];
-						string[] strArr = str.Split(new string[] { "}" }, StringSplitOptions.None);
-						strArr = strArr.Where(s => !string.IsNullOrEmpty(s)).ToArray();
-						icon.ImgSrc = strArr[0];
+						for (int i = 0; i < entity.IconList.Count; i++)
+						{
+							Icon icon = entity.IconList[i];
+							if (!string.IsNullOrEmpty(icon.ImgSrc))
+							{
+								string[] rcvArr = icon.ImgSrc.Split(new string[] { "=" }, StringSplitOptions.None);
+								rcvArr = rcvArr.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+								string str = rcvArr[1];
+								string[] strArr = str.Split(new string[] { "}" }, StringSplitOptions.None);
+								strArr = strArr.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+								icon.ImgSrc = strArr[0];
+							}
+							iconStr += string.Format(IconInitCode, i, icon.X, icon.Y, icon.Width, icon.Height, icon.ImgSrc) + Environment.NewLine;
+						}
 					}
-					iconStr += string.Format("GUI_IconInit(&sc_menu_icons[{0}],{1},{2},{3},{4},&{5},NULL);", i, icon.X, icon.Y, icon.Width, icon.Height, icon.ImgSrc);
-				}
-				#endregion
+					#endregion
 
-				settingStr = iconStr;
-
-				#region SaveConfig
-				if (!string.IsNullOrEmpty(settingStr))
-				{
-					string filePath = Path.GetDirectoryName(path) + "\\";
-					filePath += Path.GetFileNameWithoutExtension(path) + ".txt";					
-					StringBuilder sb = new StringBuilder();
-					sb.Append(settingStr);
-					FileStream _file = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
-					using (StreamWriter sw = new StreamWriter(_file)) 
+					#region Label
+					string lblStr = "//============Label============" + Environment.NewLine;
+					if (entity.LblList != null)
 					{
-						sw.Write(sb.ToString());
-						sw.Close();
-						sw.Dispose();
-					}											
+						lblStr += "struct label sc_work_labs[" + entity.LblList.Count + "];" + Environment.NewLine;
+						for (int i = 0; i < entity.LblList.Count; i++)
+						{
+							Label lbl = entity.LblList[i];
+							lblStr += string.Format(LabelInitCode, "sc_work_labs+" + i, lbl.X, lbl.Y, lbl.Text) + Environment.NewLine;
+						}
+					}
+					#endregion
+
+					#region Button
+					string btnStr = "//============Button============" + Environment.NewLine;
+					if (entity.BtnList != null)
+					{
+						for (int i = 0; i < entity.BtnList.Count; i++)
+						{
+							Button btn = entity.BtnList[i];
+							btnStr += string.Format(ButtonInitCode, btn.X, btn.Y, btn.Width, btn.Height) + Environment.NewLine;
+							btnStr += string.Format(ButtonSetTextCode, btn.Text) + Environment.NewLine;
+						}
+					}
+					#endregion
+
+					#region CheckBox
+					string chkStr = "//============Checkbox============" + Environment.NewLine;
+					if (entity.ChkList != null)
+					{
+						for (int i = 0; i < entity.ChkList.Count; i++)
+						{
+							Checkbox chk = entity.ChkList[i];
+							chkStr += string.Format(CheckboxInitCode, chk.X, chk.Y, chk.Text) + Environment.NewLine;
+							if (chk.IsChecked != null)
+							{
+								switch (chk.IsChecked)
+								{
+									case "True":
+										chkStr += string.Format(CheckboxSetCode, 1) + Environment.NewLine;
+										break;
+									case "False":
+										chkStr += string.Format(CheckboxSetCode, 0) + Environment.NewLine;
+										break;
+									default:
+										break;
+								}
+							}
+						}
+					}
+					#endregion
+
+					#region Textbox
+					string txtStr = "//============Textbox============" + Environment.NewLine;
+					if (entity.TxtList != null)
+					{
+						for (int i = 0; i < entity.TxtList.Count; i++)
+						{
+							Textbox txt = entity.TxtList[i];
+							txtStr += string.Format(TextboxInitCode, txt.X, txt.Y, txt.MaxLength) + Environment.NewLine;
+							txtStr += string.Format(TextboxSetTextCode, txt.Text) + Environment.NewLine;
+						}
+					}
+					#endregion
+
+					#region Listbox
+					string lbxStr = "//============Listbox============" + Environment.NewLine;
+					if (entity.LbxList != null)
+					{
+						for (int i = 0; i < entity.LbxList.Count; i++)
+						{
+							Listbox lbx = entity.LbxList[i];
+							lbxStr += string.Format(ListboxInitCode, lbx.X, lbx.Y, lbx.Width) + Environment.NewLine;
+
+						}
+					}
+					#endregion
+
+					settingStr = iconStr + lblStr + btnStr + lbxStr + txtStr + chkStr;
+
+					#region SaveConfig
+					if (!string.IsNullOrEmpty(settingStr))
+					{
+						string filePath = Path.GetDirectoryName(path) + "\\";
+						filePath += Path.GetFileNameWithoutExtension(path) + ".txt";
+						StringBuilder sb = new StringBuilder();
+						sb.Append(settingStr);
+						FileStream _file = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite);
+						using (StreamWriter sw = new StreamWriter(_file))
+						{
+							sw.Write(sb.ToString());
+							sw.Close();
+							sw.Dispose();
+						}
+					}
+					#endregion
 				}
-				#endregion
+
 			}
 		}
 		public bool SaveAll()
@@ -338,6 +423,20 @@ namespace ICSharpCode.XamlDesigner
 			}
 		}
 
+		#endregion
+
+		#region Extend
+		private static string FONT = "FONT32_SONGTI";
+		private static string IconInitCode = "GUI_IconInit(&sc_menu_icons[{0}],{1},{2},{3},{4},&{5},NULL);";
+		private static string LabelInitCode = "GUI_LabelInit({0},{1},{2},BLACK,\"{3}\","+FONT+");";
+		private static string ButtonInitCode = "GUI_ButtonInit(struct button *button,{0},{1},{2},{3},GREEN,BLACK);";
+		private static string ButtonSetTextCode = "GUI_ButtonSetText(struct button *button,\"{0}\","+FONT+");";
+		private static string TextboxInitCode = "GUI_TextboxInit(struct textbox *txtb,{0},{1},BLACK,"+FONT+",{2});";
+		private static string TextboxSetTextCode = "GUI_TextboxSetText(struct textbox *txtb,\"{0}\");";
+		private static string CheckboxInitCode = "GUI_CheckboxInit(struct checkbox *ckb,{0},{1},BLACK,\"{2}\","+FONT+");";
+		private static string CheckboxSetCode = "GUI_CheckboxSet(struct checkbox *ckb,{0});";
+		private static string ListboxInitCode = "GUI_ListboxInit(struct listbox *lbx,{0},{1},{2},BLACK,"+FONT+");";
+		private static string ListboxSetItemsCode = "GUI_ListboxSetItems(struct listbox *lbx,const char **items,int count);";
 		#endregion
 	}
 }

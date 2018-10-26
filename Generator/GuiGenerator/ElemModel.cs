@@ -18,6 +18,10 @@ namespace GuiGenerator
 	/// </summary>
 	public class Canvas
 	{
+		public Canvas()
+		{
+
+		}
 		/// <summary>
 		/// 宽
 		/// </summary>
@@ -43,12 +47,34 @@ namespace GuiGenerator
 		/// </summary>
 		[XmlElement("Label")]
 		public List<Label> LblList { get; set; }
+		/// <summary>
+		/// 下拉框
+		/// </summary>
+		[XmlElement("ComboBox")]
+		public List<Listbox> LbxList { get; set; }
+		/// <summary>
+		/// 选择框
+		/// </summary>
+		[XmlElement("CheckBox")]
+		public List<Checkbox> ChkList { get; set; }
+		/// <summary>
+		/// 文本框
+		/// </summary>
+		[XmlElement("TextBox")]
+		public List<Textbox> TxtList { get; set; }
 	}
+
+
 	/// <summary>
 	/// 标签
 	/// </summary>
 	public class Label
 	{
+		/// <summary>
+		/// name
+		/// </summary>
+		[XmlAttribute(Namespace = "Name")]		
+		public string Name { get; set; }
 		/// <summary>
 		/// 位置-X
 		/// </summary>
@@ -94,6 +120,11 @@ namespace GuiGenerator
 	public class Button
 	{
 		/// <summary>
+		/// name
+		/// </summary>
+		[XmlAttribute(Namespace = "Name")]
+		public string Name { get; set; }
+		/// <summary>
 		/// 位置-X
 		/// </summary>
 		[XmlAttribute("Canvas.Left")]
@@ -129,8 +160,17 @@ namespace GuiGenerator
 		[XmlAttribute("BorderBrush")]
 		public string BorderBrush { get; set; }
 	}
+	/// <summary>
+	/// 图标
+	/// </summary>
 	public class Icon
 	{
+		/// <summary>
+		/// name
+		/// </summary>
+		[XmlAttribute(Namespace = "Name")]
+		[XmlIgnore]
+		public string Name { get; set; }
 		/// <summary>
 		/// 位置-X
 		/// </summary>
@@ -156,5 +196,118 @@ namespace GuiGenerator
 		/// </summary>
 		[XmlAttribute("Source")]
 		public string ImgSrc { get; set; }
+	}
+	/// <summary>
+	/// 文本框
+	/// </summary>
+	public class Textbox
+	{
+		/// <summary>
+		/// name
+		/// </summary>
+		[XmlAttribute(Namespace = "Name")]
+		public string Name { get; set; }
+		/// <summary>
+		/// 位置-X
+		/// </summary>
+		[XmlAttribute("Canvas.Left")]
+		public string X { get; set; }
+		/// <summary>
+		/// 位置Y
+		/// </summary>
+		[XmlAttribute("Canvas.Top")]
+		public string Y { get; set; }
+		/// <summary>
+		/// 宽
+		/// </summary>
+		[XmlAttribute("Width")]
+		public string Width { get; set; }
+		/// <summary>
+		/// 高
+		/// </summary>
+		[XmlAttribute("Height")]
+		public string Height { get; set; }
+		/// <summary>
+		/// 文本框文字
+		/// </summary>
+		[XmlAttribute("Content")]
+		public string Text { get; set; }
+		/// <summary>
+		/// 最大长度
+		/// </summary>
+		[XmlAttribute("MaxLength")]
+		public string MaxLength { get; set; }
+	}
+	/// <summary>
+	/// 下拉框
+	/// </summary>
+	public class Listbox
+	{
+		/// <summary>
+		/// name
+		/// </summary>
+		[XmlAttribute(Namespace = "Name")]
+		public string Name { get; set; }
+		/// <summary>
+		/// 位置-X
+		/// </summary>
+		[XmlAttribute("Canvas.Left")]
+		public string X { get; set; }
+		/// <summary>
+		/// 位置Y
+		/// </summary>
+		[XmlAttribute("Canvas.Top")]
+		public string Y { get; set; }
+		/// <summary>
+		/// 宽
+		/// </summary>
+		[XmlAttribute("Width")]
+		public string Width { get; set; }
+		/// <summary>
+		/// 高
+		/// </summary>
+		[XmlAttribute("Height")]
+		public string Height { get; set; }
+	}
+	/// <summary>
+	/// 选择框
+	/// </summary>
+	public class Checkbox
+	{
+		/// <summary>
+		/// name
+		/// </summary>
+		[XmlAttribute(Namespace = "Name")]
+		public string Name { get; set; }
+		/// <summary>
+		/// 位置-X
+		/// </summary>
+		[XmlAttribute("Canvas.Left")]
+		public string X { get; set; }
+		/// <summary>
+		/// 位置Y
+		/// </summary>
+		[XmlAttribute("Canvas.Top")]
+		public string Y { get; set; }
+		/// <summary>
+		/// 宽
+		/// </summary>
+		[XmlAttribute("Width")]
+		public string Width { get; set; }
+		/// <summary>
+		/// 高
+		/// </summary>
+		[XmlAttribute("Height")]
+		public string Height { get; set; }
+		/// <summary>
+		/// 选择框文字
+		/// </summary>
+		[XmlAttribute("Content")]
+		public string Text { get; set; }
+		/// <summary>
+		/// 是否选中
+		/// </summary>
+		[XmlAttribute("IsChecked")]
+		public string IsChecked { get; set; }
 	}
 }
