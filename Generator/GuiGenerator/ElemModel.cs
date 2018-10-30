@@ -33,6 +33,11 @@ namespace GuiGenerator
 		[XmlAttribute]
 		public string Height { get; set; }
 		/// <summary>
+		/// 背景色
+		/// </summary>
+		[XmlAttribute]
+		public string Background { get; set; }
+		/// <summary>
 		/// 图标
 		/// </summary>
 		[XmlElement("Image")]
@@ -62,8 +67,19 @@ namespace GuiGenerator
 		/// </summary>
 		[XmlElement("TextBox")]
 		public List<Textbox> TxtList { get; set; }
+		/// <summary>
+		/// 线段
+		/// </summary>
+		[XmlElement("Line")]
+		public List<Line> LineList { get; set; }
+		/// <summary>
+		/// 矩形
+		/// </summary>
+		[XmlElement("Rectangle")]
+		public List<Rectangle> RecList { get; set; }
 	}
 
+	#region Controls
 
 	/// <summary>
 	/// 标签
@@ -73,7 +89,7 @@ namespace GuiGenerator
 		/// <summary>
 		/// name
 		/// </summary>
-		[XmlAttribute(Namespace = "Name")]		
+		[XmlAttribute(Namespace = "Name")]
 		public string Name { get; set; }
 		/// <summary>
 		/// 位置-X
@@ -89,30 +105,47 @@ namespace GuiGenerator
 		/// 宽
 		/// </summary>
 		[XmlAttribute("Width")]
-		public string Width { get; set; }
+		public int Width { get; set; }
 		/// <summary>
 		/// 高
 		/// </summary>
 		[XmlAttribute("Height")]
-		public string Height { get; set; }
+		public int Height { get; set; }
 		/// <summary>
 		/// 标签文字
 		/// </summary>
 		[XmlAttribute("Content")]
 		public string Text { get; set; }
 		/// <summary>
-		/// 标签文字水平对齐方向
-		/// </summary>
-		[XmlIgnore]
-		[XmlAttribute("HorizontalContentAlignment")]
-		public string TextAlign_Horizontal { get; set; }
-		/// <summary>
 		/// 背景
 		/// </summary>
 		[XmlAttribute("Background")]
 		public string Background { get; set; }
-
-
+		/// <summary>
+		/// 前景色
+		/// </summary>
+		[XmlAttribute("Foreground")]
+		public string Foreground { get; set; }
+		/// <summary>
+		/// 字号
+		/// </summary>
+		[XmlAttribute("FontSize")]
+		public int FontSize { get; set; }
+		/// <summary>
+		/// 水平对齐
+		/// </summary>
+		[XmlAttribute("HorizontalContentAlignment")]
+		public string HorizontalContentAlignment { get; set; }
+		/// <summary>
+		/// 垂直对齐
+		/// </summary>
+		[XmlAttribute("VerticalContentAlignment")]
+		public string VerticalContentAlignment { get; set; }
+		/// <summary>
+		/// 文字是否可变（Label|Tag）
+		/// </summary>
+		[XmlAttribute("IsEnabled")]
+		public string IsEnabled { get; set; }
 	}
 	/// <summary>
 	/// 按钮
@@ -310,4 +343,110 @@ namespace GuiGenerator
 		[XmlAttribute("IsChecked")]
 		public string IsChecked { get; set; }
 	}
+	#endregion
+
+	#region Draw
+
+	public class Line
+	{
+		/// <summary>
+		/// name
+		/// </summary>
+		[XmlAttribute(Namespace = "Name")]
+		public string Name { get; set; }
+		/// <summary>
+		/// 位置-X
+		/// </summary>
+		[XmlAttribute("Canvas.Left")]
+		public string X { get; set; }
+		/// <summary>
+		/// 位置 Y
+		/// </summary>
+		[XmlAttribute("Canvas.Top")]
+		public string Y { get; set; }
+		/// <summary>
+		/// 起点横坐标 = X+X1
+		/// </summary>
+		[XmlAttribute("X1")]
+		public string X1 { get; set; }
+		/// <summary>
+		/// 起点纵坐标 = Y+Y1
+		/// </summary>
+		[XmlAttribute("Y1")]
+		public string Y1 { get; set; }
+		/// <summary>
+		/// 终点横坐标 = X+X2
+		/// </summary>
+		[XmlAttribute("X2")]
+		public string X2 { get; set; }
+		/// <summary>
+		/// 终点纵坐标 = Y+Y2
+		/// </summary>
+		[XmlAttribute("Y2")]
+		public string Y2 { get; set; }
+		/// <summary>
+		/// 颜色
+		/// </summary>
+		[XmlAttribute("Stroke")]
+		public string Stroke { get; set; }
+		/// <summary>
+		/// 线粗细
+		/// </summary>
+		[XmlAttribute("StrokeThickness")]
+		public string StrokeThickness { get; set; }
+	}
+
+	public class Rectangle
+	{
+		/// <summary>
+		/// 位置-X
+		/// </summary>
+		[XmlAttribute("Canvas.Left")]
+		public string X { get; set; }
+		/// <summary>
+		/// 位置Y
+		/// </summary>
+		[XmlAttribute("Canvas.Top")]
+		public string Y { get; set; }
+		/// <summary>
+		/// 宽
+		/// </summary>
+		[XmlAttribute("Width")]
+		public string Width { get; set; }
+		/// <summary>
+		/// 高
+		/// </summary>
+		[XmlAttribute("Height")]
+		public string Height { get; set; }
+		/// <summary>
+		/// X 圆角半径
+		/// </summary>
+		[XmlAttribute("RadiusX")]
+		public string RadiusX { get; set; }
+		/// <summary>
+		/// Y 圆角半径
+		/// </summary>
+		[XmlAttribute("RadiusY")]
+		public string RadiusY { get; set; }
+		/// <summary>
+		/// 边线颜色
+		/// </summary>
+		[XmlAttribute("Stroke")]
+		public string Stroke { get; set; }
+		/// <summary>
+		/// 边线粗细
+		/// </summary>
+		[XmlAttribute("StrokeThickness")]
+		public string StrokeThickness { get; set; }
+		/// <summary>
+		/// 填充色
+		/// </summary>
+		[XmlAttribute("Fill")]
+		public string Fill { get; set; }
+
+	}
+	#endregion
+
+	#region Extention 
+	#endregion
 }
