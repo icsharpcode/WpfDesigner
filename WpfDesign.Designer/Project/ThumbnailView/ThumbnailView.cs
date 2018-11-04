@@ -148,8 +148,8 @@ namespace ICSharpCode.WpfDesign.Designer.ThumbnailView
 
 				if (designedElement != null)
 				{
-					var fac1 = designedElement.ActualWidth/zoomCanvas.ActualWidth;
-					var fac2 = designedElement.ActualHeight/zoomCanvas.ActualHeight;
+					var fac1 = designedElement.DesiredSize.Width / zoomCanvas.ActualWidth;
+					var fac2 = designedElement.DesiredSize.Height / zoomCanvas.ActualHeight;
 
 					// zoom canvas size
 					double x = this.zoomCanvas.ActualWidth;
@@ -168,8 +168,8 @@ namespace ICSharpCode.WpfDesign.Designer.ThumbnailView
 						yOffset = (zoomCanvas.ActualHeight - y)/2;
 					}
 
-					double w = designedElement.ActualWidth;
-					double h = designedElement.ActualHeight;
+					double w = designedElement.DesiredSize.Width;
+					double h = designedElement.DesiredSize.Height;
 
 					double scaleX = x/w;
 					double scaleY = y/h;
