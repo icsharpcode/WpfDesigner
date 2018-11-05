@@ -119,10 +119,8 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		{
 			if (document == null)
 				throw new ArgumentNullException("document");
-			if (settings == null)
-				throw new ArgumentNullException("settings");
 			XamlParser p = new XamlParser();
-			p.settings = settings;
+			p.settings = settings ?? throw new ArgumentNullException("settings");
 			p.errorSink = (IXamlErrorSink)settings.ServiceProvider.GetService(typeof(IXamlErrorSink));
 			p.document = new XamlDocument(document, settings);
 			
@@ -464,8 +462,8 @@ namespace ICSharpCode.WpfDesign.XamlDom
 			if (cData != null) {
 				return new XamlTextValue(document, cData, currentXmlSpace);
 			}
-			XmlElement element = childNode as XmlElement;
-			if (element != null) {
+			if (childNode is XmlElement element)
+			{
 				return ParseObject(element);
 			}
 			return null;

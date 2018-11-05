@@ -294,8 +294,7 @@ namespace ICSharpCode.WpfDesign
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1024:UsePropertiesWhereAppropriate")]
 		public T GetBehavior<T>() where T : class
 		{
-			object obj;
-			_behaviorObjects.TryGetValue(typeof(T), out obj);
+			_behaviorObjects.TryGetValue(typeof(T), out object obj);
 			return (T)obj;
 		}
 		#endregion
@@ -310,9 +309,7 @@ namespace ICSharpCode.WpfDesign
 		/// </summary>
 		protected virtual void OnPropertyChanged(PropertyChangedEventArgs e)
 		{
-			if (PropertyChanged != null) {
-				PropertyChanged(this, e);
-			}
+			PropertyChanged?.Invoke(this, e);
 		}
 
 		/// <summary>

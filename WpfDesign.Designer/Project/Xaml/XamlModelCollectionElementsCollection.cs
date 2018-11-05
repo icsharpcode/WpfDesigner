@@ -63,9 +63,8 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			while (this.Count > 0) {
 				RemoveAt(this.Count - 1);
 			}
-			
-			if (CollectionChanged != null)
-				CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+
+			CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
 		}
 		
 		public bool Contains(DesignItem item)
@@ -183,17 +182,15 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 
 			Debug.Assert(property.CollectionElements[index] == item.XamlObject);
 			property.CollectionElements.RemoveAt(index);
-			
-			if (CollectionChanged != null)
-				CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
+
+			CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
 		}
 		
 		void InsertInternal(int index, XamlDesignItem item)
 		{
 			property.CollectionElements.Insert(index, item.XamlObject);
-			
-			if (CollectionChanged != null)
-				CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
+
+			CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
 
 			AddToNamescopeRecursive(item);
 		}

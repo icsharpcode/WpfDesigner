@@ -37,9 +37,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		public XamlTypeFinder TypeFinder {
 			get { return typeFinder; }
 			set {
-				if (value == null)
-					throw new ArgumentNullException("value");
-				typeFinder = value;
+				typeFinder = value ?? throw new ArgumentNullException("value");
 			}
 		}
 
