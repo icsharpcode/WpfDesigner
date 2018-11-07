@@ -65,8 +65,7 @@ namespace GuiGenerator
 		private static string LabelInitCode = "GUI_LabelInit({0},{1},{2},{3},{4},{5},{6},\"{7}\",{8},{9});";
 		private static string ButtonInitCode = "GUI_ButtonInit({0},{1},{2},{3},{4},{5},{6});";
 		private static string ButtonSetTextCode = "GUI_ButtonSetText({0},\"{1}\",{2});";
-		private static string TextboxInitCode = "GUI_TextboxInit({0},{1},{2},{3},{4},{5},{6});";
-		private static string TextboxSetTextCode = "GUI_TextboxSetText(struct textbox *txtb,\"{0}\");";
+		private static string TextboxInitCode = "GUI_TextboxInit({0},{1},{2},{3},{4},{5},{6});";	
 		private static string CheckboxInitCode = "GUI_CheckboxInit(struct checkbox *ckb,{0},{1},BLACK,\"{2}\"," + FONT + ");";
 		private static string CheckboxSetCode = "GUI_CheckboxSet(struct checkbox *ckb,{0});";
 		private static string ListboxInitCode = "GUI_ListboxInit({0},{1},{2},{3},{4},{5},{6},{7});";
@@ -94,9 +93,9 @@ namespace GuiGenerator
 			{
 				#region Define
 				string output = "";
-				string initStr = "";
-				string controlStr = "";
-				string drawStr = "";
+				string initStr = "";//控件初始化
+				string controlStr = "";//控件
+				string drawStr = "";//绘制图形
 				List<WindowCanvasImage> IconList = new List<WindowCanvasImage>();
 				List<WindowCanvasButton> BtnList = new List<WindowCanvasButton>();
 				List<WindowCanvasCheckBox> ChkList = new List<WindowCanvasCheckBox>();
@@ -108,7 +107,6 @@ namespace GuiGenerator
 				List<WindowCanvasLine> LineList = new List<WindowCanvasLine>();
 				List<WindowCanvasRectangle> RecList = new List<WindowCanvasRectangle>();
 				#endregion
-
 				#region Screen
 				string screenStr = "//============Screen============" + Environment.NewLine;
 				string screen_background = GetRGB565Code(entity.Background);
@@ -240,11 +238,12 @@ namespace GuiGenerator
 				}
 				if (ChkList != null && ChkList?.Count > 0)//checkbox
 				{
+					initStr += string.Format("struct checkbox {0}_ckbs[{1}];", entity.Name, ChkList.Count) + Environment.NewLine;
 					controlStr += GetCheckBoxSettings(ChkList);
 				}
 				if (TxtList != null && TxtList?.Count > 0)//textbox
 				{
-					initStr += string.Format("struct textbox {0}_tbxs[{1}];", entity.Name, BtnList.Count) + Environment.NewLine;
+					initStr += string.Format("struct textbox {0}_tbxs[{1}];", entity.Name, TxtList.Count) + Environment.NewLine;
 					controlStr += GetTextBoxSettings(TxtList);
 				}
 				if (LbxList != null && LbxList?.Count > 0)//listbox
@@ -255,17 +254,16 @@ namespace GuiGenerator
 				#endregion
 
 				#region Draw
-				if (TagList != null && TagList?.Count > 0)//tag
-					drawStr += GetTagSettings(TagList);
 				if (LineList != null && LineList?.Count > 0)//line
 					drawStr += GetDrawLineSettings(LineList);
 				if (RecList != null && RecList?.Count > 0)//rectangle
 					drawStr += GetDrawRectSettings(RecList);
+				if (TagList != null && TagList?.Count > 0)//tag
+					drawStr += GetTagSettings(TagList);
 
 				#endregion
 
 				#endregion
-
 				output = initStr + controlStr + drawStr;
 				return output;
 			}
@@ -275,7 +273,6 @@ namespace GuiGenerator
 				return output;
 			}
 		}
-
 		/// <summary>
 		/// Icon
 		/// </summary>
@@ -448,39 +445,6 @@ namespace GuiGenerator
 			return lbxStr;
 		}
 		/// <summary>
-		/// Tag
-		/// </summary>
-		/// <param name="TagList"></param>
-		/// <returns></returns>
-		private static string GetTagSettings(List<WindowCanvasLabel> TagList)
-		{
-			string tagStr = "//============Tag============" + Environment.NewLine;
-
-			for (int i = 0; i < TagList.Count; i++)
-			{
-				var tag = TagList[i];
-				if (tag.Background == null)
-				{
-					tag.Background = tag.Background;
-				}
-				string horz = GetAliginmentCode(0, tag.HorizontalContentAlignment);
-				string ver = GetAliginmentCode(1, tag.VerticalContentAlignment);
-				string align = horz + "|" + ver;
-				tagStr += string.Format(Draw_Tag_Code,
-				tag.CanvasLeft,
-				tag.CanvasTop,
-				tag.Width,
-				tag.Height,
-				GetRGB565Code(tag.Background),
-				GetRGB565Code(tag.Foreground),
-				tag.Content,
-				GetFontSizeCode(tag.FontSize),
-				align) + Environment.NewLine;
-
-			}
-			return tagStr;
-		}
-		/// <summary>
 		/// Line
 		/// </summary>
 		/// <param name="LineList"></param>
@@ -523,6 +487,39 @@ namespace GuiGenerator
 					recStr += string.Format(Draw_Rect_Code_Normal, rect.CanvasLeft, rect.CanvasTop, rect.Width, rect.Height, color) + Environment.NewLine;
 			}
 			return recStr;
+		}
+		/// <summary>
+		/// Tag(tag放置在矩形后绘制)
+		/// </summary>
+		/// <param name="TagList"></param>
+		/// <returns></returns>
+		private static string GetTagSettings(List<WindowCanvasLabel> TagList)
+		{
+			string tagStr = "//============Tag============" + Environment.NewLine;
+
+			for (int i = 0; i < TagList.Count; i++)
+			{
+				var tag = TagList[i];
+				if (tag.Background == null)
+				{
+					tag.Background = tag.Background;
+				}
+				string horz = GetAliginmentCode(0, tag.HorizontalContentAlignment);
+				string ver = GetAliginmentCode(1, tag.VerticalContentAlignment);
+				string align = horz + "|" + ver;
+				tagStr += string.Format(Draw_Tag_Code,
+				tag.CanvasLeft,
+				tag.CanvasTop,
+				tag.Width,
+				tag.Height,
+				GetRGB565Code(tag.Background),
+				GetRGB565Code(tag.Foreground),
+				tag.Content,
+				GetFontSizeCode(tag.FontSize),
+				align) + Environment.NewLine;
+
+			}
+			return tagStr;
 		}
 		/// <summary>
 		/// 颜色
@@ -597,9 +594,7 @@ namespace GuiGenerator
 			else
 				output = ver + align;
 			return output;
-		}
-
-	
+		}	
 		/// <summary>
 		/// 传入类型A的对象a,类型B的对象b，将b和a相同名称的值进行赋值给a
 		/// </summary>
