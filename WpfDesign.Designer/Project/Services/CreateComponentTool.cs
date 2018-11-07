@@ -30,9 +30,10 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 	/// </summary>
 	public class CreateComponentTool : ITool
 	{
+		protected ChangeGroup ChangeGroup;
+
 		readonly Type componentType;
 		MoveLogic moveLogic;
-		ChangeGroup changeGroup;
 		Point createPoint;
 		
 		/// <summary>
@@ -106,7 +107,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 							else
 							{
 								// Abort the ChangeGroup created by the CreateItem() call.
-								changeGroup.Abort();
+								ChangeGroup.Abort();
 							}
 						}
 						else
@@ -123,7 +124,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 								// We'll keep the ChangeGroup open as long as the moveLogic is active.
 							} else {
 								// Abort the ChangeGroup created by the CreateItem() call.
-								changeGroup.Abort();
+								ChangeGroup.Abort();
 							}
 						}
 					}
@@ -149,7 +150,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 					}
 					moveLogic.DesignPanel.IsAdornerLayerHitTestVisible = true;
 					moveLogic = null;
-					changeGroup.Commit();
+					ChangeGroup.Commit();
 
 					e.Handled = true;
 				}
@@ -166,7 +167,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 					moveLogic.ClickedOn.Services.Selection.SetSelectedComponents(null);
 					moveLogic.DesignPanel.IsAdornerLayerHitTestVisible = true;
 					moveLogic = null;
-					changeGroup.Abort();
+					ChangeGroup.Abort();
 
 				}
 			} catch (Exception x) {
@@ -179,9 +180,18 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		/// </summary>
 		protected virtual DesignItem CreateItem(DesignContext context)
 		{
-			object newInstance = context.Services.ExtensionManager.CreateInstanceWithCustomInstanceFactory(componentType, null);
+			ChangeGroup = context.RootItem.OpenGroup("Add Control");
+			var item = CreateItem(context, componentType);
+			return item;
+		}
+
+		/// <summary>
+		/// Is called to create the item used by the CreateComponentTool.
+		/// </summary>
+		public static DesignItem CreateItem(DesignContext context, Type type)
+		{
+			object newInstance = context.Services.ExtensionManager.CreateInstanceWithCustomInstanceFactory(type, null);
 			DesignItem item = context.Services.Component.RegisterComponentForDesigner(newInstance);
-			changeGroup = item.OpenGroup("Drop Control");
 			context.Services.Component.SetDefaultPropertyValues(item);
 			context.Services.ExtensionManager.ApplyDefaultInitializers(item);
 			return item;
@@ -250,9 +260,9 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 						if (placementBehavior != null) {
 							var createdItem = CreateItem(designPanel.Context);
 							
-							new CreateComponentMouseGesture(result.ModelHit, createdItem, changeGroup).Start(designPanel, e);
+							new CreateComponentMouseGesture(result.ModelHit, createdItem, ChangeGroup).Start(designPanel, e);
 							// CreateComponentMouseGesture now is responsible for the changeGroup created by CreateItem()
-							changeGroup = null;
+							ChangeGroup = null;
 						}
 					}
 				}
