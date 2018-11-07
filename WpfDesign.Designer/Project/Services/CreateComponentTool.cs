@@ -19,6 +19,7 @@
 using System.Linq;
 using System.Windows;
 using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 using ICSharpCode.WpfDesign.Designer.Xaml;
 
@@ -58,7 +59,6 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		public void Activate(IDesignPanel designPanel)
 		{
 			designPanel.MouseDown += OnMouseDown;
-			//designPanel.DragEnter += designPanel_DragOver;
 			designPanel.DragOver += designPanel_DragOver;
 			designPanel.Drop += designPanel_Drop;
 			designPanel.DragLeave += designPanel_DragLeave;
@@ -67,7 +67,6 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		public void Deactivate(IDesignPanel designPanel)
 		{
 			designPanel.MouseDown -= OnMouseDown;
-			//designPanel.DragEnter -= designPanel_DragOver;
 			designPanel.DragOver -= designPanel_DragOver;
 			designPanel.Drop -= designPanel_Drop;
 			designPanel.DragLeave -= designPanel_DragLeave;
@@ -89,19 +88,43 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 					
 					if (result.ModelHit != null) {
 						designPanel.Focus();
-						DesignItem createdItem = CreateItem(designPanel.Context);
-						if (AddItemWithDefaultSize(result.ModelHit, createdItem, e.GetPosition(result.ModelHit.View))) {
-							moveLogic = new MoveLogic(createdItem);
+						var items = CreateItems(designPanel.Context);
+						if (items != null) {
+							if (AddItemsWithDefaultSize(result.ModelHit, items, e.GetPosition(result.ModelHit.View)))
+							{
+								moveLogic = new MoveLogic(items[0]);
 
-							if (designPanel.Context.Services.Component is XamlComponentService) {
-								((XamlComponentService) designPanel.Context.Services.Component).RaiseComponentRegisteredAndAddedToContainer(createdItem);
+								foreach (var designItem in items)
+								{
+									if (designPanel.Context.Services.Component is XamlComponentService) {
+										((XamlComponentService)designPanel.Context.Services.Component).RaiseComponentRegisteredAndAddedToContainer(designItem);
+									}
+								}
+								createPoint = p;
+								// We'll keep the ChangeGroup open as long as the moveLogic is active.
 							}
-							
-							createPoint = p;
-							// We'll keep the ChangeGroup open as long as the moveLogic is active.
-						} else {
-							// Abort the ChangeGroup created by the CreateItem() call.
-							changeGroup.Abort();
+							else
+							{
+								// Abort the ChangeGroup created by the CreateItem() call.
+								changeGroup.Abort();
+							}
+						}
+						else
+						{
+							DesignItem createdItem = CreateItem(designPanel.Context);
+							if (AddItemsWithDefaultSize(result.ModelHit, new[] { createdItem }, e.GetPosition(result.ModelHit.View))) {
+								moveLogic = new MoveLogic(createdItem);
+
+								if (designPanel.Context.Services.Component is XamlComponentService) {
+									((XamlComponentService) designPanel.Context.Services.Component).RaiseComponentRegisteredAndAddedToContainer(createdItem);
+								}
+								
+								createPoint = p;
+								// We'll keep the ChangeGroup open as long as the moveLogic is active.
+							} else {
+								// Abort the ChangeGroup created by the CreateItem() call.
+								changeGroup.Abort();
+							}
 						}
 					}
 				} else if ((moveLogic.ClickedOn.View as FrameworkElement).IsLoaded) {
@@ -164,6 +187,11 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 			return item;
 		}
 
+		protected virtual DesignItem[] CreateItems(DesignContext context)
+		{
+			return null;
+		}
+
 		/// <summary>
 		/// Is called to set Properties of the Drawn Item
 		/// </summary>
@@ -173,31 +201,31 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		public static bool AddItemWithCustomSizePosition(DesignItem container, Type createdItem, Size size, Point position)
 		{
 			CreateComponentTool cct = new CreateComponentTool(createdItem);
-			return AddItemWithCustomSize(container, cct.CreateItem(container.Context), position, size);
+			return AddItemsWithCustomSize(container, new[] { cct.CreateItem(container.Context) }, new[] { new Rect(position, size) });
 		}
 		
 		public static bool AddItemWithDefaultSize(DesignItem container, Type createdItem, Size size)
 		{
 			CreateComponentTool cct = new CreateComponentTool(createdItem);
-			return AddItemWithCustomSize(container, cct.CreateItem(container.Context), new Point(0, 0), size);
+			return AddItemsWithCustomSize(container, new[] { cct.CreateItem(container.Context) }, new[] { new Rect(new Point(0, 0), size) });
 		}
 
-		internal static bool AddItemWithDefaultSize(DesignItem container, DesignItem createdItem, Point position)
+		internal static bool AddItemsWithDefaultSize(DesignItem container, DesignItem[] createdItems, Point position)
 		{
-			return AddItemWithCustomSize(container, createdItem, position, ModelTools.GetDefaultSize(createdItem));
+			return AddItemsWithCustomSize(container, createdItems, createdItems.Select(x => new Rect(position, ModelTools.GetDefaultSize(x))).ToList());
 		}
 
-		internal static bool AddItemWithCustomSize(DesignItem container, DesignItem createdItem, Point position, Size size)
+		internal static bool AddItemsWithCustomSize(DesignItem container, DesignItem[] createdItems, IList<Rect> positions)
 		{
 			
 			PlacementOperation operation = PlacementOperation.TryStartInsertNewComponents(
 				container,
-				new DesignItem[] { createdItem },
-				new Rect[] { new Rect(position, size).Round() },
+				createdItems,
+				positions,
 				PlacementType.AddItem
 			);
 			if (operation != null) {
-				container.Services.Selection.SetSelectedComponents(new DesignItem[] { createdItem });
+				container.Services.Selection.SetSelectedComponents(createdItems);
 				operation.Commit();
 				return true;
 			} else {
@@ -292,7 +320,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 					operation = null;
 				}
 			} else {
-				CreateComponentTool.AddItemWithDefaultSize(container, createdItem, e.GetPosition(positionRelativeTo));
+				CreateComponentTool.AddItemsWithDefaultSize(container, new[] { createdItem }, e.GetPosition(positionRelativeTo));
 			}
 			if (changeGroup != null) {
 				changeGroup.Commit();
