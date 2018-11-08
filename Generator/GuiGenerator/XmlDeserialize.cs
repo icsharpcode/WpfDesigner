@@ -71,10 +71,43 @@ namespace GuiGenerator
 		private static string ListboxInitCode = "GUI_ListboxInit({0},{1},{2},{3},{4},{5},{6},{7});";
 		private static string ListboxSetItemsCode = "GUI_ListboxSetItems({0},{1},{2});";
 
+		#region Tag
 		private static string Draw_Tag_Code = "GUI_DrawTag({0},{1},{2},{3},{4},{5},\"{6}\",{7},{8});";
+
+		private static string TagArr_Code = "const u16 dimensions_tag[{0}][8] ={{\r{1}}};";
+		private static string TagArr_Text_Code = "const char* text_tag[{0}] = {{\r{1}}};";
+		private static string TagArrItem_Code = "\t{{{0},{1},{2},{3},{4},{5},{6},{7}}},";
+		private static string TagArrItem_Text_Code = "\t\"{0}\",";
+
+		private static string Draw_TagArr_Code =
+			"for(i=0;i<sizeof(dimensions_tag)/sizeof(dimensions_tag[0]);i++)" + Environment.NewLine
+			+ "\t" + "GUI_DrawTag(" + Environment.NewLine
+			+ "\t" + "\t" + "dimensions_tag[i][0]," + Environment.NewLine
+			+ "\t" + "\t" + "dimensions_tag[i][1]," + Environment.NewLine
+			+ "\t" + "\t" + "dimensions_tag[i][2]," + Environment.NewLine
+			+ "\t" + "\t" + "dimensions_tag[i][3]," + Environment.NewLine
+			+ "\t" + "\t" + "dimensions_tag[i][4]," + Environment.NewLine
+			+ "\t" + "\t" + "dimensions_tag[i][5]," + Environment.NewLine
+			+ "\t" + "\t" + "text_tag[i]," + Environment.NewLine
+			+ "\t" + "\t" + "dimensions_tag[i][6]," + Environment.NewLine
+			+ "\t" + "\t" + "dimensions_tag[i][7]" + Environment.NewLine
+			+ "\t" + "\t" + ");"
+			;
+
+		#endregion
+
 		private static string Draw_Line_Code = "GUI_DrawLine({0},{1},{2},{3},{4});";
+		#region Rectangle
 		private static string Draw_Rect_Code_Normal = "GUI_FillRect({0},{1},{2},{3},{4});";
 		private static string Draw_Rect_Code_Round = "GUI_FillRoundRect({0},{1},{2}, {3},{4},{5});";
+
+		private static string RectArrItem_Code_Normal = "\t{{{0},{1},{2},{3},{4}}},";
+		private static string RectArrItem_Code_Round = "\t{{{0},{1},{2},{3},{4},{5}}},";		
+		private static string RectArr_Code_Normal = "const u16 dimensions_rect1[{0}][5] = {{\r{1}}};";//填充矩形
+		private static string RectArr_Code_Round = "const u16 dimensions_rect2[{0}][5] = {{\r{1}}};";//填充圆角矩形
+		private static string RectLineArr_Code_Normal = "const u16 dimensions_rect3[{0}][5] = {{\r{1}}};";//矩形框
+		private static string RectLineArr_Code_Round = "const u16 dimensions_rect4[{0}][5] = {{\r{1}}};";//圆角矩形框
+		#endregion
 		private enum AlignType
 		{
 			Hrizontal = 0,
@@ -466,12 +499,59 @@ namespace GuiGenerator
 			}
 			return lineStr;
 		}
+		private static string GetDrawRectSettings(List<WindowCanvasRectangle> RecList)
+		{
+			string recStr = "//============Rect============" + Environment.NewLine;
+			var RecList_Normal = new List<WindowCanvasRectangle>();
+			var RecList_Round = new List<WindowCanvasRectangle>();
+			string recStr_Normal = "";
+			string recStr_Round = "";
+			string recItemStr_Normal = "";
+			string recItemStr_Round = "";
+			foreach (var item in RecList)
+			{
+				if (item.RadiusX == item.RadiusY && item.RadiusX != 0)
+					RecList_Round.Add(item);
+				else
+					RecList_Normal.Add(item);
+			}
+			if (RecList_Round != null && RecList_Round?.Count > 0)
+			{
+				for (int i = 0; i < RecList_Round.Count; i++)
+				{
+					var rect = RecList_Round[i];
+					string color = GetRGB565Code(rect.Fill);
+					recItemStr_Round += string.Format(RectArrItem_Code_Round, rect.CanvasLeft, rect.CanvasTop, rect.Width, rect.Height, Convert.ToInt32(rect.RadiusX), color) + Environment.NewLine;
+				}
+				recStr_Round = string.Format(RectArr_Code_Round,
+					RecList_Round.Count,
+					recItemStr_Round) + Environment.NewLine;
+				recStr_Round += "for(i=0;i<sizeof(dimensions_rect2)/sizeof(dimensions_rect2[0]);i++)" + Environment.NewLine;
+				recStr_Round += "\t" + "GUI_FillRoundRect(dimensions_rect2[i][0],dimensions_rect2[i][1],dimensions_rect2[i][2],dimensions_rect2[i][3],dimensions_rect2[i][4],dimensions_rect2[i][5]);" + Environment.NewLine;
+			}
+			if (RecList_Normal != null && RecList_Normal?.Count > 0)
+			{
+				for (int i = 0; i < RecList_Normal.Count; i++)
+				{
+					var rect = RecList_Normal[i];
+					string color = GetRGB565Code(rect.Fill);
+					recItemStr_Normal += string.Format(RectArrItem_Code_Normal, rect.CanvasLeft, rect.CanvasTop, rect.Width, rect.Height, color) + Environment.NewLine;
+				}
+				recStr_Normal = string.Format(RectArr_Code_Normal,
+					RecList_Normal.Count,
+					recItemStr_Normal) + Environment.NewLine;
+				recStr_Normal += "for(i=0;i<sizeof(dimensions_rect1)/sizeof(dimensions_rect1[0]);i++)" + Environment.NewLine;
+				recStr_Normal += "\t" + "GUI_FillRect(dimensions_rect1[i][0],dimensions_rect1[i][1],dimensions_rect1[i][2],dimensions_rect1[i][3],dimensions_rect1[i][4]);" + Environment.NewLine;
+			}
+			recStr += recStr_Normal + recStr_Round;
+			return recStr;
+		}
 		/// <summary>
 		/// Rectangle
 		/// </summary>
 		/// <param name="RecList"></param>
 		/// <returns></returns>
-		private static string GetDrawRectSettings(List<WindowCanvasRectangle> RecList)
+		private static string GetDrawRectSettings_(List<WindowCanvasRectangle> RecList)
 		{
 			string recStr = "//============Rect============" + Environment.NewLine;
 			for (int i = 0; i < RecList.Count; i++)
@@ -494,6 +574,49 @@ namespace GuiGenerator
 		/// <param name="TagList"></param>
 		/// <returns></returns>
 		private static string GetTagSettings(List<WindowCanvasLabel> TagList)
+		{
+			string tagStr = "//============Tag============" + Environment.NewLine;
+			string tagStr_ = "";
+			string tagStr_Text = "";
+			string tagItemStr_ = "";
+			string tagItemStr_Text = "";
+			for (int i = 0; i < TagList.Count; i++)
+			{
+				var tag = TagList[i];
+				if (tag.Background == null)
+				{
+					tag.Background = tag.Background;
+				}
+				string horz = GetAliginmentCode(0, tag.HorizontalContentAlignment);
+				string ver = GetAliginmentCode(1, tag.VerticalContentAlignment);
+				string align = horz + "|" + ver;
+
+				tagItemStr_ += string.Format(TagArrItem_Code,
+				tag.CanvasLeft,
+				tag.CanvasTop,
+				tag.Width,
+				tag.Height,
+				GetRGB565Code(tag.Background),
+				GetRGB565Code(tag.Foreground),
+				GetFontSizeCode(tag.FontSize),
+				align) + Environment.NewLine;
+
+				tagItemStr_Text += string.Format(TagArrItem_Text_Code, tag.Content) + Environment.NewLine;
+			}
+			tagStr_ += string.Format(TagArr_Code, TagList.Count, tagItemStr_) + Environment.NewLine;
+			tagStr_Text += string.Format(TagArr_Text_Code, TagList.Count, tagItemStr_Text) + Environment.NewLine;
+
+			tagStr += tagStr_ + tagStr_Text;
+			tagStr += Draw_TagArr_Code;
+			return tagStr;
+		}
+
+		/// <summary>
+		/// Tag(tag放置在矩形后绘制)
+		/// </summary>
+		/// <param name="TagList"></param>
+		/// <returns></returns>
+		private static string GetTagSettings_(List<WindowCanvasLabel> TagList)
 		{
 			string tagStr = "//============Tag============" + Environment.NewLine;
 
