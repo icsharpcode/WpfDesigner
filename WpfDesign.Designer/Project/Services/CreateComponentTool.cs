@@ -89,9 +89,9 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 					
 					if (result.ModelHit != null) {
 						designPanel.Focus();
-						var items = CreateItems(designPanel.Context);
+						var items = CreateItemsWithPosition(designPanel.Context, e.GetPosition(result.ModelHit.View));
 						if (items != null) {
-							if (AddItemsWithDefaultSize(result.ModelHit, items, e.GetPosition(result.ModelHit.View)))
+							if (AddItemsWithDefaultSize(result.ModelHit, items))
 							{
 								moveLogic = new MoveLogic(items[0]);
 
@@ -112,8 +112,8 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 						}
 						else
 						{
-							DesignItem createdItem = CreateItem(designPanel.Context);
-							if (AddItemsWithDefaultSize(result.ModelHit, new[] { createdItem }, e.GetPosition(result.ModelHit.View))) {
+							DesignItem createdItem = CreateItemWithPosition(designPanel.Context, e.GetPosition(result.ModelHit.View));
+							if (AddItemsWithDefaultSize(result.ModelHit, new[] { createdItem })) {
 								moveLogic = new MoveLogic(createdItem);
 
 								if (designPanel.Context.Services.Component is XamlComponentService) {
@@ -174,7 +174,17 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 				DragDropExceptionHandler.RaiseUnhandledException(x);
 			}
 		}
-		
+
+		/// <summary>
+		/// Is called to create the item used by the CreateComponentTool.
+		/// </summary>
+		protected virtual DesignItem CreateItemWithPosition(DesignContext context, Point position)
+		{
+			var item = CreateItem(context);
+			item.Position = position;
+			return item;
+		}
+
 		/// <summary>
 		/// Is called to create the item used by the CreateComponentTool.
 		/// </summary>
@@ -183,6 +193,23 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 			ChangeGroup = context.RootItem.OpenGroup("Add Control");
 			var item = CreateItem(context, componentType);
 			return item;
+		}
+
+		protected virtual DesignItem[] CreateItemsWithPosition(DesignContext context, Point position)
+		{
+			var items = CreateItems(context);
+			if (items != null) {
+				foreach (var designItem in items) {
+					designItem.Position = position;
+				}
+			}
+
+			return items;
+		}
+
+		protected virtual DesignItem[] CreateItems(DesignContext context)
+		{
+			return null;
 		}
 
 		/// <summary>
@@ -195,11 +222,6 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 			context.Services.Component.SetDefaultPropertyValues(item);
 			context.Services.ExtensionManager.ApplyDefaultInitializers(item);
 			return item;
-		}
-
-		protected virtual DesignItem[] CreateItems(DesignContext context)
-		{
-			return null;
 		}
 
 		/// <summary>
@@ -220,9 +242,9 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 			return AddItemsWithCustomSize(container, new[] { cct.CreateItem(container.Context) }, new[] { new Rect(new Point(0, 0), size) });
 		}
 
-		internal static bool AddItemsWithDefaultSize(DesignItem container, DesignItem[] createdItems, Point position)
+		internal static bool AddItemsWithDefaultSize(DesignItem container, DesignItem[] createdItems)
 		{
-			return AddItemsWithCustomSize(container, createdItems, createdItems.Select(x => new Rect(position, ModelTools.GetDefaultSize(x))).ToList());
+			return AddItemsWithCustomSize(container, createdItems, createdItems.Select(x => new Rect(x.Position, ModelTools.GetDefaultSize(x))).ToList());
 		}
 
 		internal static bool AddItemsWithCustomSize(DesignItem container, DesignItem[] createdItems, IList<Rect> positions)
@@ -330,7 +352,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 					operation = null;
 				}
 			} else {
-				CreateComponentTool.AddItemsWithDefaultSize(container, new[] { createdItem }, e.GetPosition(positionRelativeTo));
+				CreateComponentTool.AddItemsWithDefaultSize(container, new[] { createdItem });
 			}
 			if (changeGroup != null) {
 				changeGroup.Commit();
