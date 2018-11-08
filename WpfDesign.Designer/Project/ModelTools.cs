@@ -501,13 +501,14 @@ namespace ICSharpCode.WpfDesign.Designer
 			operation.Commit();
 		}
 
-		public static void ApplyTransform(DesignItem designItem, Transform transform, bool relative = true)
+		public static void ApplyTransform(DesignItem designItem, Transform transform, bool relative = true, DependencyProperty transformProperty = null)
 		{
 			var changeGroup = designItem.OpenGroup("Apply Transform");
-			
+
+			transformProperty = transformProperty ?? FrameworkElement.RenderTransformProperty;
 			Transform oldTransform = null;
-			if (designItem.Properties.GetProperty(FrameworkElement.RenderTransformProperty).IsSet) {
-				oldTransform = designItem.Properties.GetProperty(FrameworkElement.RenderTransformProperty).ValueOnInstance as Transform;
+			if (designItem.Properties.GetProperty(transformProperty).IsSet) {
+				oldTransform = designItem.Properties.GetProperty(transformProperty).ValueOnInstance as Transform;
 			}
 			
 			if (oldTransform is MatrixTransform) {
@@ -538,22 +539,22 @@ namespace ICSharpCode.WpfDesign.Designer
 				
 				if (oldTransform is RotateTransform || oldTransform == null) {
 					if (rotateTransform.Angle != 0) {
-						designItem.Properties.GetProperty(FrameworkElement.RenderTransformProperty).SetValue(transform);
+						designItem.Properties.GetProperty(transformProperty).SetValue(transform);
 						var angle = rotateTransform.Angle;
 						if (relative && oldTransform != null) {
 							angle = rotateTransform.Angle + ((RotateTransform)oldTransform).Angle;
 						}
-						designItem.Properties.GetProperty(FrameworkElement.RenderTransformProperty).Value.Properties.GetProperty(RotateTransform.AngleProperty).SetValue(angle);
+						designItem.Properties.GetProperty(transformProperty).Value.Properties.GetProperty(RotateTransform.AngleProperty).SetValue(angle);
 						if (rotateTransform.CenterX != 0.0)
-							designItem.Properties.GetProperty(FrameworkElement.RenderTransformProperty).Value.Properties.GetProperty(RotateTransform.CenterXProperty).SetValue(rotateTransform.CenterX);
+							designItem.Properties.GetProperty(transformProperty).Value.Properties.GetProperty(RotateTransform.CenterXProperty).SetValue(rotateTransform.CenterX);
 						if (rotateTransform.CenterY != 0.0)
-							designItem.Properties.GetProperty(FrameworkElement.RenderTransformProperty).Value.Properties.GetProperty(RotateTransform.CenterYProperty).SetValue(rotateTransform.CenterY);
+							designItem.Properties.GetProperty(transformProperty).Value.Properties.GetProperty(RotateTransform.CenterYProperty).SetValue(rotateTransform.CenterY);
 						
 						if (oldTransform == null)
 							designItem.Properties.GetProperty(FrameworkElement.RenderTransformOriginProperty).SetValue(new Point(0.5, 0.5));
 					}
 					else {
-						designItem.Properties.GetProperty(FrameworkElement.RenderTransformProperty).Reset();
+						designItem.Properties.GetProperty(transformProperty).Reset();
 						designItem.Properties.GetProperty(FrameworkElement.RenderTransformOriginProperty).Reset();
 					}
 				} else if (oldTransform is TransformGroup) {
@@ -572,7 +573,7 @@ namespace ICSharpCode.WpfDesign.Designer
 					}
 				} else {
 						if (rotateTransform.Angle != 0) {
-							designItem.Properties.GetProperty(FrameworkElement.RenderTransformProperty).SetValue(transform);
+							designItem.Properties.GetProperty(transformProperty).SetValue(transform);
 							if (oldTransform == null)
 								designItem.Properties.GetProperty(FrameworkElement.RenderTransformOriginProperty).SetValue(new Point(0.5, 0.5));
 					}
