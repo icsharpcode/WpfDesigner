@@ -35,17 +35,22 @@ namespace ICSharpCode.WpfDesign
 	public abstract class DesignItem : INotifyPropertyChanged
 	{
 		/// <summary>
+		/// The initial Position after a Drag/Drop
+		/// </summary>
+		public Point Position { get; set; }
+
+		/// <summary>
 		/// Gets the component this DesignSite was created for.
 		/// </summary>
 		public abstract object Component { get; }
-		
+
 		/// <summary>
 		/// Gets the component type of this design site.
 		/// This value may be different from Component.GetType() if a CustomInstanceFactory created
 		/// an object using a different type (e.g. ComponentType=Window but Component.GetType()=WindowClone).
 		/// </summary>
 		public abstract Type ComponentType { get; }
-		
+
 		/// <summary>
 		/// Gets the view used for the component.
 		/// </summary>
@@ -56,7 +61,7 @@ namespace ICSharpCode.WpfDesign
 		/// </summary>
 		/// <param name="newView"></param>
 		public abstract void SetView(UIElement newView);
-		   
+
 		/// <summary>
 		/// Gets the design context.
 		/// </summary>
