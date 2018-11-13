@@ -474,7 +474,8 @@ namespace ICSharpCode.WpfDesign.Designer
 				
 				foreach (PlacementInformation info in placementOp.PlacedItems) {
 					var transform = info.Item.Parent.View.TransformToVisual(this.DesignSurface.DesignContext.RootItem.View);
-					if (transform is MatrixTransform mt) {
+					var mt = transform as MatrixTransform;
+					if (mt != null) {
 						var angle = Math.Atan2(mt.Matrix.M21, mt.Matrix.M11) * 180 / Math.PI;
 						if (angle > 45.0 && angle < 135.0) {
 							var bak = dx;
