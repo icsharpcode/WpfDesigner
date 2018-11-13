@@ -473,8 +473,6 @@ namespace ICSharpCode.WpfDesign.Designer
 				}
 				
 				foreach (PlacementInformation info in placementOp.PlacedItems) {
-
-					
 					var transform = info.Item.Parent.View.TransformToVisual(this.DesignSurface.DesignContext.RootItem.View);
 					if (transform is MatrixTransform mt) {
 						var angle = Math.Atan2(mt.Matrix.M21, mt.Matrix.M11) * 180 / Math.PI;
@@ -486,12 +484,10 @@ namespace ICSharpCode.WpfDesign.Designer
 							var bak = dx;
 							dx = dy;
 							dy = bak * -1;
-						} else if (angle > 135.0 && angle < -135.0) {
+						} else if (angle > 135.0 || angle < -135.0) {
 							dx = dx * -1;
 							dy = dy * -1;
 						}
-
-
 					}
 					
 					var bounds = info.OriginalBounds;
