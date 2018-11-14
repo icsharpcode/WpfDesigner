@@ -16,7 +16,7 @@
 	<tags>WPF XAML Designer UI Editor SharpDevelop WpfDesigner</tags>
   </metadata>
   <files>
-    <file src="..\WpfDesign.Design.ExpressionBlendInteractionAddon\bin\Release\ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.dll" target="lib\net40" />
-    <file src="..\WpfDesign.Design.ExpressionBlendInteractionAddon\bin\Release\ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.pdb" target="lib\net40" />	
+    <file src="..\WpfDesign.Design.ExpressionBlendInteractionAddon\bin\Debug\ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.dll" target="lib\net40" />
+    <file src="..\WpfDesign.Design.ExpressionBlendInteractionAddon\bin\Debug\ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.pdb" target="lib\net40" />	
   </files>
 </package>
