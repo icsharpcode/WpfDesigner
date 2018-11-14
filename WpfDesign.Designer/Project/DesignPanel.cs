@@ -456,41 +456,43 @@ namespace ICSharpCode.WpfDesign.Designer
 					dy = 0;
 					placementOp = PlacementOperation.Start(placedItems, placementType);
 				}
-				
+
+				int odx = 0, ody = 0;
 				switch (e.Key) {
 					case Key.Left:
-						dx += Keyboard.IsKeyDown(Key.LeftShift) ? -10 : -1;
+						odx = Keyboard.IsKeyDown(Key.LeftShift) ? -10 : -1;
 						break;
 					case Key.Up:
-						dy += Keyboard.IsKeyDown(Key.LeftShift) ? -10 : -1;
+						ody = Keyboard.IsKeyDown(Key.LeftShift) ? -10 : -1;
 						break;
 					case Key.Right:
-						dx += Keyboard.IsKeyDown(Key.LeftShift) ? 10 : 1;
+						odx = Keyboard.IsKeyDown(Key.LeftShift) ? 10 : 1;
 						break;
 					case Key.Down:
-						dy += Keyboard.IsKeyDown(Key.LeftShift) ? 10 : 1;
+						ody = Keyboard.IsKeyDown(Key.LeftShift) ? 10 : 1;
 						break;
 				}
-				
+
 				foreach (PlacementInformation info in placementOp.PlacedItems) {
 					var transform = info.Item.Parent.View.TransformToVisual(this);
 					var mt = transform as MatrixTransform;
 					if (mt != null) {
 						var angle = Math.Atan2(mt.Matrix.M21, mt.Matrix.M11) * 180 / Math.PI;
 						if (angle > 45.0 && angle < 135.0) {
-							var bak = dx;
-							dx = dy * -1;
-							dy = bak;
+							dx += ody * -1;
+							dy += odx;
 						} else if (angle < -45.0 && angle > -135.0) {
-							var bak = dx;
-							dx = dy;
-							dy = bak * -1;
+							dx += ody;
+							dy += odx * -1;
 						} else if (angle > 135.0 || angle < -135.0) {
-							dx = dx * -1;
-							dy = dy * -1;
+							dx += odx * -1;
+							dy += ody * -1;
+						} else {
+							dx += odx;
+							dy += ody;
 						}
 					}
-					
+
 					var bounds = info.OriginalBounds;
 					
 					if (placementType == PlacementType.Move 
