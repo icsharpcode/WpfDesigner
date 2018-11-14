@@ -14,3 +14,11 @@ $content = $content -replace '\$releasenotes\$',$env:APPVEYOR_REPO_COMMIT_MESSAG
 $content | Out-File $root\nuget\WpfDesigner.compiled.nuspec
 
 NuGet pack $root\nuget\WpfDesigner.compiled.nuspec
+
+$content = (Get-Content $root\NuGet\WpfDesigner.ExpressionBlendInteractionAddon.nuspec) 
+$content = $content -replace '\$version\$',$versionStr
+$content = $content -replace '\$releasenotes\$',$env:APPVEYOR_REPO_COMMIT_MESSAGE
+
+$content | Out-File $root\nuget\WpfDesigner.ExpressionBlendInteractionAddon.compiled.nuspec
+
+NuGet pack $root\nuget\WpfDesigner.ExpressionBlendInteractionAddon.compiled.nuspec
