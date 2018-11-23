@@ -134,6 +134,9 @@ namespace ICSharpCode.WpfDesign
 		DesignItem RegisterComponentForDesigner(object component);
 
 		/// <summary>Registers a component for usage in the designer.</summary>
+		DesignItem RegisterComponentForDesigner(DesignItem parent, object component);
+
+		/// <summary>Registers a component for usage in the designer.</summary>
 		DesignItem RegisterComponentForDesignerRecursiveUsingXaml(object component);
 
 		/// <summary>Called when a component is registered and added to a container.</summary>
