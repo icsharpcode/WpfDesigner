@@ -529,7 +529,7 @@ namespace ICSharpCode.WpfDesign.XamlDom
 					if (getMethod != null) {
 						getFunc = obj => getMethod.Invoke(null, new[] {obj});
 					}
-					return new XamlDependencyPropertyInfo((DependencyProperty)field.GetValue(null), true, getFunc);
+					return new XamlDependencyPropertyInfo((DependencyProperty)field.GetValue(null), true, propertyName, getFunc);
 				}
 			}
 

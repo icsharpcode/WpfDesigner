@@ -317,7 +317,7 @@ namespace ICSharpCode.WpfDesign.XamlDom
 				
 				if (@namespace == XamlConstants.DesignTimeNamespace)
 				{
-					var ignorableProp = new XamlProperty(this._rootElement,new XamlDependencyPropertyInfo(MarkupCompatibilityProperties.IgnorableProperty,true));
+					var ignorableProp = new XamlProperty(this._rootElement, new XamlDependencyPropertyInfo(MarkupCompatibilityProperties.IgnorableProperty, true, null));
 					ignorableProp.SetAttribute(prefix);
 				}
 			}
