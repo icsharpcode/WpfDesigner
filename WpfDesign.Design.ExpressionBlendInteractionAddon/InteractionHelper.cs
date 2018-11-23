@@ -27,6 +27,11 @@ namespace ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon
 {
 	public static class InteractionHelper
 	{
+		public static DesignItemProperty GetBehaviorsCollectionProperty(DesignItem designItem)
+		{
+			return designItem.Properties.GetAttachedProperty(typeof(Interaction), "Behaviors");
+		}
+
 		public static IEnumerable<DesignItem> GetBehaviors(DesignItem designItem)
 		{
 			var componentService = designItem.Context.Services.GetService<IComponentService>();
@@ -50,6 +55,11 @@ namespace ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon
 			}
 
 			return null;
+		}
+
+		public static DesignItemProperty GetTriggersCollectionProperty(DesignItem designItem)
+		{
+			return designItem.Properties.GetAttachedProperty(typeof(Interaction), "Triggers");
 		}
 
 		public static IEnumerable<DesignItem> GetTriggers(DesignItem designItem)
