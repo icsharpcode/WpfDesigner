@@ -594,6 +594,8 @@ namespace ICSharpCode.WpfDesign.XamlDom
 					else
 						return null;
 				} else {
+					if (propertyValue != null)
+						return propertyValue.GetValueFor(this.propertyInfo);
 					var value =  propertyInfo.GetValue(parentObject.Instance);
 					return value;
 				}
