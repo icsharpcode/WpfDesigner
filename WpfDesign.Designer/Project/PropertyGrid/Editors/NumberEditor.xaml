@@ -6,5 +6,5 @@
                         xmlns:globalization="clr-namespace:System.Globalization;assembly=mscorlib"
                         BorderThickness="0"
                         Background="{x:Null}"
-                        Value="{Binding Value, Converter={x:Static Converters:DummyConverter.Instance}, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}">
+                        Value="{Binding DesignerValue, Converter={x:Static Converters:DummyConverter.Instance}, ConverterCulture={x:Static globalization:CultureInfo.InvariantCulture}}">
 </widgets:NumericUpDown>

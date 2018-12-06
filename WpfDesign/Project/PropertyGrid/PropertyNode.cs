@@ -151,6 +151,21 @@ namespace ICSharpCode.WpfDesign.PropertyGrid
 				return null;
 			}
 		}
+
+		/// <summary>
+		/// Gets/Sets the value of this property.
+		/// </summary>
+		public object DesignerValue {
+			get {
+				if (IsAmbiguous) return null;
+				var result = FirstProperty.DesignerValue;
+				if (result == DependencyProperty.UnsetValue) return null;
+				return result;
+			}
+			set {
+				SetValueCore(value);
+			}
+		}
 		
 		/// <summary>
 		/// Gets/Sets the value of this property.
@@ -173,11 +188,11 @@ namespace ICSharpCode.WpfDesign.PropertyGrid
 		public string ValueString {
 			get {
 				if (ValueItem == null || ValueItem.Component is MarkupExtension) {
-					if (Value == null) return null;
+					if (DesignerValue == null) return null;
 					if (hasStringConverter) {
-						return FirstProperty.TypeConverter.ConvertToInvariantString(Value);
+						return FirstProperty.TypeConverter.ConvertToInvariantString(DesignerValue);
 					}
-					return "(" + Value.GetType().Name + ")";
+					return "(" + DesignerValue.GetType().Name + ")";
 				}
 				return "(" + ValueItem.ComponentType.Name + ")";
 			}
@@ -185,7 +200,7 @@ namespace ICSharpCode.WpfDesign.PropertyGrid
 				// make sure we only catch specific exceptions
 				// and/or show the error message to the user
 				//try {
-				Value = FirstProperty.TypeConverter.ConvertFromInvariantString(value);
+				DesignerValue = FirstProperty.TypeConverter.ConvertFromInvariantString(value);
 				//} catch {
 				//	OnValueOnInstanceChanged();
 				//}
@@ -292,7 +307,7 @@ namespace ICSharpCode.WpfDesign.PropertyGrid
 		/// </summary>
 		public void CreateBinding()
 		{
-			Value = new Binding();
+			DesignerValue = new Binding();
 			IsExpanded = true;
 		}
 

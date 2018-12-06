@@ -183,6 +183,10 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			//set { _property.ValueOnInstance = value; }
 		}
 		
+		public override object DesignerValue {
+			get { return _property.DesignerValue; }
+		}
+
 		public override bool IsSet {
 			get { return _property.IsSet; }
 		}

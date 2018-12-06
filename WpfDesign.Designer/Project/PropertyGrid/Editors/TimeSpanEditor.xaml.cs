@@ -58,7 +58,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 			if (PropertyNode == null)
 				return;
 
-			var value = (TimeSpan) PropertyNode.Value;
+			var value = (TimeSpan) PropertyNode.DesignerValue;
 
 
 			if (value < TimeSpan.Zero)
@@ -78,7 +78,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 			var ts = new TimeSpan(this.Days, this.Hours, this.Minutes, this.Seconds, this.MiliSeconds);
 			if (this.Neagtive)
 				ts = ts.Negate();
-			PropertyNode.Value = ts;
+			PropertyNode.DesignerValue = ts;
 		}
 
 		public bool Neagtive

@@ -106,6 +106,12 @@ namespace ICSharpCode.WpfDesign
 		public abstract object ValueOnInstance { get; }
 
 		/// <summary>
+		/// Gets the value of the property on the designed instance.
+		/// If the property is not set, this returns the default value.
+		/// </summary>
+		public abstract object DesignerValue { get; }
+
+		/// <summary>
 		/// Sets the value of the property.
 		/// </summary>
 		public abstract void SetValue(object value);
