@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GuiGenerator
+namespace GuiGenerator.GuiEntity
 {
 	class GuiEntity
 	{
@@ -13,8 +13,8 @@ namespace GuiGenerator
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	[System.Xml.Serialization.XmlRootAttribute(Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation", IsNullable = false)]
 	public partial class Window
 	{
@@ -32,61 +32,61 @@ namespace GuiGenerator
 		{
 			get
 			{
-				return this.canvasField;
+				return canvasField;
 			}
 			set
 			{
-				this.canvasField = value;
+				canvasField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Width
 		{
 			get
 			{
-				return this.widthField;
+				return widthField;
 			}
 			set
 			{
-				this.widthField = value;
+				widthField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Height
 		{
 			get
 			{
-				return this.heightField;
+				return heightField;
 			}
 			set
 			{
-				this.heightField = value;
+				heightField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.openxmlformats.org/markup-compatibility/2006")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.openxmlformats.org/markup-compatibility/2006")]
 		public string Ignorable
 		{
 			get
 			{
-				return this.ignorableField;
+				return ignorableField;
 			}
 			set
 			{
-				this.ignorableField = value;
+				ignorableField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvas
 	{
 
@@ -114,75 +114,75 @@ namespace GuiGenerator
 		{
 			get
 			{
-				return this.itemsField;
+				return itemsField;
 			}
 			set
 			{
-				this.itemsField = value;
+				itemsField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Width
 		{
 			get
 			{
-				return this.widthField;
+				return widthField;
 			}
 			set
 			{
-				this.widthField = value;
+				widthField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Height
 		{
 			get
 			{
-				return this.heightField;
+				return heightField;
 			}
 			set
 			{
-				this.heightField = value;
+				heightField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Background
 		{
 			get
 			{
-				return this.backgroundField;
+				return backgroundField;
 			}
 			set
 			{
-				this.backgroundField = value;
+				backgroundField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasButton
 	{
 
@@ -207,150 +207,150 @@ namespace GuiGenerator
 		private ushort canvasTopField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Content
 		{
 			get
 			{
-				return this.contentField;
+				return contentField;
 			}
 			set
 			{
-				this.contentField = value;
+				contentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Width
 		{
 			get
 			{
-				return this.widthField;
+				return widthField;
 			}
 			set
 			{
-				this.widthField = value;
+				widthField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Height
 		{
 			get
 			{
-				return this.heightField;
+				return heightField;
 			}
 			set
 			{
-				this.heightField = value;
+				heightField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Background
 		{
 			get
 			{
-				return this.backgroundField;
+				return backgroundField;
 			}
 			set
 			{
-				this.backgroundField = value;
+				backgroundField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string BorderBrush
 		{
 			get
 			{
-				return this.borderBrushField;
+				return borderBrushField;
 			}
 			set
 			{
-				this.borderBrushField = value;
+				borderBrushField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort FontSize
 		{
 			get
 			{
-				return this.fontSizeField;
+				return fontSizeField;
 			}
 			set
 			{
-				this.fontSizeField = value;
+				fontSizeField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Foreground
 		{
 			get
 			{
-				return this.foregroundField;
+				return foregroundField;
 			}
 			set
 			{
-				this.foregroundField = value;
+				foregroundField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Left")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Left")]
 		public ushort CanvasLeft
 		{
 			get
 			{
-				return this.canvasLeftField;
+				return canvasLeftField;
 			}
 			set
 			{
-				this.canvasLeftField = value;
+				canvasLeftField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Top")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Top")]
 		public ushort CanvasTop
 		{
 			get
 			{
-				return this.canvasTopField;
+				return canvasTopField;
 			}
 			set
 			{
-				this.canvasTopField = value;
+				canvasTopField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasCheckBox
 	{
 
@@ -364,6 +364,8 @@ namespace GuiGenerator
 
 		private string verticalContentAlignmentField;
 
+		private string foregroundField;
+
 		private ushort fontSizeField;
 
 		private string isCheckedField;
@@ -373,136 +375,150 @@ namespace GuiGenerator
 		private ushort canvasTopField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Content
 		{
 			get
 			{
-				return this.contentField;
+				return contentField;
 			}
 			set
 			{
-				this.contentField = value;
+				contentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Width
 		{
 			get
 			{
-				return this.widthField;
+				return widthField;
 			}
 			set
 			{
-				this.widthField = value;
+				widthField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Height
 		{
 			get
 			{
-				return this.heightField;
+				return heightField;
 			}
 			set
 			{
-				this.heightField = value;
+				heightField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string HorizontalContentAlignment
 		{
 			get
 			{
-				return this.horizontalContentAlignmentField;
+				return horizontalContentAlignmentField;
 			}
 			set
 			{
-				this.horizontalContentAlignmentField = value;
+				horizontalContentAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string VerticalContentAlignment
 		{
 			get
 			{
-				return this.verticalContentAlignmentField;
+				return verticalContentAlignmentField;
 			}
 			set
 			{
-				this.verticalContentAlignmentField = value;
+				verticalContentAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort FontSize
 		{
 			get
 			{
-				return this.fontSizeField;
+				return fontSizeField;
 			}
 			set
 			{
-				this.fontSizeField = value;
+				fontSizeField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
+		public string Foreground
+		{
+			get
+			{
+				return foregroundField;
+			}
+			set
+			{
+				foregroundField = value;
+			}
+		}
+
+		/// <remarks/>
+		[System.Xml.Serialization.XmlAttribute()]
 		public string IsChecked
 		{
 			get
 			{
-				return this.isCheckedField;
+				return isCheckedField;
 			}
 			set
 			{
-				this.isCheckedField = value;
+				isCheckedField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Left")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Left")]
 		public ushort CanvasLeft
 		{
 			get
 			{
-				return this.canvasLeftField;
+				return canvasLeftField;
 			}
 			set
 			{
-				this.canvasLeftField = value;
+				canvasLeftField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Top")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Top")]
 		public ushort CanvasTop
 		{
 			get
 			{
-				return this.canvasTopField;
+				return canvasTopField;
 			}
 			set
 			{
-				this.canvasTopField = value;
+				canvasTopField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasComboBox
 	{
 
@@ -534,159 +550,159 @@ namespace GuiGenerator
 		{
 			get
 			{
-				return this.comboBoxItemField;
+				return comboBoxItemField;
 			}
 			set
 			{
-				this.comboBoxItemField = value;
+				comboBoxItemField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Width
 		{
 			get
 			{
-				return this.widthField;
+				return widthField;
 			}
 			set
 			{
-				this.widthField = value;
+				widthField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Height
 		{
 			get
 			{
-				return this.heightField;
+				return heightField;
 			}
 			set
 			{
-				this.heightField = value;
+				heightField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string HorizontalContentAlignment
 		{
 			get
 			{
-				return this.horizontalContentAlignmentField;
+				return horizontalContentAlignmentField;
 			}
 			set
 			{
-				this.horizontalContentAlignmentField = value;
+				horizontalContentAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string VerticalContentAlignment
 		{
 			get
 			{
-				return this.verticalContentAlignmentField;
+				return verticalContentAlignmentField;
 			}
 			set
 			{
-				this.verticalContentAlignmentField = value;
+				verticalContentAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort FontSize
 		{
 			get
 			{
-				return this.fontSizeField;
+				return fontSizeField;
 			}
 			set
 			{
-				this.fontSizeField = value;
+				fontSizeField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Foreground
 		{
 			get
 			{
-				return this.foregroundField;
+				return foregroundField;
 			}
 			set
 			{
-				this.foregroundField = value;
+				foregroundField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Text
 		{
 			get
 			{
-				return this.textField;
+				return textField;
 			}
 			set
 			{
-				this.textField = value;
+				textField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Left")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Left")]
 		public ushort CanvasLeft
 		{
 			get
 			{
-				return this.canvasLeftField;
+				return canvasLeftField;
 			}
 			set
 			{
-				this.canvasLeftField = value;
+				canvasLeftField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Top")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Top")]
 		public ushort CanvasTop
 		{
 			get
 			{
-				return this.canvasTopField;
+				return canvasTopField;
 			}
 			set
 			{
-				this.canvasTopField = value;
+				canvasTopField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasComboBoxComboBoxItem
 	{
 
@@ -701,30 +717,30 @@ namespace GuiGenerator
 		private string isSelectedField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Content
 		{
 			get
 			{
-				return this.contentField;
+				return contentField;
 			}
 			set
 			{
-				this.contentField = value;
+				contentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort FontSize
 		{
 			get
 			{
-				return this.fontSizeField;
+				return fontSizeField;
 			}
 			set
 			{
-				this.fontSizeField = value;
+				fontSizeField = value;
 			}
 		}
 
@@ -734,47 +750,47 @@ namespace GuiGenerator
 		{
 			get
 			{
-				return this.fontSizeFieldSpecified;
+				return fontSizeFieldSpecified;
 			}
 			set
 			{
-				this.fontSizeFieldSpecified = value;
+				fontSizeFieldSpecified = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Foreground
 		{
 			get
 			{
-				return this.foregroundField;
+				return foregroundField;
 			}
 			set
 			{
-				this.foregroundField = value;
+				foregroundField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string IsSelected
 		{
 			get
 			{
-				return this.isSelectedField;
+				return isSelectedField;
 			}
 			set
 			{
-				this.isSelectedField = value;
+				isSelectedField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasGrid
 	{
 
@@ -814,159 +830,159 @@ namespace GuiGenerator
 		{
 			get
 			{
-				return this.itemsField;
+				return itemsField;
 			}
 			set
 			{
-				this.itemsField = value;
+				itemsField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Width
 		{
 			get
 			{
-				return this.widthField;
+				return widthField;
 			}
 			set
 			{
-				this.widthField = value;
+				widthField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Height
 		{
 			get
 			{
-				return this.heightField;
+				return heightField;
 			}
 			set
 			{
-				this.heightField = value;
+				heightField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Background
 		{
 			get
 			{
-				return this.backgroundField;
+				return backgroundField;
 			}
 			set
 			{
-				this.backgroundField = value;
+				backgroundField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string IsEnabled
 		{
 			get
 			{
-				return this.isEnabledField;
+				return isEnabledField;
 			}
 			set
 			{
-				this.isEnabledField = value;
+				isEnabledField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string IsHitTestVisible
 		{
 			get
 			{
-				return this.isHitTestVisibleField;
+				return isHitTestVisibleField;
 			}
 			set
 			{
-				this.isHitTestVisibleField = value;
+				isHitTestVisibleField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string IsManipulationEnabled
 		{
 			get
 			{
-				return this.isManipulationEnabledField;
+				return isManipulationEnabledField;
 			}
 			set
 			{
-				this.isManipulationEnabledField = value;
+				isManipulationEnabledField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string ShowGridLines
 		{
 			get
 			{
-				return this.showGridLinesField;
+				return showGridLinesField;
 			}
 			set
 			{
-				this.showGridLinesField = value;
+				showGridLinesField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Left")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Left")]
 		public ushort CanvasLeft
 		{
 			get
 			{
-				return this.canvasLeftField;
+				return canvasLeftField;
 			}
 			set
 			{
-				this.canvasLeftField = value;
+				canvasLeftField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Top")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Top")]
 		public ushort CanvasTop
 		{
 			get
 			{
-				return this.canvasTopField;
+				return canvasTopField;
 			}
 			set
 			{
-				this.canvasTopField = value;
+				canvasTopField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasGridButton
 	{
 
@@ -997,192 +1013,192 @@ namespace GuiGenerator
 		private ushort gridRowField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Content
 		{
 			get
 			{
-				return this.contentField;
+				return contentField;
 			}
 			set
 			{
-				this.contentField = value;
+				contentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Margin
 		{
 			get
 			{
-				return this.marginField;
+				return marginField;
 			}
 			set
 			{
-				this.marginField = value;
+				marginField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string HorizontalAlignment
 		{
 			get
 			{
-				return this.horizontalAlignmentField;
+				return horizontalAlignmentField;
 			}
 			set
 			{
-				this.horizontalAlignmentField = value;
+				horizontalAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string VerticalAlignment
 		{
 			get
 			{
-				return this.verticalAlignmentField;
+				return verticalAlignmentField;
 			}
 			set
 			{
-				this.verticalAlignmentField = value;
+				verticalAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Background
 		{
 			get
 			{
-				return this.backgroundField;
+				return backgroundField;
 			}
 			set
 			{
-				this.backgroundField = value;
+				backgroundField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string BorderBrush
 		{
 			get
 			{
-				return this.borderBrushField;
+				return borderBrushField;
 			}
 			set
 			{
-				this.borderBrushField = value;
+				borderBrushField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort FontSize
 		{
 			get
 			{
-				return this.fontSizeField;
+				return fontSizeField;
 			}
 			set
 			{
-				this.fontSizeField = value;
+				fontSizeField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Foreground
 		{
 			get
 			{
-				return this.foregroundField;
+				return foregroundField;
 			}
 			set
 			{
-				this.foregroundField = value;
+				foregroundField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Left")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Left")]
 		public ushort CanvasLeft
 		{
 			get
 			{
-				return this.canvasLeftField;
+				return canvasLeftField;
 			}
 			set
 			{
-				this.canvasLeftField = value;
+				canvasLeftField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Top")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Top")]
 		public ushort CanvasTop
 		{
 			get
 			{
-				return this.canvasTopField;
+				return canvasTopField;
 			}
 			set
 			{
-				this.canvasTopField = value;
+				canvasTopField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Grid.Column")]
+		[System.Xml.Serialization.XmlAttribute("Grid.Column")]
 		public ushort GridColumn
 		{
 			get
 			{
-				return this.gridColumnField;
+				return gridColumnField;
 			}
 			set
 			{
-				this.gridColumnField = value;
+				gridColumnField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Grid.Row")]
+		[System.Xml.Serialization.XmlAttribute("Grid.Row")]
 		public ushort GridRow
 		{
 			get
 			{
-				return this.gridRowField;
+				return gridRowField;
 			}
 			set
 			{
-				this.gridRowField = value;
+				gridRowField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasGridCheckBox
 	{
 
@@ -1213,192 +1229,192 @@ namespace GuiGenerator
 		private ushort gridRowField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Content
 		{
 			get
 			{
-				return this.contentField;
+				return contentField;
 			}
 			set
 			{
-				this.contentField = value;
+				contentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Margin
 		{
 			get
 			{
-				return this.marginField;
+				return marginField;
 			}
 			set
 			{
-				this.marginField = value;
+				marginField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string HorizontalAlignment
 		{
 			get
 			{
-				return this.horizontalAlignmentField;
+				return horizontalAlignmentField;
 			}
 			set
 			{
-				this.horizontalAlignmentField = value;
+				horizontalAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string VerticalAlignment
 		{
 			get
 			{
-				return this.verticalAlignmentField;
+				return verticalAlignmentField;
 			}
 			set
 			{
-				this.verticalAlignmentField = value;
+				verticalAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string HorizontalContentAlignment
 		{
 			get
 			{
-				return this.horizontalContentAlignmentField;
+				return horizontalContentAlignmentField;
 			}
 			set
 			{
-				this.horizontalContentAlignmentField = value;
+				horizontalContentAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string VerticalContentAlignment
 		{
 			get
 			{
-				return this.verticalContentAlignmentField;
+				return verticalContentAlignmentField;
 			}
 			set
 			{
-				this.verticalContentAlignmentField = value;
+				verticalContentAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort FontSize
 		{
 			get
 			{
-				return this.fontSizeField;
+				return fontSizeField;
 			}
 			set
 			{
-				this.fontSizeField = value;
+				fontSizeField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string IsChecked
 		{
 			get
 			{
-				return this.isCheckedField;
+				return isCheckedField;
 			}
 			set
 			{
-				this.isCheckedField = value;
+				isCheckedField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Left")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Left")]
 		public ushort CanvasLeft
 		{
 			get
 			{
-				return this.canvasLeftField;
+				return canvasLeftField;
 			}
 			set
 			{
-				this.canvasLeftField = value;
+				canvasLeftField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Top")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Top")]
 		public ushort CanvasTop
 		{
 			get
 			{
-				return this.canvasTopField;
+				return canvasTopField;
 			}
 			set
 			{
-				this.canvasTopField = value;
+				canvasTopField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Grid.Column")]
+		[System.Xml.Serialization.XmlAttribute("Grid.Column")]
 		public ushort GridColumn
 		{
 			get
 			{
-				return this.gridColumnField;
+				return gridColumnField;
 			}
 			set
 			{
-				this.gridColumnField = value;
+				gridColumnField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Grid.Row")]
+		[System.Xml.Serialization.XmlAttribute("Grid.Row")]
 		public ushort GridRow
 		{
 			get
 			{
-				return this.gridRowField;
+				return gridRowField;
 			}
 			set
 			{
-				this.gridRowField = value;
+				gridRowField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasGridComboBox
 	{
 
@@ -1425,164 +1441,164 @@ namespace GuiGenerator
 		private ushort gridRowField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Margin
 		{
 			get
 			{
-				return this.marginField;
+				return marginField;
 			}
 			set
 			{
-				this.marginField = value;
+				marginField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string HorizontalAlignment
 		{
 			get
 			{
-				return this.horizontalAlignmentField;
+				return horizontalAlignmentField;
 			}
 			set
 			{
-				this.horizontalAlignmentField = value;
+				horizontalAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string VerticalAlignment
 		{
 			get
 			{
-				return this.verticalAlignmentField;
+				return verticalAlignmentField;
 			}
 			set
 			{
-				this.verticalAlignmentField = value;
+				verticalAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort FontSize
 		{
 			get
 			{
-				return this.fontSizeField;
+				return fontSizeField;
 			}
 			set
 			{
-				this.fontSizeField = value;
+				fontSizeField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Foreground
 		{
 			get
 			{
-				return this.foregroundField;
+				return foregroundField;
 			}
 			set
 			{
-				this.foregroundField = value;
+				foregroundField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Text
 		{
 			get
 			{
-				return this.textField;
+				return textField;
 			}
 			set
 			{
-				this.textField = value;
+				textField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Left")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Left")]
 		public ushort CanvasLeft
 		{
 			get
 			{
-				return this.canvasLeftField;
+				return canvasLeftField;
 			}
 			set
 			{
-				this.canvasLeftField = value;
+				canvasLeftField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Top")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Top")]
 		public ushort CanvasTop
 		{
 			get
 			{
-				return this.canvasTopField;
+				return canvasTopField;
 			}
 			set
 			{
-				this.canvasTopField = value;
+				canvasTopField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Grid.Column")]
+		[System.Xml.Serialization.XmlAttribute("Grid.Column")]
 		public ushort GridColumn
 		{
 			get
 			{
-				return this.gridColumnField;
+				return gridColumnField;
 			}
 			set
 			{
-				this.gridColumnField = value;
+				gridColumnField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Grid.Row")]
+		[System.Xml.Serialization.XmlAttribute("Grid.Row")]
 		public ushort GridRow
 		{
 			get
 			{
-				return this.gridRowField;
+				return gridRowField;
 			}
 			set
 			{
-				this.gridRowField = value;
+				gridRowField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasGridGridColumnDefinitions
 	{
 
@@ -1594,43 +1610,43 @@ namespace GuiGenerator
 		{
 			get
 			{
-				return this.columnDefinitionField;
+				return columnDefinitionField;
 			}
 			set
 			{
-				this.columnDefinitionField = value;
+				columnDefinitionField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasGridGridColumnDefinitionsColumnDefinition
 	{
 
 		private string widthField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Width
 		{
 			get
 			{
-				return this.widthField;
+				return widthField;
 			}
 			set
 			{
-				this.widthField = value;
+				widthField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasGridGridRowDefinitions
 	{
 
@@ -1642,43 +1658,43 @@ namespace GuiGenerator
 		{
 			get
 			{
-				return this.rowDefinitionField;
+				return rowDefinitionField;
 			}
 			set
 			{
-				this.rowDefinitionField = value;
+				rowDefinitionField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasGridGridRowDefinitionsRowDefinition
 	{
 
 		private string nameField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasGridImage
 	{
 
@@ -1699,122 +1715,122 @@ namespace GuiGenerator
 		private ushort gridRowField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Margin
 		{
 			get
 			{
-				return this.marginField;
+				return marginField;
 			}
 			set
 			{
-				this.marginField = value;
+				marginField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string HorizontalAlignment
 		{
 			get
 			{
-				return this.horizontalAlignmentField;
+				return horizontalAlignmentField;
 			}
 			set
 			{
-				this.horizontalAlignmentField = value;
+				horizontalAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string VerticalAlignment
 		{
 			get
 			{
-				return this.verticalAlignmentField;
+				return verticalAlignmentField;
 			}
 			set
 			{
-				this.verticalAlignmentField = value;
+				verticalAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Left")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Left")]
 		public ushort CanvasLeft
 		{
 			get
 			{
-				return this.canvasLeftField;
+				return canvasLeftField;
 			}
 			set
 			{
-				this.canvasLeftField = value;
+				canvasLeftField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Top")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Top")]
 		public ushort CanvasTop
 		{
 			get
 			{
-				return this.canvasTopField;
+				return canvasTopField;
 			}
 			set
 			{
-				this.canvasTopField = value;
+				canvasTopField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Grid.Column")]
+		[System.Xml.Serialization.XmlAttribute("Grid.Column")]
 		public ushort GridColumn
 		{
 			get
 			{
-				return this.gridColumnField;
+				return gridColumnField;
 			}
 			set
 			{
-				this.gridColumnField = value;
+				gridColumnField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Grid.Row")]
+		[System.Xml.Serialization.XmlAttribute("Grid.Row")]
 		public ushort GridRow
 		{
 			get
 			{
-				return this.gridRowField;
+				return gridRowField;
 			}
 			set
 			{
-				this.gridRowField = value;
+				gridRowField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasGridLabel
 	{
 
@@ -1845,192 +1861,192 @@ namespace GuiGenerator
 		private ushort gridRowField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Content
 		{
 			get
 			{
-				return this.contentField;
+				return contentField;
 			}
 			set
 			{
-				this.contentField = value;
+				contentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Margin
 		{
 			get
 			{
-				return this.marginField;
+				return marginField;
 			}
 			set
 			{
-				this.marginField = value;
+				marginField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string HorizontalAlignment
 		{
 			get
 			{
-				return this.horizontalAlignmentField;
+				return horizontalAlignmentField;
 			}
 			set
 			{
-				this.horizontalAlignmentField = value;
+				horizontalAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string VerticalAlignment
 		{
 			get
 			{
-				return this.verticalAlignmentField;
+				return verticalAlignmentField;
 			}
 			set
 			{
-				this.verticalAlignmentField = value;
+				verticalAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string HorizontalContentAlignment
 		{
 			get
 			{
-				return this.horizontalContentAlignmentField;
+				return horizontalContentAlignmentField;
 			}
 			set
 			{
-				this.horizontalContentAlignmentField = value;
+				horizontalContentAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string VerticalContentAlignment
 		{
 			get
 			{
-				return this.verticalContentAlignmentField;
+				return verticalContentAlignmentField;
 			}
 			set
 			{
-				this.verticalContentAlignmentField = value;
+				verticalContentAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Background
 		{
 			get
 			{
-				return this.backgroundField;
+				return backgroundField;
 			}
 			set
 			{
-				this.backgroundField = value;
+				backgroundField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort FontSize
 		{
 			get
 			{
-				return this.fontSizeField;
+				return fontSizeField;
 			}
 			set
 			{
-				this.fontSizeField = value;
+				fontSizeField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Foreground
 		{
 			get
 			{
-				return this.foregroundField;
+				return foregroundField;
 			}
 			set
 			{
-				this.foregroundField = value;
+				foregroundField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string IsEnabled
 		{
 			get
 			{
-				return this.isEnabledField;
+				return isEnabledField;
 			}
 			set
 			{
-				this.isEnabledField = value;
+				isEnabledField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Grid.Column")]
+		[System.Xml.Serialization.XmlAttribute("Grid.Column")]
 		public ushort GridColumn
 		{
 			get
 			{
-				return this.gridColumnField;
+				return gridColumnField;
 			}
 			set
 			{
-				this.gridColumnField = value;
+				gridColumnField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Grid.Row")]
+		[System.Xml.Serialization.XmlAttribute("Grid.Row")]
 		public ushort GridRow
 		{
 			get
 			{
-				return this.gridRowField;
+				return gridRowField;
 			}
 			set
 			{
-				this.gridRowField = value;
+				gridRowField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasGridRectangle
 	{
 
@@ -2053,136 +2069,136 @@ namespace GuiGenerator
 		private ushort gridRowField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Margin
 		{
 			get
 			{
-				return this.marginField;
+				return marginField;
 			}
 			set
 			{
-				this.marginField = value;
+				marginField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string HorizontalAlignment
 		{
 			get
 			{
-				return this.horizontalAlignmentField;
+				return horizontalAlignmentField;
 			}
 			set
 			{
-				this.horizontalAlignmentField = value;
+				horizontalAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string VerticalAlignment
 		{
 			get
 			{
-				return this.verticalAlignmentField;
+				return verticalAlignmentField;
 			}
 			set
 			{
-				this.verticalAlignmentField = value;
+				verticalAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Fill
 		{
 			get
 			{
-				return this.fillField;
+				return fillField;
 			}
 			set
 			{
-				this.fillField = value;
+				fillField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Stroke
 		{
 			get
 			{
-				return this.strokeField;
+				return strokeField;
 			}
 			set
 			{
-				this.strokeField = value;
+				strokeField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort StrokeThickness
 		{
 			get
 			{
-				return this.strokeThicknessField;
+				return strokeThicknessField;
 			}
 			set
 			{
-				this.strokeThicknessField = value;
+				strokeThicknessField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Grid.Column")]
+		[System.Xml.Serialization.XmlAttribute("Grid.Column")]
 		public ushort GridColumn
 		{
 			get
 			{
-				return this.gridColumnField;
+				return gridColumnField;
 			}
 			set
 			{
-				this.gridColumnField = value;
+				gridColumnField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Grid.Row")]
+		[System.Xml.Serialization.XmlAttribute("Grid.Row")]
 		public ushort GridRow
 		{
 			get
 			{
-				return this.gridRowField;
+				return gridRowField;
 			}
 			set
 			{
-				this.gridRowField = value;
+				gridRowField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasGridTextBox
 	{
 
@@ -2215,114 +2231,114 @@ namespace GuiGenerator
 		private ushort gridRowField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Margin
 		{
 			get
 			{
-				return this.marginField;
+				return marginField;
 			}
 			set
 			{
-				this.marginField = value;
+				marginField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string HorizontalAlignment
 		{
 			get
 			{
-				return this.horizontalAlignmentField;
+				return horizontalAlignmentField;
 			}
 			set
 			{
-				this.horizontalAlignmentField = value;
+				horizontalAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string VerticalAlignment
 		{
 			get
 			{
-				return this.verticalAlignmentField;
+				return verticalAlignmentField;
 			}
 			set
 			{
-				this.verticalAlignmentField = value;
+				verticalAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string HorizontalContentAlignment
 		{
 			get
 			{
-				return this.horizontalContentAlignmentField;
+				return horizontalContentAlignmentField;
 			}
 			set
 			{
-				this.horizontalContentAlignmentField = value;
+				horizontalContentAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string VerticalContentAlignment
 		{
 			get
 			{
-				return this.verticalContentAlignmentField;
+				return verticalContentAlignmentField;
 			}
 			set
 			{
-				this.verticalContentAlignmentField = value;
+				verticalContentAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Background
 		{
 			get
 			{
-				return this.backgroundField;
+				return backgroundField;
 			}
 			set
 			{
-				this.backgroundField = value;
+				backgroundField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort FontSize
 		{
 			get
 			{
-				return this.fontSizeField;
+				return fontSizeField;
 			}
 			set
 			{
-				this.fontSizeField = value;
+				fontSizeField = value;
 			}
 		}
 
@@ -2332,89 +2348,89 @@ namespace GuiGenerator
 		{
 			get
 			{
-				return this.fontSizeFieldSpecified;
+				return fontSizeFieldSpecified;
 			}
 			set
 			{
-				this.fontSizeFieldSpecified = value;
+				fontSizeFieldSpecified = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Foreground
 		{
 			get
 			{
-				return this.foregroundField;
+				return foregroundField;
 			}
 			set
 			{
-				this.foregroundField = value;
+				foregroundField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string IsEnabled
 		{
 			get
 			{
-				return this.isEnabledField;
+				return isEnabledField;
 			}
 			set
 			{
-				this.isEnabledField = value;
+				isEnabledField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string TextAlignment
 		{
 			get
 			{
-				return this.textAlignmentField;
+				return textAlignmentField;
 			}
 			set
 			{
-				this.textAlignmentField = value;
+				textAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Grid.Column")]
+		[System.Xml.Serialization.XmlAttribute("Grid.Column")]
 		public ushort GridColumn
 		{
 			get
 			{
-				return this.gridColumnField;
+				return gridColumnField;
 			}
 			set
 			{
-				this.gridColumnField = value;
+				gridColumnField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Grid.Row")]
+		[System.Xml.Serialization.XmlAttribute("Grid.Row")]
 		public ushort GridRow
 		{
 			get
 			{
-				return this.gridRowField;
+				return gridRowField;
 			}
 			set
 			{
-				this.gridRowField = value;
+				gridRowField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasImage
 	{
 
@@ -2429,80 +2445,80 @@ namespace GuiGenerator
 		private ushort canvasTopField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Width
 		{
 			get
 			{
-				return this.widthField;
+				return widthField;
 			}
 			set
 			{
-				this.widthField = value;
+				widthField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Height
 		{
 			get
 			{
-				return this.heightField;
+				return heightField;
 			}
 			set
 			{
-				this.heightField = value;
+				heightField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Left")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Left")]
 		public ushort CanvasLeft
 		{
 			get
 			{
-				return this.canvasLeftField;
+				return canvasLeftField;
 			}
 			set
 			{
-				this.canvasLeftField = value;
+				canvasLeftField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Top")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Top")]
 		public ushort CanvasTop
 		{
 			get
 			{
-				return this.canvasTopField;
+				return canvasTopField;
 			}
 			set
 			{
-				this.canvasTopField = value;
+				canvasTopField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasLabel
 	{
 
@@ -2535,206 +2551,206 @@ namespace GuiGenerator
 		private string renderTransformOriginField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Content
 		{
 			get
 			{
-				return this.contentField;
+				return contentField;
 			}
 			set
 			{
-				this.contentField = value;
+				contentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Width
 		{
 			get
 			{
-				return this.widthField;
+				return widthField;
 			}
 			set
 			{
-				this.widthField = value;
+				widthField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Height
 		{
 			get
 			{
-				return this.heightField;
+				return heightField;
 			}
 			set
 			{
-				this.heightField = value;
+				heightField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string HorizontalContentAlignment
 		{
 			get
 			{
-				return this.horizontalContentAlignmentField;
+				return horizontalContentAlignmentField;
 			}
 			set
 			{
-				this.horizontalContentAlignmentField = value;
+				horizontalContentAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string VerticalContentAlignment
 		{
 			get
 			{
-				return this.verticalContentAlignmentField;
+				return verticalContentAlignmentField;
 			}
 			set
 			{
-				this.verticalContentAlignmentField = value;
+				verticalContentAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Background
 		{
 			get
 			{
-				return this.backgroundField;
+				return backgroundField;
 			}
 			set
 			{
-				this.backgroundField = value;
+				backgroundField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort FontSize
 		{
 			get
 			{
-				return this.fontSizeField;
+				return fontSizeField;
 			}
 			set
 			{
-				this.fontSizeField = value;
+				fontSizeField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Foreground
 		{
 			get
 			{
-				return this.foregroundField;
+				return foregroundField;
 			}
 			set
 			{
-				this.foregroundField = value;
+				foregroundField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string IsEnabled
 		{
 			get
 			{
-				return this.isEnabledField;
+				return isEnabledField;
 			}
 			set
 			{
-				this.isEnabledField = value;
+				isEnabledField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Padding
 		{
 			get
 			{
-				return this.paddingField;
+				return paddingField;
 			}
 			set
 			{
-				this.paddingField = value;
+				paddingField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Left")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Left")]
 		public ushort CanvasLeft
 		{
 			get
 			{
-				return this.canvasLeftField;
+				return canvasLeftField;
 			}
 			set
 			{
-				this.canvasLeftField = value;
+				canvasLeftField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Top")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Top")]
 		public ushort CanvasTop
 		{
 			get
 			{
-				return this.canvasTopField;
+				return canvasTopField;
 			}
 			set
 			{
-				this.canvasTopField = value;
+				canvasTopField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string RenderTransformOrigin
 		{
 			get
 			{
-				return this.renderTransformOriginField;
+				return renderTransformOriginField;
 			}
 			set
 			{
-				this.renderTransformOriginField = value;
+				renderTransformOriginField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasLine
 	{
 
@@ -2759,150 +2775,150 @@ namespace GuiGenerator
 		private ushort canvasTopField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Stretch
 		{
 			get
 			{
-				return this.stretchField;
+				return stretchField;
 			}
 			set
 			{
-				this.stretchField = value;
+				stretchField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Stroke
 		{
 			get
 			{
-				return this.strokeField;
+				return strokeField;
 			}
 			set
 			{
-				this.strokeField = value;
+				strokeField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort StrokeThickness
 		{
 			get
 			{
-				return this.strokeThicknessField;
+				return strokeThicknessField;
 			}
 			set
 			{
-				this.strokeThicknessField = value;
+				strokeThicknessField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort X1
 		{
 			get
 			{
-				return this.x1Field;
+				return x1Field;
 			}
 			set
 			{
-				this.x1Field = value;
+				x1Field = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort X2
 		{
 			get
 			{
-				return this.x2Field;
+				return x2Field;
 			}
 			set
 			{
-				this.x2Field = value;
+				x2Field = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Y1
 		{
 			get
 			{
-				return this.y1Field;
+				return y1Field;
 			}
 			set
 			{
-				this.y1Field = value;
+				y1Field = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Y2
 		{
 			get
 			{
-				return this.y2Field;
+				return y2Field;
 			}
 			set
 			{
-				this.y2Field = value;
+				y2Field = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Left")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Left")]
 		public ushort CanvasLeft
 		{
 			get
 			{
-				return this.canvasLeftField;
+				return canvasLeftField;
 			}
 			set
 			{
-				this.canvasLeftField = value;
+				canvasLeftField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Top")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Top")]
 		public ushort CanvasTop
 		{
 			get
 			{
-				return this.canvasTopField;
+				return canvasTopField;
 			}
 			set
 			{
-				this.canvasTopField = value;
+				canvasTopField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasRectangle
 	{
 
@@ -2927,150 +2943,150 @@ namespace GuiGenerator
 		private string nameField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Width
 		{
 			get
 			{
-				return this.widthField;
+				return widthField;
 			}
 			set
 			{
-				this.widthField = value;
+				widthField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Height
 		{
 			get
 			{
-				return this.heightField;
+				return heightField;
 			}
 			set
 			{
-				this.heightField = value;
+				heightField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Fill
 		{
 			get
 			{
-				return this.fillField;
+				return fillField;
 			}
 			set
 			{
-				this.fillField = value;
+				fillField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort RadiusX
 		{
 			get
 			{
-				return this.radiusXField;
+				return radiusXField;
 			}
 			set
 			{
-				this.radiusXField = value;
+				radiusXField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort RadiusY
 		{
 			get
 			{
-				return this.radiusYField;
+				return radiusYField;
 			}
 			set
 			{
-				this.radiusYField = value;
+				radiusYField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Stroke
 		{
 			get
 			{
-				return this.strokeField;
+				return strokeField;
 			}
 			set
 			{
-				this.strokeField = value;
+				strokeField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort StrokeThickness
 		{
 			get
 			{
-				return this.strokeThicknessField;
+				return strokeThicknessField;
 			}
 			set
 			{
-				this.strokeThicknessField = value;
+				strokeThicknessField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Left")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Left")]
 		public ushort CanvasLeft
 		{
 			get
 			{
-				return this.canvasLeftField;
+				return canvasLeftField;
 			}
 			set
 			{
-				this.canvasLeftField = value;
+				canvasLeftField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Top")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Top")]
 		public ushort CanvasTop
 		{
 			get
 			{
-				return this.canvasTopField;
+				return canvasTopField;
 			}
 			set
 			{
-				this.canvasTopField = value;
+				canvasTopField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 	}
 
 	/// <remarks/>
 	[System.SerializableAttribute()]
-	[System.ComponentModel.DesignerCategoryAttribute("code")]
-	[System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
+	[System.ComponentModel.DesignerCategory("code")]
+	[System.Xml.Serialization.XmlType(AnonymousType = true, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml/presentation")]
 	public partial class WindowCanvasTextBox
 	{
 
@@ -3097,156 +3113,156 @@ namespace GuiGenerator
 		private ushort canvasTopField;
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
+		[System.Xml.Serialization.XmlAttribute(Form = System.Xml.Schema.XmlSchemaForm.Qualified, Namespace = "http://schemas.microsoft.com/winfx/2006/xaml")]
 		public string Name
 		{
 			get
 			{
-				return this.nameField;
+				return nameField;
 			}
 			set
 			{
-				this.nameField = value;
+				nameField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Width
 		{
 			get
 			{
-				return this.widthField;
+				return widthField;
 			}
 			set
 			{
-				this.widthField = value;
+				widthField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort Height
 		{
 			get
 			{
-				return this.heightField;
+				return heightField;
 			}
 			set
 			{
-				this.heightField = value;
+				heightField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string VerticalAlignment
 		{
 			get
 			{
-				return this.verticalAlignmentField;
+				return verticalAlignmentField;
 			}
 			set
 			{
-				this.verticalAlignmentField = value;
+				verticalAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort FontSize
 		{
 			get
 			{
-				return this.fontSizeField;
+				return fontSizeField;
 			}
 			set
 			{
-				this.fontSizeField = value;
+				fontSizeField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Foreground
 		{
 			get
 			{
-				return this.foregroundField;
+				return foregroundField;
 			}
 			set
 			{
-				this.foregroundField = value;
+				foregroundField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public ushort MaxLength
 		{
 			get
 			{
-				return this.maxLengthField;
+				return maxLengthField;
 			}
 			set
 			{
-				this.maxLengthField = value;
+				maxLengthField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string Text
 		{
 			get
 			{
-				return this.textField;
+				return textField;
 			}
 			set
 			{
-				this.textField = value;
+				textField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute()]
+		[System.Xml.Serialization.XmlAttribute()]
 		public string TextAlignment
 		{
 			get
 			{
-				return this.textAlignmentField;
+				return textAlignmentField;
 			}
 			set
 			{
-				this.textAlignmentField = value;
+				textAlignmentField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Left")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Left")]
 		public ushort CanvasLeft
 		{
 			get
 			{
-				return this.canvasLeftField;
+				return canvasLeftField;
 			}
 			set
 			{
-				this.canvasLeftField = value;
+				canvasLeftField = value;
 			}
 		}
 
 		/// <remarks/>
-		[System.Xml.Serialization.XmlAttributeAttribute("Canvas.Top")]
+		[System.Xml.Serialization.XmlAttribute("Canvas.Top")]
 		public ushort CanvasTop
 		{
 			get
 			{
-				return this.canvasTopField;
+				return canvasTopField;
 			}
 			set
 			{
-				this.canvasTopField = value;
+				canvasTopField = value;
 			}
 		}
 	}

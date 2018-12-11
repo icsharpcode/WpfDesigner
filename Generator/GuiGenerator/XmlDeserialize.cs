@@ -7,6 +7,8 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Windows.Media;
 using System.Reflection;
+using GuiGenerator.GuiEntity;
+using System.Diagnostics;
 
 namespace GuiGenerator
 {
@@ -20,7 +22,12 @@ namespace GuiGenerator
 		/// <returns></returns>
 		public static string ScreenSettings(string path)
 		{
+			// timer for generic list sort
+			Stopwatch s = Stopwatch.StartNew();
 			window = (Window)DeserializeFile<Window>(path);
+			s.Stop();
+			Console.BackgroundColor = ConsoleColor.Cyan;
+			Console.WriteLine($"Time taken: {s.Elapsed.TotalMilliseconds}ms");
 			string output = "";
 			if (window != null)
 			{
@@ -51,6 +58,7 @@ namespace GuiGenerator
 			}
 			catch (Exception ex)
 			{
+				Console.Write(ex.Message);
 				return null;
 			}
 		}
@@ -66,8 +74,8 @@ namespace GuiGenerator
 		private static string ButtonInitCode = "GUI_ButtonInit({0},{1},{2},{3},{4},{5},{6});";
 		private static string ButtonSetTextCode = "GUI_ButtonSetText({0},\"{1}\",{2});";
 		private static string TextboxInitCode = "GUI_TextboxInit({0},{1},{2},{3},{4},{5},{6});";	
-		private static string CheckboxInitCode = "GUI_CheckboxInit(struct checkbox *ckb,{0},{1},BLACK,\"{2}\"," + FONT + ");";
-		private static string CheckboxSetCode = "GUI_CheckboxSet(struct checkbox *ckb,{0});";
+		private static string CheckboxInitCode = "GUI_CheckboxInit({0},{1},{2},{3},\"{4}\",{5});";
+		private static string CheckboxSetCode = "GUI_CheckboxSet({0},{1});";
 		private static string ListboxInitCode = "GUI_ListboxInit({0},{1},{2},{3},{4},{5},{6},{7});";
 		private static string ListboxSetItemsCode = "GUI_ListboxSetItems({0},{1},{2});";
 
@@ -105,9 +113,10 @@ namespace GuiGenerator
 		private static string RectArrItem_Code_Round = "\t{{{0},{1},{2},{3},{4},{5}}},";		
 		private static string RectArr_Code_Normal = "const u16 dimensions_rect1[{0}][5] = {{\r{1}}};";//填充矩形
 		private static string RectArr_Code_Round = "const u16 dimensions_rect2[{0}][5] = {{\r{1}}};";//填充圆角矩形
-		private static string RectLineArr_Code_Normal = "const u16 dimensions_rect3[{0}][5] = {{\r{1}}};";//矩形框
-		private static string RectLineArr_Code_Round = "const u16 dimensions_rect4[{0}][5] = {{\r{1}}};";//圆角矩形框
+		//private static string RectLineArr_Code_Normal = "const u16 dimensions_rect3[{0}][5] = {{\r{1}}};";//矩形框
+		//private static string RectLineArr_Code_Round = "const u16 dimensions_rect4[{0}][5] = {{\r{1}}};";//圆角矩形框
 		#endregion
+		//对齐方式
 		private enum AlignType
 		{
 			Hrizontal = 0,
@@ -181,7 +190,7 @@ namespace GuiGenerator
 						else if (item is WindowCanvasRectangle)
 							RecList.Add(item as WindowCanvasRectangle);
 						else if (item is WindowCanvasGrid)
-							GridList.Add(item as WindowCanvasGrid);
+							GridList.Add(item as WindowCanvasGrid);						
 					}
 					#region Grid
 					if (GridList != null && GridList?.Count > 0)
@@ -364,9 +373,9 @@ namespace GuiGenerator
 				{
 					lbl.Background = window.Canvas.Background;//背景色 默认Canvas(Screen)底色
 				}
-				string horz = GetAliginmentCode(0, lbl.HorizontalContentAlignment);//水平对齐
-				string ver = GetAliginmentCode(1, lbl.VerticalContentAlignment);//垂直对齐
-				string align = horz + "|" + ver;
+				string horz = GetAliginmentCode(0, lbl.HorizontalContentAlignment),//水平对齐
+				ver = GetAliginmentCode(1, lbl.VerticalContentAlignment),//垂直对齐
+				align = horz + "|" + ver;
 				lblStr += string.Format(LabelInitCode,
 					lblName,
 					lbl.CanvasLeft,
@@ -416,16 +425,24 @@ namespace GuiGenerator
 			for (int i = 0; i < ChkList.Count; i++)
 			{
 				var chk = ChkList[i];
-				chkStr += string.Format(CheckboxInitCode, chk.CanvasLeft, chk.CanvasTop, chk.Content) + Environment.NewLine;
+				string chkName = window.Canvas.Name + "_ckbs+" + "i";
+				chkStr += string.Format(CheckboxInitCode,
+					chkName,
+					chk.CanvasLeft,
+					chk.CanvasTop,
+					GetRGB565Code(chk.Foreground),
+					chk.Content,
+					GetFontSizeCode(chk.FontSize)
+					) + Environment.NewLine;
 				if (chk.IsChecked != null)
 				{
 					switch (chk.IsChecked)
 					{
 						case "True":
-							chkStr += string.Format(CheckboxSetCode, 1) + Environment.NewLine;
+							chkStr += string.Format(CheckboxSetCode, chkName, 1) + Environment.NewLine;
 							break;
 						case "False":
-							chkStr += string.Format(CheckboxSetCode, 0) + Environment.NewLine;
+							chkStr += string.Format(CheckboxSetCode, chkName, 0) + Environment.NewLine;
 							break;
 						default:
 							break;
@@ -445,10 +462,10 @@ namespace GuiGenerator
 			for (int i = 0; i < LbxList.Count; i++)
 			{
 				var lbx = LbxList[i];
-				string lbxName = window.Canvas.Name + "_lbxs+" + i;
-				string horz = GetAliginmentCode(0, lbx.HorizontalContentAlignment);//水平对齐
-				string ver = GetAliginmentCode(1, lbx.VerticalContentAlignment);//垂直对齐
-				string align = horz + "|" + ver;
+				string lbxName = window.Canvas.Name + "_lbxs+" + i,
+				horz = GetAliginmentCode(0, lbx.HorizontalContentAlignment),//水平对齐
+				ver = GetAliginmentCode(1, lbx.VerticalContentAlignment),//垂直对齐
+				align = horz + "|" + ver;
 				lbxStr += string.Format(ListboxInitCode,
 					lbxName,
 					lbx.CanvasLeft,
@@ -460,9 +477,9 @@ namespace GuiGenerator
 					align
 					) + Environment.NewLine;
 				var items = lbx.ComboBoxItem;
-				string itemsName = window.Canvas.Name + "_lbx_select_" + lbx.Name + "_items";
-				string itemsInit = "const char *{0} = {{ {1} }};";//items定义					
-				string itemsStr = "";
+				string itemsName = window.Canvas.Name + "_lbx_select_" + lbx.Name + "_items",
+				itemsInit = "const char *{0} = {{ {1} }};",//items定义					
+				itemsStr = "";
 				if (items != null && items?.Length > 0)
 				{
 					var itemsArr = new List<string>();
@@ -499,15 +516,20 @@ namespace GuiGenerator
 			}
 			return lineStr;
 		}
+		/// <summary>
+		/// Rectangle
+		/// </summary>
+		/// <param name="RecList"></param>
+		/// <returns></returns>
 		private static string GetDrawRectSettings(List<WindowCanvasRectangle> RecList)
 		{
 			string recStr = "//============Rect============" + Environment.NewLine;
 			var RecList_Normal = new List<WindowCanvasRectangle>();
 			var RecList_Round = new List<WindowCanvasRectangle>();
-			string recStr_Normal = "";
-			string recStr_Round = "";
-			string recItemStr_Normal = "";
-			string recItemStr_Round = "";
+			string recStr_Normal = "",
+			recStr_Round = "",
+			recItemStr_Normal = "",
+			recItemStr_Round = "";
 			foreach (var item in RecList)
 			{
 				if (item.RadiusX == item.RadiusY && item.RadiusX != 0)
@@ -576,10 +598,7 @@ namespace GuiGenerator
 		private static string GetTagSettings(List<WindowCanvasLabel> TagList)
 		{
 			string tagStr = "//============Tag============" + Environment.NewLine;
-			string tagStr_ = "";
-			string tagStr_Text = "";
-			string tagItemStr_ = "";
-			string tagItemStr_Text = "";
+			string tagStr_ = "", tagStr_Text = "", tagItemStr_ = "", tagItemStr_Text = "";
 			for (int i = 0; i < TagList.Count; i++)
 			{
 				var tag = TagList[i];
@@ -587,9 +606,9 @@ namespace GuiGenerator
 				{
 					tag.Background = tag.Background;
 				}
-				string horz = GetAliginmentCode(0, tag.HorizontalContentAlignment);
-				string ver = GetAliginmentCode(1, tag.VerticalContentAlignment);
-				string align = horz + "|" + ver;
+				string horz = GetAliginmentCode(0, tag.HorizontalContentAlignment),
+				ver = GetAliginmentCode(1, tag.VerticalContentAlignment),
+				align = horz + "|" + ver;
 
 				tagItemStr_ += string.Format(TagArrItem_Code,
 				tag.CanvasLeft,
@@ -627,9 +646,9 @@ namespace GuiGenerator
 				{
 					tag.Background = tag.Background;
 				}
-				string horz = GetAliginmentCode(0, tag.HorizontalContentAlignment);
-				string ver = GetAliginmentCode(1, tag.VerticalContentAlignment);
-				string align = horz + "|" + ver;
+				string horz = GetAliginmentCode(0, tag.HorizontalContentAlignment),
+				ver = GetAliginmentCode(1, tag.VerticalContentAlignment),
+				align = horz + "|" + ver;
 				tagStr += string.Format(Draw_Tag_Code,
 				tag.CanvasLeft,
 				tag.CanvasTop,
@@ -653,18 +672,16 @@ namespace GuiGenerator
 		{
 			try
 			{
-				if (string.IsNullOrEmpty(cStr))
-					return string.Format(COLOR, "00", "00", "00");
 				Color color = (Color)ColorConverter.ConvertFromString(cStr);
-				string rValue = string.Format("0x{0:X2}", color.R);
-				string gValue = string.Format("0x{0:X2}", color.G);
-				string bValue = string.Format("0x{0:X2}", color.B);
-				string output = string.Format(COLOR, rValue, gValue, bValue);
+				string rVal = string.Format("0x{0:X2}", color.R),
+				 gVal = string.Format("0x{0:X2}", color.G),
+				 bVal = string.Format("0x{0:X2}", color.B),
+				output = string.Format(COLOR, rVal, gVal, bVal)
+				;
 				return output;
 			}
-			catch (Exception ex)
+			catch
 			{
-
 				return string.Format(COLOR, "00", "00", "00");
 			}
 		}
@@ -693,9 +710,9 @@ namespace GuiGenerator
 		/// <returns></returns>
 		private static string GetAliginmentCode(int type, string align)
 		{
-			string output = "";
-			string horz = "HORIZONTAL_ALIGNMENT_";
-			string ver = "VERTICAL_ALIGNMENT_";
+			string output = "",
+			horz = "HORIZONTAL_ALIGNMENT_",
+			ver = "VERTICAL_ALIGNMENT_";
 
 			switch (align)
 			{
@@ -742,9 +759,9 @@ namespace GuiGenerator
 					}
 				}
 			}
-			catch (Exception ex)
+			catch
 			{
-				throw ex;
+				throw;
 			}
 		}
 
