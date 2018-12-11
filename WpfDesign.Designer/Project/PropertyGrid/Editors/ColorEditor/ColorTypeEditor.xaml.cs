@@ -59,7 +59,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.ColorEditor
 			var colorEditorPopup = new ColorEditorPopup();
 			colorEditorPopup.PlacementTarget = this;
 			colorEditorPopup.IsOpen = true;
-			colorEditorPopup.solidBrushEditor.Color = (Color)pnode.Value;
+			colorEditorPopup.solidBrushEditor.Color = (Color)pnode.DesignerValue;
 			colorEditorPopup.Closed += ColorEditorPopup_Closed;
 			DependencyPropertyDescriptor.FromProperty(SolidBrushEditor.ColorProperty, typeof(SolidBrushEditor))
 				.AddValueChanged(colorEditorPopup.solidBrushEditor, 
@@ -69,7 +69,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.ColorEditor
 											   pnode.Properties.Select(p => p.DesignItem).ToArray());
 
 					}
-					pnode.Value = colorEditorPopup.solidBrushEditor.Color;
+					pnode.DesignerValue = colorEditorPopup.solidBrushEditor.Color;
 				});
 		}
 

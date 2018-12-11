@@ -2,7 +2,7 @@
     only:
       - master
 
-  version: 6.1.{build}
+  version: 7.0.{build}
 
   os: Visual Studio 2015
   configuration: Debug

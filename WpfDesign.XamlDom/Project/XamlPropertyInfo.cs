@@ -55,19 +55,21 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		readonly DependencyProperty property;
 		readonly bool isAttached;
 		readonly bool isCollection;
+		readonly string dependencyPropertyGetterName;
 		Func<object, object> attachedGetter;
 
 		public override DependencyProperty DependencyProperty {
 			get { return property; }
 		}
 		
-		public XamlDependencyPropertyInfo(DependencyProperty property, bool isAttached, Func<object, object> attachedGetter = null)
+		public XamlDependencyPropertyInfo(DependencyProperty property, bool isAttached, string dependencyPropertyGetterName, Func<object, object> attachedGetter = null)
 		{
 			Debug.Assert(property != null);
 			this.property = property;
 			this.isAttached = isAttached;
 			this.isCollection = CollectionSupport.IsCollectionType(property.PropertyType);
 			this.attachedGetter = attachedGetter;
+			this.dependencyPropertyGetterName = dependencyPropertyGetterName;
 		}
 		
 		public override TypeConverter TypeConverter {
@@ -91,9 +93,9 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		}
 		
 		public override string Name {
-			get { return property.Name; }
+			get { return dependencyPropertyGetterName; }
 		}
-		
+
 		public override string Category {
 			get { return "Misc"; }
 		}

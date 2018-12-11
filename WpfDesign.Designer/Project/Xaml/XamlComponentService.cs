@@ -95,13 +95,22 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 
 		public DesignItem RegisterComponentForDesigner(object component)
 		{
+			return RegisterComponentForDesigner(null, component);
+		}
+
+		public DesignItem RegisterComponentForDesigner(DesignItem parent, object component)
+		{
 			if (component == null) {
 				component = new NullExtension();
 			} else if (component is Type) {
 				component = new TypeExtension((Type)component);
 			}
-			
-			XamlDesignItem item = new XamlDesignItem(_context.Document.CreateObject(component), _context);
+
+			XamlObject parentXamlObject = null;
+			if (parent != null)
+				parentXamlObject = ((XamlDesignItem) parent).XamlObject;
+
+			XamlDesignItem item = new XamlDesignItem(_context.Document.CreateObject(parentXamlObject, component), _context);
 			_context.Services.ExtensionManager.ApplyDesignItemInitializers(item);
 			            
 			if (!(component is string))

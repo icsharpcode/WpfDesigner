@@ -4,7 +4,7 @@
 	<Grid>
 		<TextBlock
 			Margin="0,0,20,0"
-			Text="{Binding Value}" VerticalAlignment="Center" />
+			Text="{Binding DesignerValue}" VerticalAlignment="Center" />
 		<Button
 			Width="15"
 			Margin="0,0,1,0"

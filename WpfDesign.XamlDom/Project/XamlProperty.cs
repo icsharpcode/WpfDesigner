@@ -612,6 +612,32 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		}
 
 		/// <summary>
+		/// Gets/Sets the value of the property in the designer without updating the XAML document.
+		/// </summary>
+		public object DesignerValue {
+			get {
+				if (IsEvent) {
+					if (propertyValue != null)
+						return propertyValue.GetValueFor(null);
+					else
+						return null;
+				} else {
+					try {
+						if (propertyValue != null) {
+							var wr = propertyValue.GetValueFor(this.propertyInfo);
+							return wr;
+						}
+					}
+					catch(Exception)
+					{ }
+					var value =  propertyInfo.GetValue(parentObject.Instance);
+					return value;
+				}
+			}
+			set { ValueOnInstance = value; }
+		}
+
+		/// <summary>
 		/// Gets the value of the text property on the instance without updating the XAML document.
 		/// </summary>
 		public string TextValueOnInstance

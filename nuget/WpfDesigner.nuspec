@@ -11,11 +11,7 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A Designer Framework for WPF UIs</description>
 	<summary>WpfDesigner is the graphical WPF UI designer used in SharpDevelop</summary>
-	<releaseNotes>
-		* Reimplement FormaedTextEditor, TimeSpanEditor, ColorSelector
-		* Named Brushes like Red, Green, ... are now written to XAML as Name
-	</releaseNotes>
-    <copyright>Copyright (c) 2015-2016 IC#Code</copyright>
+    <copyright>Copyright (c) 2015-2019 IC#Code</copyright>
 	<language>en-US</language>
 	<tags>WPF XAML Designer UI Editor SharpDevelop WpfDesigner</tags>
   </metadata>

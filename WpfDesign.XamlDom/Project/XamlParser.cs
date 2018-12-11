@@ -269,7 +269,7 @@ namespace ICSharpCode.WpfDesign.XamlDom
 				iSupportInitializeInstance.BeginInit();
 			}
 			
-			foreach (XmlAttribute attribute in element.Attributes) {
+			foreach (XmlAttribute attribute in element.Attributes.Cast<XmlAttribute>().ToList()) {
 				if (attribute.Value.StartsWith("clr-namespace", StringComparison.OrdinalIgnoreCase)) {
 					// the format is "clr-namespace:<Namespace here>;assembly=<Assembly name here>"
 					var clrNamespace = attribute.Value.Split(new[] {':', ';', '='});
@@ -527,7 +527,7 @@ namespace ICSharpCode.WpfDesign.XamlDom
 					if (getMethod != null) {
 						getFunc = obj => getMethod.Invoke(null, new[] {obj});
 					}
-					return new XamlDependencyPropertyInfo((DependencyProperty)field.GetValue(null), true, getFunc);
+					return new XamlDependencyPropertyInfo((DependencyProperty)field.GetValue(null), true, propertyName, getFunc);
 				}
 			}
 

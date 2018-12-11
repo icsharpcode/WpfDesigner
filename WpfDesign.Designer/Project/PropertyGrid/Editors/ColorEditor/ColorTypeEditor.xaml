@@ -10,7 +10,7 @@
             Height="16">
 		<Border>
 			<Border.Background>
-				<SolidColorBrush Color="{Binding Value}" />
+				<SolidColorBrush Color="{Binding DesignerValue}" />
 			</Border.Background>
 		</Border>
 	</Border>

@@ -186,7 +186,15 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		{
 			return (XamlObject)CreatePropertyValue(instance, null);
 		}
-		
+
+		/// <summary>
+		/// Create an XamlObject from the instance.
+		/// </summary>
+		public XamlObject CreateObject(XamlObject parent, object instance)
+		{
+			return (XamlObject)CreatePropertyValue(parent, instance, null);
+		}
+
 		/// <summary>
 		/// Creates a value that represents {x:Null}
 		/// </summary>
@@ -194,11 +202,19 @@ namespace ICSharpCode.WpfDesign.XamlDom
 		{
 			return CreateObject(new NullExtension());
 		}
-		
+
 		/// <summary>
 		/// Create a XamlPropertyValue for the specified value instance.
 		/// </summary>
 		public XamlPropertyValue CreatePropertyValue(object instance, XamlProperty forProperty)
+		{
+			return CreatePropertyValue(null, instance, forProperty);
+		}
+
+		/// <summary>
+		/// Create a XamlPropertyValue for the specified value instance.
+		/// </summary>
+		public XamlPropertyValue CreatePropertyValue(XamlObject parent, object instance, XamlProperty forProperty)
 		{
 			if (instance == null)
 				throw new ArgumentNullException("instance");
@@ -220,7 +236,9 @@ namespace ICSharpCode.WpfDesign.XamlDom
 
 			string ns = GetNamespaceFor(elementType);
 			string prefix = GetPrefixForNamespace(ns);
-			
+			if (parent != null)
+				prefix = GetPrefixForNamespace(parent.XmlElement, ns);
+
 			XmlElement xml = _xmlDoc.CreateElement(prefix, elementType.Name, ns);
 
 			if (hasStringConverter && (XamlObject.GetContentPropertyName(elementType) != null || IsNativeType(instance))) {
@@ -278,14 +296,19 @@ namespace ICSharpCode.WpfDesign.XamlDom
 
 		internal string GetPrefixForNamespace(string @namespace)
 		{
-			if (@namespace == XamlConstants.PresentationNamespace)
-			{
-				return null;
-			}
+			return GetPrefixForNamespace(_xmlDoc.DocumentElement, @namespace);
+		}
 
-			string prefix = _xmlDoc.DocumentElement.GetPrefixOfNamespace(@namespace);
+		internal string GetPrefixForNamespace(XmlElement xmlElement, string @namespace)
+		{
+			//if (@namespace == XamlConstants.PresentationNamespace)
+			//{
+			//	return null;
+			//}
 
-			if (_xmlDoc.DocumentElement.NamespaceURI == @namespace && _xmlDoc.DocumentElement.Prefix == String.Empty)
+			string prefix = xmlElement.GetPrefixOfNamespace(@namespace);
+
+			if (xmlElement.NamespaceURI == @namespace && xmlElement.Prefix == String.Empty)
 			{
 				return string.Empty;
 			}
@@ -297,7 +320,7 @@ namespace ICSharpCode.WpfDesign.XamlDom
 				string existingNamespaceForPrefix = null;
 				if (!String.IsNullOrEmpty(prefix))
 				{
-					existingNamespaceForPrefix = _xmlDoc.DocumentElement.GetNamespaceOfPrefix(prefix);
+					existingNamespaceForPrefix = xmlElement.GetNamespaceOfPrefix(prefix);
 				}
 
 				if (String.IsNullOrEmpty(prefix) ||
@@ -307,17 +330,17 @@ namespace ICSharpCode.WpfDesign.XamlDom
 					do
 					{
 						prefix = "Controls" + namespacePrefixCounter++;
-					} while (!String.IsNullOrEmpty(_xmlDoc.DocumentElement.GetNamespaceOfPrefix(prefix)));
+					} while (!String.IsNullOrEmpty(xmlElement.GetNamespaceOfPrefix(prefix)));
 				}
 
-				string xmlnsPrefix = _xmlDoc.DocumentElement.GetPrefixOfNamespace(XamlConstants.XmlnsNamespace);
+				string xmlnsPrefix = xmlElement.GetPrefixOfNamespace(XamlConstants.XmlnsNamespace);
 				System.Diagnostics.Debug.Assert(!String.IsNullOrEmpty(xmlnsPrefix));
 
-				_xmlDoc.DocumentElement.SetAttribute(xmlnsPrefix + ":" + prefix, @namespace);
+				xmlElement.SetAttribute(xmlnsPrefix + ":" + prefix, @namespace);
 				
 				if (@namespace == XamlConstants.DesignTimeNamespace)
 				{
-					var ignorableProp = new XamlProperty(this._rootElement,new XamlDependencyPropertyInfo(MarkupCompatibilityProperties.IgnorableProperty,true));
+					var ignorableProp = new XamlProperty(this._rootElement, new XamlDependencyPropertyInfo(MarkupCompatibilityProperties.IgnorableProperty, true, null));
 					ignorableProp.SetAttribute(prefix);
 				}
 			}

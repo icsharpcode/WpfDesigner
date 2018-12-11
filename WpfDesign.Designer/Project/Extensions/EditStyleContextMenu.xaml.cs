@@ -54,6 +54,8 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 
 		void Click_EditStyle(object sender, RoutedEventArgs e)
 		{
+			var cg = designItem.OpenGroup("Edit Style");
+
 			var element = designItem.View;
 			object defaultStyleKey = element.GetValue(FrameworkElement.DefaultStyleKeyProperty);
 			Style style = Application.Current.TryFindResource(defaultStyleKey) as Style;
@@ -74,7 +76,13 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			var xamlObject = XamlParser.ParseSnippet(rootItem.XamlObject, xaml, ((XamlDesignContext)this.designItem.Context).ParserSettings);
 			
 			var styleDesignItem=service.RegisterXamlComponentRecursive(xamlObject);
-			designItem.Properties.GetProperty("Resources").CollectionElements.Add(styleDesignItem);
+			try {
+				designItem.Properties.GetProperty("Resources").CollectionElements.Add(styleDesignItem);
+				cg.Commit();
+			}
+			catch (Exception) {
+				cg.Abort();
+			}
 		}
 	}
 }

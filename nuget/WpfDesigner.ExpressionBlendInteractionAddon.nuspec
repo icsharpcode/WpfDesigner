@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>ICSharpCode.WpfDesigner.ExpressionBlendInteractionAddon</id>
+    <version>$version$</version>
+	<title>WPF Designer</title>
+    <authors>IC#Code</authors>
+    <owners>IC#Code</owners>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <projectUrl>https://github.com/icsharpcode/WpfDesigner</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A Designer Framework for WPF UIs - Addon for Expression Interaction</description>
+	<summary>WpfDesigner is the graphical WPF UI designer used in SharpDevelop</summary>
+    <copyright>Copyright (c) 2015-2019 IC#Code</copyright>
+	<language>en-US</language>
+	<tags>WPF XAML Designer UI Editor SharpDevelop WpfDesigner</tags>
+  </metadata>
+  <files>
+    <file src="..\WpfDesign.Design.ExpressionBlendInteractionAddon\bin\Debug\ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.dll" target="lib\net40" />
+    <file src="..\WpfDesign.Design.ExpressionBlendInteractionAddon\bin\Debug\ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.pdb" target="lib\net40" />	
+  </files>
+</package>
