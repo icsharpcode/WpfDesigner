@@ -334,6 +334,7 @@ namespace ICSharpCode.WpfDesign.PropertyGrid
 		{
 			RaisePropertyChanged("IsSet");
 			RaisePropertyChanged("Value");
+			RaisePropertyChanged("DesignerValue");
 			RaisePropertyChanged("ValueString");
 			RaisePropertyChanged("IsAmbiguous");
 			RaisePropertyChanged("FontWeight");
@@ -346,6 +347,7 @@ namespace ICSharpCode.WpfDesign.PropertyGrid
 		void OnValueOnInstanceChanged()
 		{
 			RaisePropertyChanged("Value");
+			RaisePropertyChanged("DesignerValue");
 			RaisePropertyChanged("ValueString");
 		}
 

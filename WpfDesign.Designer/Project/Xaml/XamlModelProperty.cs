@@ -53,6 +53,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			ValueChanged += (x, y) =>
 			{
 				OnPropertyChanged("Value");
+				OnPropertyChanged("DesignerValue");
 				OnPropertyChanged("ValueOnInstanceOrView");
 			};
 			ValueOnInstanceChanged += (x, y) =>
