@@ -21,6 +21,7 @@ using System.Windows;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;
+using System.Windows.Media;
 using ICSharpCode.WpfDesign.Designer.Xaml;
 
 namespace ICSharpCode.WpfDesign.Designer.Services
@@ -249,13 +250,30 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 
 		internal static bool AddItemsWithCustomSize(DesignItem container, DesignItem[] createdItems, IList<Rect> positions)
 		{
-			
-			PlacementOperation operation = PlacementOperation.TryStartInsertNewComponents(
-				container,
-				createdItems,
-				positions,
-				PlacementType.AddItem
-			);
+			PlacementOperation operation = null;
+
+			while (operation == null && container != null) {
+				operation = PlacementOperation.TryStartInsertNewComponents(
+					container,
+					createdItems,
+					positions,
+					PlacementType.AddItem
+				);
+
+				try {
+					if (container.Parent != null) {
+						var rel = container.View.TranslatePoint(new Point(0, 0), container.Parent.View);
+						for (var index = 0; index < positions.Count; index++) {
+							positions[index] = new Rect(new Point(positions[index].X + rel.X, positions[index].Y + rel.Y), positions[index].Size);
+						}
+					}
+				}
+				catch(Exception)
+				{ }
+
+				container = container.Parent;
+			}
+
 			if (operation != null) {
 				container.Services.Selection.SetSelectedComponents(createdItems);
 				operation.Commit();
