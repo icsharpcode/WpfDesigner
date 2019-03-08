@@ -260,6 +260,9 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 					PlacementType.AddItem
 				);
 
+				if (operation != null)
+					break;
+
 				try {
 					if (container.Parent != null) {
 						var rel = container.View.TranslatePoint(new Point(0, 0), container.Parent.View);
