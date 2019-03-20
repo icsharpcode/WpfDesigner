@@ -378,8 +378,8 @@ namespace ICSharpCode.WpfDesign.Designer
 		#endregion
 		
 		PlacementOperation placementOp;
-		int dx = 0;
-		int dy = 0;
+		Dictionary<PlacementInformation, int> dx = new Dictionary<PlacementInformation, int>();
+		Dictionary<PlacementInformation, int> dy = new Dictionary<PlacementInformation, int>();
 		
 		/// <summary>
 		/// If interface implementing class sets this to false defaultkeyaction will be 
@@ -405,6 +405,8 @@ namespace ICSharpCode.WpfDesign.Designer
 				if (placementOp != null) {
 					placementOp.Commit();
 					placementOp = null;
+					dx.Clear();
+					dy.Clear();
 				}
 			}
 			//pass the key event to the underlying objects if they have implemented IKeyUp interface
@@ -433,15 +435,19 @@ namespace ICSharpCode.WpfDesign.Designer
 					}
 				}
 			}
-			
+
 			if (e.Key == Key.Left || e.Key == Key.Right || e.Key == Key.Up || e.Key == Key.Down) {
+				bool initialEvent = false;
+
 				e.Handled = true;
-				
+
 				PlacementType placementType = Keyboard.IsKeyDown(Key.LeftCtrl) ? PlacementType.Resize : PlacementType.MoveAndIgnoreOtherContainers;
 				
 				if (placementOp != null && placementOp.Type != placementType) {
 					placementOp.Commit();
 					placementOp = null;
+					dx.Clear();
+					dy.Clear();
 				}
 				
 				if (placementOp == null) {
@@ -451,10 +457,11 @@ namespace ICSharpCode.WpfDesign.Designer
 					
 					//if no remaining objects, break
 					if (placedItems.Count < 1) return;
-					
-					dx = 0;
-					dy = 0;
+										
 					placementOp = PlacementOperation.Start(placedItems, placementType);
+
+					dx.Clear();
+					dy.Clear();
 				}
 
 				int odx = 0, ody = 0;
@@ -474,22 +481,26 @@ namespace ICSharpCode.WpfDesign.Designer
 				}
 
 				foreach (PlacementInformation info in placementOp.PlacedItems) {
+					if (!dx.ContainsKey(info)) {
+						dx[info] = 0;
+						dy[info] = 0;
+					}
 					var transform = info.Item.Parent.View.TransformToVisual(this);
 					var mt = transform as MatrixTransform;
 					if (mt != null) {
 						var angle = Math.Atan2(mt.Matrix.M21, mt.Matrix.M11) * 180 / Math.PI;
 						if (angle > 45.0 && angle < 135.0) {
-							dx += ody * -1;
-							dy += odx;
+							dx[info] += ody * -1;
+							dy[info] += odx;
 						} else if (angle < -45.0 && angle > -135.0) {
-							dx += ody;
-							dy += odx * -1;
+							dx[info] += ody;
+							dy[info] += odx * -1;
 						} else if (angle > 135.0 || angle < -135.0) {
-							dx += odx * -1;
-							dy += ody * -1;
+							dx[info] += odx * -1;
+							dy[info] += ody * -1;
 						} else {
-							dx += odx;
-							dy += ody;
+							dx[info] += odx;
+							dy[info] += ody;
 						}
 					}
 
@@ -497,16 +508,16 @@ namespace ICSharpCode.WpfDesign.Designer
 					
 					if (placementType == PlacementType.Move 
 						|| info.Operation.Type == PlacementType.MoveAndIgnoreOtherContainers) {
-						info.Bounds = new Rect(bounds.Left + dx,
-						                       bounds.Top + dy,
+						info.Bounds = new Rect(bounds.Left + dx[info],
+						                       bounds.Top + dy[info],
 						                       bounds.Width,
 						                       bounds.Height);
 					} else if (placementType == PlacementType.Resize) {
-						if (bounds.Width + dx >= 0 && bounds.Height + dy >= 0)  {
+						if (bounds.Width + dx[info] >= 0 && bounds.Height + dy[info] >= 0)  {
 							info.Bounds = new Rect(bounds.Left,
 							                       bounds.Top,
-							                       bounds.Width + dx,
-							                       bounds.Height + dy);
+							                       bounds.Width + dx[info],
+							                       bounds.Height + dy[info]);
 						}
 					}
 					
