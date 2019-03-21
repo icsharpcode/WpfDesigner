@@ -21,6 +21,6 @@ using System.Reflection;
 [assembly: System.Runtime.InteropServices.ComVisible(false)]
 [assembly: AssemblyCompany("ic#code")]
 [assembly: AssemblyProduct("SharpDevelop")]
-[assembly: AssemblyCopyright("2000-2015 AlphaSierraPapa for the SharpDevelop Team")]
+[assembly: AssemblyCopyright("2000-2019 AlphaSierraPapa for the SharpDevelop Team")]
 [assembly: AssemblyVersion("8.0.0")]
 
