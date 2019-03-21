@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2014 AlphaSierraPapa for the SharpDevelop Team
+﻿// Copyright (c) 2019 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -42,7 +42,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 		
 		Mutex mutex;
 		
-		[TestFixtureSetUp]
+		[OneTimeSetUp]
 		public void FixtureSetUp()
 		{
 			// Avoid test failure on build server when unit tests for several branches are run concurrently.
@@ -55,7 +55,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 			}
 		}
 		
-		[TestFixtureTearDown]
+		[OneTimeTearDown]
 		public void FixtureTearDown()
 		{
 			mutex.ReleaseMutex();
@@ -204,7 +204,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 			xamlContext.XamlEditAction.Paste();
 			Assert.AreEqual(innerGrid.ContentProperty.CollectionElements[4], selection.PrimarySelection);
 			
-			Assert.IsNullOrEmpty(innerGrid.ContentProperty.CollectionElements[0].Name);
+			Assert.That(innerGrid.ContentProperty.CollectionElements[0].Name, Is.Null.Or.Empty);
 			Assert.AreEqual(_name, innerGrid.ContentProperty.CollectionElements[1].Name);
 			Assert.AreEqual(_name + "_Copy", innerGrid.ContentProperty.CollectionElements[2].Name);
 			Assert.AreEqual(_name + "_Copy1", innerGrid.ContentProperty.CollectionElements[3].Name);
@@ -212,7 +212,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 			
 			xamlContext.XamlEditAction.Copy(new[] {innerGrid.ContentProperty.CollectionElements[3]});
 			var cutXaml = Clipboard.GetText(TextDataFormat.Xaml);
-			Assert.That(cutXaml, Is.StringContaining(":Name=\"" + _name + "_Copy1\""));
+			Assert.That(cutXaml, Contains.Substring(":Name=\"" + _name + "_Copy1\""));
 			
 			selection.SetSelectedComponents(new[] {innerGrid});
 			xamlContext.XamlEditAction.Paste();

@@ -2,9 +2,9 @@
     only:
       - master
 
-  version: 7.0.{build}
-
-  os: Visual Studio 2015
+  version: 8.0.{build}
+  
+  image: Visual Studio 2019 Preview
   configuration: Debug
  
   assembly_info:
@@ -24,7 +24,7 @@
     - ps: .\nuget\pack.ps1
 
   test_script:
-    - cmd: nunit-console bin\UnitTests\ICSharpCode.WpfDesign.Tests.dll /framework:net-4.5
+    - cmd: nunit3-console WpfDesign.Designer\Tests\bin\Debug\net45\ICSharpCode.WpfDesign.Tests.dll --framework:net-4.5 --result=myresults.xml;format=AppVeyor
 
   artifacts:
     - path: 'ICSharpCode.WpfDesigner.*.nupkg'

@@ -16,14 +16,23 @@
 	<tags>WPF XAML Designer UI Editor SharpDevelop WpfDesigner</tags>
   </metadata>
   <files>
-    <file src="..\bin\ICSharpCode.WpfDesign.Designer.dll" target="lib\net40" />
-    <file src="..\bin\ICSharpCode.WpfDesign.Designer.pdb" target="lib\net40" />
-	<file src="..\bin\ICSharpCode.WpfDesign.Designer.xml" target="lib\net40" />
-	<file src="..\bin\ICSharpCode.WpfDesign.dll" target="lib\net40" />
-	<file src="..\bin\ICSharpCode.WpfDesign.pdb" target="lib\net40" />
-	<file src="..\bin\ICSharpCode.WpfDesign.xml" target="lib\net40" />
-	<file src="..\bin\ICSharpCode.WpfDesign.XamlDom.dll" target="lib\net40" />
-	<file src="..\bin\ICSharpCode.WpfDesign.XamlDom.pdb" target="lib\net40" />
-	<file src="..\bin\ICSharpCode.WpfDesign.XamlDom.xml" target="lib\net40" />
+    <file src="..\bin\net45\ICSharpCode.WpfDesign.Designer.dll" target="lib\net45" />
+    <file src="..\bin\net45\ICSharpCode.WpfDesign.Designer.pdb" target="lib\net45" />
+	<file src="..\bin\net45\ICSharpCode.WpfDesign.Designer.xml" target="lib\net45" />
+	<file src="..\bin\net45\ICSharpCode.WpfDesign.dll" target="lib\net45" />
+	<file src="..\bin\net45\ICSharpCode.WpfDesign.pdb" target="lib\net45" />
+	<file src="..\bin\net45\ICSharpCode.WpfDesign.xml" target="lib\net45" />
+	<file src="..\bin\net45\ICSharpCode.WpfDesign.XamlDom.dll" target="lib\net45" />
+	<file src="..\bin\net45\ICSharpCode.WpfDesign.XamlDom.pdb" target="lib\net45" />
+	<file src="..\bin\net45\ICSharpCode.WpfDesign.XamlDom.xml" target="lib\net45" />
+	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.Designer.dll" target="lib\netcoreapp3.0" />
+    <file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.Designer.pdb" target="lib\netcoreapp3.0" />
+	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.Designer.xml" target="lib\netcoreapp3.0" />
+	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.dll" target="lib\netcoreapp3.0" />
+	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.pdb" target="lib\netcoreapp3.0" />
+	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.xml" target="lib\netcoreapp3.0" />
+	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.XamlDom.dll" target="lib\netcoreapp3.0" />
+	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.XamlDom.pdb" target="lib\netcoreapp3.0" />
+	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.XamlDom.xml" target="lib\netcoreapp3.0" />
   </files>
 </package>

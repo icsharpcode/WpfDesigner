@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2014 AlphaSierraPapa for the SharpDevelop Team
+﻿// Copyright (c) 2019 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -21,6 +21,6 @@ using System.Reflection;
 [assembly: System.Runtime.InteropServices.ComVisible(false)]
 [assembly: AssemblyCompany("ic#code")]
 [assembly: AssemblyProduct("SharpDevelop")]
-[assembly: AssemblyCopyright("2000-2015 AlphaSierraPapa for the SharpDevelop Team")]
-[assembly: AssemblyVersion("5.1.*")]
+[assembly: AssemblyCopyright("2000-2019 AlphaSierraPapa for the SharpDevelop Team")]
+[assembly: AssemblyVersion("8.0.0")]
 

@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFrameworks>netcoreapp3.0;net45</TargetFrameworks>
+	<UseWPF>true</UseWPF>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WpfDesign.Designer\Project\WpfDesign.Designer.csproj" />
+    <ProjectReference Include="..\WpfDesign.XamlDom\Project\WpfDesign.XamlDom.csproj" />
+    <ProjectReference Include="..\WpfDesign\Project\WpfDesign.csproj" />
+  </ItemGroup>
+</Project>

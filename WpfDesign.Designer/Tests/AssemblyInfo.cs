@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2014 AlphaSierraPapa for the SharpDevelop Team
+﻿// Copyright (c) 2019 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -19,6 +19,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Markup;
 
 using NUnit.Framework;
@@ -36,7 +37,7 @@ using NUnit.Framework;
 [assembly: AssemblyCulture("")]
 
 // Run unit tests on STA thread.
-[assembly: RequiresSTA]
+[assembly: Apartment(ApartmentState.STA)]
 
 [assembly: XmlnsPrefix("http://sharpdevelop.net/WpfDesign/Tests/Controls", "sdtcontrols")]
 

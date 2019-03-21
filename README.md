@@ -12,9 +12,9 @@ Branch | Status
 *master* (Development) | [![Build status](https://ci.appveyor.com/api/projects/status/iqxeo16r8ff9qv66/branch/master?svg=true)](https://ci.appveyor.com/project/icsharpcode/WpfDesigner/branch/master) 
 
 
-## System Requirements (running SharpDevelop)
+## System Requirements
 
- - [.NET 4.5](http://www.microsoft.com/en-au/download/details.aspx?id=30653)
+.NET 4.5 or Net Core 3.0
 
 ## Libraries and Integrated Tools
 
@@ -29,4 +29,4 @@ Only the sample app has dependencies:
 ## Sample App
 ![Sample App](/screenshot.png?raw=true "Sample App")
 
-###### Copyright 2015-2016 AlphaSierraPapa for the SharpDevelop team. SharpDevelop is distributed under the MIT license.
+###### Copyright 2015-2019 AlphaSierraPapa for the SharpDevelop team. SharpDevelop is distributed under the MIT license.
