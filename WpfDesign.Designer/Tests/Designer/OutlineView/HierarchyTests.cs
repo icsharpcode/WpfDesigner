@@ -28,7 +28,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer.OutlineView
 		private DesignItem _grid;
 		private IOutlineNode _outline;
 
-		[TestFixtureSetUp]
+		[OneTimeSetUp]
 		public void Intialize()
 		{
 			_grid = CreateGridContextWithDesignSurface("<Button/><StackPanel><Button/></StackPanel>");

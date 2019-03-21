@@ -18,6 +18,8 @@
 
 using System;
 using System.ComponentModel;
+using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Windows;
 
 namespace ICSharpCode.WpfDesign.Designer.themes
@@ -30,10 +32,9 @@ namespace ICSharpCode.WpfDesign.Designer.themes
 
 		static VersionedAssemblyResourceDictionary()
 		{
-			var nm = typeof(VersionedAssemblyResourceDictionary).Assembly.GetName();
-			_uriStart = string.Format( @"/{0};v{1};component/", nm.Name, nm.Version);
-			
-			_subLength = "ICSharpCode.WpfDesign.Designer.".Length;
+			var assemblyName = typeof(VersionedAssemblyResourceDictionary).Assembly.GetName();
+			_uriStart = string.Format(@"/{0};v{1};component/", assemblyName.Name, assemblyName.Version);
+			_subLength = assemblyName.Name.Length + 1;
 		}
 
 		public string RelativePath {get;set;}
@@ -43,7 +44,7 @@ namespace ICSharpCode.WpfDesign.Designer.themes
 			this.Source = new Uri(_uriStart + this.RelativePath, UriKind.Relative);
 			base.EndInit();
 		}
-		
+
 		public static string GetXamlNameForType(Type t)
 		{
 			return _uriStart + t.FullName.Substring(_subLength).Replace(".","/").ToLower() + ".xaml";

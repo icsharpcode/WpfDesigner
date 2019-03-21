@@ -72,7 +72,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 		private DesignItem _buttonInGridWithAutoSize;
 		private DesignItem _buttonIsGridWithFixedSize;
 		
-		[TestFixtureSetUp]
+		[OneTimeSetUp]
 		public void Intialize()
 		{
 			_buttonInGridWithAutoSize=CreateGridContext("<Button/>");

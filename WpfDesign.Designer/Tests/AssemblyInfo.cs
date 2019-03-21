@@ -19,6 +19,7 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Threading;
 using System.Windows.Markup;
 
 using NUnit.Framework;
@@ -36,7 +37,7 @@ using NUnit.Framework;
 [assembly: AssemblyCulture("")]
 
 // Run unit tests on STA thread.
-[assembly: RequiresSTA]
+[assembly: Apartment(ApartmentState.STA)]
 
 [assembly: XmlnsPrefix("http://sharpdevelop.net/WpfDesign/Tests/Controls", "sdtcontrols")]
 

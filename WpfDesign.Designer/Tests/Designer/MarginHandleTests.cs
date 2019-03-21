@@ -31,7 +31,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 	{
 		private DesignItem _button;
 
-        [TestFixtureSetUp]
+        [OneTimeSetUp]
         public void Intialize()
         {
             _button = CreateGridContext("<Button Margin=\"21,21,21,21\" HorizontalAlignment=\"Left\" VerticalAlignment=\"Top\"/>");

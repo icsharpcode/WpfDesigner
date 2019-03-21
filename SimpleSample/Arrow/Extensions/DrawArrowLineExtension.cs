@@ -51,6 +51,12 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			return createItemType == typeof(ArrowLine);
 		}
 
+		public void StartDrawItem(DesignItem clickedOn, Type createItemType, IDesignPanel panel, MouseEventArgs e,
+			Action<DesignItem> drawItemCallback)
+		{
+			throw new NotImplementedException();
+		}
+
 		public void StartDrawItem(DesignItem clickedOn, Type createItemType, IDesignPanel panel, System.Windows.Input.MouseEventArgs e)
 		{
 			var createdItem = CreateItem(panel.Context, createItemType);

@@ -1,4 +1,11 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:Converters="clr-namespace:ICSharpCode.WpfDesign.Designer.Converters" xmlns:PropertyGrid="clr-namespace:ICSharpCode.WpfDesign.Designer.PropertyGrid" xmlns:PropertyGridBase="clr-namespace:ICSharpCode.WpfDesign.PropertyGrid;assembly=ICSharpCode.WpfDesign" xmlns:Controls="clr-namespace:ICSharpCode.WpfDesign.Designer.Controls" xmlns:propertyGrid="clr-namespace:ICSharpCode.WpfDesign.Designer.PropertyGrid">
+﻿<ResourceDictionary 
+	xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+	xmlns:Converters="clr-namespace:ICSharpCode.WpfDesign.Designer.Converters" 
+	xmlns:PropertyGrid="clr-namespace:ICSharpCode.WpfDesign.Designer.PropertyGrid" 
+	xmlns:PropertyGridBase="http://sharpdevelop.net" 
+	xmlns:Controls="clr-namespace:ICSharpCode.WpfDesign.Designer.Controls" 
+	xmlns:propertyGrid="clr-namespace:ICSharpCode.WpfDesign.Designer.PropertyGrid">
 	<Style x:Key="ExpandButtonStyle" TargetType="{x:Type ToggleButton}">
 		<Setter Property="Focusable" Value="False" />
 		<Setter Property="Template">

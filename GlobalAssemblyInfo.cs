@@ -22,5 +22,5 @@ using System.Reflection;
 [assembly: AssemblyCompany("ic#code")]
 [assembly: AssemblyProduct("SharpDevelop")]
 [assembly: AssemblyCopyright("2000-2015 AlphaSierraPapa for the SharpDevelop Team")]
-[assembly: AssemblyVersion("5.1.*")]
+[assembly: AssemblyVersion("8.0.0")]
 

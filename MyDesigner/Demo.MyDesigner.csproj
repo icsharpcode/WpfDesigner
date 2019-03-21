@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net45</TargetFramework>
+	<UseWPF>true</UseWPF>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	<ApplicationIcon />
+	<StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyTestAssembly\Demo.MyTestAssembly.csproj" />
+    <ProjectReference Include="..\WpfDesign.Designer\Project\WpfDesign.Designer.csproj" />
+    <ProjectReference Include="..\WpfDesign\Project\WpfDesign.csproj" />
+  </ItemGroup>
+</Project>
+      
