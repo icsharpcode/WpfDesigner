@@ -26,6 +26,7 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 		ISelectionService SelectionService { get; }
 		bool IsExpanded { get; set; }
 		DesignItem DesignItem { get; set; }
+		ServiceContainer Services { get; }
 		bool IsSelected { get; set; }
 		bool IsDesignTimeVisible { get; set; }
 		bool IsDesignTimeLocked { get; }

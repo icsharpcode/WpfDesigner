@@ -16,17 +16,20 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-
 namespace ICSharpCode.WpfDesign.Designer.OutlineView
 { 
 	public class PropertyOutlineNode : OutlineNode
 	{
-		protected PropertyOutlineNode(string name) : base(name)
+		private DesignItemProperty _property;
+
+		protected PropertyOutlineNode(DesignItemProperty property) : base(property.Name)
 		{
+			_property = property;
+		}
+
+		public override ServiceContainer Services
+		{
+			get { return this._property.DesignItem.Services; }
 		}
 
 		static PropertyOutlineNode()
@@ -34,9 +37,9 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			DummyPlacementType = PlacementType.Register("DummyPlacement");
 		}
 
-		public static IOutlineNode Create(string propertyName)
+		public static IOutlineNode Create(DesignItemProperty property)
 		{
-			return new PropertyOutlineNode(propertyName);
+			return new PropertyOutlineNode(property);
 		}
 	}
 }

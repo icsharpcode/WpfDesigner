@@ -50,8 +50,7 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 		public override bool ShouldItemBeVisible(DragTreeViewItem dragTreeViewitem)
 		{
 			var node = dragTreeViewitem.DataContext as IOutlineNode;
-			
-			return string.IsNullOrEmpty(Filter) || node.DesignItem.Services.GetService<IOutlineNodeNameService>().GetOutlineNodeName(node.DesignItem).ToLower().Contains(Filter.ToLower());
+			return string.IsNullOrEmpty(Filter) || node.Services.GetService<IOutlineNodeNameService>().GetOutlineNodeName(node.DesignItem).ToLower().Contains(Filter.ToLower());
 		}
 		
 		protected override void SelectOnly(DragTreeViewItem item)

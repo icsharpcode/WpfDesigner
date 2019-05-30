@@ -20,9 +20,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Windows;
-using System.Windows.Media;
 
 namespace ICSharpCode.WpfDesign.Designer.OutlineView
 { 
@@ -70,7 +67,7 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 				if (prp.Name != DesignItem.ContentPropertyName) 
 				{
 					if (prp.Value != null) {
-						var propertyNode = PropertyOutlineNode.Create(prp.Name);
+						var propertyNode = PropertyOutlineNode.Create(prp);
 						var node = OutlineNode.Create(prp.Value);
 						propertyNode.Children.Add(node);
 						Children.Add(propertyNode);
@@ -84,7 +81,7 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 				} else {
 					if (content.Value != null) {
 						if (!UpdateChildrenCore(new[] {content.Value})) {
-							var propertyNode = PropertyOutlineNode.Create(content.Name);
+							var propertyNode = PropertyOutlineNode.Create(content);
 							var node = OutlineNode.Create(content.Value);
 							propertyNode.Children.Add(node);
 							Children.Add(propertyNode);

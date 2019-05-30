@@ -96,6 +96,11 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 
 		public DesignItem DesignItem { get; set; }
 
+		public virtual ServiceContainer Services
+		{
+			get { return this.DesignItem.Services; }
+		}
+
 		public ISelectionService SelectionService
 		{
 			get { return DesignItem != null ? DesignItem.Services.Selection : null; }

@@ -31,6 +31,8 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 
 		public string GetOutlineNodeName(DesignItem designItem)
 		{
+			if (designItem == null)
+				return "";
 			if (string.IsNullOrEmpty(designItem.Name)) {
 					return designItem.ComponentType.Name;
 				}
