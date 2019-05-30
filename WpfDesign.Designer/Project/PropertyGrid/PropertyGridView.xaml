@@ -4,8 +4,7 @@
 	xmlns:Converters="clr-namespace:ICSharpCode.WpfDesign.Designer.Converters" 
 	xmlns:PropertyGrid="clr-namespace:ICSharpCode.WpfDesign.Designer.PropertyGrid" 
 	xmlns:PropertyGridBase="http://sharpdevelop.net" 
-	xmlns:Controls="clr-namespace:ICSharpCode.WpfDesign.Designer.Controls" 
-	xmlns:propertyGrid="clr-namespace:ICSharpCode.WpfDesign.Designer.PropertyGrid">
+	xmlns:Controls="clr-namespace:ICSharpCode.WpfDesign.Designer.Controls">
 	<Style x:Key="ExpandButtonStyle" TargetType="{x:Type ToggleButton}">
 		<Setter Property="Focusable" Value="False" />
 		<Setter Property="Template">

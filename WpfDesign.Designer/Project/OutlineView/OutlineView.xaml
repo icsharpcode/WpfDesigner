@@ -1,8 +1,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:Default="clr-namespace:ICSharpCode.WpfDesign.Designer.OutlineView"
-	xmlns:Converters="clr-namespace:ICSharpCode.WpfDesign.Designer.Converters"
->
+	xmlns:Converters="clr-namespace:ICSharpCode.WpfDesign.Designer.Converters">
 	<Converters:LevelConverter x:Key="LevelConverter" />
 
 	<Style TargetType="{x:Type Default:IconItem}">
@@ -157,4 +156,75 @@
 		</Setter>
 	</Style>
 
+	<Style TargetType="ToggleButton" x:Key="eyeStyle">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ToggleButton">
+					<Grid Background="Transparent" IsHitTestVisible="True">
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CheckStates">
+								<VisualState x:Name="Checked">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="eye" Storyboard.TargetProperty="(UIElement.Visibility)">
+											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+										</ObjectAnimationUsingKeyFrames>
+										<ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="closed_eye" Storyboard.TargetProperty="(UIElement.Visibility)">
+											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Collapsed}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="Unchecked"/>
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+						<Image x:Name="eye" Stretch="None" Visibility="Hidden" Source="pack://application:,,,/ICSharpCode.WpfDesign.Designer;component/Images/Icons.16x16.WpfOutline.Eye.png" />
+						<Image x:Name="closed_eye" Stretch="None" Source="pack://application:,,,/ICSharpCode.WpfDesign.Designer;component/Images/Icons.16x16.WpfOutline.EyeClose.png" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style TargetType="ToggleButton" x:Key="lockedStyle">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="ToggleButton">
+					<Grid Background="Transparent" IsHitTestVisible="True">
+						<VisualStateManager.VisualStateGroups>
+							<VisualStateGroup x:Name="CheckStates">
+								<VisualState x:Name="Checked">
+									<Storyboard>
+										<ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="locked" Storyboard.TargetProperty="(UIElement.Visibility)">
+											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Visible}"/>
+										</ObjectAnimationUsingKeyFrames>
+										<ObjectAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="unlocked" Storyboard.TargetProperty="(UIElement.Visibility)">
+											<DiscreteObjectKeyFrame KeyTime="00:00:00" Value="{x:Static Visibility.Collapsed}"/>
+										</ObjectAnimationUsingKeyFrames>
+									</Storyboard>
+								</VisualState>
+								<VisualState x:Name="Unchecked"/>
+							</VisualStateGroup>
+						</VisualStateManager.VisualStateGroups>
+						<Image Width="16" Height="16" x:Name="locked" Stretch="Uniform" Visibility="Hidden" Source="pack://application:,,,/ICSharpCode.WpfDesign.Designer;component/Images/lock.png" />
+						<Ellipse x:Name="unlocked" Width="6" Height="6" Stroke="Black" StrokeThickness="1" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<HierarchicalDataTemplate DataType="{x:Type Default:PropertyOutlineNode}"
+			ItemsSource="{Binding Children}">
+		<DockPanel>
+			<TextBlock Margin="5,0,0,0" FontStyle="Italic" Text="{Binding Name}" />
+		</DockPanel>
+	</HierarchicalDataTemplate>
+
+	<HierarchicalDataTemplate DataType="{x:Type Default:OutlineNode}"
+		                          ItemsSource="{Binding Children}">
+		<DockPanel>
+			<ToggleButton Visibility="{Binding IsVisualNode}" Style="{StaticResource lockedStyle}" DockPanel.Dock="Right" Width="20" Margin="0,0,5,0" IsChecked="{Binding IsDesignTimeLocked}" />
+			<ToggleButton Visibility="{Binding IsVisualNode}" Style="{StaticResource eyeStyle}" DockPanel.Dock="Right" Width="20" Margin="0,0,5,0" IsChecked="{Binding IsDesignTimeVisible}" />
+			<Default:IconItem Icon="../Images/Tag.png" Text="{Binding Name}" />
+		</DockPanel>
+	</HierarchicalDataTemplate>
 </ResourceDictionary>
