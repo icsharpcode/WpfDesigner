@@ -1,8 +1,6 @@
 ﻿<ContextMenu x:Class="ICSharpCode.WpfDesign.Designer.Extensions.DefaultCommandsContextMenu"
              xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:Translation="clr-namespace:ICSharpCode.WpfDesign.Designer"
->
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<MenuItem Command="ApplicationCommands.Cut">
 		<MenuItem.Icon>
 			<Image Source="/ICSharpCode.WpfDesign.Designer;component/Images/Icons.16x16.CutIcon.png" />

@@ -26,6 +26,11 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	{
 		private DesignItem designItem;
 
+		public DefaultCommandsContextMenu()
+		{
+			SpecialInitializeComponent();
+		}
+
 		public DefaultCommandsContextMenu(DesignItem designItem)
 		{
 			this.designItem = designItem;

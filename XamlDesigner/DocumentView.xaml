@@ -4,7 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:DesignerControls="clr-namespace:ICSharpCode.WpfDesign.Designer.Controls;assembly=ICSharpCode.WpfDesign.Designer"
 	xmlns:AvalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
->
+	xmlns:extensions="clr-namespace:ICSharpCode.WpfDesign.Designer.Extensions;assembly=ICSharpCode.WpfDesign.Designer">
 	<DockPanel>
 		<DesignerControls:EnumBar
 			Value="{Binding Mode}"
@@ -13,7 +13,11 @@
 			<AvalonEdit:TextEditor
 				x:Name="uxTextEditor"
 				SyntaxHighlighting="XML" ShowLineNumbers="True"
-				Visibility="{Binding InXamlMode, Converter={StaticResource CollapsedWhenFalse}}" />
+				Visibility="{Binding InXamlMode, Converter={StaticResource CollapsedWhenFalse}}">
+				<AvalonEdit:TextEditor.ContextMenu>
+					<extensions:DefaultCommandsContextMenu />
+				</AvalonEdit:TextEditor.ContextMenu>
+			</AvalonEdit:TextEditor>
 			<ContentPresenter Content="{Binding DesignSurface}"
 				Visibility="{Binding InDesignMode, Converter={StaticResource CollapsedWhenFalse}}"/>
 		</Grid>
