@@ -5,7 +5,7 @@
 	xmlns:local="clr-namespace:ICSharpCode.WpfDesign.Designer.Controls"
 	BorderThickness="0"
 	SelectedValue="{Binding DesignerValue}"
-	Background="{x:Null}"
+	Background="Transparent"
 	Focusable="False"
 	IsNullable="False"
 	VirtualizingStackPanel.ScrollUnit="Pixel" 
