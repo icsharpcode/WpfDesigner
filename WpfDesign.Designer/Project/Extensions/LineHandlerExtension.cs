@@ -104,8 +104,17 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			Line al = ExtendedItem.View as Line;
 			CurrentX2 = al.X2;
 			CurrentY2 = al.Y2;
-			CurrentLeft = (double)al.GetValue(Canvas.LeftProperty);
-			CurrentTop = (double)al.GetValue(Canvas.TopProperty);
+			CurrentLeft = al.Margin.Left;
+			CurrentTop = al.Margin.Top;
+			if (ExtendedItem.Parent.View is Canvas)
+			{
+				var lp = (double)al.GetValue(Canvas.LeftProperty);
+				if (!double.IsNaN(lp))
+					CurrentLeft += lp;
+				var tp = (double)al.GetValue(Canvas.TopProperty);
+				if (!double.IsNaN(tp))
+					CurrentTop += tp;
+			}
 
 			var designPanel = ExtendedItem.Services.DesignPanel as DesignPanel;
 			zoom = designPanel.TryFindParent<ZoomControl>();
