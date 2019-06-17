@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
+using ICSharpCode.WpfDesign;
 using ICSharpCode.WpfDesign.Designer.Services;
 using ICSharpCode.WpfDesign.Designer.Xaml;
 using ICSharpCode.WpfDesign.XamlDom;
@@ -29,12 +31,26 @@ x:Name=""rootElement"" Background=""White""></Grid>";
 			var loadSettings = new XamlLoadSettings();
 			loadSettings.DesignerAssemblies.Add(this.GetType().Assembly);
 
+			DragFileToDesignPanelHelper.Install(designSurface, CreateItemsOnDragCallback);
 			using (var xmlReader = XmlReader.Create(new StringReader(xaml)))
 			{
 				designSurface.LoadDesigner(xmlReader, loadSettings);
 			}
 		}
-		
+
+		private DesignItem[] CreateItemsOnDragCallback(DesignContext context, DragEventArgs e)
+		{
+			var data = e.Data.GetData(DataFormats.FileDrop, false);
+			if (data == null)
+				return null;
+			var item = context.Services.Component.RegisterComponentForDesigner(new TextBlock());
+			item.Properties.GetProperty(FrameworkElement.WidthProperty).SetValue(300.0);
+			item.Properties.GetProperty(FrameworkElement.HeightProperty).SetValue(30.0);
+			string[] fileList = (string[])data;
+			item.Properties.GetProperty(TextBlock.TextProperty).SetValue(string.Join(Environment.NewLine, fileList));
+			return new[] { item };
+		}
+
 		private void lstControls_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			var item = lstControls.SelectedItem as ToolBoxItem;
