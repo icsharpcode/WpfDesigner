@@ -18,10 +18,7 @@
 
 using System;
 using System.ComponentModel;
-using System.IO;
 using System.Windows;
-using System.Xaml;
-using System.Xml;
 
 namespace ICSharpCode.WpfDesign.Extensions
 {
