@@ -157,9 +157,11 @@ namespace ICSharpCode.WpfDesign.PropertyGrid
 		/// </summary>
 		public object DesignerValue {
 			get {
-				if (IsAmbiguous) return null;
+				if (IsAmbiguous)
+					return null;
 				var result = FirstProperty.DesignerValue;
-				if (result == DependencyProperty.UnsetValue) return null;
+				if (result == DependencyProperty.UnsetValue)
+					return null;
 				return result;
 			}
 			set {
@@ -262,9 +264,9 @@ namespace ICSharpCode.WpfDesign.PropertyGrid
 		/// Gets whether the property value is ambiguous (multiple controls having different values are selected).
 		/// </summary>
 		public bool IsAmbiguous {
-			get {
+			get {				
 				foreach (var p in Properties) {
-					if (!object.Equals(p.ValueOnInstance, FirstProperty.ValueOnInstance)) {
+					if (p != FirstProperty && !object.Equals(p.ValueOnInstance, FirstProperty.ValueOnInstance)) {
 						return true;
 					}
 				}

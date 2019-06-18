@@ -58,7 +58,11 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 			if (PropertyNode == null)
 				return;
 
-			var value = (TimeSpan) PropertyNode.DesignerValue;
+            var designerValue = PropertyNode.DesignerValue;
+            if (designerValue == null)
+                return;
+
+            var value = (TimeSpan)designerValue;
 
 
 			if (value < TimeSpan.Zero)
