@@ -66,6 +66,12 @@ namespace ICSharpCode.WpfDesign
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
 		public static readonly PlacementType PasteItem = Register("PasteItem");
 
+		/// <summary>
+		/// Inserting via DragDropFromOutside
+		/// </summary>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes")]
+		public static readonly PlacementType DragDropFromOutside = Register("DragDropFromOutside");
+
 		readonly string name;
 		
 		private PlacementType(string name)

@@ -37,9 +37,10 @@ namespace ICSharpCode.WpfDesign.Extensions
 		{
 			base.OnInitialized();
 			var panel = this.Services.GetService<IDesignPanel>() as FrameworkElement;
-			if (panel != null) {
-				((FrameworkElement) this.Services.DesignPanel).PreviewMouseMove += MouseOverExtensionServer_PreviewMouseMove;
-				((FrameworkElement) this.Services.DesignPanel).MouseLeave += MouseOverExtensionServer_MouseLeave;
+			if (panel != null)
+			{
+				((FrameworkElement)this.Services.DesignPanel).PreviewMouseMove += MouseOverExtensionServer_PreviewMouseMove;
+				((FrameworkElement)this.Services.DesignPanel).MouseLeave += MouseOverExtensionServer_MouseLeave;
 				Services.Selection.SelectionChanged += OnSelectionChanged;
 			}
 		}
@@ -51,7 +52,8 @@ namespace ICSharpCode.WpfDesign.Extensions
 
 		private void MouseOverExtensionServer_MouseLeave(object sender, MouseEventArgs e)
 		{
-			if (_lastItem != null) {
+			if (_lastItem != null)
+			{
 				var oldLastItem = _lastItem;
 				_lastItem = null;
 				ReapplyExtensions(new[] { oldLastItem });
@@ -74,14 +76,17 @@ namespace ICSharpCode.WpfDesign.Extensions
 					if (item == null)
 						return HitTestFilterBehavior.ContinueSkipSelf;
 
-					if (element == null || item.Parent == element) {
+					if (element == null || item.Parent == element)
+					{
 						element = item;
 						return HitTestFilterBehavior.Continue;
 					}
 
 					var par = item.Parent;
-					while (par != null) {
-						if (par.Parent == element) {
+					while (par != null)
+					{
+						if (par.Parent == element)
+						{
 							element = item;
 							return HitTestFilterBehavior.Continue;
 						}
@@ -99,8 +104,9 @@ namespace ICSharpCode.WpfDesign.Extensions
 			var oldLastItem = _lastItem;
 			_lastItem = element;
 			if (oldLastItem != null && oldLastItem != element)
-				ReapplyExtensions(new[] { oldLastItem, element});
-			else {
+				ReapplyExtensions(new[] { oldLastItem, element });
+			else
+			{
 				ReapplyExtensions(new[] { element });
 			}
 		}
@@ -113,5 +119,4 @@ namespace ICSharpCode.WpfDesign.Extensions
 			return extendedItem == _lastItem && !Services.Selection.IsComponentSelected(extendedItem);
 		}
 	}
-
 }
