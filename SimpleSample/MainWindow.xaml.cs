@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
 using ICSharpCode.WpfDesign;
+using ICSharpCode.WpfDesign.Designer;
 using ICSharpCode.WpfDesign.Designer.Services;
 using ICSharpCode.WpfDesign.Designer.Xaml;
 using ICSharpCode.WpfDesign.XamlDom;
@@ -27,6 +28,8 @@ x:Name=""rootElement"" Background=""White""></Grid>";
 		public MainWindow()
 		{
 			InitializeComponent();
+
+			BasicMetadata.Register();
 
 			var loadSettings = new XamlLoadSettings();
 			loadSettings.DesignerAssemblies.Add(this.GetType().Assembly);
