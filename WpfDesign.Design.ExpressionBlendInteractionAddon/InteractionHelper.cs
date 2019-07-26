@@ -16,12 +16,12 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
+using Microsoft.Xaml.Behaviors;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Interactivity;
 
 namespace ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon
 {
@@ -94,7 +94,7 @@ namespace ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon
 
 		public static IEnumerable<Type> GetTriggers(params Assembly[] assemblies)
 		{
-			return assemblies.SelectMany(x => x.GetTypes()).Where(x => !x.IsAbstract && !x.IsInterface && !x.IsEnum && typeof(System.Windows.Interactivity.TriggerBase).IsAssignableFrom(x));
+			return assemblies.SelectMany(x => x.GetTypes()).Where(x => !x.IsAbstract && !x.IsInterface && !x.IsEnum && typeof(Microsoft.Xaml.Behaviors.TriggerBase).IsAssignableFrom(x));
 		}
 	}
 }
