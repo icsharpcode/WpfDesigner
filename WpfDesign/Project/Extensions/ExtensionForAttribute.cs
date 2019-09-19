@@ -74,8 +74,6 @@ namespace ICSharpCode.WpfDesign.Extensions
 		{
 			if (designedItemType == null)
 				throw new ArgumentNullException("designedItemType");
-			if (!designedItemType.IsClass)
-				throw new ArgumentException("designedItemType must be a class");
 			_designedItemType = designedItemType;
 		}
 	}
