@@ -50,6 +50,7 @@ steps:
 
 - powershell: .\nuget\pack.ps1
   displayName: Pack
+  condition: and(succeeded(), eq(variables['BuildConfiguration'], 'Release'))
 
 - task: CopyFiles@2
   displayName: Move to publish directory
