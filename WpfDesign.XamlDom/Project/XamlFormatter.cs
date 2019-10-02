@@ -63,7 +63,10 @@ namespace ICSharpCode.WpfDesign.XamlDom
 			
 			Console.WriteLine(info.LinePosition);
 			NewLine();
-			string prefix1 = e.GetPrefixOfNamespace(e.Name.Namespace);
+			var defaultNs = e.GetDefaultNamespace();
+			string prefix1 = null;
+			if (defaultNs != e.Name.Namespace)
+				prefix1 = e.GetPrefixOfNamespace(e.Name.Namespace);
 			string name1 = prefix1 == null ? e.Name.LocalName : prefix1 + ":" + e.Name.LocalName;
 			newLineInfo.Position = sb.Length;
 			Append("<" + name1);
@@ -72,7 +75,9 @@ namespace ICSharpCode.WpfDesign.XamlDom
 			int length = name1.Length;
 
 			foreach (var a in e.Attributes()) {
-				string prefix2 = e.GetPrefixOfNamespace(a.Name.Namespace);
+				string prefix2 = null;
+				if (defaultNs != a.Name.Namespace)
+					prefix2 = e.GetPrefixOfNamespace(a.Name.Namespace);
 				var g = new AttributeString() { Name = a.Name, Prefix = prefix2, Value = a.Value };
 				list.Add(g);
 				length += g.FinalString.Length;

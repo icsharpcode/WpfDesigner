@@ -49,10 +49,14 @@ namespace ICSharpCode.WpfDesign.XamlDom
 					{
 						if (attribute.Name.StartsWith("xmlns:"))
 						{
-							if (!attLst.ContainsKey(attribute.Name))
+							var existingNs = nd.GetNamespaceOfPrefix(attribute.Name.Substring(6));
+							if (string.IsNullOrEmpty(existingNs))
 							{
-								nd.Attributes.Append((XmlAttribute)attribute.CloneNode(false));
-								attLst.Add(attribute.Name, attribute);
+								if (!attLst.ContainsKey(attribute.Name))
+								{
+									nd.Attributes.Append((XmlAttribute)attribute.CloneNode(false));
+									attLst.Add(attribute.Name, attribute);
+								}
 							}
 						}
 					}
