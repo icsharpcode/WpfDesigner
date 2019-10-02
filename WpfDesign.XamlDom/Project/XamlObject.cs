@@ -139,6 +139,8 @@ namespace ICSharpCode.WpfDesign.XamlDom
 
 		string GetPrefixOfNamespace(string ns, XmlElement target)
 		{
+			if (target.NamespaceURI == ns)
+				return null;
 			var prefix = target.GetPrefixOfNamespace(ns);
 			if (!string.IsNullOrEmpty(prefix))
 				return prefix;

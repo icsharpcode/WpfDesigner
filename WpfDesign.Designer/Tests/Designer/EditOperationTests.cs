@@ -265,8 +265,8 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 								  "</sdtcontrols:CustomButton>\n";
 			
 			AssertGridDesignerOutput(expectedXaml, grid.Context,
-									"xmlns:sdtcontrols=\"http://sharpdevelop.net/WpfDesign/Tests/Controls\"",
-									"xmlns:Controls0=\"clr-namespace:ICSharpCode.WpfDesign.Tests.Designer;assembly=ICSharpCode.WpfDesign.Tests\"");
+									"xmlns:Controls0=\"clr-namespace:ICSharpCode.WpfDesign.Tests.Designer;assembly=ICSharpCode.WpfDesign.Tests\"",
+									"xmlns:sdtcontrols=\"http://sharpdevelop.net/WpfDesign/Tests/Controls\"");
 		}
 		
 		[Test]
@@ -294,8 +294,8 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 								  "<sdtcontrols:CustomButton Tag=\"{StaticResource res1}\" />\n";
 			
 			AssertGridDesignerOutput(expectedXaml, grid.Context,
-			                         "xmlns:Controls0=\"clr-namespace:ICSharpCode.WpfDesign.Tests.Designer;assembly=ICSharpCode.WpfDesign.Tests\"",
-			                         "xmlns:sdtcontrols=\"http://sharpdevelop.net/WpfDesign/Tests/Controls\"");
+			                        "xmlns:Controls0=\"clr-namespace:ICSharpCode.WpfDesign.Tests.Designer;assembly=ICSharpCode.WpfDesign.Tests\"",
+									"xmlns:sdtcontrols=\"http://sharpdevelop.net/WpfDesign/Tests/Controls\"");
 			
 			var xamlContext = grid.Context as XamlDesignContext;
 			Assert.IsNotNull(xamlContext);
