@@ -510,7 +510,7 @@ namespace ICSharpCode.WpfDesign.XamlDom
 				collection.AppendChild(newChildNode);
 			} else if (index == collectionElements.Count) {
 				// insert after last element in collection
-				collection.InsertAfter(newChildNode, collectionElements[collectionElements.Count - 1].GetNodeForCollection());
+				collection.AppendChild(newChildNode);
 			} else {
 				// insert before specified index
 				collection.InsertBefore(newChildNode, collectionElements[index].GetNodeForCollection());
