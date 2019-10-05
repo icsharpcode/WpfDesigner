@@ -505,11 +505,9 @@ namespace ICSharpCode.WpfDesign.XamlDom
 					collection = parentObject.XmlElement;
 				}
 			}
-			if (collectionElements.Count == 0) {
-				// collection is empty -> we may insert anywhere
-				collection.AppendChild(newChildNode);
-			} else if (index == collectionElements.Count) {
-				// insert after last element in collection
+			if (collectionElements.Count == 0 || index == collectionElements.Count) {
+				// collection is empty -> we may insert anywhere, thus we choose the end
+				// or the index is the end of the list:
 				collection.AppendChild(newChildNode);
 			} else {
 				// insert before specified index
