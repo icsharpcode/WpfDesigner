@@ -15,6 +15,12 @@
 		<TextBlock Text="{Binding Component}" />
 	</DataTemplate>
 	<DataTemplate x:Key="DefaultTemplate" DataType="wpfDesign:DesignItem">
-		<TextBlock Text="{Binding ComponentType.Name}" />
+		<TextBlock>
+			<TextBlock.Text>
+				<MultiBinding StringFormat="{}{0}">
+					<Binding Path="Component" />
+				</MultiBinding>
+			</TextBlock.Text>
+		</TextBlock>
 	</DataTemplate>
 </ResourceDictionary>
