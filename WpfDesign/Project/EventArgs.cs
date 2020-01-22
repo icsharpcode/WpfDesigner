@@ -50,6 +50,8 @@ namespace ICSharpCode.WpfDesign
 	public class DesignItemPropertyChangedEventArgs : DesignItemEventArgs
 	{
 		readonly DesignItemProperty _itemProperty;
+		readonly object _oldValue;
+		readonly object _newValue;
 
 		/// <summary>
 		/// Creates a new ComponentEventArgs instance.
@@ -58,12 +60,37 @@ namespace ICSharpCode.WpfDesign
 		{
 			_itemProperty = itemProperty;
 		}
-		
+
+		/// <summary>
+		/// Creates a new ComponentEventArgs instance.
+		/// </summary>
+		public DesignItemPropertyChangedEventArgs(DesignItem item, DesignItemProperty itemProperty, object oldValue, object newValue) : this(item, itemProperty)
+		{
+			_oldValue = oldValue;
+			_newValue = newValue;
+		}
+
 		/// <summary>
 		/// The property affected by the event.
 		/// </summary>
 		public DesignItemProperty ItemProperty {
 			get { return _itemProperty; }
+		}
+
+		/// <summary>
+		/// Previous Value
+		/// </summary>
+		public object OldValue
+		{
+			get { return _oldValue; }
+		}
+
+		/// <summary>
+		/// New Value
+		/// </summary>
+		public object NewValue
+		{
+			get { return _newValue; }
 		}
 	}
 	
