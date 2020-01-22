@@ -260,13 +260,13 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			public void Do()
 			{
 				collection.InsertInternal(index, item);
-				collection.modelProperty.XamlDesignItem.NotifyPropertyChanged(collection.modelProperty);
+				collection.modelProperty.XamlDesignItem.NotifyPropertyChanged(collection.modelProperty, null, item);
 			}
 			
 			public void Undo()
 			{
 				collection.RemoveInternal(index, item);
-				collection.modelProperty.XamlDesignItem.NotifyPropertyChanged(collection.modelProperty);
+				collection.modelProperty.XamlDesignItem.NotifyPropertyChanged(collection.modelProperty, item, null);
 			}
 			
 			public bool MergeWith(ITransactionItem other)
@@ -303,13 +303,13 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			public void Do()
 			{
 				collection.RemoveInternal(index, item);
-				collection.modelProperty.XamlDesignItem.NotifyPropertyChanged(collection.modelProperty);
+				collection.modelProperty.XamlDesignItem.NotifyPropertyChanged(collection.modelProperty, item ,null);
 			}
 			
 			public void Undo()
 			{
 				collection.InsertInternal(index, item);
-				collection.modelProperty.XamlDesignItem.NotifyPropertyChanged(collection.modelProperty);
+				collection.modelProperty.XamlDesignItem.NotifyPropertyChanged(collection.modelProperty, null, item);
 			}
 			
 			public bool MergeWith(ITransactionItem other)
@@ -340,14 +340,14 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 				for (int i = items.Length - 1; i >= 0; i--) {
 					collection.RemoveInternal(i, items[i]);
 				}
-				collection.modelProperty.XamlDesignItem.NotifyPropertyChanged(collection.modelProperty);
+				collection.modelProperty.XamlDesignItem.NotifyPropertyChanged(collection.modelProperty, items, null);
 			}
 			public void Undo()
 			{
 				for (int i = 0; i < items.Length; i++) {
 					collection.InsertInternal(i, items[i]);
 				}
-				collection.modelProperty.XamlDesignItem.NotifyPropertyChanged(collection.modelProperty);
+				collection.modelProperty.XamlDesignItem.NotifyPropertyChanged(collection.modelProperty, null, items);
 			}
 			public bool MergeWith(ITransactionItem other)
 			{

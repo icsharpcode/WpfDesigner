@@ -201,11 +201,11 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		/// <summary>
 		/// raises the Property changed Events
 		/// </summary>
-		internal void RaisePropertyChanged(XamlModelProperty property)
+		internal void RaisePropertyChanged(XamlModelProperty property, object oldValue, object newValue)
 		{
 			var ev = this.PropertyChanged;
 			if (ev != null) {
-				ev(this, new DesignItemPropertyChangedEventArgs(property.DesignItem, property));
+				ev(this, new DesignItemPropertyChangedEventArgs(property.DesignItem, property, oldValue, newValue));
 			}
 		}
 		

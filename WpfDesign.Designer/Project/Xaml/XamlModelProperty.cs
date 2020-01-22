@@ -247,8 +247,9 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		
 		void SetValueInternal(XamlPropertyValue newValue)
 		{
+			var oldValue = _property.PropertyValue;
 			_property.PropertyValue = newValue;
-			_designItem.NotifyPropertyChanged(this);
+			_designItem.NotifyPropertyChanged(this, oldValue, newValue);
 		}
 		
 		public override void Reset()
@@ -262,9 +263,11 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		
 		void ResetInternal()
 		{
-			if (_property.IsSet) {
+			if (_property.IsSet)
+			{
+				var oldValue = _property.PropertyValue;
 				_property.Reset();
-				_designItem.NotifyPropertyChanged(this);
+				_designItem.NotifyPropertyChanged(this, oldValue, null);
 			}
 		}
 		
