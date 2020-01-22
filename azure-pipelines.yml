@@ -1,0 +1,67 @@
+trigger:
+- master
+
+pr:
+- master
+
+variables:
+  solution: '**/WpfDesign.sln'
+  buildPlatform: 'Any CPU'
+  buildVersion: '8.0.$(Build.BuildId)'
+
+pool:
+  vmImage: 'windows-2019'
+strategy:
+  matrix:
+    Config_Release:
+        buildConfiguration: 'Release'
+    Config_Debug:
+        buildConfiguration: 'Debug'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: Assembly-Info-NetFramework@2
+  inputs:
+    Path: '$(Build.SourcesDirectory)'
+    FileNames: '**\GlobalAssemblyInfo.*'
+    InsertAttributes: false
+    FileEncoding: 'auto'
+    WriteBOM: false
+    VersionNumber: '$(buildVersion)'
+    FileVersionNumber: '$(buildVersion)'
+    InformationalVersion: '$(buildVersion)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: ''
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  inputs:
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- powershell: .\nuget\pack.ps1
+  displayName: Pack
+  condition: and(succeeded(), eq(variables['BuildConfiguration'], 'Release'))
+
+- task: CopyFiles@2
+  displayName: Move to publish directory
+  inputs:
+    contents: |
+      **\*.nupkg
+    targetFolder: $(Build.ArtifactStagingDirectory)
+  condition: and(succeeded(), eq(variables['BuildConfiguration'], 'Release'))
+
+- task: PublishPipelineArtifact@0
+  displayName: Publish $(BuildConfiguration)
+  inputs:
+    targetPath: $(Build.ArtifactStagingDirectory)
+  condition: and(succeeded(), eq(variables['BuildConfiguration'], 'Release'))
