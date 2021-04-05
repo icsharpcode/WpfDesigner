@@ -1,7 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net45</TargetFramework>
+    <TargetFramework>net5.0-windows</TargetFramework>
 	<UseWPF>true</UseWPF>
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<ApplicationIcon />
@@ -22,8 +22,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AvalonEdit" Version="5.0.4" />
-		<PackageReference Include="DotNetProjects.AvalonDock" Version="3.2.49" />	
+    <PackageReference Include="AvalonEdit" Version="6.1.1" />
+    <PackageReference Include="Dirkster.AvalonDock" Version="4.50.3" />	
 	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WpfDesign.Design.ExpressionBlendInteractionAddon\WpfDesign.Designer.ExpressionBlendInteractionAddon.csproj" />

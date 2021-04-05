@@ -7,9 +7,8 @@ using ICSharpCode.XamlDesigner.Configuration;
 using System.ComponentModel;
 using Microsoft.Win32;
 using System.IO;
-using System.Xml;
 using ICSharpCode.WpfDesign.Designer;
-using Xceed.Wpf.AvalonDock.Layout.Serialization;
+using AvalonDock.Layout.Serialization;
 
 namespace ICSharpCode.XamlDesigner
 {
