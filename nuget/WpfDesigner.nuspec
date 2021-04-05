@@ -6,7 +6,7 @@
 	<title>WPF Designer</title>
     <authors>IC#Code</authors>
     <owners>IC#Code</owners>
-    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <license type="expression">MIT</license>
     <projectUrl>https://github.com/icsharpcode/WpfDesigner</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A Designer Framework for WPF UIs</description>
