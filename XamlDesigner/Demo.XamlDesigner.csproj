@@ -8,14 +8,6 @@
 	<StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Images\Error.png" />
-    <None Remove="Images\Reference.png" />
-    <None Remove="Images\Tag.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Remove="NewFileTemplate.xaml" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="NewFileTemplate.xaml">
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
