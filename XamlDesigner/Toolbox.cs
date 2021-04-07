@@ -31,7 +31,7 @@ namespace ICSharpCode.XamlDesigner
 
 		void AddAssembly(string path, bool updateSettings)
 		{
-			var assembly = Assembly.LoadFile(path);
+			var assembly = Assembly.LoadFrom(path);
 			
 			MyTypeFinder.Instance.RegisterAssembly(assembly);
 			
