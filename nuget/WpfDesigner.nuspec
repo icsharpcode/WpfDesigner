@@ -11,9 +11,13 @@
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A Designer Framework for WPF UIs</description>
 	<summary>WpfDesigner is the graphical WPF UI designer used in SharpDevelop</summary>
-    <copyright>Copyright (c) 2015-2019 IC#Code</copyright>
+    <copyright>Copyright (c) 2015-2021 IC#Code</copyright>
 	<language>en-US</language>
 	<tags>WPF XAML Designer UI Editor SharpDevelop WpfDesigner</tags>
+	<dependencies>
+      <group targetFramework=".NETFramework4.5" />
+	  <group targetFramework="net5.0-windows" />
+    </dependencies>
   </metadata>
   <files>
     <file src="..\bin\net45\ICSharpCode.WpfDesign.Designer.dll" target="lib\net45" />
@@ -25,14 +29,14 @@
 	<file src="..\bin\net45\ICSharpCode.WpfDesign.XamlDom.dll" target="lib\net45" />
 	<file src="..\bin\net45\ICSharpCode.WpfDesign.XamlDom.pdb" target="lib\net45" />
 	<file src="..\bin\net45\ICSharpCode.WpfDesign.XamlDom.xml" target="lib\net45" />
-	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.Designer.dll" target="lib\netcoreapp3.0" />
-    <file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.Designer.pdb" target="lib\netcoreapp3.0" />
-	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.Designer.xml" target="lib\netcoreapp3.0" />
-	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.dll" target="lib\netcoreapp3.0" />
-	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.pdb" target="lib\netcoreapp3.0" />
-	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.xml" target="lib\netcoreapp3.0" />
-	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.XamlDom.dll" target="lib\netcoreapp3.0" />
-	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.XamlDom.pdb" target="lib\netcoreapp3.0" />
-	<file src="..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.XamlDom.xml" target="lib\netcoreapp3.0" />
+	<file src="..\bin\net5.0-windows\ICSharpCode.WpfDesign.Designer.dll" target="lib\net5.0-windows" />
+    <file src="..\bin\net5.0-windows\ICSharpCode.WpfDesign.Designer.pdb" target="lib\net5.0-windows" />
+	<file src="..\bin\net5.0-windows\ICSharpCode.WpfDesign.Designer.xml" target="lib\net5.0-windows" />
+	<file src="..\bin\net5.0-windows\ICSharpCode.WpfDesign.dll" target="lib\net5.0-windows" />
+	<file src="..\bin\net5.0-windows\ICSharpCode.WpfDesign.pdb" target="lib\net5.0-windows" />
+	<file src="..\bin\net5.0-windows\ICSharpCode.WpfDesign.xml" target="lib\net5.0-windows" />
+	<file src="..\bin\net5.0-windows\ICSharpCode.WpfDesign.XamlDom.dll" target="lib\net5.0-windows" />
+	<file src="..\bin\net5.0-windows\ICSharpCode.WpfDesign.XamlDom.pdb" target="lib\net5.0-windows" />
+	<file src="..\bin\net5.0-windows\ICSharpCode.WpfDesign.XamlDom.xml" target="lib\net5.0-windows" />
   </files>
 </package>
