@@ -7,7 +7,7 @@
         xmlns:Default="clr-namespace:ICSharpCode.XamlDesigner"
         xmlns:behaviorsEditor="clr-namespace:ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.BehaviorsEditor;assembly=ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon"
         xmlns:triggersEditor="clr-namespace:ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.TriggersEditor;assembly=ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon"
-        xmlns:avalonDockConv="clr-namespace:ICSharpCode.XamlDesigner.AvalonDock" 
+        xmlns:avalonDockConv="clr-namespace:ICSharpCode.XamlDesigner.Converters" 
 		xmlns:avalondock="https://github.com/Dirkster99/AvalonDock"
 		SnapsToDevicePixels="True"
         AllowDrop="True"

@@ -8,6 +8,7 @@ using ICSharpCode.XamlDesigner.Configuration;
 using System.Windows;
 using System.Collections.Specialized;
 using ICSharpCode.WpfDesign;
+using System.Windows.Controls;
 
 namespace ICSharpCode.XamlDesigner
 {
@@ -16,7 +17,8 @@ namespace ICSharpCode.XamlDesigner
 		public Toolbox()
 		{
 			AssemblyNodes = new ObservableCollection<AssemblyNode>();
-			LoadSettings();
+			AddAssembly(typeof(Button).Assembly.Location);
+			//LoadSettings();
 		}
 
 		public static Toolbox Instance = new Toolbox();
