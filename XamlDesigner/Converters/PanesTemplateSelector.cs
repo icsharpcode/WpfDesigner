@@ -1,8 +1,8 @@
-﻿using System.Windows;
+﻿using AvalonDock.Layout;
+using System.Windows;
 using System.Windows.Controls;
-using Xceed.Wpf.AvalonDock.Layout;
 
-namespace ICSharpCode.XamlDesigner.AvalonDock
+namespace ICSharpCode.XamlDesigner.Converters
 {
 	class PanesTemplateSelector : DataTemplateSelector
 	{

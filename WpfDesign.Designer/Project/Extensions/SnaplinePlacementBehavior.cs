@@ -332,6 +332,16 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				}
 			}
 		}
+
+		/// <summary>
+		/// Method Returns the DesignItems for wich Snaplines are created
+		/// </summary>
+		/// <param name="operation"></param>
+		/// <returns></returns>
+		protected IEnumerable<DesignItem> GetSnapToDesignItems(PlacementOperation operation)
+		{
+			return AllDesignItems();
+		}
 		
 		void BuildMaps(PlacementOperation operation)
 		{
@@ -351,7 +361,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			if (!CanPlace(operation.PlacedItems.Select(x => x.Item), operation.Type, PlacementAlignment.Center))
 				return;
 
-			foreach (var item in AllDesignItems()
+			foreach (var item in GetSnapToDesignItems(operation)
 			         .Except(operation.PlacedItems.Select(f => f.Item))
 			         .Where(x=> x.View != null && !GetDisableSnaplines(x.View))) {
 				if (item != null) {

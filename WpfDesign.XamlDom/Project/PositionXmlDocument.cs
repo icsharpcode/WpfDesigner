@@ -147,28 +147,62 @@ namespace ICSharpCode.WpfDesign.XamlDom
 					if (xmlWriterField != null)
 					{
 						var xmlwriter = xmlWriterField.GetValue(w);
+
 						var rawTextWPrp = xmlwriter.GetType()
 							.GetProperty("InnerWriter", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-						var rawTextW = rawTextWPrp.GetValue(xmlwriter, null);
-						var bufCharsField = rawTextW.GetType()
-							.GetField("bufChars", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-						var contentPosField = rawTextW.GetType()
-							.GetField("contentPos", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-						var buffPosField = rawTextW.GetType()
-							.GetField("bufPos", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-						var ioTextWriterField = rawTextW.GetType()
-							.GetField("writer", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-						var ioTextWriter = ioTextWriterField.GetValue(rawTextW);
-						var sbField = ioTextWriter.GetType()
-							.GetField("_sb", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
-						positionXmlDocument.writerSb = sbField.GetValue(ioTextWriter) as StringBuilder;
+						if (rawTextWPrp != null)
+						{
+							var rawTextW = rawTextWPrp.GetValue(xmlwriter, null);
+							var bufCharsField = rawTextW.GetType()
+								.GetField("bufChars", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+							var contentPosField = rawTextW.GetType()
+								.GetField("contentPos", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+							var buffPosField = rawTextW.GetType()
+								.GetField("bufPos", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+							var ioTextWriterField = rawTextW.GetType()
+								.GetField("writer", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+							var ioTextWriter = ioTextWriterField.GetValue(rawTextW);
+							var sbField = ioTextWriter.GetType()
+								.GetField("_sb", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+							positionXmlDocument.writerSb = sbField.GetValue(ioTextWriter) as StringBuilder;
 
-						positionXmlDocument.bufGetter =
-							Expression.Lambda<Func<char[]>>(Expression.Field(Expression.Constant(rawTextW), bufCharsField)).Compile();
-						positionXmlDocument.contentPosFieldGetter =
-							Expression.Lambda<Func<int>>(Expression.Field(Expression.Constant(rawTextW), contentPosField)).Compile();
-						positionXmlDocument.buffPosGetter =
-							Expression.Lambda<Func<int>>(Expression.Field(Expression.Constant(rawTextW), buffPosField)).Compile();
+							positionXmlDocument.bufGetter =
+								Expression.Lambda<Func<char[]>>(Expression.Field(Expression.Constant(rawTextW), bufCharsField)).Compile();
+							positionXmlDocument.contentPosFieldGetter =
+								Expression.Lambda<Func<int>>(Expression.Field(Expression.Constant(rawTextW), contentPosField)).Compile();
+							positionXmlDocument.buffPosGetter =
+								Expression.Lambda<Func<int>>(Expression.Field(Expression.Constant(rawTextW), buffPosField)).Compile();
+						}
+						else
+						{
+
+							rawTextWPrp = xmlwriter.GetType()
+								.GetProperty("RawWriter", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+							if (rawTextWPrp != null)
+							{
+								var rawTextW = rawTextWPrp.GetValue(xmlwriter, null);
+								var bufCharsField = rawTextW.GetType()
+									.GetField("_bufChars", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+								var contentPosField = rawTextW.GetType()
+									.GetField("_contentPos", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+								var buffPosField = rawTextW.GetType()
+									.GetField("_bufPos", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+								var ioTextWriterField = rawTextW.GetType()
+									.GetField("_writer", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+								var ioTextWriter = ioTextWriterField.GetValue(rawTextW);
+								var sbField = ioTextWriter.GetType()
+									.GetField("_sb", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+								positionXmlDocument.writerSb = sbField.GetValue(ioTextWriter) as StringBuilder;
+
+								positionXmlDocument.bufGetter =
+									Expression.Lambda<Func<char[]>>(Expression.Field(Expression.Constant(rawTextW), bufCharsField)).Compile();
+								positionXmlDocument.contentPosFieldGetter =
+									Expression.Lambda<Func<int>>(Expression.Field(Expression.Constant(rawTextW), contentPosField)).Compile();
+								positionXmlDocument.buffPosGetter =
+									Expression.Lambda<Func<int>>(Expression.Field(Expression.Constant(rawTextW), buffPosField)).Compile();
+							}
+						}
+						
 					}
 				}
 				catch(Exception)

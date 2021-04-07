@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>netcoreapp3.0;net45</TargetFrameworks>
+    <TargetFrameworks>net45;net5.0-windows</TargetFrameworks>
 	<UseWPF>true</UseWPF>
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<AssemblyName>ICSharpCode.WpfDesign.Designer</AssemblyName>
-  <DocumentationFile>..\..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.Designer.xml</DocumentationFile>
+  <DocumentationFile>..\..\bin\net5.0-windows\ICSharpCode.WpfDesign.Designer.xml</DocumentationFile>
   <OutputPath>..\..\bin\</OutputPath>
   </PropertyGroup>
 	<ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">

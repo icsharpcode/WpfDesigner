@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>netcoreapp3.0;net45</TargetFrameworks>
-		<DocumentationFile>..\..\bin\netcoreapp3.0\ICSharpCode.WpfDesign.xml</DocumentationFile>
+    <TargetFrameworks>net45;net5.0-windows</TargetFrameworks>
+		<DocumentationFile>..\..\bin\net5.0-windows\ICSharpCode.WpfDesign.xml</DocumentationFile>
 		<OutputPath>..\..\bin\</OutputPath>
 	<UseWPF>true</UseWPF>
 	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>

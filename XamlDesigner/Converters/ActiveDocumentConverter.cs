@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Data;
 
-namespace ICSharpCode.XamlDesigner.AvalonDock
+namespace ICSharpCode.XamlDesigner.Converters
 {
 	class ActiveDocumentConverter : IValueConverter
 	{

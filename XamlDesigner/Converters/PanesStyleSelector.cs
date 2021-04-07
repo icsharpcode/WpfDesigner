@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace ICSharpCode.XamlDesigner.AvalonDock
+namespace ICSharpCode.XamlDesigner.Converters
 {
 	class PanesStyleSelector : StyleSelector
 	{

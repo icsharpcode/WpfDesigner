@@ -3,17 +3,17 @@
         xmlns="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:sd="http://sharpdevelop.net"
-        xmlns:avalondock="http://schemas.xceed.com/wpf/xaml/avalondock"
         xmlns:Outline="clr-namespace:ICSharpCode.WpfDesign.Designer.OutlineView;assembly=ICSharpCode.WpfDesign.Designer"
         xmlns:Default="clr-namespace:ICSharpCode.XamlDesigner"
         xmlns:behaviorsEditor="clr-namespace:ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.BehaviorsEditor;assembly=ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon"
         xmlns:triggersEditor="clr-namespace:ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon.TriggersEditor;assembly=ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon"
-        xmlns:avalonDock="clr-namespace:ICSharpCode.XamlDesigner.AvalonDock"
-        SnapsToDevicePixels="True"
+        xmlns:avalonDockConv="clr-namespace:ICSharpCode.XamlDesigner.Converters" 
+		xmlns:avalondock="https://github.com/Dirkster99/AvalonDock"
+		SnapsToDevicePixels="True"
         AllowDrop="True"
         Title="{Binding Title}">
 	<Window.Resources>
-		<avalonDock:ActiveDocumentConverter x:Key="ActiveDocumentConverter" />
+		<avalonDockConv:ActiveDocumentConverter x:Key="ActiveDocumentConverter" />
 	</Window.Resources>
 	
 	<Window.CommandBindings>
@@ -97,28 +97,28 @@
 		</Menu>
 
 		<avalondock:DockingManager x:Name="uxDockingManager"
-                    AllowMixedOrientation="True" 
+                   AllowMixedOrientation="True" 
                    DocumentsSource="{Binding Documents}"
                    ActiveContent="{Binding CurrentDocument, Mode=TwoWay, Converter={StaticResource ActiveDocumentConverter}}">
 
 			<avalondock:DockingManager.LayoutItemTemplateSelector>
-				<avalonDock:PanesTemplateSelector>
-					<avalonDock:PanesTemplateSelector.DocumentTemplate>
+				<avalonDockConv:PanesTemplateSelector>
+					<avalonDockConv:PanesTemplateSelector.DocumentTemplate>
 						<DataTemplate>
 							<Default:DocumentView />
 						</DataTemplate>
-					</avalonDock:PanesTemplateSelector.DocumentTemplate>
-				</avalonDock:PanesTemplateSelector>
+					</avalonDockConv:PanesTemplateSelector.DocumentTemplate>
+				</avalonDockConv:PanesTemplateSelector>
 			</avalondock:DockingManager.LayoutItemTemplateSelector>
 
 			<avalondock:DockingManager.LayoutItemContainerStyleSelector>
-				<avalonDock:PanesStyleSelector>
-					<avalonDock:PanesStyleSelector.DocumentStyle>
+				<avalonDockConv:PanesStyleSelector>
+					<avalonDockConv:PanesStyleSelector.DocumentStyle>
 						<Style TargetType="{x:Type avalondock:LayoutItem}">
 							<Setter Property="Title" Value="{Binding Model.Name}" />
 						</Style>
-					</avalonDock:PanesStyleSelector.DocumentStyle>
-				</avalonDock:PanesStyleSelector>
+					</avalonDockConv:PanesStyleSelector.DocumentStyle>
+				</avalonDockConv:PanesStyleSelector>
 			</avalondock:DockingManager.LayoutItemContainerStyleSelector>
 
 			<avalondock:LayoutRoot>
