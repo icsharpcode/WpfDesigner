@@ -14,6 +14,10 @@
     <copyright>Copyright (c) 2015-2021 IC#Code</copyright>
 	<language>en-US</language>
 	<tags>WPF XAML Designer UI Editor SharpDevelop WpfDesigner</tags>
+	<dependencies>
+      <group targetFramework=".NETFramework4.5" />
+	  <group targetFramework="net5.0-windows" />
+    </dependencies>
   </metadata>
   <files>
     <file src="..\bin\net45\ICSharpCode.WpfDesign.Designer.dll" target="lib\net45" />
