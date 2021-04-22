@@ -75,7 +75,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			else
 				createdItem.Properties[Polygon.PointsProperty].CollectionElements.Add(createdItem.Services.Component.RegisterComponentForDesigner(new Point(0,0)));
 			
-			new DrawPolylineMouseGesture(createdItem, clickedOn.View, changeGroup).Start(panel, (MouseButtonEventArgs) e);
+			new DrawPolylineMouseGesture(createdItem, clickedOn.View, changeGroup, this.ExtendedItem.GetCompleteAppliedTransformationToView()).Start(panel, (MouseButtonEventArgs) e);
 		}
 
 		#endregion
@@ -86,13 +86,16 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			private DesignItem newLine;
 			private new Point startPoint;
 			private Point? lastAdded;
+			private Matrix matrix;
 
-			public DrawPolylineMouseGesture(DesignItem newLine, IInputElement relativeTo, ChangeGroup changeGroup)
+			public DrawPolylineMouseGesture(DesignItem newLine, IInputElement relativeTo, ChangeGroup changeGroup, Transform transform)
 			{
 				this.newLine = newLine;
 				this.positionRelativeTo = relativeTo;
 				this.changeGroup = changeGroup;
-				
+				this.matrix = transform.Value;
+				matrix.Invert();
+
 				startPoint = Mouse.GetPosition(null);
 			}
 			
@@ -106,7 +109,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			{
 				if (changeGroup == null)
 					return;
-				var delta = e.GetPosition(null) - startPoint;
+				var delta = matrix.Transform(e.GetPosition(null) - startPoint);
 				var diff = delta;
 				if (lastAdded.HasValue) {
 					diff = new Vector(lastAdded.Value.X - delta.X, lastAdded.Value.Y - delta.Y);
@@ -153,7 +156,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				if (changeGroup == null)
 					return;
 
-				var delta = e.GetPosition(null) - startPoint;
+				var delta = matrix.Transform(e.GetPosition(null) - startPoint);
 				var diff = delta;
 				if (lastAdded.HasValue) {
 					diff = new Vector(lastAdded.Value.X - delta.X, lastAdded.Value.Y - delta.Y);
