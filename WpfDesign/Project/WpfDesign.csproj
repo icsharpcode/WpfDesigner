@@ -5,7 +5,6 @@
 		<DocumentationFile>..\..\bin\net5.0-windows\ICSharpCode.WpfDesign.xml</DocumentationFile>
 		<OutputPath>..\..\bin\</OutputPath>
 	<UseWPF>true</UseWPF>
-	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<AssemblyName>ICSharpCode.WpfDesign</AssemblyName>
 	<RootNamespace>ICSharpCode.WpfDesign</RootNamespace>
 	<Version>8.0</Version>

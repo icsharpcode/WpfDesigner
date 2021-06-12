@@ -3,7 +3,6 @@
     <OutputType>Library</OutputType>
     <TargetFrameworks>net45;net5.0-windows</TargetFrameworks>
 	<UseWPF>true</UseWPF>
-	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<AssemblyName>ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon</AssemblyName>
 	<RootNamespace>ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon</RootNamespace>
 	<Version>8.0</Version>

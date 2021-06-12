@@ -5,7 +5,6 @@
 		<DocumentationFile>..\..\bin\net5.0-windows\ICSharpCode.WpfDesign.XamlDom.xml</DocumentationFile>
 		<OutputPath>..\..\bin\</OutputPath>
 	<UseWPF>true</UseWPF>
-	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<AssemblyName>ICSharpCode.WpfDesign.XamlDom</AssemblyName>
 	<Version>8.0</Version>
 	<AssemblyVersion>8.0.0.0</AssemblyVersion>
