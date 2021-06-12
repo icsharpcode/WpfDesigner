@@ -37,6 +37,7 @@ jobs:
     - name: Test
       run: dotnet test WpfDesign.sln --no-build --verbosity normal -c ${{ matrix.configuration }}
     - name: Pack
+      if: matrix.configuration == 'release'    
       run:  .\nuget\pack.ps1
     - name: Upload NuGet
       if: matrix.configuration == 'release'
