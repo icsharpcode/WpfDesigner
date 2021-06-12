@@ -14,7 +14,6 @@ jobs:
       matrix:
         Configuration: [ Debug, Release ]
     env:
-        Solution: '**/WpfDesign.sln'
         BuildPlatform: 'Any CPU'
         BuildVersion: '8.0.0.${{ github.run_number }}'
     steps:
@@ -30,11 +29,11 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 5.0.x
-    - run: dotnet restore ${{ env.Solution }}
+    - run: dotnet restore WpfDesign.sln
     - name: Build
-      run: dotnet build ${{ env.Solution }} --no-restore -c ${{ matrix.configuration }}
+      run: dotnet build WpfDesign.sln --no-restore -c ${{ matrix.configuration }}
     - name: Test
-      run: dotnet test ${{ env.Solution }} --no-build --verbosity normal -c ${{ matrix.configuration }}
+      run: dotnet test WpfDesign.sln --no-build --verbosity normal -c ${{ matrix.configuration }}
     - name: Pack
       run:  .\nuget\pack.ps1
     - name: Upload NuGet
