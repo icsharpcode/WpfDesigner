@@ -3,7 +3,7 @@
     <OutputType>Library</OutputType>
     <TargetFrameworks>net45;net5.0-windows</TargetFrameworks>
 	<UseWPF>true</UseWPF>
-	<GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<AssemblyName>ICSharpCode.WpfDesign.Designer</AssemblyName>
 	<DocumentationFile>..\..\bin\net5.0-windows\ICSharpCode.WpfDesign.Designer.xml</DocumentationFile>
 	<Version>8.0</Version>
