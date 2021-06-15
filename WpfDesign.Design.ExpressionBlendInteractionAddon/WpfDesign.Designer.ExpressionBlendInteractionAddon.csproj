@@ -3,13 +3,14 @@
     <OutputType>Library</OutputType>
     <TargetFrameworks>net45;net5.0-windows</TargetFrameworks>
 	<UseWPF>true</UseWPF>
-	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<AssemblyName>ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon</AssemblyName>
 	<RootNamespace>ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon</RootNamespace>
+	<Version>8.0</Version>
+	<AssemblyVersion>8.0.0.0</AssemblyVersion>
+	<FileVersion>8.0.0.0</FileVersion>
+	<Company>ic#code</Company>
+	<Copyright>2000-2021 AlphaSierraPapa for the SharpDevelop Team</Copyright>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="..\GlobalAssemblyInfo.cs" Link="Properties\GlobalAssemblyInfo.cs" />
-  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
   </ItemGroup>
