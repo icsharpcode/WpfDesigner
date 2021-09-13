@@ -5,11 +5,12 @@
 		<DocumentationFile>..\..\bin\net5.0-windows\ICSharpCode.WpfDesign.xml</DocumentationFile>
 		<OutputPath>..\..\bin\</OutputPath>
 	<UseWPF>true</UseWPF>
-	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
 	<AssemblyName>ICSharpCode.WpfDesign</AssemblyName>
 	<RootNamespace>ICSharpCode.WpfDesign</RootNamespace>
+	<Version>8.0</Version>
+	<AssemblyVersion>8.0.0.0</AssemblyVersion>
+	<FileVersion>8.0.0.0</FileVersion>
+	<Company>ic#code</Company>
+	<Copyright>2000-2021 AlphaSierraPapa for the SharpDevelop Team</Copyright>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Include="..\..\GlobalAssemblyInfo.cs" Link="Configuration\GlobalAssemblyInfo.cs" />
-  </ItemGroup>
 </Project>

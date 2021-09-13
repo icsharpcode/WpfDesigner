@@ -9,7 +9,7 @@ WpfDesigner is a set of assemblies which can be included in your project to impl
 
 Branch | Status
 --- | ---
-*master* (Development) | [![Build Status](https://icsharpcode.visualstudio.com/icsharpcode-pipelines/_apis/build/status/icsharpcode.WpfDesigner?branchName=master)](https://icsharpcode.visualstudio.com/icsharpcode-pipelines/_build/latest?definitionId=4&branchName=master)
+*master* (Development) | [![Build](https://github.com/icsharpcode/WpfDesigner/actions/workflows/dotnet.yml/badge.svg)](https://github.com/icsharpcode/WpfDesigner/actions/workflows/dotnet.yml)
 
 
 ## System Requirements
