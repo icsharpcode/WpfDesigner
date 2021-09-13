@@ -191,7 +191,8 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		/// </summary>
 		protected virtual DesignItem CreateItem(DesignContext context)
 		{
-			ChangeGroup = context.RootItem.OpenGroup("Add Control");
+			if (ChangeGroup == null)
+				ChangeGroup = context.RootItem.OpenGroup("Add Control");
 			var item = CreateItem(context, componentType);
 			return item;
 		}
