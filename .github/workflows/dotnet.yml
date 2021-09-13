@@ -15,7 +15,7 @@ jobs:
         Configuration: [ Debug, Release ]
     env:
         BuildPlatform: 'Any CPU'
-        BuildVersion: '8.0.${{ github.run_number }}'
+        BuildVersion: '8.1.${{ github.run_number }}'
     steps:
     - uses: actions/checkout@v2
     - name: Update project version
