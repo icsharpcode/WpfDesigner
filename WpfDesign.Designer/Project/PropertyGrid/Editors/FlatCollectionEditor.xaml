@@ -22,9 +22,10 @@
 				Width="4*" />
 		</Grid.ColumnDefinitions>
 		<Border
+			Name="ListBoxBorder"
 			BorderBrush="Black"
 			BorderThickness="0.75"
-			Margin="10"
+			Margin="10,40,10,10"
 			SnapsToDevicePixels="True">
 			<Border.Resources>
 				<ResourceDictionary>
@@ -39,21 +40,18 @@
 				SelectionChanged="ListBox_SelectionChanged" ItemTemplateSelector="{StaticResource CollectionTemplateSelector}">
 			</ListBox>
 		</Border>
-		<ComboBox Name="ItemDataType" 
-			      Grid.Column="1"
+		<ComboBox Name="ItemDataType"
 				  Height="23"
-				  HorizontalAlignment="Left"
+				  HorizontalAlignment="Center"
 				  VerticalAlignment="Top"
-				  Width="75" Margin="0,10,0,0">
-
-		</ComboBox>
+				  Width="259" Margin="0,10,0,0"/>
 		<Button
 			Content="Add"
 			Click="OnAddItemClicked"
 			Grid.Column="1"
 			Height="23"
 			HorizontalAlignment="Left"
-			Margin="0,40,0,0"
+			Margin="0,10,0,0"
 			Name="AddItem"
 			VerticalAlignment="Top"
 			Width="75" />
@@ -63,7 +61,7 @@
 			Grid.Column="1"
 			Height="23"
 			HorizontalAlignment="Left"
-			Margin="0,68,0,0"
+			Margin="0,40,0,0"
 			Name="RemoveItem"
 			VerticalAlignment="Top"
 			Width="75" />

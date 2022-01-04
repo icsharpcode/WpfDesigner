@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>net45;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>net45;net5.0-windows;net6.0-windows</TargetFrameworks>
 	<UseWPF>true</UseWPF>
 	<AssemblyName>ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon</AssemblyName>
 	<RootNamespace>ICSharpCode.WpfDesign.Designer.ExpressionBlendInteractionAddon</RootNamespace>
@@ -12,7 +12,7 @@
 	<Copyright>2000-2021 AlphaSierraPapa for the SharpDevelop Team</Copyright>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.39" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WpfDesign.Designer\Project\WpfDesign.Designer.csproj" />

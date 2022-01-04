@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Library</OutputType>
-    <TargetFrameworks>net45;net5.0-windows</TargetFrameworks>
+    <TargetFrameworks>net45;net5.0-windows;net6.0-windows</TargetFrameworks>
 		<DocumentationFile>..\..\bin\net5.0-windows\ICSharpCode.WpfDesign.XamlDom.xml</DocumentationFile>
 		<OutputPath>..\..\bin\</OutputPath>
 	<UseWPF>true</UseWPF>

@@ -65,6 +65,9 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 		
 		public Type GetItemsSourceType(Type t)
 		{
+			if (t == typeof(UIElementCollection))
+				return typeof(UIElement);
+
 			Type tp = t.GetInterfaces().FirstOrDefault(x => x.IsGenericType && x.GetGenericTypeDefinition() == typeof(ICollection<>));
 
 			return (tp != null ) ? tp.GetGenericArguments()[0] : null;
@@ -79,32 +82,40 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 			_type = _type ?? GetItemsSourceType(_itemProperty.ReturnType);
 			
 			if (_type == null) {
-				AddItem.IsEnabled=false;
+				AddItem.IsEnabled = false;
 			}
 			
 			ListBox.ItemsSource = _itemProperty.CollectionElements;
 		}
 
-		/// <summary>
-		/// A method which fill a combobox with _type and the inherited classes.
-		/// </summary>
 		public void LoadItemsCombobox()
 		{
-			ItemDataType.Items.Add(_type);
-			ItemDataType.SelectedItem = ItemDataType.Items[0];
-			foreach (var items in GetInheritedClasses(_type))
-				ItemDataType.Items.Add(items);
-            
+			if (this._type != null)
+			{
+				var types = new List<Type>();
+				types.Add(_type);
+
+				foreach (var items in GetInheritedClasses(_type))
+					types.Add(items);
+				ItemDataType.ItemsSource = types;
+				ItemDataType.SelectedItem = types[0];
+
+				if (types.Count < 2)
+				{
+					ItemDataType.Visibility = Visibility.Collapsed;
+					ListBoxBorder.Margin = new Thickness(10);
+				}
+			}
+			else
+			{
+				ItemDataType.Visibility = Visibility.Collapsed;
+				ListBoxBorder.Margin = new Thickness(10);
+			}
 		}
 
-		/// <summary>
-		/// A Method to find all inherited classes.
-		/// </summary>
-		/// <param name="MyType">The type where we want the inherited classes.</param>
-		/// <returns>All inherited classes.</returns>
-		private IEnumerable<Type> GetInheritedClasses(Type MyType)
+		private IEnumerable<Type> GetInheritedClasses(Type type)
 		{
-			return Assembly.GetAssembly(MyType).GetTypes().Where(TheType => TheType.IsClass && !TheType.IsAbstract && TheType.IsSubclassOf(MyType));
+			return AppDomain.CurrentDomain.GetAssemblies().Where(x => !x.IsDynamic).SelectMany(x => x.GetTypes().Where(y => y.IsClass && !y.IsAbstract && y.IsSubclassOf(type)));
 		}
 
 		private void OnAddItemClicked(object sender, RoutedEventArgs e)
