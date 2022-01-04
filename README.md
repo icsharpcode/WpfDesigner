@@ -1,5 +1,5 @@
 # WpfDesigner
-The WPF Designer from SharpDevelop
+The WPF Designer from SharpDevelop, available via [NuGet](https://www.nuget.org/packages/ICSharpCode.WpfDesigner/)
 
 ## Overview
 
@@ -14,17 +14,13 @@ Branch | Status
 
 ## System Requirements
 
-.NET 4.5 or Net Core 3.0
+.NET 4.5, or .NET Core 5.0 as well as .NET 6.0
 
 ## Libraries and Integrated Tools
 
 Only the sample app has dependencies:
 * [Avalon Dock](http://avalondock.codeplex.com/)
 * [Avalon Edit](https://github.com/icsharpcode/AvalonEdit)
-
-## Download
-
-[NuGet](https://www.nuget.org/packages/ICSharpCode.WpfDesigner/)
 
 ## Sample App
 ![Sample App](/screenshot.png?raw=true "Sample App")
