@@ -53,7 +53,6 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 			
 			var editor = new FlatCollectionEditor();
 			editor.LoadItemsCollection(node.FirstProperty);
-			editor.LoadItemsCombobox();
 			editor.ShowDialog();
 		}
 	}

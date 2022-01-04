@@ -86,6 +86,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 			}
 			
 			ListBox.ItemsSource = _itemProperty.CollectionElements;
+			LoadItemsCombobox();
 		}
 
 		public void LoadItemsCombobox()
