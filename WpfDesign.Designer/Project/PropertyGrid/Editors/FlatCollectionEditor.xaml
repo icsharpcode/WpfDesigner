@@ -39,13 +39,21 @@
 				SelectionChanged="ListBox_SelectionChanged" ItemTemplateSelector="{StaticResource CollectionTemplateSelector}">
 			</ListBox>
 		</Border>
+		<ComboBox Name="ItemDataType" 
+			      Grid.Column="1"
+				  Height="23"
+				  HorizontalAlignment="Left"
+				  VerticalAlignment="Top"
+				  Width="75" Margin="0,10,0,0">
+
+		</ComboBox>
 		<Button
 			Content="Add"
 			Click="OnAddItemClicked"
 			Grid.Column="1"
 			Height="23"
 			HorizontalAlignment="Left"
-			Margin="0,12,0,0"
+			Margin="0,40,0,0"
 			Name="AddItem"
 			VerticalAlignment="Top"
 			Width="75" />
@@ -55,7 +63,7 @@
 			Grid.Column="1"
 			Height="23"
 			HorizontalAlignment="Left"
-			Margin="0,42,0,0"
+			Margin="0,68,0,0"
 			Name="RemoveItem"
 			VerticalAlignment="Top"
 			Width="75" />
@@ -65,7 +73,7 @@
 			Grid.Column="1"
 			Height="23"
 			HorizontalAlignment="Left"
-			Margin="0,72,0,0"
+			Margin="0,96,0,0"
 			Name="MoveUpItem"
 			VerticalAlignment="Top"
 			Width="75" />
@@ -75,10 +83,10 @@
 			Grid.Column="1"
 			Height="23"
 			HorizontalAlignment="Left"
-			Margin="0,102,0,0"
+			Margin="0,124,0,0"
 			Name="MoveDownItem"
 			VerticalAlignment="Top"
-			Width="75" />
+			Width="75" RenderTransformOrigin="0.519,1.16" />
 		<Border
 			BorderBrush="Black"
 			BorderThickness="0.75"

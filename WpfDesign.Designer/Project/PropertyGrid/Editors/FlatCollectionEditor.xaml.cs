@@ -22,6 +22,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Linq;
 using ICSharpCode.WpfDesign.Designer.themes;
+using System.Reflection;
 
 namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 {
@@ -45,7 +46,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 		public FlatCollectionEditor()
 		{
 			SpecialInitializeComponent();
-			
+
 			this.Owner = Application.Current.MainWindow;
 		}
 		
@@ -59,7 +60,6 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
 				Application.LoadComponent(this, resourceLocator);
 			}
-			
 			this.InitializeComponent();
 		}
 		
@@ -84,10 +84,33 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 			
 			ListBox.ItemsSource = _itemProperty.CollectionElements;
 		}
-		
+
+		/// <summary>
+		/// A method which fill a combobox with _type and the inherited classes.
+		/// </summary>
+		public void LoadItemsCombobox()
+		{
+			ItemDataType.Items.Add(_type);
+			ItemDataType.SelectedItem = ItemDataType.Items[0];
+			foreach (var items in GetInheritedClasses(_type))
+				ItemDataType.Items.Add(items);
+            
+		}
+
+		/// <summary>
+		/// A Method to find all inherited classes.
+		/// </summary>
+		/// <param name="MyType">The type where we want the inherited classes.</param>
+		/// <returns>All inherited classes.</returns>
+		private IEnumerable<Type> GetInheritedClasses(Type MyType)
+		{
+			return Assembly.GetAssembly(MyType).GetTypes().Where(TheType => TheType.IsClass && !TheType.IsAbstract && TheType.IsSubclassOf(MyType));
+		}
+
 		private void OnAddItemClicked(object sender, RoutedEventArgs e)
 		{
-			DesignItem newItem = _componentService.RegisterComponentForDesigner(Activator.CreateInstance(_type));
+			var comboboxItem = ItemDataType.SelectedItem;
+			DesignItem newItem = _componentService.RegisterComponentForDesigner(Activator.CreateInstance((Type)comboboxItem));
 			_itemProperty.CollectionElements.Add(newItem);
 		}
 
@@ -133,5 +156,9 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 		{
 			PropertyGridView.PropertyGrid.SelectedItems = ListBox.SelectedItems.Cast<DesignItem>();
 		}
+
+		
+
+
 	}
 }
