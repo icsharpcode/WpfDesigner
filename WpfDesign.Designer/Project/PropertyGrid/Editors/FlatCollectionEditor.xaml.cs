@@ -116,7 +116,20 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 
 		private IEnumerable<Type> GetInheritedClasses(Type type)
 		{
-			return AppDomain.CurrentDomain.GetAssemblies().Where(x => !x.IsDynamic).SelectMany(x => x.GetTypes().Where(y => y.IsClass && !y.IsAbstract && y.IsSubclassOf(type)));
+			return AppDomain.CurrentDomain.GetAssemblies().Where(x => !x.IsDynamic).SelectMany(x => GetLoadableTypes(x).Where(y => y.IsClass && !y.IsAbstract && y.IsSubclassOf(type)));
+		}
+
+		private IEnumerable<Type> GetLoadableTypes(Assembly assembly)
+		{
+			if (assembly == null) throw new ArgumentNullException("assembly");
+			try
+			{
+				return assembly.GetTypes();
+			}
+			catch (ReflectionTypeLoadException e)
+			{
+				return e.Types.Where(t => t != null);
+			}
 		}
 
 		private void OnAddItemClicked(object sender, RoutedEventArgs e)
