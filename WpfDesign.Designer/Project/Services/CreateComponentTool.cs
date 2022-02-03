@@ -109,6 +109,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 							{
 								// Abort the ChangeGroup created by the CreateItem() call.
 								ChangeGroup.Abort();
+								ChangeGroup = null;
 							}
 						}
 						else
@@ -126,6 +127,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 							} else {
 								// Abort the ChangeGroup created by the CreateItem() call.
 								ChangeGroup.Abort();
+								ChangeGroup = null;
 							}
 						}
 					}
@@ -152,6 +154,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 					moveLogic.DesignPanel.IsAdornerLayerHitTestVisible = true;
 					moveLogic = null;
 					ChangeGroup.Commit();
+					ChangeGroup = null;
 
 					e.Handled = true;
 				}
@@ -169,7 +172,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 					moveLogic.DesignPanel.IsAdornerLayerHitTestVisible = true;
 					moveLogic = null;
 					ChangeGroup.Abort();
-
+					ChangeGroup = null;
 				}
 			} catch (Exception x) {
 				DragDropExceptionHandler.RaiseUnhandledException(x);
