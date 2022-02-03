@@ -53,8 +53,8 @@ namespace ICSharpCode.WpfDesign.Designer
 
 			this.AddCommandHandler(ApplicationCommands.Undo, Undo, CanUndo);
 			this.AddCommandHandler(ApplicationCommands.Redo, Redo, CanRedo);
-			this.AddCommandHandler(ApplicationCommands.Copy, Copy, CanCopyOrCut);
-			this.AddCommandHandler(ApplicationCommands.Cut, Cut, CanCopyOrCut);
+			this.AddCommandHandler(ApplicationCommands.Copy, Copy, CanCopy);
+			this.AddCommandHandler(ApplicationCommands.Cut, Cut, CanCut);
 			this.AddCommandHandler(ApplicationCommands.Delete, Delete, CanDelete);
 			this.AddCommandHandler(ApplicationCommands.Paste, Paste, CanPaste);
 			this.AddCommandHandler(ApplicationCommands.SelectAll, SelectAll, CanSelectAll);
@@ -237,72 +237,44 @@ namespace ICSharpCode.WpfDesign.Designer
 			_designContext.Services.Selection.SetSelectedComponents(GetLiveElements(action.AffectedElements));
 		}
 
-		public bool CanCopyOrCut()
+		public bool CanCopy()
 		{
-			ISelectionService selectionService = GetService<ISelectionService>();
-			if(selectionService!=null){
-				if (selectionService.SelectedItems.Count == 0)
-					return false;
-				if (selectionService.SelectedItems.Count == 1 && selectionService.PrimarySelection == DesignContext.RootItem)
-					return false;
-			}
-			return true;
+			return _designContext?.Services?.CopyPasteService?.CanCopy(_designContext) == true;
 		}
 
 		public void Copy()
 		{
-			XamlDesignContext xamlContext = _designContext as XamlDesignContext;
-			ISelectionService selectionService = GetService<ISelectionService>();
-			if(xamlContext != null && selectionService != null){
-				xamlContext.XamlEditAction.Copy(selectionService.SelectedItems);
-			}
+			_designContext?.Services?.CopyPasteService?.Copy(_designContext);
+		}
+
+		public bool CanCut()
+		{
+			return _designContext?.Services?.CopyPasteService?.CanCut(_designContext) == true;
 		}
 
 		public void Cut()
 		{
-			XamlDesignContext xamlContext = _designContext as XamlDesignContext;
-			ISelectionService selectionService = GetService<ISelectionService>();
-			if(xamlContext != null && selectionService != null){
-				xamlContext.XamlEditAction.Cut(selectionService.SelectedItems);
-			}
+			_designContext?.Services?.CopyPasteService?.Cut(_designContext);
 		}
 
 		public bool CanDelete()
 		{
-			if (_designContext != null) {
-				return ModelTools.CanDeleteComponents(_designContext.Services.Selection.SelectedItems);
-			}
-			return false;
+			return _designContext?.Services?.CopyPasteService?.CanDelete(_designContext) == true;
 		}
 
 		public void Delete()
 		{
-			if (_designContext != null) {
-				ModelTools.DeleteComponents(_designContext.Services.Selection.SelectedItems);
-			}
+			_designContext?.Services?.CopyPasteService?.Delete(_designContext);
 		}
 
 		public bool CanPaste()
 		{
-			ISelectionService selectionService = GetService<ISelectionService>();
-			if (selectionService != null && selectionService.SelectedItems.Count != 0) {
-				try {
-					string xaml = Clipboard.GetText(TextDataFormat.Xaml);
-					if (xaml != "" && xaml != " ")
-						return true;
-				}
-				catch (Exception) {
-				}
-			}
-			return false;
+			return _designContext?.Services?.CopyPasteService?.CanPaste(_designContext) == true;
 		}
 
 		public void Paste()
 		{
-			XamlDesignContext xamlContext = _designContext as XamlDesignContext;
-			if(xamlContext != null){
-				xamlContext.XamlEditAction.Paste();
-			}
+			_designContext?.Services?.CopyPasteService?.Paste(_designContext);
 		}
 
 		public bool CanSelectAll()

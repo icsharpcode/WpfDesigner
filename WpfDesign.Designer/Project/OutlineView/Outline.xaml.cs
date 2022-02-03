@@ -37,10 +37,10 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 				() => Root == null ? false : ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.CanRedo());
 			this.AddCommandHandler(ApplicationCommands.Copy,
 				() => ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.Copy(),
-				() => Root == null ? false : ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.CanCopyOrCut());
+				() => Root == null ? false : ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.CanCopy());
 			this.AddCommandHandler(ApplicationCommands.Cut,
 				() => ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.Cut(),
-				() => Root == null ? false : ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.CanCopyOrCut());
+				() => Root == null ? false : ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.CanCut());
 			this.AddCommandHandler(ApplicationCommands.Delete,
 				() => ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.Delete(),
 				() => Root == null ? false : ((DesignPanel) Root.DesignItem.Services.DesignPanel).DesignSurface.CanDelete());

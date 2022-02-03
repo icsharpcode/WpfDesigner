@@ -36,7 +36,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		readonly XamlParserSettings _settings;
 		
 		
-		readonly char _delimeter = Convert.ToChar(0x7F);
+		static readonly char _delimeter = Convert.ToChar(0x7F);
 		
 		/// <summary>
 		/// Delimet character to seperate different piece of Xaml's
@@ -105,91 +105,124 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		}
 		
 		/// <summary>
-		/// Paste items from clipboard into the designer.
+		/// Paste items from clipboard into the PrimarySelection.
 		/// </summary>
 		public void Paste()
 		{
+			this.Paste(_context.Services.Selection.PrimarySelection);
+		}
+
+		/// <summary>
+		/// Paste items from clipboard into the container.
+		/// </summary>
+		public void Paste(DesignItem container)
+		{
+			var parent = container;
+			var child = container;
+
 			bool pasted = false;
 			string combinedXaml = Clipboard.GetText(TextDataFormat.Xaml);
 			IEnumerable<string> xamls = combinedXaml.Split(_delimeter);
 			xamls = xamls.Where(xaml => xaml != "");
 
-			DesignItem parent = _context.Services.Selection.PrimarySelection;
-			DesignItem child = _context.Services.Selection.PrimarySelection;
 			
-			XamlDesignItem rootItem = _context.RootItem as XamlDesignItem;
+			XamlDesignItem rootItem = parent.Services.DesignPanel.Context.RootItem as XamlDesignItem;
 			var pastedItems = new Collection<DesignItem>();
-			foreach(var xaml in xamls) {
+			foreach (var xaml in xamls)
+			{
 				var obj = XamlParser.ParseSnippet(rootItem.XamlObject, xaml, _settings);
-				if(obj!=null) {
-					DesignItem item = _context._componentService.RegisterXamlComponentRecursive(obj);
+				if (obj != null)
+				{
+					DesignItem item = ((XamlComponentService)parent.Services.Component).RegisterXamlComponentRecursive(obj);
 					if (item != null)
 						pastedItems.Add(item);
 				}
 			}
-			
-			if (pastedItems.Count != 0) {
-				var changeGroup = _context.OpenGroup("Paste " + pastedItems.Count + " elements", pastedItems);
-				while (parent != null && pasted == false) {
-					if (parent.ContentProperty != null) {
-						if (parent.ContentProperty.IsCollection) {
-							if (CollectionSupport.CanCollectionAdd(parent.ContentProperty.ReturnType, pastedItems.Select(item => item.Component)) && parent.GetBehavior<IPlacementBehavior>()!=null) {
+
+			if (pastedItems.Count != 0)
+			{
+				var changeGroup = parent.Services.DesignPanel.Context.OpenGroup("Paste " + pastedItems.Count + " elements", pastedItems);
+				while (parent != null && pasted == false)
+				{
+					if (parent.ContentProperty != null)
+					{
+						if (parent.ContentProperty.IsCollection)
+						{
+							if (CollectionSupport.CanCollectionAdd(parent.ContentProperty.ReturnType, pastedItems.Select(item => item.Component)) && parent.GetBehavior<IPlacementBehavior>() != null)
+							{
 								AddInParent(parent, pastedItems);
 								pasted = true;
 							}
-						} else if (pastedItems.Count == 1 && parent.ContentProperty.Value == null && parent.ContentProperty.ValueOnInstance == null && parent.View is ContentControl) {
+						}
+						else if (pastedItems.Count == 1 && parent.ContentProperty.Value == null && parent.ContentProperty.ValueOnInstance == null && parent.View is ContentControl)
+						{
 							AddInParent(parent, pastedItems);
 							pasted = true;
 						}
-						if(!pasted)
-							parent=parent.Parent;
-					} else {
+						if (!pasted)
+							parent = parent.Parent;
+					}
+					else
+					{
 						parent = parent.Parent;
 					}
 				}
 
-				while (pasted == false) {
-					if (child.ContentProperty != null) {
-						if (child.ContentProperty.IsCollection) {
-							foreach (var col in child.ContentProperty.CollectionElements) {
-								if (col.ContentProperty != null && col.ContentProperty.IsCollection) {
-									if (CollectionSupport.CanCollectionAdd(col.ContentProperty.ReturnType, pastedItems.Select(item => item.Component))) {
+				while (pasted == false)
+				{
+					if (child.ContentProperty != null)
+					{
+						if (child.ContentProperty.IsCollection)
+						{
+							foreach (var col in child.ContentProperty.CollectionElements)
+							{
+								if (col.ContentProperty != null && col.ContentProperty.IsCollection)
+								{
+									if (CollectionSupport.CanCollectionAdd(col.ContentProperty.ReturnType, pastedItems.Select(item => item.Component)))
+									{
 										pasted = true;
 									}
 								}
 							}
 							break;
-						} else if (child.ContentProperty.Value != null) {
+						}
+						else if (child.ContentProperty.Value != null)
+						{
 							child = child.ContentProperty.Value;
-						} else if (pastedItems.Count == 1) {
+						}
+						else if (pastedItems.Count == 1)
+						{
 							child.ContentProperty.SetValue(pastedItems.First().Component);
 							pasted = true;
 							break;
-						} else
+						}
+						else
 							break;
-					} else
+					}
+					else
 						break;
 				}
 
-				foreach (var pastedItem in pastedItems) {
-					_context._componentService.RaiseComponentRegisteredAndAddedToContainer(pastedItem);
+				foreach (var pastedItem in pastedItems)
+				{
+					((XamlComponentService)parent.Services.Component).RaiseComponentRegisteredAndAddedToContainer(pastedItem);
 				}
 
 
 				changeGroup.Commit();
 			}
 		}
-		
+
 		/// <summary>
 		/// Adds Items under a parent given that the content property is collection and can add types of <paramref name="pastedItems"/>
 		/// </summary>
 		/// <param name="parent">The Parent element</param>
 		/// <param name="pastedItems">The list of elements to be added</param>
-		void AddInParent(DesignItem parent,IList<DesignItem> pastedItems)
+		static void AddInParent(DesignItem parent,IList<DesignItem> pastedItems)
 		{
 			IEnumerable<Rect> rects = pastedItems.Select(i => new Rect(new Point(0, 0), new Point((double)i.Properties["Width"].ValueOnInstance, (double)i.Properties["Height"].ValueOnInstance)));
 			var operation = PlacementOperation.TryStartInsertNewComponents(parent, pastedItems, rects.ToList(), PlacementType.PasteItem);
-			ISelectionService selection = _context.Services.Selection;
+			ISelectionService selection = parent.Services.DesignPanel.Context.Services.Selection;
 			selection.SetSelectedComponents(pastedItems);
 			if(operation != null)
 				operation.Commit();

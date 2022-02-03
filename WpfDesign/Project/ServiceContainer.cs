@@ -16,6 +16,7 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
+using ICSharpCode.WpfDesign.Services;
 using System;
 using System.Collections.Generic;
 
@@ -168,7 +169,19 @@ namespace ICSharpCode.WpfDesign
 				return GetRequiredService<IToolService>();
 			}
 		}
-		
+
+		/// <summary>
+		/// Gets the <see cref="ICopyPasteService"/>.
+		/// Throws an exception if the service is not found.
+		/// </summary>
+		public ICopyPasteService CopyPasteService
+		{
+			get
+			{
+				return GetRequiredService<ICopyPasteService>();
+			}
+		}
+
 		/// <summary>
 		/// Gets the <see cref="IComponentService"/>.
 		/// Throws an exception if the service is not found.

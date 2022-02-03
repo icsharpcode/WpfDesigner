@@ -25,6 +25,8 @@ using ICSharpCode.WpfDesign.Designer.OutlineView;
 using ICSharpCode.WpfDesign.Designer.Services;
 using ICSharpCode.WpfDesign.PropertyGrid;
 using ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors;
+using ICSharpCode.WpfDesign.Services;
+using WpfDesign.Designer.Services;
 
 namespace ICSharpCode.WpfDesign.Designer.Xaml
 {
@@ -70,6 +72,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			this.Services.AddService(typeof(IComponentPropertyService), new ComponentPropertyService());		
 			this.Services.AddService(typeof(IToolService), new DefaultToolService(this));
 			this.Services.AddService(typeof(UndoService), new UndoService());
+			this.Services.AddService(typeof(ICopyPasteService), new CopyPasteService());
 			this.Services.AddService(typeof(IErrorService), new DefaultErrorService(this));
 			this.Services.AddService(typeof(IOutlineNodeNameService), new OutlineNodeNameService());
 			this.Services.AddService(typeof(ViewService), new DefaultViewService(this));
