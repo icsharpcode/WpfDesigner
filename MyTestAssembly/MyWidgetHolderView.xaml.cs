@@ -22,7 +22,6 @@ namespace MyTestAssembly
 	{
 		public MyWidgetHolderView()
 		{
-			Console.WriteLine("Inst created:" + this.GetHashCode());
 			InitializeComponent();
 		}
 

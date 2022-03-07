@@ -60,8 +60,7 @@ namespace ICSharpCode.WpfDesign.XamlDom
 			var info = (IXmlLineInfo)e;
 			var newLineInfo = new XamlElementLineInfo(lineNumber, currentColumn);
 			mappingOldNewLineInfo.Add(new XamlElementLineInfo(info.LineNumber, info.LinePosition), newLineInfo);
-			
-			Console.WriteLine(info.LinePosition);
+						
 			NewLine();
 			var defaultNs = e.GetDefaultNamespace();
 			string prefix1 = null;

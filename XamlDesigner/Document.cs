@@ -66,7 +66,6 @@ namespace ICSharpCode.XamlDesigner
 					{
 						var sel = this.DesignContext.Services.Selection.PrimarySelection;
 						var ln = ((PositionXmlElement) ((XamlDesignItem) sel).XamlObject.XmlElement).LineNumber;
-						Console.WriteLine(ln);
 					}
 				}
 				RaisePropertyChanged("Mode");
