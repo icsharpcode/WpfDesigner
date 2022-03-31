@@ -130,6 +130,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			var pastedItems = new Collection<DesignItem>();
 			foreach (var xaml in xamls)
 			{
+				var a = xaml;
 				var obj = XamlParser.ParseSnippet(rootItem.XamlObject, xaml, _settings);
 				if (obj != null)
 				{
