@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -27,6 +28,7 @@ using ICSharpCode.WpfDesign.Adorners;
 using ICSharpCode.WpfDesign.Designer.Controls;
 using ICSharpCode.WpfDesign.Designer.Services;
 using ICSharpCode.WpfDesign.Extensions;
+using ICSharpCode.WpfDesign.Services;
 
 namespace ICSharpCode.WpfDesign.Designer.Extensions
 {
@@ -103,6 +105,13 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				if (items.Count == 0) {
 					items.Add(container);
 				}
+
+				var filterService = services.GetService<ISelectionFilterService>();
+				if (filterService != null)
+				{
+					items = filterService.FilterSelectedElements(items);
+				}
+
 				services.Selection.SetSelectedComponents(items, SelectionTypes.Auto);
 			}
 			Stop();
