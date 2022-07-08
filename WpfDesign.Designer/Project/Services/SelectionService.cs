@@ -28,7 +28,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 	/// Manages the collection of selected components and the primary selection.
 	/// Notifies components with attached DesignSite when their selection state changes.
 	/// </summary>
-	sealed class DefaultSelectionService : ISelectionService, INotifyPropertyChanged
+	public class DefaultSelectionService : ISelectionService, INotifyPropertyChanged
 	{
 		HashSet<DesignItem> _selectedComponents = new HashSet<DesignItem>();
 		DesignItem _primarySelection;
@@ -60,7 +60,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 			SetSelectedComponents(components, SelectionTypes.Replace);
 		}
 		
-		public void SetSelectedComponents(ICollection<DesignItem> components, SelectionTypes selectionType)
+		public virtual void SetSelectedComponents(ICollection<DesignItem> components, SelectionTypes selectionType)
 		{
 			if (components == null)
 				components = SharedInstances.EmptyDesignItemArray;
