@@ -16,7 +16,7 @@ namespace WpfDesign.Designer.Services
 			{
 				if (selectionService.SelectedItems.Count == 0)
 					return false;
-				if (selectionService.SelectedItems.Count == 1 && selectionService.PrimarySelection == designContext.RootItem)
+				if (selectionService.SelectedItems.Contains(designContext.RootItem))
 					return false;
 			}
 			return true;
@@ -26,7 +26,7 @@ namespace WpfDesign.Designer.Services
 		{
 			XamlDesignContext xamlContext = designContext as XamlDesignContext;
 			ISelectionService selectionService = designContext.Services.GetService<ISelectionService>();
-			if (xamlContext != null && selectionService != null)
+			if (xamlContext != null && selectionService != null && !selectionService.SelectedItems.Contains(designContext.RootItem))
 			{
 				xamlContext.XamlEditAction.Copy(selectionService.SelectedItems);
 			}
