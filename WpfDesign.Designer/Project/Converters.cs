@@ -260,7 +260,13 @@ namespace ICSharpCode.WpfDesign.Designer.Converters
 		[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Security", "CA2104:DoNotDeclareReadOnlyMutableReferenceTypes", Justification = "converter is immutable")]
 		public static readonly BlackWhenTrue Instance = new BlackWhenTrue();
 
-		private Brush black = new SolidColorBrush(Colors.Black);
+		private Brush black;
+
+		public BlackWhenTrue()
+		{
+			black = new SolidColorBrush(Colors.Black);
+			black.Freeze();
+		}
 
 		public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
 		{
