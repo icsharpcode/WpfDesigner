@@ -43,11 +43,16 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 		private DesignItem _item;
 		private Type _type;
 		private IComponentService _componentService;
+
 		public CollectionEditor()
 		{
 			SpecialInitializeComponent();
-			
-			this.Owner = Application.Current.MainWindow;
+		}
+
+		public CollectionEditor(Window owner)
+			: this()
+		{
+			this.Owner = owner;
 		}
 		
 		/// <summary>

@@ -42,12 +42,16 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 		private DesignItemProperty _itemProperty;
 		private IComponentService _componentService;
 		private Type _type;
-		
+
 		public FlatCollectionEditor()
 		{
 			SpecialInitializeComponent();
+		}
 
-			this.Owner = Application.Current.MainWindow;
+		public FlatCollectionEditor(Window owner)
+			: this()
+		{
+			this.Owner = owner;
 		}
 		
 		/// <summary>

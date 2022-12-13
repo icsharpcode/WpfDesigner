@@ -51,7 +51,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 		{
 			var node = this.DataContext as PropertyNode;
 			
-			var editor = new FlatCollectionEditor();
+			var editor = new FlatCollectionEditor(Window.GetWindow(this));
 			editor.LoadItemsCollection(node.FirstProperty);
 			editor.ShowDialog();
 		}
