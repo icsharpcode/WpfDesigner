@@ -121,7 +121,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				if (parent != null) {
 					
 					if((string)clickedOn.Header=="Edit Items") {
-						var editor = new CollectionEditor();
+						var editor = new CollectionEditor(Window.GetWindow(this.ExtendedItem.View));
 						var itemsControl=this.ExtendedItem.View as ItemsControl;
 						if (itemsControl != null)
 							editor.LoadItemsCollection(this.ExtendedItem);
@@ -129,7 +129,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 					}
 					
 					if((string)clickedOn.Header=="Edit Rows") {
-						var editor = new FlatCollectionEditor();
+						var editor = new FlatCollectionEditor(Window.GetWindow(this.ExtendedItem.View));
 						var gd=this.ExtendedItem.View as Grid;
 						if (gd != null)
 							editor.LoadItemsCollection(this.ExtendedItem.Properties["RowDefinitions"]);
@@ -137,7 +137,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 					}
 					
 					if((string)clickedOn.Header=="Edit Columns") {
-						var editor = new FlatCollectionEditor();
+						var editor = new FlatCollectionEditor(Window.GetWindow(this.ExtendedItem.View));
 						var gd=this.ExtendedItem.View as Grid;
 						if (gd != null)
 							editor.LoadItemsCollection(this.ExtendedItem.Properties["ColumnDefinitions"]);
