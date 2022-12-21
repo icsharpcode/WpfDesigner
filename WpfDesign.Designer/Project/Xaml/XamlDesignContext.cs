@@ -74,6 +74,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			this.Services.AddService(typeof(UndoService), new UndoService());
 			this.Services.AddService(typeof(ICopyPasteService), new CopyPasteService());
 			this.Services.AddService(typeof(IErrorService), new DefaultErrorService(this));
+			this.Services.AddService(typeof(IOutlineNodeService), new OutlineNode.OutlineNodeService());
 			this.Services.AddService(typeof(IOutlineNodeNameService), new OutlineNodeNameService());
 			this.Services.AddService(typeof(ViewService), new DefaultViewService(this));
 			this.Services.AddService(typeof(OptionService), new OptionService());

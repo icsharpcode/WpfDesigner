@@ -25,9 +25,6 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 { 
 	public class OutlineNode: OutlineNodeBase
 	{
-		//TODO: Reset with DesignContext
-		static Dictionary<DesignItem, IOutlineNode> outlineNodes = new Dictionary<DesignItem, IOutlineNode>();
-
 		protected OutlineNode(DesignItem designitem): base(designitem)
 		{
 			UpdateChildren();
@@ -43,21 +40,13 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			DummyPlacementType = PlacementType.Register("DummyPlacement");
 		}
 
-		public static IOutlineNode Create(DesignItem designItem)
-		{
-			IOutlineNode node = null;
-			if (designItem != null && !outlineNodes.TryGetValue(designItem, out node)) {
-				node = new OutlineNode(designItem);
-				outlineNodes[designItem] = node;
-			}
-			return node;
-		}
+		[Obsolete("prefer using DesignItem.CreateOutlineNode()")]
+		public static IOutlineNode Create(DesignItem designItem) => designItem.CreateOutlineNode();
 
 		void Selection_SelectionChanged(object sender, DesignItemCollectionEventArgs e)
 		{
 			IsSelected = DesignItem.Services.Selection.IsComponentSelected(DesignItem);
 		}
-
 
 		protected override void UpdateChildren()
 		{
@@ -68,7 +57,7 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 				{
 					if (prp.Value != null) {
 						var propertyNode = PropertyOutlineNode.Create(prp);
-						var node = OutlineNode.Create(prp.Value);
+						var node = prp.Value.CreateOutlineNode();
 						propertyNode.Children.Add(node);
 						Children.Add(propertyNode);
 					}
@@ -82,7 +71,7 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 					if (content.Value != null) {
 						if (!UpdateChildrenCore(new[] {content.Value})) {
 							var propertyNode = PropertyOutlineNode.Create(content);
-							var node = OutlineNode.Create(content.Value);
+							var node = content.Value.CreateOutlineNode();
 							propertyNode.Children.Add(node);
 							Children.Add(propertyNode);
 						}
@@ -111,7 +100,7 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			foreach (var item in items) {
 				if (ModelTools.CanSelectComponent(item)) {
 					if (Children.All(x => x.DesignItem != item)) {
-						var node = OutlineNode.Create(item);
+						var node = item.CreateOutlineNode();
 						if (index > -1) {
 							Children.Insert(index++, node);
 							retVal = true;
@@ -138,6 +127,28 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			}
 
 			return retVal;
+		}
+
+		internal class OutlineNodeService : IOutlineNodeService, IDisposable
+		{
+			readonly Dictionary<DesignItem, IOutlineNode> outlineNodes = new Dictionary<DesignItem, IOutlineNode>();
+
+			public IOutlineNode Create(DesignItem designItem)
+			{
+				IOutlineNode node = null;
+				if (designItem != null && !outlineNodes.TryGetValue(designItem, out node))
+				{
+					node = new OutlineNode(designItem);
+					outlineNodes[designItem] = node;
+				}
+
+				return node;
+			}
+
+			public void Dispose()
+			{
+				outlineNodes.Clear();
+			}
 		}
 	}
 }

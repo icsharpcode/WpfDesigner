@@ -222,7 +222,20 @@ namespace ICSharpCode.WpfDesign
 		object GetDescription(DesignItemProperty designProperty);
 	}
 	#endregion
-	
+
+	#region IOutlineNodeService
+	/// <summary>
+	/// Used to create Outline Nodes.
+	/// </summary>
+	public interface IOutlineNodeService
+	{
+		/// <summary>
+		/// Create Ouline Node for the DesignItem, returns cached item if available.
+		/// </summary>
+		IOutlineNode Create(DesignItem designItem);
+	}
+	#endregion
+
 	#region IOutlineNodeNameService
 	/// <summary>
 	/// Used to get a description for the Outline Node.
