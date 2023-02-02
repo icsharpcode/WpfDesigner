@@ -16,44 +16,23 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System;
-using System.Collections;
-using System.Windows;
-using System.Windows.Controls;
-using ICSharpCode.WpfDesign.PropertyGrid;
-using ICSharpCode.WpfDesign.Designer.themes;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
-namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
+namespace ICSharpCode.WpfDesign
 {
-	[TypeEditor(typeof(ICollection))]
-	public partial class OpenCollectionEditor : UserControl
+	public interface IOutlineNode
 	{
-		public OpenCollectionEditor()
-		{
-			SpecialInitializeComponent();
-		}
-		
-		/// <summary>
-		/// Fixes InitializeComponent with multiple Versions of same Assembly loaded
-		/// </summary>
-		public void SpecialInitializeComponent()
-		{
-			if (!this._contentLoaded) {
-				this._contentLoaded = true;
-				Uri resourceLocator = new Uri(VersionedAssemblyResourceDictionary.GetXamlNameForType(this.GetType()), UriKind.Relative);
-				Application.LoadComponent(this, resourceLocator);
-			}
-			
-			this.InitializeComponent();
-		}
-		
-		void open_Click(object sender, RoutedEventArgs e)
-		{
-			var node = this.DataContext as PropertyNode;
-			
-			var editor = new FlatCollectionEditor(Window.GetWindow(this));
-			editor.LoadItemsCollection(node.FirstProperty);
-			editor.ShowDialog();
-		}
+		ISelectionService SelectionService { get; }
+		bool IsExpanded { get; set; }
+		DesignItem DesignItem { get; set; }
+		ServiceContainer Services { get; }
+		bool IsSelected { get; set; }
+		bool IsDesignTimeVisible { get; set; }
+		bool IsDesignTimeLocked { get; }
+		string Name { get; }
+		bool CanInsert(IEnumerable<IOutlineNode> nodes, IOutlineNode after, bool copy);
+		void Insert(IEnumerable<IOutlineNode> nodes, IOutlineNode after, bool copy);
+		ObservableCollection<IOutlineNode> Children { get; }
 	}
 }

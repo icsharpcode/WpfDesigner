@@ -40,7 +40,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer.OutlineView
 		public void Intialize()
 		{
 			_grid = CreateGridContextWithDesignSurface("<Button/><StackPanel><Button/></StackPanel>");
-			_outline = OutlineNode.Create(_grid);
+			_outline = _grid.CreateOutlineNode();
 			Assert.IsNotNull(_outline);
 
 			_gridButton = _grid.ContentProperty.CollectionElements[0];
@@ -176,7 +176,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer.OutlineView
 		public void Intialize()
 		{
 			_grid = CreateGridContextWithDesignSurface("<Button/><StackPanel><Image/></StackPanel>");
-			_outline = OutlineNode.Create(_grid);
+			_outline = _grid.CreateOutlineNode();
 			Assert.IsNotNull(_outline);
 
 			_gridButton = _grid.ContentProperty.CollectionElements[0];

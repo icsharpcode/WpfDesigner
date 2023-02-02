@@ -32,7 +32,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer.OutlineView
 		public void Intialize()
 		{
 			_grid = CreateGridContextWithDesignSurface("<Button/><StackPanel><Button/></StackPanel>");
-			_outline = OutlineNode.Create(_grid);
+			_outline = _grid.CreateOutlineNode();
 			Assert.IsNotNull(_outline);
 
 			var selection = _grid.Services.Selection;

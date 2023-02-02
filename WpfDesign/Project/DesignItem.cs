@@ -354,7 +354,12 @@ namespace ICSharpCode.WpfDesign
 		/// Creates a copy of this design item.
 		/// </summary>
 		public abstract DesignItem Clone();
-		
+
+		/// <summary>
+		/// Gets a <see cref="IOutlineNode"/> for this this design item.
+		/// </summary>
+		public IOutlineNode CreateOutlineNode() => Services.GetRequiredService<IOutlineNodeService>().Create(this);
+
 		/// <summary>
 		/// Gets a <see cref="Transform"/> that represents all transforms applied to the item's view.
 		/// </summary>

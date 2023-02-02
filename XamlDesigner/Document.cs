@@ -247,7 +247,7 @@ namespace ICSharpCode.XamlDesigner
 				DesignSurface.LoadDesigner(xmlReader, settings);
 			}
 			if (DesignContext.RootItem != null) {
-				OutlineRoot = OutlineNode.Create(DesignContext.RootItem);
+				OutlineRoot = DesignContext.RootItem.CreateOutlineNode();
 				UndoService.UndoStackChanged += new EventHandler(UndoService_UndoStackChanged);
 			}
 			RaisePropertyChanged("SelectionService");

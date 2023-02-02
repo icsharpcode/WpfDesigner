@@ -43,11 +43,16 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 		private DesignItem _item;
 		private Type _type;
 		private IComponentService _componentService;
+
 		public CollectionEditor()
 		{
 			SpecialInitializeComponent();
-			
-			this.Owner = Application.Current.MainWindow;
+		}
+
+		public CollectionEditor(Window owner)
+			: this()
+		{
+			this.Owner = owner;
 		}
 		
 		/// <summary>
@@ -74,7 +79,7 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors
 			if(control!=null){
 				TypeMappings.TryGetValue(control.GetType(), out _type);
 				if (_type != null) {
-					IOutlineNode node = OutlineNode.Create(item);
+					IOutlineNode node = item.CreateOutlineNode();
 					Outline.Root = node;
 					PropertyGridView.PropertyGrid.SelectedItems = item.Services.Selection.SelectedItems;
 				}

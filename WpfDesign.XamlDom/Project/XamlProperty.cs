@@ -533,12 +533,13 @@ namespace ICSharpCode.WpfDesign.XamlDom
 
 				string ns = ParentObject.OwnerDocument.GetNamespaceFor(PropertyTargetType);
 				string prefix = element.GetPrefixOfNamespace(ns);
-
+				
 				if (String.IsNullOrEmpty(prefix)) {
 					prefix = ParentObject.OwnerDocument.GetPrefixForNamespace(ns);
 				}
-
-				if (!string.IsNullOrEmpty(prefix)) {
+				var existingNameSpace = element.GetNamespaceOfPrefix(prefix);
+				
+				if (!string.IsNullOrEmpty(prefix) || existingNameSpace != ns) {
 					element.SetAttribute(name, ns, value);
 					return element.GetAttributeNode(name, ns);
 				}

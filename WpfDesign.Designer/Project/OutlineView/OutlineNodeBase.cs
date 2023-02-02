@@ -233,7 +233,7 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 			using (var moveTransaction = DesignItem.Context.OpenGroup("Item moved in outline view", nodes.Select(n => n.DesignItem).ToList()))
 			{
 				if (copy) {
-					nodes = nodes.Select(n => OutlineNode.Create(n.DesignItem.Clone())).ToList();
+					nodes = nodes.Select(n => n.DesignItem.Clone().CreateOutlineNode()).ToList();
 				} else {
 					foreach (var node in nodes) {
 						node.DesignItem.Remove();
