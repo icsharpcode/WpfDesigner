@@ -179,9 +179,13 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		
 		void RemoveInternal(int index, XamlDesignItem item)
 		{
-			RemoveFromNamescopeRecursive(item);
+			if (item != null)
+				RemoveFromNamescopeRecursive(item);
 
-			Debug.Assert(property.CollectionElements[index] == item.XamlObject);
+			if (item != null)
+			{
+				Debug.Assert(property.CollectionElements[index] == item.XamlObject);
+			}
 			property.CollectionElements.RemoveAt(index);
 			
 			if (CollectionChanged != null)
@@ -195,7 +199,8 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			if (CollectionChanged != null)
 				CollectionChanged(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
 
-			AddToNamescopeRecursive(item);
+			if (item != null)
+				AddToNamescopeRecursive(item);
 		}
 		
 		private static void RemoveFromNamescopeRecursive(XamlDesignItem designItem)
