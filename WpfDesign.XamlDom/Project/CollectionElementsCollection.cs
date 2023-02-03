@@ -20,6 +20,8 @@ using System;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Windows.Documents;
+using System.Linq;
 
 namespace ICSharpCode.WpfDesign.XamlDom
 {
@@ -65,7 +67,12 @@ namespace ICSharpCode.WpfDesign.XamlDom
 			object collection = info.GetValue(property.ParentObject.Instance);
 			if (!CollectionSupport.RemoveItemAt(info.ReturnType, collection, index)) {
 				var propertyValue = this[index];
-				CollectionSupport.RemoveItem(info.ReturnType, collection, propertyValue.GetValueFor(info), propertyValue);
+				if (collection is InlineCollection ilc)
+				{
+					CollectionSupport.RemoveItem(info.ReturnType, collection, ilc.ElementAt(index), propertyValue);
+				}
+				else
+					CollectionSupport.RemoveItem(info.ReturnType, collection, propertyValue.GetValueFor(info), propertyValue);
 			}
 			
 			var item = this[index];
