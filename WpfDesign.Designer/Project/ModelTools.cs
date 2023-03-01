@@ -508,7 +508,7 @@ namespace ICSharpCode.WpfDesign.Designer
 			transformProperty = transformProperty ?? FrameworkElement.RenderTransformProperty;
 			Transform oldTransform = null;
 			if (designItem.Properties.GetProperty(transformProperty).IsSet) {
-				oldTransform = designItem.Properties.GetProperty(transformProperty).ValueOnInstance as Transform;
+				oldTransform = designItem.Properties.GetProperty(transformProperty).GetValueOnInstance<Transform>();
 			}
 			
 			if (oldTransform is MatrixTransform) {
@@ -675,7 +675,7 @@ namespace ICSharpCode.WpfDesign.Designer
 							}
 							else if (container.Component is Grid)
 							{
-								if ((HorizontalAlignment)item.Properties.GetProperty(FrameworkElement.HorizontalAlignmentProperty).ValueOnInstance != HorizontalAlignment.Right)
+								if (item.Properties.GetProperty(FrameworkElement.HorizontalAlignmentProperty).GetValueOnInstance<HorizontalAlignment>() != HorizontalAlignment.Right)
 								{
 									var margin = item.Properties.GetProperty(FrameworkElement.MarginProperty).GetValueOnInstance<Thickness>();
 									margin.Left = xmin;
@@ -711,7 +711,7 @@ namespace ICSharpCode.WpfDesign.Designer
 							}
 							else if (container.Component is Grid)
 							{
-								if ((HorizontalAlignment)item.Properties.GetProperty(FrameworkElement.HorizontalAlignmentProperty).ValueOnInstance != HorizontalAlignment.Right)
+								if (item.Properties.GetProperty(FrameworkElement.HorizontalAlignmentProperty).GetValueOnInstance<HorizontalAlignment>() != HorizontalAlignment.Right)
 								{
 									var margin = item.Properties.GetProperty(FrameworkElement.MarginProperty).GetValueOnInstance<Thickness>();
 									margin.Left = mpos - (((FrameworkElement)item.Component).ActualWidth) / 2;
@@ -745,7 +745,7 @@ namespace ICSharpCode.WpfDesign.Designer
 							}
 							else if (container.Component is Grid)
 							{
-								if ((HorizontalAlignment)item.Properties.GetProperty(FrameworkElement.HorizontalAlignmentProperty).ValueOnInstance != HorizontalAlignment.Right)
+								if (item.Properties.GetProperty(FrameworkElement.HorizontalAlignmentProperty).GetValueOnInstance<HorizontalAlignment>() != HorizontalAlignment.Right)
 								{
 									var pos = xmax - (double)((FrameworkElement)item.Component).ActualWidth;
 									var margin = item.Properties.GetProperty(FrameworkElement.MarginProperty).GetValueOnInstance<Thickness>();
@@ -778,7 +778,7 @@ namespace ICSharpCode.WpfDesign.Designer
 							}
 							else if (container.Component is Grid)
 							{
-								if ((VerticalAlignment)item.Properties.GetProperty(FrameworkElement.VerticalAlignmentProperty).ValueOnInstance != VerticalAlignment.Bottom)
+								if (item.Properties.GetProperty(FrameworkElement.VerticalAlignmentProperty).GetValueOnInstance<VerticalAlignment>() != VerticalAlignment.Bottom)
 								{
 									item.Properties.GetAttachedProperty(Canvas.TopProperty).SetValue(ymin);
 									var margin = item.Properties.GetProperty(FrameworkElement.MarginProperty).GetValueOnInstance<Thickness>();
@@ -812,7 +812,7 @@ namespace ICSharpCode.WpfDesign.Designer
 							}
 							else if (container.Component is Grid)
 							{
-								if ((VerticalAlignment)item.Properties.GetProperty(FrameworkElement.VerticalAlignmentProperty).ValueOnInstance != VerticalAlignment.Bottom)
+								if (item.Properties.GetProperty(FrameworkElement.VerticalAlignmentProperty).GetValueOnInstance<VerticalAlignment>() != VerticalAlignment.Bottom)
 								{
 									var margin = item.Properties.GetProperty(FrameworkElement.MarginProperty).GetValueOnInstance<Thickness>();
 									margin.Top = ympos - (((FrameworkElement)item.Component).ActualHeight) / 2;
@@ -846,7 +846,7 @@ namespace ICSharpCode.WpfDesign.Designer
 							}
 							else if (container.Component is Grid)
 							{
-								if ((VerticalAlignment)item.Properties.GetProperty(FrameworkElement.VerticalAlignmentProperty).ValueOnInstance != VerticalAlignment.Bottom)
+								if (item.Properties.GetProperty(FrameworkElement.VerticalAlignmentProperty).GetValueOnInstance<VerticalAlignment>() != VerticalAlignment.Bottom)
 								{
 									var pos = ymax - (double)((FrameworkElement)item.Component).ActualHeight;
 									var margin = item.Properties.GetProperty(FrameworkElement.MarginProperty).GetValueOnInstance<Thickness>();

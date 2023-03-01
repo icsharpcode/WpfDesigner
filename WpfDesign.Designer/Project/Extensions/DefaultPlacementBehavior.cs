@@ -159,7 +159,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			if (!ExtendedItem.ContentProperty.IsSet)
 				return true;
 
-			object value = ExtendedItem.ContentProperty.ValueOnInstance;
+			object value = ExtendedItem.ContentProperty.GetValueOnInstance<object>();
 			// don't overwrite non-primitive values like bindings
 			return ExtendedItem.ContentProperty.Value == null && (value is string && string.IsNullOrEmpty(value as string));
 		}

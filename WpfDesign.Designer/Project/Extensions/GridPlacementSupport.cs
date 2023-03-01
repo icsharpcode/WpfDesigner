@@ -190,8 +190,8 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			if (operation.Type == PlacementType.PasteItem) {
 				foreach (PlacementInformation info in operation.PlacedItems) {				
 					var margin = info.Item.Properties.GetProperty(FrameworkElement.MarginProperty).GetValueOnInstance<Thickness>();
-					var horizontalAlignment = (HorizontalAlignment)info.Item.Properties.GetProperty(FrameworkElement.HorizontalAlignmentProperty).ValueOnInstance;
-					var verticalAlignment = (VerticalAlignment)info.Item.Properties.GetProperty(FrameworkElement.VerticalAlignmentProperty).ValueOnInstance;
+					var horizontalAlignment = info.Item.Properties.GetProperty(FrameworkElement.HorizontalAlignmentProperty).GetValueOnInstance<HorizontalAlignment>();
+					var verticalAlignment = info.Item.Properties.GetProperty(FrameworkElement.VerticalAlignmentProperty).GetValueOnInstance<VerticalAlignment>();
 					
 					if (horizontalAlignment == HorizontalAlignment.Left)
 						margin.Left += PlacementOperation.PasteOffset;
@@ -242,8 +242,8 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				}
 			}
 			
-			HorizontalAlignment ha = (HorizontalAlignment)info.Item.Properties[FrameworkElement.HorizontalAlignmentProperty].ValueOnInstance;
-			VerticalAlignment va = (VerticalAlignment)info.Item.Properties[FrameworkElement.VerticalAlignmentProperty].ValueOnInstance;
+			HorizontalAlignment ha = info.Item.Properties[FrameworkElement.HorizontalAlignmentProperty].GetValueOnInstance<HorizontalAlignment>();
+			VerticalAlignment va = info.Item.Properties[FrameworkElement.VerticalAlignmentProperty].GetValueOnInstance<VerticalAlignment>();
 			if(enteredIntoNewContainer){
 				ha = SuggestHorizontalAlignment(info.Bounds, availableSpaceRect);
 				va = SuggestVerticalAlignment(info.Bounds, availableSpaceRect);
@@ -289,8 +289,8 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 					info.Item.Properties.GetAttachedProperty(Grid.RowSpanProperty).Reset();
 					info.Item.Properties.GetAttachedProperty(Grid.ColumnSpanProperty).Reset();
 
-					HorizontalAlignment ha = (HorizontalAlignment)info.Item.Properties[FrameworkElement.HorizontalAlignmentProperty].ValueOnInstance;
-					VerticalAlignment va = (VerticalAlignment)info.Item.Properties[FrameworkElement.VerticalAlignmentProperty].ValueOnInstance;
+					HorizontalAlignment ha = info.Item.Properties[FrameworkElement.HorizontalAlignmentProperty].GetValueOnInstance<HorizontalAlignment>();
+					VerticalAlignment va = info.Item.Properties[FrameworkElement.VerticalAlignmentProperty].GetValueOnInstance<VerticalAlignment>();
 
 					if (ha == HorizontalAlignment.Stretch)
 						info.Item.Properties[FrameworkElement.WidthProperty].SetValue(info.Bounds.Width);

@@ -98,7 +98,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		{
 			if (!string.IsNullOrEmpty(oldName) && !string.IsNullOrEmpty(newName)) {
 				var root = GetRootXamlObject(this.XamlObject);
-				var references = GetAllChildXamlObjects(root).Where(x => x.ElementType == typeof(Reference) && Equals(x.FindOrCreateProperty("Name").ValueOnInstance, oldName));
+				var references = GetAllChildXamlObjects(root).Where(x => x.ElementType == typeof(Reference) && Equals(x.FindOrCreateProperty("Name").GetValueOnInstance<string>(), oldName));
 				foreach (var designItem in references)
 				{
 					var property = designItem.FindOrCreateProperty("Name");
@@ -108,7 +108,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 				}
 
 				root = GetRootXamlObject(this.XamlObject, true);
-				var bindings = GetAllChildXamlObjects(root, true).Where(x => x.ElementType == typeof(Binding) && Equals(x.FindOrCreateProperty("ElementName").ValueOnInstance, oldName));
+				var bindings = GetAllChildXamlObjects(root, true).Where(x => x.ElementType == typeof(Binding) && Equals(x.FindOrCreateProperty("ElementName").GetValueOnInstance<string>(), oldName));
 				foreach (var designItem in bindings)
 				{
 					var property = designItem.FindOrCreateProperty("ElementName");
@@ -283,7 +283,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		/// </summary>
 		public bool IsDesignTimeLocked {
 			get {
-				var locked = Properties.GetAttachedProperty(DesignTimeProperties.IsLockedProperty).ValueOnInstance;
+				var locked = Properties.GetAttachedProperty(DesignTimeProperties.IsLockedProperty).GetValueOnInstance<object>();
 				return (locked != null && (bool) locked == true);
 			}
 			set {

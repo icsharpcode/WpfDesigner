@@ -147,15 +147,15 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				info.Item.Properties[FrameworkElement.MarginProperty].Reset();
 				
 				if (operation.Type == PlacementType.PasteItem) {
-					if (!double.IsNaN((double)info.Item.Properties.GetAttachedProperty(Canvas.LeftProperty).ValueOnInstance)) {
+					if (!double.IsNaN(info.Item.Properties.GetAttachedProperty(Canvas.LeftProperty).GetValueOnInstance<double>())) {
 						info.Item.Properties.GetAttachedProperty(Canvas.LeftProperty)
-							.SetValue(((double) info.Item.Properties.GetAttachedProperty(Canvas.LeftProperty).ValueOnInstance) +
+							.SetValue((info.Item.Properties.GetAttachedProperty(Canvas.LeftProperty).GetValueOnInstance<double>()) +
 							          PlacementOperation.PasteOffset);
 					}
 
-					if (!double.IsNaN((double)info.Item.Properties.GetAttachedProperty(Canvas.TopProperty).ValueOnInstance)) {
+					if (!double.IsNaN(info.Item.Properties.GetAttachedProperty(Canvas.TopProperty).GetValueOnInstance<double>())) {
 						info.Item.Properties.GetAttachedProperty(Canvas.TopProperty)
-							.SetValue(((double) info.Item.Properties.GetAttachedProperty(Canvas.TopProperty).ValueOnInstance) +
+							.SetValue((info.Item.Properties.GetAttachedProperty(Canvas.TopProperty).GetValueOnInstance<double>()) +
 							          PlacementOperation.PasteOffset);
 					}
 				}

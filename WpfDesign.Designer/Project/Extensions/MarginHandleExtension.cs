@@ -72,11 +72,11 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		private void OnMouseDown(object sender, MouseButtonEventArgs e)
 		{
 			e.Handled = true;
-			var row = (int) this.ExtendedItem.Properties.GetAttachedProperty(Grid.RowProperty).ValueOnInstance;
-			var rowSpan = (int) this.ExtendedItem.Properties.GetAttachedProperty(Grid.RowSpanProperty).ValueOnInstance;
+			var row = this.ExtendedItem.Properties.GetAttachedProperty(Grid.RowProperty).GetValueOnInstance<int>();
+			var rowSpan = this.ExtendedItem.Properties.GetAttachedProperty(Grid.RowSpanProperty).GetValueOnInstance<int>();
 
-			var column = (int) this.ExtendedItem.Properties.GetAttachedProperty(Grid.ColumnProperty).ValueOnInstance;
-			var columnSpan = (int) this.ExtendedItem.Properties.GetAttachedProperty(Grid.ColumnSpanProperty).ValueOnInstance;
+			var column = this.ExtendedItem.Properties.GetAttachedProperty(Grid.ColumnProperty).GetValueOnInstance<int>();
+			var columnSpan = this.ExtendedItem.Properties.GetAttachedProperty(Grid.ColumnSpanProperty).GetValueOnInstance<int>();
 
 			var margin = this.ExtendedItem.Properties[FrameworkElement.MarginProperty].GetValueOnInstance<Thickness>();
 
