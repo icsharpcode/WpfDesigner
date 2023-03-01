@@ -132,6 +132,12 @@ namespace ICSharpCode.WpfDesign
 		public abstract void Reset();
 
 		/// <summary>
+		/// Gets the value of the property on the designed instance as an instance of T.
+		/// If the property is not set, or does not match type T, this returns the default value.
+		/// </summary>
+		public abstract T GetValueOnInstance<T>();
+
+		/// <summary>
 		/// Gets the parent design item.
 		/// </summary>
 		public abstract DesignItem DesignItem { get; }

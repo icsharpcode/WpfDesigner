@@ -270,7 +270,9 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 				_designItem.NotifyPropertyChanged(this, oldValue, null);
 			}
 		}
-		
+
+		public override T GetValueOnInstance<T>() => _property.GetValueOnInstance<T>();
+
 		public sealed class PropertyChangeAction : ITransactionItem
 		{
 			readonly XamlModelProperty property;

@@ -368,7 +368,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 				// increment ColSpan of all controls in the split column, increment Column of all controls in later columns:
 				foreach (DesignItem child in gridItem.Properties["Children"].CollectionElements) {
 					Point topLeft = child.View.TranslatePoint(new Point(0, 0), grid);
-					var margin = (Thickness) child.Properties[FrameworkElement.MarginProperty].ValueOnInstance;
+					var margin = child.Properties[FrameworkElement.MarginProperty].GetValueOnInstance<Thickness>();
 					var start = (int) child.Properties.GetAttachedProperty(idxProperty).ValueOnInstance;
 					var span = (int) child.Properties.GetAttachedProperty(spanProperty).ValueOnInstance;
 					if (start <= splitIndex && splitIndex < start + span) {
@@ -395,7 +395,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 				foreach (DesignItem child in gridItem.Properties["Children"].CollectionElements)
 				{
 					Point topLeft = child.View.TranslatePoint(new Point(0, 0), grid);
-					var margin = (Thickness)child.Properties[FrameworkElement.MarginProperty].ValueOnInstance;
+					var margin = child.Properties[FrameworkElement.MarginProperty].GetValueOnInstance<Thickness>();
 					var start = (int)child.Properties.GetAttachedProperty(idxProperty).ValueOnInstance;
 					var span = (int)child.Properties.GetAttachedProperty(spanProperty).ValueOnInstance;
 					if (start <= splitIndex && splitIndex < start + span)

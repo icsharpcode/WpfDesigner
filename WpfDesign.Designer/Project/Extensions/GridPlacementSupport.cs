@@ -189,7 +189,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			
 			if (operation.Type == PlacementType.PasteItem) {
 				foreach (PlacementInformation info in operation.PlacedItems) {				
-					var margin = (Thickness)info.Item.Properties.GetProperty(FrameworkElement.MarginProperty).ValueOnInstance;
+					var margin = info.Item.Properties.GetProperty(FrameworkElement.MarginProperty).GetValueOnInstance<Thickness>();
 					var horizontalAlignment = (HorizontalAlignment)info.Item.Properties.GetProperty(FrameworkElement.HorizontalAlignmentProperty).ValueOnInstance;
 					var verticalAlignment = (VerticalAlignment)info.Item.Properties.GetProperty(FrameworkElement.VerticalAlignmentProperty).ValueOnInstance;
 					
