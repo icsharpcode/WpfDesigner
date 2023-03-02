@@ -132,6 +132,12 @@ namespace ICSharpCode.WpfDesign
 		public abstract void Reset();
 
 		/// <summary>
+		/// Gets the value of <see cref="ValueOnInstance"/> as an instance of T (converted using <see cref="TypeConverter"/> if required and the converter is capable).
+		/// If the property is not set, or does not match type T, this returns the default value.
+		/// </summary>
+		public abstract T GetConvertedValueOnInstance<T>();
+
+		/// <summary>
 		/// Gets the parent design item.
 		/// </summary>
 		public abstract DesignItem DesignItem { get; }

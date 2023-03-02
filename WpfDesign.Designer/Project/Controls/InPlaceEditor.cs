@@ -21,6 +21,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Media;
 using ICSharpCode.WpfDesign.Designer.PropertyGrid.Editors.FormatedTextEditor;
 using RichTextBox = System.Windows.Controls.RichTextBox;
 
@@ -103,15 +104,15 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 				{
 					case Key.Enter:
 						// Commit the changes to DOM.
-						if (designItem.Properties[Control.FontFamilyProperty].ValueOnInstance != editor.FontFamily)
+						if (designItem.Properties[Control.FontFamilyProperty].GetConvertedValueOnInstance<FontFamily>() != editor.FontFamily)
 							designItem.Properties[Control.FontFamilyProperty].SetValue(editor.FontFamily);
-						if ((double)designItem.Properties[Control.FontSizeProperty].ValueOnInstance != editor.FontSize)
+						if (designItem.Properties[Control.FontSizeProperty].GetConvertedValueOnInstance<double>() != editor.FontSize)
 							designItem.Properties[Control.FontSizeProperty].SetValue(editor.FontSize);
-						if ((FontStretch)designItem.Properties[Control.FontStretchProperty].ValueOnInstance != editor.FontStretch)
+						if (designItem.Properties[Control.FontStretchProperty].GetConvertedValueOnInstance<FontStretch>() != editor.FontStretch)
 							designItem.Properties[Control.FontStretchProperty].SetValue(editor.FontStretch);
-						if ((FontStyle)designItem.Properties[Control.FontStyleProperty].ValueOnInstance != editor.FontStyle)
+						if (designItem.Properties[Control.FontStyleProperty].GetConvertedValueOnInstance<FontStyle>() != editor.FontStyle)
 							designItem.Properties[Control.FontStyleProperty].SetValue(editor.FontStyle);
-						if ((FontWeight)designItem.Properties[Control.FontWeightProperty].ValueOnInstance != editor.FontWeight)
+						if (designItem.Properties[Control.FontWeightProperty].GetConvertedValueOnInstance<FontWeight>() != editor.FontWeight)
 							designItem.Properties[Control.FontWeightProperty].SetValue(editor.FontWeight);
 
 						if (changeGroup != null && _isChangeGroupOpen)
