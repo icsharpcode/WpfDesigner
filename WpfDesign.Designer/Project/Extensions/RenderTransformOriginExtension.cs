@@ -90,7 +90,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			this.ExtendedItem.PropertyChanged += OnPropertyChanged;
 			
 			if (this.ExtendedItem.Properties.GetProperty(FrameworkElement.RenderTransformOriginProperty).IsSet) {
-				renderTransformOrigin = this.ExtendedItem.Properties.GetProperty(FrameworkElement.RenderTransformOriginProperty).GetValueOnInstance<Point>();
+				renderTransformOrigin = this.ExtendedItem.Properties.GetProperty(FrameworkElement.RenderTransformOriginProperty).GetConvertedValueOnInstance<Point>();
 			}
 			
 			AdornerPanel.SetPlacement(renderTransformOriginThumb,
@@ -104,7 +104,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		{
 			var pRel = renderTransformOrigin;
 			if (this.ExtendedItem.Properties.GetProperty(FrameworkElement.RenderTransformOriginProperty).IsSet)
-				pRel = this.ExtendedItem.Properties.GetProperty(FrameworkElement.RenderTransformOriginProperty).GetValueOnInstance<Point>();
+				pRel = this.ExtendedItem.Properties.GetProperty(FrameworkElement.RenderTransformOriginProperty).GetConvertedValueOnInstance<Point>();
 						
 			AdornerPanel.SetPlacement(renderTransformOriginThumb,
 			                          new RelativePlacement(HorizontalAlignment.Left, VerticalAlignment.Top){ XRelativeToContentWidth = pRel.X, YRelativeToContentHeight = pRel.Y });

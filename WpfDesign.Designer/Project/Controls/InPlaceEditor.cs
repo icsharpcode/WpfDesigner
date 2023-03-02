@@ -104,15 +104,15 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 				{
 					case Key.Enter:
 						// Commit the changes to DOM.
-						if (designItem.Properties[Control.FontFamilyProperty].GetValueOnInstance<FontFamily>() != editor.FontFamily)
+						if (designItem.Properties[Control.FontFamilyProperty].GetConvertedValueOnInstance<FontFamily>() != editor.FontFamily)
 							designItem.Properties[Control.FontFamilyProperty].SetValue(editor.FontFamily);
-						if (designItem.Properties[Control.FontSizeProperty].GetValueOnInstance<double>() != editor.FontSize)
+						if (designItem.Properties[Control.FontSizeProperty].GetConvertedValueOnInstance<double>() != editor.FontSize)
 							designItem.Properties[Control.FontSizeProperty].SetValue(editor.FontSize);
-						if (designItem.Properties[Control.FontStretchProperty].GetValueOnInstance<FontStretch>() != editor.FontStretch)
+						if (designItem.Properties[Control.FontStretchProperty].GetConvertedValueOnInstance<FontStretch>() != editor.FontStretch)
 							designItem.Properties[Control.FontStretchProperty].SetValue(editor.FontStretch);
-						if (designItem.Properties[Control.FontStyleProperty].GetValueOnInstance<FontStyle>() != editor.FontStyle)
+						if (designItem.Properties[Control.FontStyleProperty].GetConvertedValueOnInstance<FontStyle>() != editor.FontStyle)
 							designItem.Properties[Control.FontStyleProperty].SetValue(editor.FontStyle);
-						if (designItem.Properties[Control.FontWeightProperty].GetValueOnInstance<FontWeight>() != editor.FontWeight)
+						if (designItem.Properties[Control.FontWeightProperty].GetConvertedValueOnInstance<FontWeight>() != editor.FontWeight)
 							designItem.Properties[Control.FontWeightProperty].SetValue(editor.FontWeight);
 
 						if (changeGroup != null && _isChangeGroupOpen)

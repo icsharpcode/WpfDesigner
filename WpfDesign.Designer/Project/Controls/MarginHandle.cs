@@ -216,7 +216,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		void OnPropertyChanged(object sender,PropertyChangedEventArgs e)
 		{
 			if(e.PropertyName=="HorizontalAlignment" && (orientation==HandleOrientation.Left || orientation==HandleOrientation.Right)) {
-				var ha = adornedControlItem.Properties[FrameworkElement.HorizontalAlignmentProperty].GetValueOnInstance<HorizontalAlignment>();
+				var ha = adornedControlItem.Properties[FrameworkElement.HorizontalAlignmentProperty].GetConvertedValueOnInstance<HorizontalAlignment>();
 				if(ha==HorizontalAlignment.Stretch) {
 					DisplayOnlyStub = false;
 				}else if(ha==HorizontalAlignment.Center) {
@@ -226,7 +226,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 			}
 
 			if(e.PropertyName=="VerticalAlignment" && (orientation==HandleOrientation.Top || orientation==HandleOrientation.Bottom)) {
-				var va = adornedControlItem.Properties[FrameworkElement.VerticalAlignmentProperty].GetValueOnInstance<VerticalAlignment>();
+				var va = adornedControlItem.Properties[FrameworkElement.VerticalAlignmentProperty].GetConvertedValueOnInstance<VerticalAlignment>();
 
 				if(va==VerticalAlignment.Stretch) {
 					DisplayOnlyStub = false;

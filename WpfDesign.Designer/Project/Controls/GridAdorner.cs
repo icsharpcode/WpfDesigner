@@ -140,7 +140,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 					rpUnitSelector.HeightOffset = 55;
 					rpUnitSelector.YOffset = current.Offset + current.ActualHeight / 2 - 25;
 					unitSelector.SelectedItem = component;
-					unitSelector.Unit = component.Properties[RowDefinition.HeightProperty].GetValueOnInstance<GridLength>().GridUnitType;
+					unitSelector.Unit = component.Properties[RowDefinition.HeightProperty].GetConvertedValueOnInstance<GridLength>().GridUnitType;
 					displayUnitSelector = true;
 				}
 				else
@@ -164,7 +164,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 					rpUnitSelector.WidthOffset = 75;
 					rpUnitSelector.XOffset = current.Offset + current.ActualWidth / 2 - 35;
 					unitSelector.SelectedItem = component;
-					unitSelector.Unit = component.Properties[ColumnDefinition.WidthProperty].GetValueOnInstance<GridLength>().GridUnitType;
+					unitSelector.Unit = component.Properties[ColumnDefinition.WidthProperty].GetConvertedValueOnInstance<GridLength>().GridUnitType;
 					displayUnitSelector = true;
 				}
 				else
@@ -205,7 +205,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 					rpUnitSelector.HeightOffset = 55;
 					rpUnitSelector.YOffset = current.Offset + current.ActualHeight / 2 - 25;
 					unitSelector.SelectedItem = component;
-					unitSelector.Unit = component.Properties[RowDefinition.HeightProperty].GetValueOnInstance<GridLength>().GridUnitType;
+					unitSelector.Unit = component.Properties[RowDefinition.HeightProperty].GetConvertedValueOnInstance<GridLength>().GridUnitType;
 					displayUnitSelector = true;
 				}
 				else
@@ -236,7 +236,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 					rpUnitSelector.WidthOffset = 75;
 					rpUnitSelector.XOffset = current.Offset + current.ActualWidth / 2 - 35;
 					unitSelector.SelectedItem = component;
-					unitSelector.Unit = component.Properties[ColumnDefinition.WidthProperty].GetValueOnInstance<GridLength>().GridUnitType;
+					unitSelector.Unit = component.Properties[ColumnDefinition.WidthProperty].GetConvertedValueOnInstance<GridLength>().GridUnitType;
 					displayUnitSelector = true;
 				}
 				else
@@ -368,11 +368,11 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 				// increment ColSpan of all controls in the split column, increment Column of all controls in later columns:
 				foreach (DesignItem child in gridItem.Properties["Children"].CollectionElements) {
 					Point topLeft = child.View.TranslatePoint(new Point(0, 0), grid);
-					var margin = child.Properties[FrameworkElement.MarginProperty].GetValueOnInstance<Thickness>();
-					var start = child.Properties.GetAttachedProperty(idxProperty).GetValueOnInstance<int>();
-					var span = child.Properties.GetAttachedProperty(spanProperty).GetValueOnInstance<int>();
+					var margin = child.Properties[FrameworkElement.MarginProperty].GetConvertedValueOnInstance<Thickness>();
+					var start = child.Properties.GetAttachedProperty(idxProperty).GetConvertedValueOnInstance<int>();
+					var span = child.Properties.GetAttachedProperty(spanProperty).GetConvertedValueOnInstance<int>();
 					if (start <= splitIndex && splitIndex < start + span) {
-						var width = child.Properties[FrameworkElement.ActualWidthProperty].GetValueOnInstance<double>();
+						var width = child.Properties[FrameworkElement.ActualWidthProperty].GetConvertedValueOnInstance<double>();
 						if (insertionPostion >= topLeft.X + width) {
 							continue;
 						}
@@ -395,12 +395,12 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 				foreach (DesignItem child in gridItem.Properties["Children"].CollectionElements)
 				{
 					Point topLeft = child.View.TranslatePoint(new Point(0, 0), grid);
-					var margin = child.Properties[FrameworkElement.MarginProperty].GetValueOnInstance<Thickness>();
-					var start = child.Properties.GetAttachedProperty(idxProperty).GetValueOnInstance<int>();
-					var span = child.Properties.GetAttachedProperty(spanProperty).GetValueOnInstance<int>();
+					var margin = child.Properties[FrameworkElement.MarginProperty].GetConvertedValueOnInstance<Thickness>();
+					var start = child.Properties.GetAttachedProperty(idxProperty).GetConvertedValueOnInstance<int>();
+					var span = child.Properties.GetAttachedProperty(spanProperty).GetConvertedValueOnInstance<int>();
 					if (start <= splitIndex && splitIndex < start + span)
 					{
-						var height = child.Properties[FrameworkElement.ActualHeightProperty].GetValueOnInstance<double>();
+						var height = child.Properties[FrameworkElement.ActualHeightProperty].GetConvertedValueOnInstance<double>();
 						if (insertionPostion >= topLeft.Y + height)
 							continue;
 						if (insertionPostion > topLeft.Y)
@@ -463,7 +463,7 @@ namespace ICSharpCode.WpfDesign.Designer.Controls
 		void SetGridLengthUnit(GridUnitType unit, DesignItem item, DependencyProperty property)
 		{
 			DesignItemProperty itemProperty = item.Properties[property];
-			GridLength oldValue = itemProperty.GetValueOnInstance<GridLength>();
+			GridLength oldValue = itemProperty.GetConvertedValueOnInstance<GridLength>();
 			GridLength value = GetNewGridLength(unit, oldValue);
 			
 			if (value != oldValue) {

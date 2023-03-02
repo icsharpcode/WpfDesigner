@@ -283,7 +283,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		/// </summary>
 		public bool IsDesignTimeLocked {
 			get {
-				var locked = Properties.GetAttachedProperty(DesignTimeProperties.IsLockedProperty).GetValueOnInstance<object>();
+				var locked = Properties.GetAttachedProperty(DesignTimeProperties.IsLockedProperty).GetConvertedValueOnInstance<object>();
 				return (locked != null && (bool) locked == true);
 			}
 			set {

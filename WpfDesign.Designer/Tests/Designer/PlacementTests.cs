@@ -85,59 +85,59 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 		[Test]
 		public void AssertAlignmentsForAutoSize()
 		{
-			Assert.AreEqual(HorizontalAlignment.Stretch,_buttonInGridWithAutoSize.Properties[FrameworkElement.HorizontalAlignmentProperty].GetValueOnInstance<HorizontalAlignment>());
-			Assert.AreEqual(VerticalAlignment.Stretch,_buttonInGridWithAutoSize.Properties[FrameworkElement.VerticalAlignmentProperty].GetValueOnInstance<VerticalAlignment>());
+			Assert.AreEqual(HorizontalAlignment.Stretch,_buttonInGridWithAutoSize.Properties[FrameworkElement.HorizontalAlignmentProperty].GetConvertedValueOnInstance<HorizontalAlignment>());
+			Assert.AreEqual(VerticalAlignment.Stretch,_buttonInGridWithAutoSize.Properties[FrameworkElement.VerticalAlignmentProperty].GetConvertedValueOnInstance<VerticalAlignment>());
 		}
 		
 		[Test]
 		public void AssertAlignmentForFixedSize()
 		{
-			Assert.AreEqual(HorizontalAlignment.Left,_buttonIsGridWithFixedSize.Properties[FrameworkElement.HorizontalAlignmentProperty].GetValueOnInstance<HorizontalAlignment>());
-			Assert.AreEqual(VerticalAlignment.Top,_buttonIsGridWithFixedSize.Properties[FrameworkElement.VerticalAlignmentProperty].GetValueOnInstance<VerticalAlignment>());
+			Assert.AreEqual(HorizontalAlignment.Left,_buttonIsGridWithFixedSize.Properties[FrameworkElement.HorizontalAlignmentProperty].GetConvertedValueOnInstance<HorizontalAlignment>());
+			Assert.AreEqual(VerticalAlignment.Top,_buttonIsGridWithFixedSize.Properties[FrameworkElement.VerticalAlignmentProperty].GetConvertedValueOnInstance<VerticalAlignment>());
 		}
 		
 		[Test]
 		public void AssertMarginForAutoSize()
 		{
-			Assert.AreEqual(new Thickness(50,25,-50,-25),_buttonInGridWithAutoSize.Properties[FrameworkElement.MarginProperty].GetValueOnInstance<Thickness>());
+			Assert.AreEqual(new Thickness(50,25,-50,-25),_buttonInGridWithAutoSize.Properties[FrameworkElement.MarginProperty].GetConvertedValueOnInstance<Thickness>());
 		}
 		
 		[Test]
 		public void AssertMarginForFixedSize()
 		{
-			Assert.AreEqual(new Thickness(50,25,0,0),_buttonIsGridWithFixedSize.Properties[FrameworkElement.MarginProperty].GetValueOnInstance<Thickness>());
+			Assert.AreEqual(new Thickness(50,25,0,0),_buttonIsGridWithFixedSize.Properties[FrameworkElement.MarginProperty].GetConvertedValueOnInstance<Thickness>());
 		}
 		
 		[Test]
 		public void AssertRowColumnForAutoSize()
 		{
-			Assert.AreEqual(0,_buttonInGridWithAutoSize.Properties.GetAttachedProperty(Grid.RowProperty).GetValueOnInstance<int>());
-			Assert.AreEqual(1,_buttonInGridWithAutoSize.Properties.GetAttachedProperty(Grid.RowSpanProperty).GetValueOnInstance<int>());
-			Assert.AreEqual(0,_buttonInGridWithAutoSize.Properties.GetAttachedProperty(Grid.ColumnProperty).GetValueOnInstance<int>());
-			Assert.AreEqual(1,_buttonInGridWithAutoSize.Properties.GetAttachedProperty(Grid.ColumnSpanProperty).GetValueOnInstance<int>());
+			Assert.AreEqual(0,_buttonInGridWithAutoSize.Properties.GetAttachedProperty(Grid.RowProperty).GetConvertedValueOnInstance<int>());
+			Assert.AreEqual(1,_buttonInGridWithAutoSize.Properties.GetAttachedProperty(Grid.RowSpanProperty).GetConvertedValueOnInstance<int>());
+			Assert.AreEqual(0,_buttonInGridWithAutoSize.Properties.GetAttachedProperty(Grid.ColumnProperty).GetConvertedValueOnInstance<int>());
+			Assert.AreEqual(1,_buttonInGridWithAutoSize.Properties.GetAttachedProperty(Grid.ColumnSpanProperty).GetConvertedValueOnInstance<int>());
 		}
 		
 		[Test]
 		public void AssetRowColumnForFixedSize()
 		{
-			Assert.AreEqual(0, _buttonIsGridWithFixedSize.Properties.GetAttachedProperty(Grid.RowProperty).GetValueOnInstance<int>());
-			Assert.AreEqual(1, _buttonIsGridWithFixedSize.Properties.GetAttachedProperty(Grid.RowSpanProperty).GetValueOnInstance<int>());
-			Assert.AreEqual(0, _buttonIsGridWithFixedSize.Properties.GetAttachedProperty(Grid.ColumnProperty).GetValueOnInstance<int>());
-			Assert.AreEqual(1, _buttonIsGridWithFixedSize.Properties.GetAttachedProperty(Grid.ColumnSpanProperty).GetValueOnInstance<int>());
+			Assert.AreEqual(0, _buttonIsGridWithFixedSize.Properties.GetAttachedProperty(Grid.RowProperty).GetConvertedValueOnInstance<int>());
+			Assert.AreEqual(1, _buttonIsGridWithFixedSize.Properties.GetAttachedProperty(Grid.RowSpanProperty).GetConvertedValueOnInstance<int>());
+			Assert.AreEqual(0, _buttonIsGridWithFixedSize.Properties.GetAttachedProperty(Grid.ColumnProperty).GetConvertedValueOnInstance<int>());
+			Assert.AreEqual(1, _buttonIsGridWithFixedSize.Properties.GetAttachedProperty(Grid.ColumnSpanProperty).GetConvertedValueOnInstance<int>());
 		}
 		
 		[Test]
 		public void AssertSizeForAutoSize()
 		{
-			Assert.AreEqual(double.NaN,_buttonInGridWithAutoSize.Properties[FrameworkElement.HeightProperty].GetValueOnInstance<double>());
-			Assert.AreEqual(double.NaN,_buttonInGridWithAutoSize.Properties[FrameworkElement.WidthProperty].GetValueOnInstance<double>());
+			Assert.AreEqual(double.NaN,_buttonInGridWithAutoSize.Properties[FrameworkElement.HeightProperty].GetConvertedValueOnInstance<double>());
+			Assert.AreEqual(double.NaN,_buttonInGridWithAutoSize.Properties[FrameworkElement.WidthProperty].GetConvertedValueOnInstance<double>());
 		}
 		
 		[Test]
 		public void AssertSizeForFixedSize()
 		{
-			Assert.AreEqual(50,_buttonIsGridWithFixedSize.Properties[FrameworkElement.HeightProperty].GetValueOnInstance<double>());
-			Assert.AreEqual(50,_buttonIsGridWithFixedSize.Properties[FrameworkElement.WidthProperty].GetValueOnInstance<double>());
+			Assert.AreEqual(50,_buttonIsGridWithFixedSize.Properties[FrameworkElement.HeightProperty].GetConvertedValueOnInstance<double>());
+			Assert.AreEqual(50,_buttonIsGridWithFixedSize.Properties[FrameworkElement.WidthProperty].GetConvertedValueOnInstance<double>());
 		}
 		#endregion
 	}

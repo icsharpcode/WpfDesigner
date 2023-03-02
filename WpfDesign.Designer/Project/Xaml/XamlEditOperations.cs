@@ -220,7 +220,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		/// <param name="pastedItems">The list of elements to be added</param>
 		static void AddInParent(DesignItem parent,IList<DesignItem> pastedItems)
 		{
-			IEnumerable<Rect> rects = pastedItems.Select(i => new Rect(new Point(0, 0), new Point(i.Properties["Width"].GetValueOnInstance<double>(), i.Properties["Height"].GetValueOnInstance<double>())));
+			IEnumerable<Rect> rects = pastedItems.Select(i => new Rect(new Point(0, 0), new Point(i.Properties["Width"].GetConvertedValueOnInstance<double>(), i.Properties["Height"].GetConvertedValueOnInstance<double>())));
 			var operation = PlacementOperation.TryStartInsertNewComponents(parent, pastedItems, rects.ToList(), PlacementType.PasteItem);
 			ISelectionService selection = parent.Services.DesignPanel.Context.Services.Selection;
 			selection.SetSelectedComponents(pastedItems);

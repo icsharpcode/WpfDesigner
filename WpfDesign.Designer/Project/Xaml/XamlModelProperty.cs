@@ -271,7 +271,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 			}
 		}
 
-		public override T GetValueOnInstance<T>() => _property.GetValueOnInstance<T>();
+		public override T GetConvertedValueOnInstance<T>() => _property.GetValueOnInstance<T>();
 
 		public sealed class PropertyChangeAction : ITransactionItem
 		{

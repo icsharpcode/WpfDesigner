@@ -82,7 +82,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 		public void ButtonClickEventHandler()
 		{
 			DesignItem button = CreateCanvasContext("<Button Click='OnClick'/>");
-			Assert.AreEqual("OnClick", button.Properties["Click"].GetValueOnInstance<string>());
+			Assert.AreEqual("OnClick", button.Properties["Click"].GetConvertedValueOnInstance<string>());
 			
 			button.Properties["Click"].Reset();
 			button.Properties["KeyDown"].SetValue("ButtonKeyDown");
@@ -219,7 +219,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 			AssertCanvasDesignerOutput(expectedXamlWithList, button.Context, "xmlns:Controls0=\"" + ICSharpCode.WpfDesign.Tests.XamlDom.XamlTypeFinderTests.XamlDomTestsNamespace + "\"");
 			
 			otherListProp = button.Properties["Tag"].Value.Properties["OtherList"];
-			Assert.IsTrue(otherListProp.GetValueOnInstance<XamlDom.ExampleClassList>().Count == otherListProp.CollectionElements.Count);
+			Assert.IsTrue(otherListProp.GetConvertedValueOnInstance<XamlDom.ExampleClassList>().Count == otherListProp.CollectionElements.Count);
 			
 			s.Undo();
 			Assert.IsFalse(s.CanUndo);
@@ -232,7 +232,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 			AssertCanvasDesignerOutput(expectedXamlWithList, button.Context, "xmlns:Controls0=\"" + ICSharpCode.WpfDesign.Tests.XamlDom.XamlTypeFinderTests.XamlDomTestsNamespace + "\"");
 			
 			otherListProp = button.Properties["Tag"].Value.Properties["OtherList"];
-			Assert.IsTrue(otherListProp.GetValueOnInstance<XamlDom.ExampleClassList>().Count == otherListProp.CollectionElements.Count);
+			Assert.IsTrue(otherListProp.GetConvertedValueOnInstance<XamlDom.ExampleClassList>().Count == otherListProp.CollectionElements.Count);
 			
 			AssertLog("");
 		}
@@ -306,7 +306,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 			AssertCanvasDesignerOutput(expectedXamlWithDictionary, button.Context, "xmlns:Controls0=\"" + ICSharpCode.WpfDesign.Tests.XamlDom.XamlTypeFinderTests.XamlDomTestsNamespace + "\"");
 			
 			dictionaryProp = button.Properties["Tag"].Value.Properties["Dictionary"];
-			Assert.IsTrue(dictionaryProp.GetValueOnInstance<XamlDom.ExampleClassDictionary>().Count == dictionaryProp.CollectionElements.Count);
+			Assert.IsTrue(dictionaryProp.GetConvertedValueOnInstance<XamlDom.ExampleClassDictionary>().Count == dictionaryProp.CollectionElements.Count);
 			
 			s.Undo();
 			Assert.IsFalse(s.CanUndo);
@@ -319,7 +319,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 			AssertCanvasDesignerOutput(expectedXamlWithDictionary, button.Context, "xmlns:Controls0=\"" + ICSharpCode.WpfDesign.Tests.XamlDom.XamlTypeFinderTests.XamlDomTestsNamespace + "\"");
 			
 			dictionaryProp = button.Properties["Tag"].Value.Properties["Dictionary"];
-			Assert.IsTrue(dictionaryProp.GetValueOnInstance<XamlDom.ExampleClassDictionary>().Count == dictionaryProp.CollectionElements.Count);
+			Assert.IsTrue(dictionaryProp.GetConvertedValueOnInstance<XamlDom.ExampleClassDictionary>().Count == dictionaryProp.CollectionElements.Count);
 			
 			AssertLog("");
 		}
@@ -361,7 +361,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 			AssertCanvasDesignerOutput(expectedXaml, textBlock.Context);
 			
 			inputbinding = textBlock.Properties["InputBindings"];
-			Assert.IsTrue(inputbinding.GetValueOnInstance<InputBindingCollection>().Count == inputbinding.CollectionElements.Count);
+			Assert.IsTrue(inputbinding.GetConvertedValueOnInstance<InputBindingCollection>().Count == inputbinding.CollectionElements.Count);
 			
 			s.Undo();
 			Assert.IsFalse(s.CanUndo);
@@ -373,7 +373,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 			Assert.IsFalse(s.CanRedo);
 			AssertCanvasDesignerOutput(expectedXaml, textBlock.Context);
 			
-			Assert.IsTrue(inputbinding.GetValueOnInstance<InputBindingCollection>().Count == inputbinding.CollectionElements.Count);
+			Assert.IsTrue(inputbinding.GetConvertedValueOnInstance<InputBindingCollection>().Count == inputbinding.CollectionElements.Count);
 			
 			AssertLog("");
 		}
@@ -450,7 +450,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 			Assert.IsFalse(s.CanRedo);
 			AssertCanvasDesignerOutput(expectedXaml, textBlock.Context);
 			
-			Assert.IsTrue(inputbinding.GetValueOnInstance<InputBindingCollection>().Count == inputbinding.CollectionElements.Count);
+			Assert.IsTrue(inputbinding.GetConvertedValueOnInstance<InputBindingCollection>().Count == inputbinding.CollectionElements.Count);
 			
 			AssertLog("");
 		}
@@ -643,7 +643,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 			exampleClassItem.Properties["StringProp"].SetValue("String value");
 			otherListProp.CollectionElements.Add(exampleClassItem);
 			
-			var listInstance = otherListProp.GetValueOnInstance<XamlDom.ExampleClassList>();
+			var listInstance = otherListProp.GetConvertedValueOnInstance<XamlDom.ExampleClassList>();
 			Assert.AreEqual(1, listInstance.Count);
 			Assert.AreEqual(1, otherListProp.CollectionElements.Count);
 			
@@ -680,7 +680,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 			exampleClassItem.Properties["StringProp"].SetValue("String value");
 			dictionaryProp.CollectionElements.Add(exampleClassItem);
 			
-			var dictionaryInstance = dictionaryProp.GetValueOnInstance<XamlDom.ExampleClassDictionary>();
+			var dictionaryInstance = dictionaryProp.GetConvertedValueOnInstance<XamlDom.ExampleClassDictionary>();
 			Assert.AreEqual(1, dictionaryInstance.Count);
 			Assert.AreEqual(1, dictionaryProp.CollectionElements.Count);
 			
@@ -1045,7 +1045,7 @@ namespace ICSharpCode.WpfDesign.Tests.Designer
 			var sourceProp = image.Properties[Image.SourceProperty];
 			
 			Assert.IsNull(sourceProp.ValueOnInstance);
-			Assert.IsNull(sourceProp.GetValueOnInstance<object>());
+			Assert.IsNull(sourceProp.GetConvertedValueOnInstance<object>());
 			Assert.IsNull(sourceProp.Value);
 			Assert.IsNotNull(sourceProp.TextValue);
 			Assert.AreEqual(sourceTextValue, sourceProp.TextValue);
