@@ -80,7 +80,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				if (view is StackPanel) {
 					var ch = new MenuItem() {Header = "Change Orientation"};
 					_menu.AddSubMenuInTheHeader(ch);
-					setValue = this.ExtendedItem.Properties[StackPanel.OrientationProperty].ValueOnInstance.ToString();
+					setValue = this.ExtendedItem.Properties[StackPanel.OrientationProperty].GetConvertedValueOnInstance<object>().ToString();
 					_menu.AddSubMenuCheckable(ch, Enum.GetValues(typeof (Orientation)), Orientation.Vertical.ToString(), setValue);
 					_menu.MainHeader.Items.Add(new Separator());
 					menuItemsAdded++;
@@ -89,7 +89,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 				if(this.ExtendedItem.Parent!=null && this.ExtendedItem.Parent.View is DockPanel) {
 					var sda = new MenuItem() {Header = "Set Dock to"};
 					_menu.AddSubMenuInTheHeader(sda);
-					setValue = this.ExtendedItem.Properties.GetAttachedProperty(DockPanel.DockProperty).ValueOnInstance.ToString();
+					setValue = this.ExtendedItem.Properties.GetAttachedProperty(DockPanel.DockProperty).GetConvertedValueOnInstance<object>().ToString();
 					_menu.AddSubMenuCheckable(sda, Enum.GetValues(typeof (Dock)), Dock.Left.ToString(), setValue);
 					_menu.MainHeader.Items.Add(new Separator());
 					menuItemsAdded++;
@@ -97,13 +97,13 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 
 				var ha = new MenuItem() {Header = "Horizontal Alignment"};
 				_menu.AddSubMenuInTheHeader(ha);
-				setValue = this.ExtendedItem.Properties[FrameworkElement.HorizontalAlignmentProperty].ValueOnInstance.ToString();
+				setValue = this.ExtendedItem.Properties[FrameworkElement.HorizontalAlignmentProperty].GetConvertedValueOnInstance<object>().ToString();
 				_menu.AddSubMenuCheckable(ha, Enum.GetValues(typeof (HorizontalAlignment)), HorizontalAlignment.Stretch.ToString(), setValue);
 				menuItemsAdded++;
 
 				var va = new MenuItem() {Header = "Vertical Alignment"};
 				_menu.AddSubMenuInTheHeader(va);
-				setValue = this.ExtendedItem.Properties[FrameworkElement.VerticalAlignmentProperty].ValueOnInstance.ToString();
+				setValue = this.ExtendedItem.Properties[FrameworkElement.VerticalAlignmentProperty].GetConvertedValueOnInstance<object>().ToString();
 				_menu.AddSubMenuCheckable(va, Enum.GetValues(typeof (VerticalAlignment)), VerticalAlignment.Stretch.ToString(), setValue);
 				menuItemsAdded++;
 			}

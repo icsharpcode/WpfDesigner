@@ -162,8 +162,8 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 			var newHeight = Math.Max(0, oldSize.Height + dy);
 
 			if (operation.CurrentContainerBehavior is GridPlacementSupport) {
-				var hor = (HorizontalAlignment) this.ExtendedItem.Properties[FrameworkElement.HorizontalAlignmentProperty].ValueOnInstance;
-				var ver = (VerticalAlignment) this.ExtendedItem.Properties[FrameworkElement.VerticalAlignmentProperty].ValueOnInstance;
+				var hor = this.ExtendedItem.Properties[FrameworkElement.HorizontalAlignmentProperty].GetConvertedValueOnInstance<HorizontalAlignment>();
+				var ver = this.ExtendedItem.Properties[FrameworkElement.VerticalAlignmentProperty].GetConvertedValueOnInstance<VerticalAlignment>();
 				if (hor == HorizontalAlignment.Stretch)
 					this.ExtendedItem.Properties[FrameworkElement.WidthProperty].Reset();
 				else

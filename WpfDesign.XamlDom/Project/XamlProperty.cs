@@ -705,5 +705,28 @@ namespace ICSharpCode.WpfDesign.XamlDom
 				return attribute == null && element == null;
 			}
 		}*/
+
+		/// <inheritdoc />
+		public T GetValueOnInstance<T>()
+		{
+			var obj = ValueOnInstance;
+
+			if (obj == null)
+			{
+				return default;
+			}
+
+			if (obj is T typed)
+			{
+				return typed;
+			}
+
+			if (TypeConverter.CanConvertTo(typeof(T)))
+			{
+				return (T)TypeConverter.ConvertTo(obj, typeof(T));
+			}
+
+			return (T)obj;
+		}
 	}
 }
