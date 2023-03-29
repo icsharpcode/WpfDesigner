@@ -26,7 +26,7 @@ using ICSharpCode.WpfDesign.XamlDom;
 
 namespace ICSharpCode.WpfDesign.Designer.Xaml
 {
-	sealed class XamlComponentService : IComponentService
+	public sealed class XamlComponentService : IComponentService
 	{
 		public event EventHandler<DesignItemPropertyChangedEventArgs> PropertyChanged;
 		
@@ -142,7 +142,7 @@ namespace ICSharpCode.WpfDesign.Designer.Xaml
 		/// <summary>
 		/// registers components from an existing XAML tree
 		/// </summary>
-		internal XamlDesignItem RegisterXamlComponentRecursive(XamlObject obj)
+		public XamlDesignItem RegisterXamlComponentRecursive(XamlObject obj)
 		{
 			if (obj == null) return null;
 			
