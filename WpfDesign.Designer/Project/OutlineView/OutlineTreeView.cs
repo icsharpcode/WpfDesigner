@@ -56,10 +56,8 @@ namespace ICSharpCode.WpfDesign.Designer.OutlineView
 		protected override void SelectOnly(DragTreeViewItem item)
 		{
 			base.SelectOnly(item);
-			
-			var node = item.DataContext as IOutlineNode;
 
-			if (node.DesignItem != null) {
+			if (item.DataContext is IOutlineNode node && node.DesignItem != null) {
 				var surface = node.DesignItem.View.TryFindParent<DesignSurface>();
 				if (surface != null)
 					surface.ScrollIntoView(node.DesignItem);
