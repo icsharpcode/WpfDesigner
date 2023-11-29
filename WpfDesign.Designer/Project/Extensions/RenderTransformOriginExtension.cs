@@ -34,8 +34,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	{
 		readonly AdornerPanel adornerPanel;
 		RenderTransformOriginThumb renderTransformOriginThumb;
-		/// <summary>An array containing this.ExtendedItem as only element</summary>
-		readonly DesignItem[] extendedItemArray = new DesignItem[1];
+
 //		IPlacementBehavior resizeBehavior;
 //		PlacementOperation operation;
 //		ChangeGroup changeGroup;
@@ -87,7 +86,6 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		protected override void OnInitialized()
 		{
 			base.OnInitialized();
-			extendedItemArray[0] = this.ExtendedItem;
 			this.ExtendedItem.PropertyChanged += OnPropertyChanged;
 			
 			if (this.ExtendedItem.Properties.GetProperty(FrameworkElement.RenderTransformOriginProperty).IsSet) {
