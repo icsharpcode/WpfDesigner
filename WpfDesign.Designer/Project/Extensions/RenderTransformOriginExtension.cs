@@ -18,6 +18,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Threading;
 using ICSharpCode.WpfDesign.Adorners;
 using ICSharpCode.WpfDesign.Extensions;
 using System.Windows.Controls.Primitives;
@@ -116,6 +117,7 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 		
 		protected override void OnRemove()
 		{
+			this.ExtendedItem.PropertyChanged -= OnPropertyChanged;
 			renderTransformOriginPropertyDescriptor.RemoveValueChanged(this.ExtendedItem.Component, OnRenderTransformOriginPropertyChanged);
 			
 			base.OnRemove();
