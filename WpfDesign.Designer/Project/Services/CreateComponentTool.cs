@@ -16,35 +16,44 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System.Linq;
-using System.Windows;
+using ICSharpCode.WpfDesign.Designer.Xaml;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using ICSharpCode.WpfDesign.Designer.Xaml;
 
 namespace ICSharpCode.WpfDesign.Designer.Services
 {
-    /// <summary>
-    /// A tool that creates a component.
-    /// </summary>
-    public class CreateComponentTool : ITool
+	/// <summary>
+	/// A tool that creates a component.
+	/// </summary>
+	public class CreateComponentTool : ITool
 	{
 		protected ChangeGroup ChangeGroup;
 
 		readonly Type componentType;
-        object[] arguments;
+		readonly object[] arguments=null;
 
         MoveLogic moveLogic;
 		Point createPoint;
 
 		public event EventHandler<DesignItem> CreateComponentCompleted;
 
-        /// <summary>
-        /// Creates a new CreateComponentTool instance.
-        /// </summary>
-        public CreateComponentTool(Type componentType, object[] arguments)
+		/// <summary>
+		/// Creates a new CreateComponentTool instance.
+		/// </summary>
+		public CreateComponentTool(Type componentType)
+		{
+			if (componentType == null)
+				throw new ArgumentNullException("componentType");
+			this.componentType = componentType;
+		}
+
+		/// <summary>
+		/// Creates a new CreateComponentTool instance.
+		/// </summary>
+		public CreateComponentTool(Type componentType, object[] arguments)
 		{
 			if (componentType == null)
 				throw new ArgumentNullException("componentType");
@@ -204,7 +213,9 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		{
 			if (ChangeGroup == null)
 				ChangeGroup = context.RootItem.OpenGroup("Add Control");
-			var item = CreateItem(context, componentType,arguments);
+
+			var item = CreateItem(context, componentType, arguments);
+
 			return item;
 		}
 
@@ -228,7 +239,7 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		/// <summary>
 		/// Is called to create the item used by the CreateComponentTool.
 		/// </summary>
-		public static DesignItem CreateItem(DesignContext context, Type type, object[] arguments)
+		public static DesignItem CreateItem(DesignContext context, Type type, object[] arguments = null)
 		{
 			object newInstance = context.Services.ExtensionManager.CreateInstanceWithCustomInstanceFactory(type, arguments);
 			DesignItem item = context.Services.Component.RegisterComponentForDesigner(newInstance);
