@@ -43,11 +43,8 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		/// <summary>
 		/// Creates a new CreateComponentTool instance.
 		/// </summary>
-		public CreateComponentTool(Type componentType)
+		public CreateComponentTool(Type componentType):this(componentType, null)
 		{
-			if (componentType == null)
-				throw new ArgumentNullException("componentType");
-			this.componentType = componentType;
 		}
 
 		/// <summary>
@@ -56,10 +53,10 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		public CreateComponentTool(Type componentType, object[] arguments)
 		{
 			if (componentType == null)
-				throw new ArgumentNullException("componentType");
+				throw new ArgumentNullException(nameof(componentType));
 			this.componentType = componentType;
-            this.arguments = arguments;
-        }
+			this.arguments = arguments;
+		}
 		
 		/// <summary>
 		/// Gets the type of the component to be created.
@@ -239,7 +236,15 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		/// <summary>
 		/// Is called to create the item used by the CreateComponentTool.
 		/// </summary>
-		public static DesignItem CreateItem(DesignContext context, Type type, object[] arguments = null)
+		public static DesignItem CreateItem(DesignContext context, Type type)
+		{
+			return CreateItem(context,type,null);
+		}
+
+		/// <summary>
+		/// Is called to create the item used by the CreateComponentTool.
+		/// </summary>
+		public static DesignItem CreateItem(DesignContext context, Type type, object[] arguments)
 		{
 			object newInstance = context.Services.ExtensionManager.CreateInstanceWithCustomInstanceFactory(type, arguments);
 			DesignItem item = context.Services.Component.RegisterComponentForDesigner(newInstance);
@@ -254,12 +259,22 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		protected virtual void SetPropertiesForDrawnItem(DesignItem designItem)
 		{ }
 
+		public static bool AddItemWithCustomSizePosition(DesignItem container, Type createdItem, Size size, Point position)
+		{
+			return AddItemWithCustomSizePosition(container, createdItem, null, size, position);
+		}
+
 		public static bool AddItemWithCustomSizePosition(DesignItem container, Type createdItem, object[] arguments, Size size, Point position)
 		{
 			CreateComponentTool cct = new CreateComponentTool(createdItem, arguments);
 			return AddItemsWithCustomSize(container, new[] { cct.CreateItem(container.Context) }, new[] { new Rect(position, size) });
 		}
-		
+
+		public static bool AddItemWithDefaultSize(DesignItem container, Type createdItem, Size size)
+		{
+			return AddItemWithDefaultSize(container, createdItem, null, size);
+		}
+
 		public static bool AddItemWithDefaultSize(DesignItem container, Type createdItem, object[] arguments, Size size)
 		{
 			CreateComponentTool cct = new CreateComponentTool(createdItem, arguments);
