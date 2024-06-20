@@ -48,6 +48,8 @@ namespace ICSharpCode.WpfDesign.Designer.PropertyGrid
 			Categories.Add(otherCategory);
 			Categories.Add(attachedCategory);
 
+                        BasicMetadata.Register();
+
 			Events = new PropertyNodeCollection();
 		}
 

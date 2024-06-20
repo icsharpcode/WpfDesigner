@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2019 AlphaSierraPapa for the SharpDevelop Team
+// Copyright (c) 2019 AlphaSierraPapa for the SharpDevelop Team
 // 
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this
 // software and associated documentation files (the "Software"), to deal in the Software
@@ -16,13 +16,12 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 
-using System.Linq;
-using System.Windows;
+using ICSharpCode.WpfDesign.Designer.Xaml;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using ICSharpCode.WpfDesign.Designer.Xaml;
 
 namespace ICSharpCode.WpfDesign.Designer.Services
 {
@@ -34,17 +33,29 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		protected ChangeGroup ChangeGroup;
 
 		readonly Type componentType;
-		MoveLogic moveLogic;
+		readonly object[] arguments=null;
+
+        MoveLogic moveLogic;
 		Point createPoint;
-		
+
+		public event EventHandler<DesignItem> CreateComponentCompleted;
+
 		/// <summary>
 		/// Creates a new CreateComponentTool instance.
 		/// </summary>
-		public CreateComponentTool(Type componentType)
+		public CreateComponentTool(Type componentType):this(componentType, null)
+		{
+		}
+
+		/// <summary>
+		/// Creates a new CreateComponentTool instance.
+		/// </summary>
+		public CreateComponentTool(Type componentType, object[] arguments)
 		{
 			if (componentType == null)
-				throw new ArgumentNullException("componentType");
+				throw new ArgumentNullException(nameof(componentType));
 			this.componentType = componentType;
+			this.arguments = arguments;
 		}
 		
 		/// <summary>
@@ -115,7 +126,10 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 						else
 						{
 							DesignItem createdItem = CreateItemWithPosition(designPanel.Context, e.GetPosition(result.ModelHit.View));
-							if (AddItemsWithDefaultSize(result.ModelHit, new[] { createdItem })) {
+                            
+                            CreateComponentCompleted?.Invoke(this, createdItem);
+
+                            if (AddItemsWithDefaultSize(result.ModelHit, new[] { createdItem })) {
 								moveLogic = new MoveLogic(createdItem);
 
 								if (designPanel.Context.Services.Component is XamlComponentService) {
@@ -196,7 +210,9 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		{
 			if (ChangeGroup == null)
 				ChangeGroup = context.RootItem.OpenGroup("Add Control");
-			var item = CreateItem(context, componentType);
+
+			var item = CreateItem(context, componentType, arguments);
+
 			return item;
 		}
 
@@ -222,7 +238,15 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 		/// </summary>
 		public static DesignItem CreateItem(DesignContext context, Type type)
 		{
-			object newInstance = context.Services.ExtensionManager.CreateInstanceWithCustomInstanceFactory(type, null);
+			return CreateItem(context,type,null);
+		}
+
+		/// <summary>
+		/// Is called to create the item used by the CreateComponentTool.
+		/// </summary>
+		public static DesignItem CreateItem(DesignContext context, Type type, object[] arguments)
+		{
+			object newInstance = context.Services.ExtensionManager.CreateInstanceWithCustomInstanceFactory(type, arguments);
 			DesignItem item = context.Services.Component.RegisterComponentForDesigner(newInstance);
 			context.Services.Component.SetDefaultPropertyValues(item);
 			context.Services.ExtensionManager.ApplyDefaultInitializers(item);
@@ -237,13 +261,23 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 
 		public static bool AddItemWithCustomSizePosition(DesignItem container, Type createdItem, Size size, Point position)
 		{
-			CreateComponentTool cct = new CreateComponentTool(createdItem);
+			return AddItemWithCustomSizePosition(container, createdItem, null, size, position);
+		}
+
+		public static bool AddItemWithCustomSizePosition(DesignItem container, Type createdItem, object[] arguments, Size size, Point position)
+		{
+			CreateComponentTool cct = new CreateComponentTool(createdItem, arguments);
 			return AddItemsWithCustomSize(container, new[] { cct.CreateItem(container.Context) }, new[] { new Rect(position, size) });
 		}
-		
+
 		public static bool AddItemWithDefaultSize(DesignItem container, Type createdItem, Size size)
 		{
-			CreateComponentTool cct = new CreateComponentTool(createdItem);
+			return AddItemWithDefaultSize(container, createdItem, null, size);
+		}
+
+		public static bool AddItemWithDefaultSize(DesignItem container, Type createdItem, object[] arguments, Size size)
+		{
+			CreateComponentTool cct = new CreateComponentTool(createdItem, arguments);
 			return AddItemsWithCustomSize(container, new[] { cct.CreateItem(container.Context) }, new[] { new Rect(new Point(0, 0), size) });
 		}
 
@@ -306,8 +340,10 @@ namespace ICSharpCode.WpfDesign.Designer.Services
 						var placementBehavior = result.ModelHit.GetBehavior<IPlacementBehavior>();
 						if (placementBehavior != null) {
 							var createdItem = CreateItem(designPanel.Context);
-							
-							new CreateComponentMouseGesture(result.ModelHit, createdItem, ChangeGroup).Start(designPanel, e);
+
+							CreateComponentCompleted?.Invoke(this, createdItem);
+
+                            new CreateComponentMouseGesture(result.ModelHit, createdItem, ChangeGroup).Start(designPanel, e);
 							// CreateComponentMouseGesture now is responsible for the changeGroup created by CreateItem()
 							ChangeGroup = null;
 						}
