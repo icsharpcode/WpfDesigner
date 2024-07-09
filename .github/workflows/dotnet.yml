@@ -17,7 +17,7 @@ jobs:
         BuildPlatform: 'Any CPU'
         BuildVersion: '8.1.${{ github.run_number }}'
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
     - name: Update project version
       uses: roryprimrose/set-vs-sdk-project-version@v1
       with:
@@ -26,11 +26,11 @@ jobs:
         assemblyVersion: ${{ env.BuildVersion }}
         fileVersion: ${{ env.BuildVersion }}
     - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 6.0.x
     - name: Setup NuGet.exe
-      uses: nuget/setup-nuget@v1
+      uses: nuget/setup-nuget@v2
     - run: nuget restore WpfDesign.sln
     - name: Build
       run: dotnet build WpfDesign.sln --no-restore -c ${{ matrix.configuration }}
@@ -41,7 +41,7 @@ jobs:
       run:  .\nuget\pack.ps1
     - name: Upload NuGet
       if: matrix.configuration == 'release'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: NuGet Packages (${{ matrix.configuration }})
         path: '**/*.nupkg'
