@@ -19,7 +19,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-
+using System.Windows.Shapes;
 using ICSharpCode.WpfDesign.Adorners;
 using ICSharpCode.WpfDesign.Extensions;
 
@@ -31,18 +31,33 @@ namespace ICSharpCode.WpfDesign.Designer.Extensions
 	public class BorderForMouseOver : AdornerProvider
 	{
 		readonly AdornerPanel adornerPanel;
+		readonly Border border = new Border();
 
 		public BorderForMouseOver()
 		{
 			adornerPanel = new AdornerPanel();
 			adornerPanel.Order = AdornerOrder.Background;
 			this.Adorners.Add(adornerPanel);
-			var border = new Border();
 			border.BorderThickness = new Thickness(1);
 			border.BorderBrush = Brushes.DodgerBlue;
 			border.Margin = new Thickness(-2);
 			AdornerPanel.SetPlacement(border, AdornerPlacement.FillContent);
 			adornerPanel.Children.Add(border);
+		}
+
+		protected override void OnInitialized()
+		{
+			base.OnInitialized();
+
+			if (ExtendedItem.Component is Line line)
+			{
+				// To display border of Line in correct position.
+				border.Margin = new Thickness
+				{
+					Left = line.X2 < 0 ? line.X2 : 0,
+					Top = line.Y2 < 0 ? line.Y2 : 0
+				};
+			}
 		}
 	}
 }
